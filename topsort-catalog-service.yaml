@@ -105,7 +105,7 @@ paths:
             When provided, will get the products (ordered by search relevance) of that page.
       responses:
         200:
-          description: Returns products' details for the provided search terms, if available.
+          description: Returns products' details for the provided search terms if available, separated in pages.
           content:
             application/json:
               schema:
@@ -191,8 +191,8 @@ components:
       type: array
       items:
         type: string
-      minItems: 1
-      maxItems: 51
+      minItems: 0
+      maxItems: 50
       example:
         - eyGqR4YQgBJa
         - KHqzavLNS25n
@@ -258,8 +258,8 @@ components:
             example: Beers/Belgian
         required:
           - id
-      minItems: 1
-      maxItems: 51
+      minItems: 0
+      maxItems: 50
 
     PaginatedResponse:
       type: object
@@ -309,8 +309,8 @@ components:
               required:
                 - id
                 - name
-            minItems: 1
-            maxItems: 51
+            minItems: 0
+            maxItems: 50
             example:
               - id: ahEDqV5uhjj8
                 name: Beers/Belgian
@@ -349,8 +349,8 @@ components:
               required:
                 - id
                 - name
-            minItems: 1
-            maxItems: 51
+            minItems: 0
+            maxItems: 50
             example:
               - id: C0n7J6j0WySR
                 name: Black Neck Brewery
