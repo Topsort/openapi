@@ -200,6 +200,8 @@ components:
       required:
         - eventType
         - session
+      discriminator:
+        propertyName: eventType
       properties:
         eventType:
           type: string
