@@ -1,0 +1,31 @@
+name: check-specs
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  check-specs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('.github/workflows/check-specs.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        run: npm install -g prettier@2.5.1 @openapitools/openapi-generator-cli@2.4.24
+
+      #- name: Check Formatting
+      #  run: prettier --check .
+
+      - name: Check Spec (Topsort Endpoints)
+        run: openapi-generator-cli validate -i topsort-endpoints.yml
+
+      - name: Check Spec (Catalog Service)
+        run: openapi-generator-cli validate -i topsort-catalog-service.yaml
