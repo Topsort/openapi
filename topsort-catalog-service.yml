@@ -77,7 +77,7 @@ paths:
           name: vendorID
           schema:
             type: string
-          example: "9SiwYqqL8vdG"
+          example: '9SiwYqqL8vdG'
           description: >
             Vendor unique identifier. This identifier is given by the marketplace and allows this service
             to match the vendor with the proper products.
@@ -133,7 +133,7 @@ paths:
           name: next
           schema:
             type: string
-          description: > 
+          description: >
             The passed string identifying the next page, relative to the requested page.
             When provided, will get the categories (ordered alphabetically) of that page.
       responses:
@@ -275,99 +275,98 @@ components:
 
     PaginatedProductResponse:
       allOf:
-      - $ref: '#/components/schemas/PaginatedResponse'
-      - type: object
-        required:
-        - response
-        properties:
-          response:
-            $ref: '#/components/schemas/GetProductsResponse'
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - type: object
+          required:
+            - response
+          properties:
+            response:
+              $ref: '#/components/schemas/GetProductsResponse'
 
-    
     GetCategoriesResponse:
       allOf:
-      - $ref: '#/components/schemas/PaginatedResponse'
-      - type: object
-        required:
-        - response
-        properties:
-          response:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  description: > 
-                    The category ID. If there is no ID for categories in the marketplace, this 
-                    can be the category name as long as it is unique.
-                  type: string
-                  example: ahEDqV5uhjj8
-                name:
-                  description: The category name.
-                  type: string
-                  example: Beers/Belgian
-              required:
-                - id
-                - name
-            minItems: 0
-            maxItems: 50
-            example:
-              - id: ahEDqV5uhjj8
-                name: Beers/Belgian
-              - id: cJfoUUzG6GOy
-                name: Beers/Ales/Amber
-              - id: oTcnv0fJCRiL
-                name: Beers/Lagers/Bocks
-              - id: JspphvZBzV09
-                name: Beers/Lagers/Blonde
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - type: object
+          required:
+            - response
+          properties:
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: >
+                      The category ID. If there is no ID for categories in the marketplace, this
+                      can be the category name as long as it is unique.
+                    type: string
+                    example: ahEDqV5uhjj8
+                  name:
+                    description: The category name.
+                    type: string
+                    example: Beers/Belgian
+                required:
+                  - id
+                  - name
+              minItems: 0
+              maxItems: 50
+              example:
+                - id: ahEDqV5uhjj8
+                  name: Beers/Belgian
+                - id: cJfoUUzG6GOy
+                  name: Beers/Ales/Amber
+                - id: oTcnv0fJCRiL
+                  name: Beers/Lagers/Bocks
+                - id: JspphvZBzV09
+                  name: Beers/Lagers/Blonde
 
     GetVendorsResponse:
       allOf:
-      - $ref: '#/components/schemas/PaginatedResponse'
-      - type: object
-        required:
-        - response
-        properties:
-          response:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  description: The vendor ID.
-                  type: string
-                  example: 9SiwYqqL8vdG
-                name:
-                  description: The vendor name.
-                  type: string
-                  example: Huyghe Brewery
-                logoURL:
-                  description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
-                  type: string
-                  format: uri
-                  example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
-              required:
-                - id
-                - name
-            minItems: 0
-            maxItems: 50
-            example:
-              - id: C0n7J6j0WySR
-                name: Black Neck Brewery
-                logoURL: https://www.cuellonegro.cl/wp-content/uploads/2017/05/logo_web.png
-              - id: y7v6kSGGUUFn
-                name: Brewery Chile SA
-              - id: vhvg6ioBj5fk
-                name: Coda Brewery
-              - id: IMwMGVfSsEpQ
-                name: Kunstmann Brewery
-              - id: zo8UXchnFWZu
-                name: United Brewery
-              - id: 9SiwYqqL8vdG
-                name: Huyghe Brewery
-                logoURL: https://media-exp1.licdn.com/dms/image/C4E0BAQFE4e-wq7TlCw/company-logo_200_200/0/1519861983671?e=2159024400&v=beta&t=ZoishDxg4-kKH9fJBXRkBc_N0adqUpBmGqdB1TM5sYg
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - type: object
+          required:
+            - response
+          properties:
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    description: The vendor ID.
+                    type: string
+                    example: 9SiwYqqL8vdG
+                  name:
+                    description: The vendor name.
+                    type: string
+                    example: Huyghe Brewery
+                  logoURL:
+                    description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
+                    type: string
+                    format: uri
+                    example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
+                required:
+                  - id
+                  - name
+              minItems: 0
+              maxItems: 50
+              example:
+                - id: C0n7J6j0WySR
+                  name: Black Neck Brewery
+                  logoURL: https://www.cuellonegro.cl/wp-content/uploads/2017/05/logo_web.png
+                - id: y7v6kSGGUUFn
+                  name: Brewery Chile SA
+                - id: vhvg6ioBj5fk
+                  name: Coda Brewery
+                - id: IMwMGVfSsEpQ
+                  name: Kunstmann Brewery
+                - id: zo8UXchnFWZu
+                  name: United Brewery
+                - id: 9SiwYqqL8vdG
+                  name: Huyghe Brewery
+                  logoURL: https://media-exp1.licdn.com/dms/image/C4E0BAQFE4e-wq7TlCw/company-logo_200_200/0/1519861983671?e=2159024400&v=beta&t=ZoishDxg4-kKH9fJBXRkBc_N0adqUpBmGqdB1TM5sYg
 
   securitySchemes:
-      BearerAuth:
-        type: http
-        scheme: bearer
+    BearerAuth:
+      type: http
+      scheme: bearer
