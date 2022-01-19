@@ -52,6 +52,34 @@ paths:
         400:
           $ref: '#/components/responses/BadRequest'
 
+  /auctions/{auctionId}:
+    get:
+      tags:
+        - Auctions
+      summary: Gets an auction
+      operationId: getAuction
+      parameters:
+        - in: path
+          name: auctionId
+          schema:
+            type: string
+          required: true
+          description: The ID of the auction
+      responses:
+        200:
+          description:
+            "The auction results. The list of Winner objects will contain at most slots entries.
+            It may contain fewer or no entries at all if there aren't enough products with usable bids.
+            Bid become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auction'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
   /events:
     post:
       tags:
