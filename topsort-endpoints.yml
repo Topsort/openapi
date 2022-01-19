@@ -105,6 +105,8 @@ components:
     AuctionRequest:
       required:
         - products
+        - session
+        - slots
       type: object
       properties:
         slots:
@@ -120,24 +122,53 @@ components:
 
     Auction:
       type: object
+      required:
+        - slots
       properties:
         slots:
           type: object
-          properties:
-            listings:
-              type: object
-              properties:
-                auctionId:
-                  type: string
-                  description: Topsort assigned ID for auction. Should be used in reporting impressions, clicks and purchases.
-                  example: AKFU78
-                winners:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Winner'
-                  description:
-                    'Array of winner objects in order from highest to lowest bid.
-                    May be empty if there were no qualifying bids.'
+          additionalProperties:
+            $ref: '#/components/schemas/AuctionResult'
+        invalidPromotionTypes:
+          type: array
+          items:
+            type: string
+          description: List of invalid promotion types. It is always recommended that you fix your code to remove unsupported promotion types, as that will have a smaller payload.
+          example:
+            - unknownPromotionType
+      example:
+        slots:
+          listings:
+            auctionId: AKFU78
+            winners:
+              - rank: 0
+                productId: pSA0238
+              - rank: 1
+                productId: gSA9999
+          bannerAds:
+            auctionId: AKSU64,
+            winners:
+              - rank: 0
+                productId: pSA0250
+                assertUrl: https://cdn.topsort.com/banner/1234-abcde.png
+
+    AuctionResult:
+      type: object
+      required:
+        - auctionId
+        - winners
+      properties:
+        auctionId:
+          type: string
+          description: Topsort assigned ID for auction. Should be used in reporting impressions, clicks and purchases.
+          example: AKFU78
+        winners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Winner'
+          description:
+            'Array of winner objects in order from highest to lowest bid.
+            May be empty if there were no qualifying bids.'
 
     Winner:
       type: object
@@ -155,6 +186,11 @@ components:
           type: string
           description: The marketplace's ID for the product. It will match the ID for a product in the request's product array.
           example: pSA0238
+        assertUrl:
+          type: string
+          format: uri
+          description: The marketplace's defined asset URL to be used on bannerAds or videoAds
+          example: https://cdn.topsort.com/banner/1234-abcdf.png
 
     Product:
       required:
@@ -379,14 +415,22 @@ components:
       description:
         'The Slots object specifies how many auctions winners should be
         returned for each promotion type. The promotion types depend on
-        the marketplace configuration. "listings", "videoAds" and
-        "bannerAds" are common.'
+        the marketplace configuration. `listings`, `bannerAdds` and `videoAds`
+        are common.'
       type: object
-      properties:
-        listings:
-          type: integer
-          example: 2
-          minimum: 1
+      additionalProperties:
+        $ref: '#/components/schemas/Slot'
+      example:
+        listings: 3
+        bannerAds: 1
+
+    Slot:
+      description:
+        'The Slot object specifies how many auctions winners should be
+        returned for a promotion type.'
+      type: integer
+      example: 2
+      minimum: 1
 
     # Error Codes
 
