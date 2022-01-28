@@ -10,13 +10,14 @@ info:
   description: Integration for Marketplaces' catalog queries
 
 servers:
-  - url: https://{yourDomain}
+  - url: https://{marketplaceDomain}
     variables:
-      yourDomain:
+      marketplaceDomain:
         default: demo.topsort.com/topsort/api
-        description: A url that points to your catalog service
+        description: A URL that points to your catalog service
+
 tags:
-  - name: Catalog API
+  - name: Catalog
     description: Integration for Marketplaces' catalog queries.
 
 security:
@@ -26,8 +27,8 @@ paths:
   /:
     get:
       tags:
-        - Catalog API
-      operationId: getRootUrl
+        - Catalog
+      operationId: healthCheck
       security: [] # No security
       summary: Health Check
       responses:
@@ -37,7 +38,7 @@ paths:
   /products:
     post:
       tags:
-        - Catalog API
+        - Catalog
       summary: Retrieves products by IDs
       operationId: getProductsByID
       requestBody:
@@ -53,16 +54,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetProductsResponse'
+                $ref: '#/components/schemas/PaginatedProductsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
   /products/search:
     get:
       tags:
-        - Catalog API
+        - Catalog
       summary: Searches products
-      operationId: getProductsBySearchString
+      operationId: searchProducts
       parameters:
         - in: query
           name: search
@@ -109,7 +110,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedProductResponse'
+                $ref: '#/components/schemas/PaginatedProductsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
@@ -118,7 +119,7 @@ paths:
   /categories:
     get:
       tags:
-        - Catalog API
+        - Catalog
       summary: Retrieves categories
       operationId: getCategories
       parameters:
@@ -142,7 +143,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetCategoriesResponse'
+                $ref: '#/components/schemas/PaginatedCategoriesResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
@@ -151,7 +152,7 @@ paths:
   /vendors:
     get:
       tags:
-        - Catalog API
+        - Catalog
       summary: Retrieves vendors
       operationId: getVendors
       parameters:
@@ -175,7 +176,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetVendorsResponse'
+                $ref: '#/components/schemas/PaginatedVendorsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
         404:
@@ -198,69 +199,6 @@ components:
         - KHqzavLNS25n
         - wJLZ4TCNZtEW
 
-    GetProductsResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            description: The product ID.
-            type: string
-            example: eyGqR4YQgBJa
-            readOnly: true
-          name:
-            description: The product name.
-            type: string
-            example: Delirium Tremens Beer Bottle 330cc x6
-          description:
-            description: The product description.
-            type: string
-            example: Named as \"Best Beer in the World\" in 2008 at the World Beer Championships in Chicago, Illinois.
-
-          vendorID:
-            description: The vendor ID.
-            type: string
-            example: 9SiwYqqL8vdG
-          vendorName:
-            description: The vendor name.
-            type: string
-            example: Huyghe Brewery
-          stock:
-            description: How many items of this product you have available. If this number is greater than 0, it means you have it in stock and you can fulfill a purchase.
-            type: number
-            minimum: 0
-            example: 126
-          price:
-            description: The product price in the minimum currency unit (e.g. cents if applicable). Refer to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) to check how many decimals are used in your currency.
-            type: number
-            minimum: 1
-            example: 14900
-          imageURL:
-            description: The product image URL. Its size should be between 250x250 and 600x600 pixels.
-            type: string
-            format: uri
-            example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
-          brandID:
-            description: The brand id.
-            type: string
-            example: N8G6bGjS1YfF
-          brandName:
-            description: The brand name.
-            type: string
-            example: Delirium Tremens
-          categoryID:
-            description: The category id.
-            type: string
-            example: ahEDqV5uhjj8
-          categoryName:
-            description: The category name.
-            type: string
-            example: Beers/Belgian
-        required:
-          - id
-      minItems: 0
-      maxItems: 50
-
     PaginatedResponse:
       type: object
       properties:
@@ -273,98 +211,174 @@ components:
           type: string
           example: yIhohZwFbx
 
-    PaginatedProductResponse:
-      allOf:
-        - $ref: '#/components/schemas/PaginatedResponse'
-        - type: object
-          required:
-            - response
-          properties:
-            response:
-              $ref: '#/components/schemas/GetProductsResponse'
+    Product:
+      type: object
+      description: A Product represents a product listed in a marketplace.
+      properties:
+        id:
+          description: The product ID.
+          type: string
+          example: eyGqR4YQgBJa
+          readOnly: true
+        name:
+          description: The product name.
+          type: string
+          example: Delirium Tremens Beer Bottle 330cc x6
+        description:
+          description: The product description.
+          type: string
+          example: Named as \"Best Beer in the World\" in 2008 at the World Beer Championships in Chicago, Illinois.
+        vendorID:
+          description: The vendor ID.
+          type: string
+          example: 9SiwYqqL8vdG
+        vendorName:
+          description: The vendor name.
+          type: string
+          example: Huyghe Brewery
+        stock:
+          description: How many items of this product you have available. If this number is greater than 0, it means you have it in stock and you can fulfill a purchase.
+          type: number
+          minimum: 0
+          example: 126
+        price:
+          description: The product price in the minimum currency unit (e.g. cents if applicable). Refer to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) to check how many decimals are used in your currency.
+          type: number
+          minimum: 1
+          example: 14900
+        imageURL:
+          description: The product image URL. Its size should be between 250x250 and 600x600 pixels.
+          type: string
+          format: uri
+          example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
+        brandID:
+          description: The brand id.
+          type: string
+          example: N8G6bGjS1YfF
+        brandName:
+          description: The brand name.
+          type: string
+          example: Delirium Tremens
+        categoryID:
+          description: The category id.
+          type: string
+          example: ahEDqV5uhjj8
+        categoryName:
+          description: The category name.
+          type: string
+          example: Beers/Belgian
+      required:
+        - id
 
-    GetCategoriesResponse:
-      allOf:
-        - $ref: '#/components/schemas/PaginatedResponse'
-        - type: object
-          required:
-            - response
-          properties:
-            response:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    description: >
-                      The category ID. If there is no ID for categories in the marketplace, this
-                      can be the category name as long as it is unique.
-                    type: string
-                    example: ahEDqV5uhjj8
-                  name:
-                    description: The category name.
-                    type: string
-                    example: Beers/Belgian
-                required:
-                  - id
-                  - name
-              minItems: 0
-              maxItems: 50
-              example:
-                - id: ahEDqV5uhjj8
-                  name: Beers/Belgian
-                - id: cJfoUUzG6GOy
-                  name: Beers/Ales/Amber
-                - id: oTcnv0fJCRiL
-                  name: Beers/Lagers/Bocks
-                - id: JspphvZBzV09
-                  name: Beers/Lagers/Blonde
+    ProductsResponse:
+      type: object
+      required:
+        - response
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
 
-    GetVendorsResponse:
+    PaginatedProductsResponse:
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
-        - type: object
-          required:
-            - response
-          properties:
-            response:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    description: The vendor ID.
-                    type: string
-                    example: 9SiwYqqL8vdG
-                  name:
-                    description: The vendor name.
-                    type: string
-                    example: Huyghe Brewery
-                  logoURL:
-                    description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
-                    type: string
-                    format: uri
-                    example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
-                required:
-                  - id
-                  - name
-              minItems: 0
-              maxItems: 50
-              example:
-                - id: C0n7J6j0WySR
-                  name: Black Neck Brewery
-                  logoURL: https://www.cuellonegro.cl/wp-content/uploads/2017/05/logo_web.png
-                - id: y7v6kSGGUUFn
-                  name: Brewery Chile SA
-                - id: vhvg6ioBj5fk
-                  name: Coda Brewery
-                - id: IMwMGVfSsEpQ
-                  name: Kunstmann Brewery
-                - id: zo8UXchnFWZu
-                  name: United Brewery
-                - id: 9SiwYqqL8vdG
-                  name: Huyghe Brewery
-                  logoURL: https://media-exp1.licdn.com/dms/image/C4E0BAQFE4e-wq7TlCw/company-logo_200_200/0/1519861983671?e=2159024400&v=beta&t=ZoishDxg4-kKH9fJBXRkBc_N0adqUpBmGqdB1TM5sYg
+        - $ref: '#/components/schemas/ProductsResponse'
+
+    Category:
+      type: object
+      properties:
+        id:
+          description: >
+            The category ID. If there is no ID for categories in the marketplace, this
+            can be the category name as long as it is unique.
+          type: string
+          example: ahEDqV5uhjj8
+        name:
+          description: The category name.
+          type: string
+          example: Beers/Belgian
+      required:
+        - id
+        - name
+
+    CategoriesResponse:
+      type: object
+      required:
+        - response
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+          minItems: 0
+          maxItems: 50
+          example:
+            - id: ahEDqV5uhjj8
+              name: Beers/Belgian
+            - id: cJfoUUzG6GOy
+              name: Beers/Ales/Amber
+            - id: oTcnv0fJCRiL
+              name: Beers/Lagers/Bocks
+            - id: JspphvZBzV09
+              name: Beers/Lagers/Blonde
+    
+    PaginatedCategoriesResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - $ref: '#/components/schemas/CategoriesResponse'
+
+    Vendor:
+      type: object
+      properties:
+        id:
+          description: The vendor ID.
+          type: string
+          example: 9SiwYqqL8vdG
+        name:
+          description: The vendor name.
+          type: string
+          example: Huyghe Brewery
+        logoURL:
+          description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
+          type: string
+          format: uri
+          example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
+      required:
+        - id
+        - name
+
+    VendorsResponse:
+      type: object
+      required:
+        - response
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vendor'
+          minItems: 0
+          maxItems: 50
+          example:
+            - id: C0n7J6j0WySR
+              name: Black Neck Brewery
+              logoURL: https://www.cuellonegro.cl/wp-content/uploads/2017/05/logo_web.png
+            - id: y7v6kSGGUUFn
+              name: Brewery Chile SA
+            - id: vhvg6ioBj5fk
+              name: Coda Brewery
+            - id: IMwMGVfSsEpQ
+              name: Kunstmann Brewery
+            - id: zo8UXchnFWZu
+              name: United Brewery
+            - id: 9SiwYqqL8vdG
+              name: Huyghe Brewery
+              logoURL: https://media-exp1.licdn.com/dms/image/C4E0BAQFE4e-wq7TlCw/company-logo_200_200/0/1519861983671?e=2159024400&v=beta&t=ZoishDxg4-kKH9fJBXRkBc_N0adqUpBmGqdB1TM5sYg
+
+    PaginatedVendorsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - $ref: '#/components/schemas/VendorsResponse'
 
   securitySchemes:
     BearerAuth:
