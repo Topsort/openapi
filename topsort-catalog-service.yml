@@ -322,7 +322,7 @@ components:
               name: Beers/Lagers/Bocks
             - id: JspphvZBzV09
               name: Beers/Lagers/Blonde
-    
+
     PaginatedCategoriesResponse:
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
