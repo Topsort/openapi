@@ -301,30 +301,6 @@ components:
       required:
         - id
         - name
-<<<<<<< HEAD
-
-    CategoriesResponse:
-      type: object
-      required:
-        - response
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-          minItems: 0
-          maxItems: 50
-          example:
-            - id: ahEDqV5uhjj8
-              name: Beers/Belgian
-            - id: cJfoUUzG6GOy
-              name: Beers/Ales/Amber
-            - id: oTcnv0fJCRiL
-              name: Beers/Lagers/Bocks
-            - id: JspphvZBzV09
-              name: Beers/Lagers/Blonde
-
-=======
 
     CategoriesResponse:
       type: object
@@ -347,7 +323,6 @@ components:
             - id: JspphvZBzV09
               name: Beers/Lagers/Blonde
     
->>>>>>> 7b88415 (chore: improve catalog types and names)
     PaginatedCategoriesResponse:
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
