@@ -89,21 +89,7 @@ paths:
             type: string
           example: ahEDqV5uhjj8
           description: Only retrieve products whose category matches the provided ID.
-        - in: query
-          name: prev
-          schema:
-            type: string
-          example: wJLZ4TCNZtEW
-          description: >
-            The passed string identifying the previous page, relative to the requested page.
-            When provided, will get the products (ordered by search relevance) of that page.
-        - in: query
-          name: next
-          schema:
-            type: string
-          description: >
-            The passed string identifying the next page, relative to the requested page.
-            When provided, will get the products (ordered by search relevance) of that page.
+        - $ref: '#/components/parameters/nextParam'
       responses:
         200:
           description: Returns products' details for the provided search terms if available, separated in pages.
@@ -123,20 +109,7 @@ paths:
       summary: Retrieves categories
       operationId: getCategories
       parameters:
-        - in: query
-          name: prev
-          schema:
-            type: string
-          description: >
-            The passed string identifying the previous page, relative to the requested page.
-            When provided, will get the products (ordered alphabetically) of that page.
-        - in: query
-          name: next
-          schema:
-            type: string
-          description: >
-            The passed string identifying the next page, relative to the requested page.
-            When provided, will get the categories (ordered alphabetically) of that page.
+        - $ref: '#/components/parameters/nextParam'
       responses:
         200:
           description: Returns a complete list of categories, separated in pages.
@@ -156,20 +129,7 @@ paths:
       summary: Retrieves vendors
       operationId: getVendors
       parameters:
-        - in: query
-          name: prev
-          schema:
-            type: string
-          description: >
-            The passed string identifying the previous page, relative to the requested page.
-            When provided, will get the vendors (ordered alphabetically) which come after this vendor.
-        - in: query
-          name: next
-          schema:
-            type: string
-          description: >
-            The passed string identifying the next page, relative to the requested page.
-            When provided, will get the vendors (ordered alphabetically) which come before this vendor.
+        - $ref: '#/components/parameters/nextParam'
       responses:
         200:
           description: Returns a complete list of vendors, separated in pages.
@@ -203,13 +163,11 @@ components:
       type: object
       properties:
         next:
-          description: Token to be passed in the `next` call to this request to receive the next page. It must not contain spaces.
+          description: >
+            Id of the next page. This could be for example a page number (as a string) or a cursor
+            identifying the next page. This attribute will be passed in the `next` query parameter. 
           type: string
           example: asTpl1k746
-        prev:
-          description: Token to be passed in the `prev` call to this request to receive the previous page. It must not contain spaces.
-          type: string
-          example: yIhohZwFbx
 
     Product:
       type: object
@@ -384,3 +342,15 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
+
+  parameters:
+    nextParam:
+      in: query
+      name: next
+      schema:
+        type: string
+      description: >
+        The string identifying the requested page. In case this parameter is missing then the first
+        page should be returned. Note that the specifics about this parameter controlled entirely by
+        what's returned as `next` in a paginated response and could either be a page number or a
+        cursor.
