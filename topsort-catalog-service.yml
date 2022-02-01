@@ -165,7 +165,7 @@ components:
         next:
           description: >
             Id of the next page. This could be for example a page number (as a string) or a cursor
-            identifying the next page. This attribute will be passed in the `next` query parameter. 
+            identifying the next page. This attribute will be passed in the `next` query parameter.
           type: string
           example: asTpl1k746
 
