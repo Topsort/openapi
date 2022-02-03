@@ -78,6 +78,7 @@ paths:
           name: vendorID
           schema:
             type: string
+            minLength: 1
           example: '9SiwYqqL8vdG'
           description: >
             Vendor unique identifier. This identifier is given by the marketplace and allows this service
@@ -87,6 +88,7 @@ paths:
           name: categoryID
           schema:
             type: string
+            minLength: 1
           example: ahEDqV5uhjj8
           description: Only retrieve products whose category matches the provided ID.
         - $ref: '#/components/parameters/nextParam'
@@ -99,8 +101,6 @@ paths:
                 $ref: '#/components/schemas/PaginatedProductsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-        404:
-          description: No products found.
 
   /categories:
     get:
@@ -119,8 +119,6 @@ paths:
                 $ref: '#/components/schemas/PaginatedCategoriesResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-        404:
-          description: No categories found.
 
   /vendors:
     get:
@@ -152,6 +150,7 @@ components:
       type: array
       items:
         type: string
+        minLength: 1
       minItems: 0
       maxItems: 50
       example:
@@ -167,6 +166,7 @@ components:
             Id of the next page. This could be for example a page number (as a string) or a cursor
             identifying the next page. This attribute will be passed in the `next` query parameter.
           type: string
+          minLength: 1
           example: asTpl1k746
 
     Product:
@@ -176,32 +176,39 @@ components:
         id:
           description: The product ID.
           type: string
+          minLength: 1
           example: eyGqR4YQgBJa
           readOnly: true
         name:
           description: The product name.
           type: string
+          minLength: 1
           example: Delirium Tremens Beer Bottle 330cc x6
         description:
           description: The product description.
           type: string
+          minLength: 1
           example: Named as \"Best Beer in the World\" in 2008 at the World Beer Championships in Chicago, Illinois.
         vendorID:
           description: The vendor ID.
           type: string
+          minLength: 1
           example: 9SiwYqqL8vdG
         vendorName:
           description: The vendor name.
           type: string
+          minLength: 1
           example: Huyghe Brewery
         stock:
           description: How many items of this product you have available. If this number is greater than 0, it means you have it in stock and you can fulfill a purchase.
           type: number
+          format: int32
           minimum: 0
           example: 126
         price:
           description: The product price in the minimum currency unit (e.g. cents if applicable). Refer to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) to check how many decimals are used in your currency.
           type: number
+          format: int32
           minimum: 1
           example: 14900
         imageURL:
@@ -212,18 +219,22 @@ components:
         brandID:
           description: The brand id.
           type: string
+          minLength: 1
           example: N8G6bGjS1YfF
         brandName:
           description: The brand name.
           type: string
+          minLength: 1
           example: Delirium Tremens
         categoryID:
           description: The category id.
           type: string
+          minLength: 1
           example: ahEDqV5uhjj8
         categoryName:
           description: The category name.
           type: string
+          minLength: 1
           example: Beers/Belgian
       required:
         - id
@@ -237,6 +248,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Product'
+          minItems: 0
+          maxItems: 50
 
     PaginatedProductsResponse:
       allOf:
@@ -251,10 +264,12 @@ components:
             The category ID. If there is no ID for categories in the marketplace, this
             can be the category name as long as it is unique.
           type: string
+          minLength: 1
           example: ahEDqV5uhjj8
         name:
           description: The category name.
           type: string
+          minLength: 1
           example: Beers/Belgian
       required:
         - id
@@ -292,10 +307,12 @@ components:
         id:
           description: The vendor ID.
           type: string
+          minLength: 1
           example: 9SiwYqqL8vdG
         name:
           description: The vendor name.
           type: string
+          minLength: 1
           example: Huyghe Brewery
         logoURL:
           description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
@@ -349,6 +366,7 @@ components:
       name: next
       schema:
         type: string
+        minLength: 1
       description: >
         The string identifying the requested page. In case this parameter is missing then the first
         page should be returned. Note that the specifics about this parameter controlled entirely by
