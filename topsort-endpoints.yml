@@ -118,9 +118,15 @@ components:
         brands:
           type: array
           description: An array of objects, each describing a brand that should participate in the auction.
-          minItems: 1
+          minItems: 0
           items:
             $ref: '#/components/schemas/Brand'
+        vendors:
+          type: array
+          description: An array of objects, each describing a vendor that should participate in the auction.
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/Vendor'
         session:
           $ref: '#/components/schemas/Session'
         bannerOptions:
@@ -171,14 +177,15 @@ components:
           enum:
             - brand
             - product
+            - vendor
         winnerId:
           type: string
           description: The marketplace's ID of the winnning item, depending on the campaign.
           example: b_Mfk15
         eventId:
           type: string
-          description: A topsort ID to be used when this item is interacted with.
-          example: "AKFU78:ts_brand:b_Mfk15"
+          description: An opaque topsort ID to be used when this item is interacted with.
+          example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
         assetUrl:
           type: string
           description: The vendor defined asset that the marketplace has to use as a banner.
@@ -211,6 +218,15 @@ components:
           type: string
           format: string
           example: b_Mfk15
+    Vendor:
+      required:
+        - vendorId
+      type: object
+      properties:
+        vendorId:
+          type: string
+          format: string
+          example: v_89kjm
 
     Session:
       description: The Session object allows correlating user activity during a session whether or not they are actually logged in. For all calls to Topsort, include as many as are known.
@@ -236,6 +252,7 @@ components:
     Event:
       type: object
       required:
+        - session
         - eventType
         - eventId
       discriminator:
@@ -250,7 +267,7 @@ components:
           description: Discriminator for the type of event.
         eventId:
           type: string
-          example: AKFU78:ts_brand:b_Mfk15
+          example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
         session:
           $ref: '#/components/schemas/Session'
 
@@ -438,7 +455,10 @@ components:
       properties:
         placement:
           type: string
-          example: 'homepage'
+          enum:
+            - homepage
+            - categoryPage
+            - searchPage
 
 
     # Error Codes
