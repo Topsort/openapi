@@ -314,11 +314,6 @@ components:
           type: string
           minLength: 1
           example: Huyghe Brewery
-        logoURL:
-          description: The vendor logo. Its size should ideally be between 100x100 and 600x600 pixels.
-          type: string
-          format: uri
-          example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
       required:
         - id
         - name
@@ -337,7 +332,6 @@ components:
           example:
             - id: C0n7J6j0WySR
               name: Black Neck Brewery
-              logoURL: https://www.cuellonegro.cl/wp-content/uploads/2017/05/logo_web.png
             - id: y7v6kSGGUUFn
               name: Brewery Chile SA
             - id: vhvg6ioBj5fk
@@ -348,7 +342,6 @@ components:
               name: United Brewery
             - id: 9SiwYqqL8vdG
               name: Huyghe Brewery
-              logoURL: https://media-exp1.licdn.com/dms/image/C4E0BAQFE4e-wq7TlCw/company-logo_200_200/0/1519861983671?e=2159024400&v=beta&t=ZoishDxg4-kKH9fJBXRkBc_N0adqUpBmGqdB1TM5sYg
 
     PaginatedVendorsResponse:
       allOf:
