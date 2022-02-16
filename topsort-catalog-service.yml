@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductsResponse'
+                $ref: '#/components/schemas/GetProductsByIDResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
@@ -158,6 +158,13 @@ components:
         - KHqzavLNS25n
         - wJLZ4TCNZtEW
 
+    GetProductsByIDResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
+      minItems: 0
+      maxItems: 50
+
     PaginatedResponse:
       type: object
       properties:
@@ -238,6 +245,7 @@ components:
           example: Beers/Belgian
       required:
         - id
+        - name
 
     ProductsResponse:
       type: object
