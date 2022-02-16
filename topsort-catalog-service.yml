@@ -201,13 +201,13 @@ components:
           example: Huyghe Brewery
         stock:
           description: How many items of this product you have available. If this number is greater than 0, it means you have it in stock and you can fulfill a purchase.
-          type: number
+          type: integer
           format: int32
           minimum: 0
           example: 126
         price:
           description: The product price in the minimum currency unit (e.g. cents if applicable). Refer to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) to check how many decimals are used in your currency.
-          type: number
+          type: integer
           format: int32
           minimum: 1
           example: 14900
