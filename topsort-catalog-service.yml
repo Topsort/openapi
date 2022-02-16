@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedProductsResponse'
+                $ref: '#/components/schemas/ProductsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
