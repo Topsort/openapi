@@ -125,8 +125,6 @@ components:
           $ref: '#/components/schemas/Session'
         bannerOptions:
           $ref: '#/components/schemas/BannerOptions'
-          
-          
 
     Auction:
       type: object
@@ -178,12 +176,11 @@ components:
         resolvedBidId:
           type: string
           description: An opaque topsort ID to be used when this item is interacted with.
-          example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
+          example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
         assetUrl:
           type: string
           description: The vendor defined asset that the marketplace has to use as a banner.
-          example: "https://address.to/image.png"
-
+          example: 'https://address.to/image.png'
 
     Product:
       required:
@@ -294,7 +291,7 @@ components:
               example: '2009-01-01T12:59:59-05:00'
             resolvedBidId:
               type: string
-              example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
+              example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
 
     ImpressionEvent:
       description: A product has become visible to the consumer. In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results. It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
@@ -336,7 +333,7 @@ components:
           example: 234f678-f90c
         resolvedBidId:
           type: string
-          example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
+          example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
 
     PurchaseEvent:
       description: The consumer has purchased some products.
@@ -391,7 +388,7 @@ components:
           example: 1295
         resolvedBidId:
           type: string
-          example: "b23f2d4b-ec5d-465f-b399-fed34fc020c7"
+          example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
 
     ImpressionResponse:
       type: object
@@ -438,8 +435,7 @@ components:
           minimum: 1
 
     BannerOptions:
-      description: 
-        'The BannerOptions object specifies options to take into consideration when running a banner auction.'
+      description: 'The BannerOptions object specifies options to take into consideration when running a banner auction.'
       type: object
       properties:
         placement:
@@ -448,7 +444,6 @@ components:
             - homepage
             - categoryPage
             - searchPage
-
 
     # Error Codes
 
