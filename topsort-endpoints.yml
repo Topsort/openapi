@@ -167,9 +167,8 @@ components:
           example: pSA0238
         winnerType:
           type: string
-          description: The type of the winning bid, depending on the campaign. It can be product or brand.
+          description: The type of the winning bid, depending on the campaign. It can be product or vendor.
           enum:
-            - brand
             - product
             - vendor
         winnerId:
@@ -203,15 +202,6 @@ components:
           format: float
       xml:
         name: Product
-    Brand:
-      required:
-        - brandId
-      type: object
-      properties:
-        brandId:
-          type: string
-          format: string
-          example: b_Mfk15
     Vendor:
       required:
         - vendorId
