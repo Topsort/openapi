@@ -208,6 +208,12 @@ components:
           type: string
           format: string
           example: v_89kjm
+        quality:
+          type: number
+          minimum: 0
+          maximum: 1
+          example: 0.75
+          format: float
 
     Session:
       description: The Session object allows correlating user activity during a session whether or not they are actually logged in. For all calls to Topsort, include as many as are known.
