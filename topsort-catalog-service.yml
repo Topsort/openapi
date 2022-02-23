@@ -223,16 +223,6 @@ components:
           type: string
           format: uri
           example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
-        brandID:
-          description: The brand id.
-          type: string
-          minLength: 1
-          example: N8G6bGjS1YfF
-        brandName:
-          description: The brand name.
-          type: string
-          minLength: 1
-          example: Delirium Tremens
         categoryID:
           description: The category id.
           type: string
