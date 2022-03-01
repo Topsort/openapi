@@ -137,8 +137,6 @@ paths:
                 $ref: '#/components/schemas/PaginatedVendorsResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-        404:
-          description: No vendors found.
 
 components:
   responses:
