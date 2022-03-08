@@ -226,7 +226,7 @@ components:
         # consumerId:
         #   description: >
         #     Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
-             
+        #
         #     Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
         #     This field is needed for cross-device attribution.
         #   type: string
