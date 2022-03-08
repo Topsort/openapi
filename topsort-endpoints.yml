@@ -223,14 +223,14 @@ components:
             If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
           type: string
           example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
-        consumerId:
-          description: >
-            Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
+        # consumerId:
+        #   description: >
+        #     Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
              
-            Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
-            This field is needed for cross-device attribution.
-          type: string
-          example: cid_86hkz2p3171joer80pdkltu7n
+        #     Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
+        #     This field is needed for cross-device attribution.
+        #   type: string
+        #   example: cid_86hkz2p3171joer80pdkltu7n
 
     Event:
       type: object
