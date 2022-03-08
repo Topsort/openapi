@@ -138,6 +138,47 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
+  /brands:
+    get:
+      tags:
+        - Catalog
+      summary: Retrieves brands
+      description: >
+        This endpoint is optional. It is used to allow advanced use cases for Banner Ads. Talk to
+        your Account Manager to understand whehter you need to implement this endpoint.
+      operationId: getBrands
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          example: delirium tremens
+          description: >
+            The search string provided by the user. In case this parameter is missing or an empty
+            string is provided, all brands should be returned taking into account the other
+            parameters. 
+          required: false
+        - in: query
+          name: vendorID
+          schema:
+            type: string
+            minLength: 1
+          example: '9SiwYqqL8vdG'
+          description: >
+            Vendor unique identifier. This identifier is given by the marketplace and allows this
+            service to match the vendor with the proper brands.
+          required: false
+        - $ref: '#/components/parameters/nextParam'
+      responses:
+        200:
+          description: Returns a complete list of brands, separated in pages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBrandsResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
 components:
   responses:
     UnauthorizedError:
@@ -343,6 +384,51 @@ components:
       allOf:
         - $ref: '#/components/schemas/PaginatedResponse'
         - $ref: '#/components/schemas/VendorsResponse'
+
+    Brand:
+      type: object
+      properties:
+        id:
+          description: The brand ID.
+          type: string
+          minLength: 1
+          example: 9SiwYqqL8vdG
+        name:
+          description: The brand name.
+          type: string
+          minLength: 1
+          example: Pepsi
+        imageURL:
+          description: The brand image URL. Its size should be between 250x250 and 600x600 pixels.
+          type: string
+          format: uri
+      required:
+        - id
+        - name
+
+    BrandsResponse:
+      type: object
+      required:
+        - response
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+          minItems: 0
+          maxItems: 50
+          example:
+            - id: bC0n7J6j0WySR
+              name: Black Neck Brewery
+              imageURL: https://cdn.marketplace.com/bnb.png
+            - id: by7v6kSGGUUFn
+              name: Brewery Chile
+              imageURL: https://cdn.marketplace.com/bc.png
+
+    PaginatedBrandsResponse:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedResponse'
+        - $ref: '#/components/schemas/BrandsResponse'
 
   securitySchemes:
     BearerAuth:
