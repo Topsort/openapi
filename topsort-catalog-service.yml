@@ -156,7 +156,7 @@ paths:
           description: >
             The search string provided by the user. In case this parameter is missing or an empty
             string is provided, all brands should be returned taking into account the other
-            parameters. 
+            parameters.
           required: false
         - in: query
           name: vendorID
