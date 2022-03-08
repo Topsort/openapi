@@ -210,25 +210,25 @@ components:
           example: v_89kjm
 
     Session:
-      description: The Session object allows correlating user activity during a session whether or not they are actually logged in. For all calls to Topsort, include as many as are known.
+      description: The Session object allows correlating user activity during a session whether or not they are actually logged in.
       required:
         - sessionId
       type: object
       properties:
         sessionId:
+          description: >
+            Long-lived token identifying the customer interacting with the marketplace.
+
+            If your users are always logged in you could use a hash of your customer ID.
+            If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
           type: string
-          example: 345bx7
+          example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
         consumerId:
+          description: >
+            If the user is logged in, you could send us a hash of your customer ID.
+            This field is needed for cross-device attribution.
           type: string
-          example: cid_67bf
-        orderIntentId:
-          description: 'Marketplace assigned ID for a shopping cart.'
-          type: string
-          example: cart_6677
-        orderId:
-          description: 'Marketplace assigned ID for an order.'
-          type: string
-          example: order_ff5b
+          example: cid_86hkz2p3171joer80pdkltu7n
 
     Event:
       type: object
