@@ -121,7 +121,6 @@ components:
         products:
           type: array
           description: An array of objects, each describing a product that should participate in the auction.
-          minItems: 1
           items:
             $ref: '#/components/schemas/Product'
         session:
@@ -141,13 +140,11 @@ components:
         products:
           type: array
           description: An array of objects, each describing a product that should participate in the auction.
-          minItems: 1
           items:
             $ref: '#/components/schemas/Product'
         vendors:
           type: array
           description: An array of objects, each describing a vendor that should participate in the auction.
-          minItems: 1
           items:
             $ref: '#/components/schemas/Vendor'
         session:
