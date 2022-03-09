@@ -103,9 +103,38 @@ components:
 
   schemas:
     AuctionRequest:
-      required:
-        - products
       type: object
+      anyOf:
+        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
+        - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
+        - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
+
+    AuctionRequestSponsoredListings:
+      type: object
+      required: # Sponsored listings
+        - slots
+        - products
+        - session
+      properties:
+        slots:
+          $ref: '#/components/schemas/Slots'
+        products:
+          type: array
+          description: An array of objects, each describing a product that should participate in the auction.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Product'
+        session:
+          $ref: '#/components/schemas/Session'
+
+    AuctionRequestGeneralBanners:
+      type: object
+      required:
+        - slots
+        - products
+        - vendors
+        - session
+        - bannerOptions
       properties:
         slots:
           $ref: '#/components/schemas/Slots'
@@ -118,13 +147,30 @@ components:
         vendors:
           type: array
           description: An array of objects, each describing a vendor that should participate in the auction.
-          minItems: 0
+          minItems: 1
           items:
             $ref: '#/components/schemas/Vendor'
         session:
           $ref: '#/components/schemas/Session'
         bannerOptions:
           $ref: '#/components/schemas/BannerOptions'
+
+    AuctionRequestHomepageStandaloneBanners:
+      required:
+        - slots
+        - session
+        - bannerOptions
+      properties:
+        slots:
+          $ref: '#/components/schemas/Slots'
+        session:
+          $ref: '#/components/schemas/Session'
+        bannerOptions:
+          properties:
+            placement:
+              type: string
+              enum:
+                - homepage
 
     Auction:
       type: object
