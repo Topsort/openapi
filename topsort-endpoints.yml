@@ -466,8 +466,8 @@ components:
       description:
         'The Slots object specifies how many auctions winners should be
         returned for each promotion type. The promotion types depend on
-        the marketplace configuration. "listings", "videoAds" and
-        "bannerAds" are common.'
+        the marketplace configuration. For sponsored listings, use the
+        "listings" key.'
       type: object
       properties:
         listings:
@@ -479,8 +479,8 @@ components:
       description:
         'The Slots object specifies how many auctions winners should be
         returned for each promotion type. The promotion types depend on
-        the marketplace configuration. "listings", "videoAds" and
-        "bannerAds" are common.'
+        the marketplace configuration. For banner ads, use the "bannerAds"
+        key.'
       type: object
       properties:
         banners:
