@@ -108,7 +108,7 @@ components:
     AuctionRequest:
       description: >
         Multiple different slot types may be combined into a single request.
-        
+
       type: object
       anyOf:
         - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
