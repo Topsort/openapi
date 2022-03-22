@@ -117,7 +117,7 @@ components:
         - session
       properties:
         slots:
-          $ref: '#/components/schemas/Slots'
+          $ref: '#/components/schemas/ListingsSlots'
         products:
           type: array
           description: An array of objects, each describing a product that should participate in the auction.
@@ -136,7 +136,7 @@ components:
         - bannerOptions
       properties:
         slots:
-          $ref: '#/components/schemas/Slots'
+          $ref: '#/components/schemas/BannersSlots'
         products:
           type: array
           description: An array of objects, each describing a product that should participate in the auction.
@@ -159,7 +159,7 @@ components:
         - bannerOptions
       properties:
         slots:
-          $ref: '#/components/schemas/Slots'
+          $ref: '#/components/schemas/BannersSlots'
         session:
           $ref: '#/components/schemas/Session'
         bannerOptions:
@@ -462,7 +462,7 @@ components:
           type: string
           example: p_k39abc
 
-    Slots:
+    ListingsSlots:
       description:
         'The Slots object specifies how many auctions winners should be
         returned for each promotion type. The promotion types depend on
@@ -474,6 +474,15 @@ components:
           type: integer
           example: 2
           minimum: 1
+
+    BannersSlots:
+      description:
+        'The Slots object specifies how many auctions winners should be
+        returned for each promotion type. The promotion types depend on
+        the marketplace configuration. "listings", "videoAds" and
+        "bannerAds" are common.'
+      type: object
+      properties:
         banners:
           type: integer
           example: 2
