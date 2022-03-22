@@ -31,7 +31,10 @@ paths:
       summary: Creates a new auction
       operationId: createAuction
       requestBody:
-        description: Parameters for how to run the auction and which products should participate.
+        description: >
+          The information describing what will be auctioned.
+          Topsort will run an auction for each slot type, for which products and/or vendors' bids will compete against each other.
+          The products and vendors that will participate are also included in the request.
         content:
           application/json:
             schema:
@@ -103,11 +106,32 @@ components:
 
   schemas:
     AuctionRequest:
+      description: >
+        Multiple different slot types may be combined into a single request.
+        
       type: object
       anyOf:
         - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
         - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
         - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
+      example:
+        slots:
+          listings: 2
+          bannerAds: 1
+        products:
+          - productId: p_SA0238
+            quality: 0.75
+          - productId: p_SA0250
+            quality: 0.9
+          - productId: p_SA0259
+            quality: 0.7
+        vendors:
+          - vendorId: v_SA0362
+          - vendorId: v_SA0056
+        bannerOptions:
+          placement: categoryPage
+        session:
+          sessionId: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
 
     AuctionRequestSponsoredListings:
       type: object
