@@ -511,7 +511,7 @@ components:
         key.'
       type: object
       properties:
-        banners:
+        bannerAds:
           type: integer
           example: 2
           minimum: 1
