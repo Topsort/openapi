@@ -8,8 +8,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
   x-logo:
-    url: 'https://files.readme.io/fe09c9d-logow.svg'
-    backgroundColor: '#272a47'
+    url: https://assets.website-files.com/61a717c57f45d64e5e24eebf/61ee6ccc3f6a684756ef6dec_logo.svg
+    backgroundColor: '#fff'
     altText: Topsort
   description: Integration for Marketplaces' catalog queries
 
