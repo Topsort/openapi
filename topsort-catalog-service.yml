@@ -23,6 +23,53 @@ servers:
 tags:
   - name: Catalog
     description: Integration for Marketplaces' catalog queries.
+  - name: Models
+    x-displayName: All Models
+    description: |
+      ## GetProductsByID Request
+      <SchemaDefinition schemaRef="#/components/schemas/GetProductsByIDRequest" />
+
+      ## GetProductsByID Response
+      <SchemaDefinition schemaRef="#/components/schemas/GetProductsByIDResponse" />
+
+      ## Paginated Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedResponse" />
+
+      ## Product
+      <SchemaDefinition schemaRef="#/components/schemas/Product" />
+
+      ## Products Response
+      <SchemaDefinition schemaRef="#/components/schemas/ProductsResponse" />
+
+      ## Paginated Products Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedProductsResponse" />
+
+      ## Category
+      <SchemaDefinition schemaRef="#/components/schemas/Category" />
+
+      ## Categories Response
+      <SchemaDefinition schemaRef="#/components/schemas/CategoriesResponse" />
+
+      ## Paginated Categories Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedCategoriesResponse" />
+
+      ## Vendor
+      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
+
+      ## Vendors Response
+      <SchemaDefinition schemaRef="#/components/schemas/VendorsResponse" />
+
+      ## Paginated Vendors Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedVendorsResponse" />
+
+      ## Brand
+      <SchemaDefinition schemaRef="#/components/schemas/Brand" />
+
+      ## Brands Response
+      <SchemaDefinition schemaRef="#/components/schemas/BrandsResponse" />
+
+      ## Paginated Brands Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedBrandsResponse" />
 
 security:
   - BearerAuth: []
@@ -149,7 +196,7 @@ paths:
       summary: Retrieves brands
       description: >
         This endpoint is optional. It is used to allow advanced use cases for Banner Ads. Talk to
-        your Account Manager to understand whehter you need to implement this endpoint.
+        your Account Manager to understand whether you need to implement this endpoint.
       operationId: getBrands
       parameters:
         - in: query

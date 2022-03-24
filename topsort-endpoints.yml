@@ -23,6 +23,74 @@ tags:
     description: An auction determines which products should be promoted based on the vendors' bids
   - name: Events
     description: Significant consumer interactions on the e-commerce site.
+  - name: Models
+    x-displayName: All Models
+    description: |
+      ## Auction Request (Full Definition)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
+
+      ## Auction Request (Sponsored Listings)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
+
+      ## Auction Request (General Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestGeneralBanners" />
+
+      ## Auction Request (Homepage Standalone Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestHomepageStandaloneBanners" />
+
+      ## Listings Slots
+      <SchemaDefinition schemaRef="#/components/schemas/ListingsSlots" />
+
+      ## Banners Slots
+      <SchemaDefinition schemaRef="#/components/schemas/BannersSlots" />
+
+      ## Product
+      <SchemaDefinition schemaRef="#/components/schemas/Product" />
+
+      ## Vendor
+      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
+
+      ## Session
+      <SchemaDefinition schemaRef="#/components/schemas/Session" />
+
+      ## Banner Options
+      <SchemaDefinition schemaRef="#/components/schemas/BannerOptions" />
+
+      ## Auction
+      <SchemaDefinition schemaRef="#/components/schemas/Auction" />
+
+      ## Winner
+      <SchemaDefinition schemaRef="#/components/schemas/Winner" />
+
+      ## Event
+      <SchemaDefinition schemaRef="#/components/schemas/Event" />
+
+      ## Impression Event
+      <SchemaDefinition schemaRef="#/components/schemas/ImpressionEvent" />
+
+      ## Click Event
+      <SchemaDefinition schemaRef="#/components/schemas/ClickEvent" />
+
+      ## Purchase Event
+      <SchemaDefinition schemaRef="#/components/schemas/PurchaseEvent" />
+
+      ## Placement
+      <SchemaDefinition schemaRef="#/components/schemas/Placement" />
+
+      ## Impression
+      <SchemaDefinition schemaRef="#/components/schemas/Impression" />
+
+      ## Purchase Item
+      <SchemaDefinition schemaRef="#/components/schemas/PurchaseItem" />
+
+      ## Event Response
+      <SchemaDefinition schemaRef="#/components/schemas/EventResponse" />
+
+      ## Impression Response
+      <SchemaDefinition schemaRef="#/components/schemas/ImpressionResponse" />
+
+      ## Topsort Error
+      <SchemaDefinition schemaRef="#/components/schemas/TopsortError" />
 
 security:
   - BearerAuth: []
@@ -527,8 +595,6 @@ components:
             - categoryPage
             - searchPage
 
-    # Error Codes
-
     TopsortError:
       type: object
       required:
@@ -555,7 +621,7 @@ components:
             - too_few_impressions
             - too_few_slots
         docUrl:
-          enum: ['https://topsort.redoc.ly']
+          enum: ['https://topsort-api.redoc.ly']
         message:
           type: string
 
