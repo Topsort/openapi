@@ -26,50 +26,38 @@ tags:
   - name: Models
     x-displayName: All Models
     description: |
+      ## Brand
+      <SchemaDefinition schemaRef="#/components/schemas/Brand" />
+
+      ## Category
+      <SchemaDefinition schemaRef="#/components/schemas/Category" />
+
       ## GetProductsByID Request
       <SchemaDefinition schemaRef="#/components/schemas/GetProductsByIDRequest" />
 
       ## GetProductsByID Response
       <SchemaDefinition schemaRef="#/components/schemas/GetProductsByIDResponse" />
 
-      ## Paginated Response
-      <SchemaDefinition schemaRef="#/components/schemas/PaginatedResponse" />
-
-      ## Product
-      <SchemaDefinition schemaRef="#/components/schemas/Product" />
-
-      ## Products Response
-      <SchemaDefinition schemaRef="#/components/schemas/ProductsResponse" />
-
-      ## Paginated Products Response
-      <SchemaDefinition schemaRef="#/components/schemas/PaginatedProductsResponse" />
-
-      ## Category
-      <SchemaDefinition schemaRef="#/components/schemas/Category" />
-
-      ## Categories Response
-      <SchemaDefinition schemaRef="#/components/schemas/CategoriesResponse" />
+      ## Paginated Brands Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedBrandsResponse" />
 
       ## Paginated Categories Response
       <SchemaDefinition schemaRef="#/components/schemas/PaginatedCategoriesResponse" />
 
-      ## Vendor
-      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
+      ## Paginated Products Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedProductsResponse" />
 
-      ## Vendors Response
-      <SchemaDefinition schemaRef="#/components/schemas/VendorsResponse" />
+      ## Paginated Response
+      <SchemaDefinition schemaRef="#/components/schemas/PaginatedResponse" />
 
       ## Paginated Vendors Response
       <SchemaDefinition schemaRef="#/components/schemas/PaginatedVendorsResponse" />
 
-      ## Brand
-      <SchemaDefinition schemaRef="#/components/schemas/Brand" />
+      ## Product
+      <SchemaDefinition schemaRef="#/components/schemas/Product" />
 
-      ## Brands Response
-      <SchemaDefinition schemaRef="#/components/schemas/BrandsResponse" />
-
-      ## Paginated Brands Response
-      <SchemaDefinition schemaRef="#/components/schemas/PaginatedBrandsResponse" />
+      ## Vendor
+      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
 
 security:
   - BearerAuth: []
