@@ -20,7 +20,7 @@ servers:
 
 tags:
   - name: Auctions
-    description: An auction determines which products should be promoted based on the vendors' bids
+    description: An auction determines which products should be promoted based on the vendors' bids.
   - name: Events
     description: Significant consumer interactions on the e-commerce site.
   - name: Models
@@ -139,14 +139,14 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: '#/components/schemas/ClickEvent'
                 - $ref: '#/components/schemas/ImpressionEvent'
+                - $ref: '#/components/schemas/ClickEvent'
                 - $ref: '#/components/schemas/PurchaseEvent'
               discriminator:
                 propertyName: eventType
                 mapping:
-                  Click: '#/components/schemas/ClickEvent'
                   Impression: '#/components/schemas/ImpressionEvent'
+                  Click: '#/components/schemas/ClickEvent'
                   Purchase: '#/components/schemas/PurchaseEvent'
         required: true
       responses:
