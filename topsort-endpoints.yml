@@ -201,7 +201,7 @@ components:
           - vendorId: v_SA0362
           - vendorId: v_SA0056
         bannerOptions:
-          placement: categoryPage
+          placement: Category-page
         session:
           sessionId: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
 
@@ -263,7 +263,7 @@ components:
             placement:
               type: string
               enum:
-                - homepage
+                - Home-page
 
     Auction:
       type: object
@@ -591,9 +591,9 @@ components:
         placement:
           type: string
           enum:
-            - homepage
-            - categoryPage
-            - searchPage
+            - Home-page
+            - Category-page
+            - Search-page
 
     TopsortError:
       type: object
