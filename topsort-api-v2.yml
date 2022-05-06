@@ -13,16 +13,14 @@ info:
   version: 2.0.0
 
 servers:
-  - url: https://demo.api.topsort.com/v2
-    description: Demo server (uses test data)
-  - url: https://api.topsort.com/v2
+  - url: https://<slug>.api.sandbox.topsort.ai/v2
+    description: Sandbox server (uses test data)
+  - url: https://<slug>.api.topsort.ai//v2
     description: Production server (uses live data)
 
 tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
-  - name: Events
-    description: Significant consumer interactions on the e-commerce site.
   - name: Models
     x-displayName: All Models
     description: |
@@ -41,44 +39,14 @@ tags:
       ## Category
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
 
-      ## Click Event
-      <SchemaDefinition schemaRef="#/components/schemas/ClickEvent" />
-
-      ## Event
-      <SchemaDefinition schemaRef="#/components/schemas/Event" />
-
-      ## Event Response
-      <SchemaDefinition schemaRef="#/components/schemas/EventResponse" />
-
       ## Geotargeting
       <SchemaDefinition schemaRef="#/components/schemas/GeoTargeting" />
-
-      ## Impression
-      <SchemaDefinition schemaRef="#/components/schemas/Impression" />
-
-      ## Impression Event
-      <SchemaDefinition schemaRef="#/components/schemas/ImpressionEvent" />
-
-      ## Impression Response
-      <SchemaDefinition schemaRef="#/components/schemas/ImpressionResponse" />
-
-      ## Placement
-      <SchemaDefinition schemaRef="#/components/schemas/Placement" />
 
       ## Product
       <SchemaDefinition schemaRef="#/components/schemas/Product" />
 
-      ## Purchase Event
-      <SchemaDefinition schemaRef="#/components/schemas/PurchaseEvent" />
-
-      ## Purchase Item
-      <SchemaDefinition schemaRef="#/components/schemas/PurchaseItem" />
-
       ## Search Query
       <SchemaDefinition schemaRef="#/components/schemas/SearchQuery" />
-
-      ## Session
-      <SchemaDefinition schemaRef="#/components/schemas/Session" />
 
       ## Topsort Error
       <SchemaDefinition schemaRef="#/components/schemas/TopsortError" />
@@ -123,8 +91,9 @@ paths:
           description: >
             The auction results.
             The list of winners will contain at most `slots` entries per auction.
-            It may contain fewer or no entries at all if there aren't enough products with usable bids.
-            Bid become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
+            It may contain fewer or no entries at all if there aren't enough products with usable bids, that is,
+            a bid amount greater than the reserve price and belonging to a campaign with enough remaining budget.
+            Bids become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
               schema:
@@ -151,44 +120,6 @@ paths:
                           winnerId: e_PJbnN
                           resolvedBidId: 3aaa25fe-60a0-45a3-ae65-39ec1b525eb4
                           assetUrl: https://address.to/lhs-banner-image-for-e_PJbnN.png
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        400:
-          $ref: '#/components/responses/BadRequest'
-
-  /events:
-    post:
-      tags:
-        - Events
-      summary: Report an event
-      operationId: reportEvent
-      requestBody:
-        description: 'Use the `/events` endpoint to notify Topsort about significant consumer interactions on the e-commerce site: impressions -- product links become visible to the consumer; clicks -- the consumer clicks on a product link; and purchases -- the consumer buys some products.'
-        content:
-          application/json:
-            schema:
-              oneOf:
-                - $ref: '#/components/schemas/ImpressionEvent'
-                - $ref: '#/components/schemas/ClickEvent'
-                - $ref: '#/components/schemas/PurchaseEvent'
-              discriminator:
-                propertyName: eventType
-                mapping:
-                  Impression: '#/components/schemas/ImpressionEvent'
-                  Click: '#/components/schemas/ClickEvent'
-                  Purchase: '#/components/schemas/PurchaseEvent'
-        required: true
-      responses:
-        200:
-          description:
-            'An object containing the markeplace ID for the event and the Topsort ID for the same event.
-            Logging this can facilitate debugging.
-            The field name for the TopsortID will be "impressionID", "clickId" or "purchaseId"
-            depending on the event in the request.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
@@ -327,8 +258,8 @@ components:
       type: object
       required:
         - rank
-        - winnerType
-        - winnerId
+        - type
+        - id
         - resolvedBidId
       properties:
         rank:
@@ -337,14 +268,14 @@ components:
             Zero-based, so the product with rank 0 won the auction and had the highest bid.
             In an auction response, the winners array is sorted so rank will match the entry's index"
           minimum: 0
-        winnerType:
+        type:
           type: string
           description: The type of the winning bid.
           enum:
             - product
             - brand
             - vendor
-        winnerId:
+        id:
           type: string
           description: The marketplace's ID of the winning entity, depending on the campaign.
           example: b_Mfk15
@@ -366,206 +297,6 @@ components:
           type: string
           format: string
           example: p_SA0238
-        quality:
-          type: number
-          minimum: 0
-          maximum: 1
-          example: 0.75
-          format: float
-      xml:
-        name: Product
-
-    Session:
-      description: The Session object allows correlating user activity during a session whether or not they are actually logged in.
-      required:
-        - sessionId
-      type: object
-      properties:
-        deviceId:
-          description: >
-            Long-lived token identifying the customer interacting with the marketplace.
-
-            If your users are always logged in you may use a hash of your customer ID.
-            If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
-          type: string
-          example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
-        # consumerId:
-        #   description: >
-        #     Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
-        #
-        #     Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
-        #     This field is needed for cross-device attribution.
-        #   type: string
-        #   example: cid_86hkz2p3171joer80pdkltu7n
-
-    Event:
-      type: object
-      required:
-        - session
-        - eventType
-      discriminator:
-        propertyName: eventType
-      properties:
-        eventType:
-          type: string
-          enum:
-            - Impression
-            - Click
-            - Purchase
-          description: Discriminator for the type of event.
-        session:
-          $ref: '#/components/schemas/Session'
-
-    Placement:
-      type: object
-      required:
-        - page
-      properties:
-        page:
-          type: string
-          description: A marketplace assigned name for a page.
-          example: search_results
-        location:
-          type: string
-          description: A marketplace defined name for a page part.
-          example: position_1
-
-    ImpressionEvent:
-      description: A product has become visible to the consumer. In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results. It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - impressions
-          properties:
-            impressions:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/Impression'
-            occurredAt:
-              type: string
-              format: date-time
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2009-01-01T12:59:59-05:00'
-
-    Impression:
-      type: object
-      required:
-        - placement
-        - resolvedBidId
-      properties:
-        placement:
-          $ref: '#/components/schemas/Placement'
-        id:
-          type: string
-          description: The marketplace's ID for the impression.
-          example: 234f678-f90c
-        resolvedBidId:
-          type: string
-          description: An opaque Topsort ID provided with each auction result.
-          example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
-
-    ClickEvent:
-      description: ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort charges the vendor and pays the marketplace for clicks on impressions in promoted placements on the e-commerce site.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - placement
-            - resolvedBidId
-          properties:
-            placement:
-              $ref: '#/components/schemas/Placement'
-            id:
-              type: string
-              description: The marketplace's unique ID for the click.
-              example: 234f678-f90c
-            occurredAt:
-              type: string
-              format: date-time
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2009-01-01T12:59:59-05:00'
-            resolvedBidId:
-              type: string
-              description: An opaque Topsort ID provided with each auction result.
-              example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
-
-    PurchaseEvent:
-      description: The consumer has purchased some products.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - id
-            - purchasedAt
-            - items
-          properties:
-            id:
-              type: string
-              description: The marketplace assigned ID for the order.
-              example: o:567-123
-            purchasedAt:
-              type: string
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2021-10-12T07:20:50.52Z'
-              format: date-time
-            items:
-              type: array
-              description: Items purchased.
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/PurchaseItem'
-
-    PurchaseItem:
-      type: object
-      required:
-        - productId
-        - unitPrice
-        - resolvedBidId
-      properties:
-        quantity:
-          type: integer
-          minimum: 1
-          default: 1
-          description: Count of product purchased.
-          example: 2
-        unitPrice:
-          type: integer
-          minimum: 1
-          description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
-          example: 1295
-        resolvedBidId:
-          type: string
-          description: An opaque Topsort ID provided with each auction result.
-          example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
-
-    ImpressionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 234f678-f90c
-        impressionId:
-          type: string
-          example: i_k31xyz
-
-    EventResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 234f678-f90c
-        clickId:
-          type: string
-          example: c_k37sdm
-        impressions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImpressionResponse'
-        purchaseId:
-          type: string
-          example: p_k39abc
 
     TopsortError:
       type: object
