@@ -30,8 +30,8 @@ tags:
       ## Auction Request
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
 
-      ## Auction Request (Banner Ads)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBannerAds" />
+      ## Auction Request (Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
 
       ## Auction Request (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
@@ -79,12 +79,12 @@ paths:
                   items:
                     oneOf:
                       - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-                      - $ref: '#/components/schemas/AuctionRequestBannerAds'
+                      - $ref: '#/components/schemas/AuctionRequestBanners'
                     discriminator:
                       propertyName: type
                       mapping:
                         listings: '#/components/schemas/AuctionRequestSponsoredListings'
-                        bannerAds: '#/components/schemas/AuctionRequestBannerAds'
+                        bannerAds: '#/components/schemas/AuctionRequestBanners'
         required: true
       responses:
         201:
@@ -220,7 +220,7 @@ components:
         geoTargeting:
           location: New York
 
-    AuctionRequestBannerAds:
+    AuctionRequestBanners:
       type: object
       description: Describes the intent of running a banner ads auction.
       allOf:
