@@ -183,34 +183,22 @@ components:
           type: string
 
     AuctionRequestSponsoredListings:
-      type: object
       description: >
         Describes the intent of running a sponsored listings auction.
         At least one of the following fields must be set: category, searchQuery, products.
       allOf:
         - $ref: '#/components/schemas/AuctionRequest'
-        - anyOf:
-            - type: object
-              required:
-                - category
-              properties:
-                category:
-                  $ref: '#/components/schemas/Category'
-            - type: object
-              required:
-                - searchQuery
-              properties:
-                searchQuery:
-                  $ref: '#/components/schemas/SearchQuery'
-            - type: object
-              required:
-                - products
-              properties:
-                products:
-                  type: array
-                  description: An array of objects, each describing a product that should participate in the auction.
-                  items:
-                    $ref: '#/components/schemas/Product'
+        - type: object
+          properties:
+            category:
+              $ref: '#/components/schemas/Category'
+            searchQuery:
+              $ref: '#/components/schemas/SearchQuery'
+            products:
+              type: array
+              description: An array of objects, each describing a product that should participate in the auction.
+              items:
+                $ref: '#/components/schemas/Product'
       example:
         type: listings
         slots: 2
@@ -227,12 +215,15 @@ components:
         - $ref: '#/components/schemas/AuctionRequest'
         - type: object
           properties:
-            slotId:
-              type: string
             category:
               $ref: '#/components/schemas/Category'
             searchQuery:
               $ref: '#/components/schemas/SearchQuery'
+            slotId:
+              type: string
+              description: >
+                The marketplace's ID for a specific slot for a banner in the marketplace app.
+                This slot's ID and Dimensions must have been previously set up in the Topsort app.
           required:
             - slotId
       example:
