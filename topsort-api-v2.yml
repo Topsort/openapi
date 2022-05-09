@@ -191,6 +191,7 @@ components:
               $ref: '#/components/schemas/Category'
             searchQuery:
               type: string
+              description: The search string provided by a user.
             products:
               type: array
               description: An array of objects, each describing a product that should participate in the auction.
@@ -216,6 +217,7 @@ components:
               $ref: '#/components/schemas/Category'
             searchQuery:
               type: string
+              description: The search string provided by a user.
             slotId:
               type: string
               description: >
