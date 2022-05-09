@@ -202,15 +202,12 @@ components:
           - vendorId: v_SA0056
         bannerOptions:
           placement: Category-page
-        session:
-          sessionId: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
 
     AuctionRequestSponsoredListings:
       type: object
       required:
         - slots
         - products
-        - session
       properties:
         slots:
           $ref: '#/components/schemas/ListingsSlots'
@@ -228,7 +225,6 @@ components:
         - slots
         - products
         - vendors
-        - session
         - bannerOptions
       properties:
         slots:
@@ -251,7 +247,6 @@ components:
     AuctionRequestHomepageStandaloneBanners:
       required:
         - slots
-        - session
         - bannerOptions
       properties:
         slots:
