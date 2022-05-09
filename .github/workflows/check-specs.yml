@@ -25,7 +25,7 @@ jobs:
         run: prettier --check .
 
       - name: Check Spec (Topsort Endpoints v1)
-        run: openapi-generator-cli validate -i topsort-api-v1.yml && openapi-generator-cli validate -i topsort-endpoints.yml
+        run: openapi-generator-cli validate -i topsort-api-v1.yml
 
       - name: Check Spec (Topsort Endpoints v2)
         run: openapi-generator-cli validate -i topsort-api-v2.yml
