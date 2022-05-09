@@ -45,9 +45,6 @@ tags:
       ## Product
       <SchemaDefinition schemaRef="#/components/schemas/Product" />
 
-      ## Search Query
-      <SchemaDefinition schemaRef="#/components/schemas/SearchQuery" />
-
       ## Topsort Error
       <SchemaDefinition schemaRef="#/components/schemas/TopsortError" />
 
@@ -169,10 +166,6 @@ components:
           type: string
           example: c_yogurt
 
-    SearchQuery:
-      type: string
-      description: The search string provided by a user.
-
     GeoTargeting:
       type: object
       description: An object describing geographical information associated with this auction.
@@ -193,7 +186,7 @@ components:
             category:
               $ref: '#/components/schemas/Category'
             searchQuery:
-              $ref: '#/components/schemas/SearchQuery'
+              type: string
             products:
               type: array
               description: An array of objects, each describing a product that should participate in the auction.
@@ -218,7 +211,7 @@ components:
             category:
               $ref: '#/components/schemas/Category'
             searchQuery:
-              $ref: '#/components/schemas/SearchQuery'
+              type: string
             slotId:
               type: string
               description: >
