@@ -159,6 +159,7 @@ components:
           description: Discriminator for the type of auction.
         slots:
           type: integer
+          format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         geoTargeting:
@@ -258,6 +259,7 @@ components:
       properties:
         rank:
           type: integer
+          format: int32
           description: "Where the product's bid ranked in the auction.
             Zero-based, so the product with rank 0 won the auction and had the highest bid.
             In an auction response, the winners array is sorted so rank will match the entry's index"
