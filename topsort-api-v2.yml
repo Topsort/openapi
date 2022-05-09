@@ -245,6 +245,8 @@ components:
           description:
             'Array of winner objects in order from highest to lowest bid.
             May be empty if there were no qualifying bids.'
+      required:
+        - winners
 
     Winner:
       type: object
