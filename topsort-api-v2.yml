@@ -30,6 +30,9 @@ tags:
       ## Auction Request
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
 
+      ## Auction Request (Base)
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBase" />
+
       ## Auction Request (Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
 
@@ -74,14 +77,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    oneOf:
-                      - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-                      - $ref: '#/components/schemas/AuctionRequestBanners'
-                    discriminator:
-                      propertyName: type
-                      mapping:
-                        listings: '#/components/schemas/AuctionRequestSponsoredListings'
-                        bannerAds: '#/components/schemas/AuctionRequestBanners'
+                    $ref: '#/components/schemas/AuctionRequest'
                   minItems: 1
                   maxItems: 10
               required:
@@ -142,8 +138,7 @@ components:
             $ref: '#/components/schemas/TopsortError'
 
   schemas:
-    AuctionRequest:
-      description: Describes the intent of running a single auction.
+    AuctionRequestBase:
       type: object
       required:
         - type
@@ -189,7 +184,7 @@ components:
         Describes the intent of running a sponsored listings auction.
         At least one of the following fields must be set: category, searchQuery, products.
       allOf:
-        - $ref: '#/components/schemas/AuctionRequest'
+        - $ref: '#/components/schemas/AuctionRequestBase'
         - type: object
           properties:
             category:
@@ -214,7 +209,7 @@ components:
       type: object
       description: Describes the intent of running a banner ads auction.
       allOf:
-        - $ref: '#/components/schemas/AuctionRequest'
+        - $ref: '#/components/schemas/AuctionRequestBase'
         - type: object
           properties:
             category:
@@ -235,6 +230,17 @@ components:
         category:
           id: c_yogurt
         searchQuery: Noosa Peach
+
+    AuctionRequest:
+      description: Describes the intent of running a single auction.
+      oneOf:
+        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
+        - $ref: '#/components/schemas/AuctionRequestBanners'
+      discriminator:
+        propertyName: type
+        mapping:
+          listings: '#/components/schemas/AuctionRequestSponsoredListings'
+          bannerAds: '#/components/schemas/AuctionRequestBanners'
 
     Auction:
       type: object
