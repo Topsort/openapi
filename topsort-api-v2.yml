@@ -269,7 +269,6 @@ components:
           description: The type of the winning bid.
           enum:
             - product
-            - brand
             - vendor
         id:
           type: string
