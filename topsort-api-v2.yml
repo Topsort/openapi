@@ -124,7 +124,7 @@ paths:
                           winnerType: product
                           winnerId: e_PJbnN
                           resolvedBidId: 3aaa25fe-60a0-45a3-ae65-39ec1b525eb4
-                          assetUrl: https://address.to/lhs-banner-image-for-e_PJbnN.png
+                          assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-e_PJbnN.png
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
@@ -280,8 +280,10 @@ components:
           example: b23f2d4b-ec5d-465f-b399-fed34fc020c7
         assetUrl:
           type: string
-          description: The vendor defined asset that the marketplace has to use as a banner.
-          example: https://address.to/image.png
+          format: uri
+          description: >
+            The vendor defined asset that the marketplace has to use as a banner.
+            The asset will be served by Topsort's CDN.
 
     Product:
       required:
