@@ -10,7 +10,7 @@ info:
     url: https://assets.website-files.com/61a717c57f45d64e5e24eebf/61ee6ccc3f6a684756ef6dec_logo.svg
     backgroundColor: '#fff'
     altText: Topsort
-  version: 1.0.0
+  version: 1.0.1
 
 servers:
   - url: https://demo.api.topsort.com/v1
