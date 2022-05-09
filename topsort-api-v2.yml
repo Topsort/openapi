@@ -82,6 +82,10 @@ paths:
                       mapping:
                         listings: '#/components/schemas/AuctionRequestSponsoredListings'
                         bannerAds: '#/components/schemas/AuctionRequestBanners'
+                  minItems: 1
+                  maxItems: 10
+              required:
+                - auctions
         required: true
       responses:
         201:
@@ -100,6 +104,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Auction'
+                    minItems: 1
+                    maxItems: 10
+                required:
+                  - results
                 example:
                   results:
                     - winners:
