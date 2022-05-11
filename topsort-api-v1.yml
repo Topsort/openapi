@@ -428,6 +428,14 @@ components:
             resolvedBidId:
               type: string
               example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
+      example:
+        eventType: Click
+        session:
+          sessionId: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
+        placement:
+          page: Search-page
+          location: listing-1
+        resolvedBidId: oXuTYeFWxaRdhlUK7lIUQjGd
 
     ImpressionEvent:
       description: A product has become visible to the consumer. In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results. It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
@@ -442,11 +450,20 @@ components:
               minItems: 1
               items:
                 $ref: '#/components/schemas/Impression'
+              example:
+                - resolvedBidId: oXuTYeFWxaRdhlUK7lIUQjGd
+                  placement:
+                    page: Search-page
+                    location: listing-1
+                - resolvedBidId: K0NmH1qlSTFKA4GterHxdY5l
+                  placement:
+                    page: Search-page
+                    location: listing-2
             occurredAt:
               type: string
               format: date-time
               description: RFC3339 formatted timestamp including UTC offset
-              example: '2009-01-01T12:59:59-05:00'
+              example: '2022-01-23T12:34:56-05:00'
 
     Impression:
       type: object
@@ -525,6 +542,10 @@ components:
         resolvedBidId:
           type: string
           example: 'b23f2d4b-ec5d-465f-b399-fed34fc020c7'
+      example:
+        productId: p_SA0238
+        unitPrice: 1295
+        resolvedBidId: oXuTYeFWxaRdhlUK7lIUQjGd
 
     ImpressionResponse:
       type: object
