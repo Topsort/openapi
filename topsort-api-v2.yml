@@ -110,16 +110,16 @@ paths:
                         - rank: 0
                           winnerType: product
                           winnerId: b_Mfk15
-                          resolvedBidId: b23f2d4b-ec5d-465f-b399-2344fc020c7
+                          resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                         - rank: 1
                           winnerType: product
                           winnerId: e_PJbnN
-                          resolvedBidId: 3aaa25fe-60a0-45a3-ae65-39ec1b525eb4
+                          resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                     - winners:
                         - rank: 0
                           winnerType: product
                           winnerId: e_PJbnN
-                          resolvedBidId: 3aaa25fe-60a0-45a3-ae65-39ec1b525eb4
+                          resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
                           assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-e_PJbnN.png
         401:
           $ref: '#/components/responses/UnauthorizedError'
@@ -285,7 +285,7 @@ components:
         resolvedBidId:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
-          example: b23f2d4b-ec5d-465f-b399-fed34fc020c7
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         assetUrl:
           type: string
           format: uri
