@@ -83,7 +83,10 @@ paths:
                 - type: listings
                   slots: 2
                   products:
-                    - productId: p_OAmRYLx9qN51
+                    - productId: p_PJbnN
+                    - productId: p_ojng4
+                    - productId: p_8VKDt
+                    - productId: p_Mfk15
                   # category:
                   #   id: c_yogurt
                   # searchQuery: Noosa Peach
