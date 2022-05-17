@@ -122,18 +122,18 @@ paths:
                     - winners:
                         - rank: 0
                           winnerType: product
-                          winnerId: b_Mfk15
+                          winnerId: p_Mfk15
                           resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                         - rank: 1
                           winnerType: product
-                          winnerId: e_PJbnN
+                          winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                     - winners:
                         - rank: 0
                           winnerType: product
-                          winnerId: e_PJbnN
+                          winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
-                          assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-e_PJbnN.png
+                          assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN.png
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
@@ -220,7 +220,10 @@ components:
         type: listings
         slots: 2
         products:
-          - productId: p_OAmRYLx9qN51
+          - productId: p_PJbnN
+          - productId: p_ojng4
+          - productId: p_8VKDt
+          - productId: p_Mfk15
         # category:
         #   id: c_yogurt
         # searchQuery: Noosa Peach
@@ -303,7 +306,7 @@ components:
         id:
           type: string
           description: The marketplace's ID of the winning entity, depending on the campaign.
-          example: b_Mfk15
+          example: p_Mfk15
         resolvedBidId:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
