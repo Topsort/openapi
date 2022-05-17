@@ -150,7 +150,7 @@ components:
           type: string
           enum:
             - listings
-            - bannerAds
+            - banners
           description: Discriminator for the type of auction.
         slots:
           type: integer
@@ -187,11 +187,11 @@ components:
         - $ref: '#/components/schemas/AuctionRequestBase'
         - type: object
           properties:
-            category:
-              $ref: '#/components/schemas/Category'
-            searchQuery:
-              type: string
-              description: The search string provided by a user.
+            # category:
+            #   $ref: '#/components/schemas/Category'
+            # searchQuery:
+            #   type: string
+            #   description: The search string provided by a user.
             products:
               type: array
               description: An array of objects, each describing a product that should participate in the auction.
@@ -200,9 +200,9 @@ components:
       example:
         type: listings
         slots: 2
-        category:
-          id: c_yogurt
-        searchQuery: Noosa Peach
+        # category:
+        #   id: c_yogurt
+        # searchQuery: Noosa Peach
         geoTargeting:
           location: New York
 
@@ -226,7 +226,7 @@ components:
           required:
             - slotId
       example:
-        type: bannerAds
+        type: banners
         slots: 1
         slotId: search_lhs_banner
         category:
@@ -242,7 +242,7 @@ components:
         propertyName: type
         mapping:
           listings: '#/components/schemas/AuctionRequestSponsoredListings'
-          bannerAds: '#/components/schemas/AuctionRequestBanners'
+          banners: '#/components/schemas/AuctionRequestBanners'
 
     Auction:
       type: object
