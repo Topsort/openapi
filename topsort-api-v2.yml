@@ -30,9 +30,6 @@ tags:
       ## Auction Request
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
 
-      ## Auction Request (Base)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBase" />
-
       ## Auction Request (Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
 
@@ -82,6 +79,22 @@ paths:
                   maxItems: 10
               required:
                 - auctions
+              example:
+                - type: listings
+                  slots: 2
+                  products:
+                    - productId: p_OAmRYLx9qN51
+                  # category:
+                  #   id: c_yogurt
+                  # searchQuery: Noosa Peach
+                  geoTargeting:
+                    location: New York
+                - type: banners
+                  slots: 1
+                  aspectRatio: '4:1'
+                  category:
+                    id: c_yogurt
+                  # searchQuery: Noosa Peach
         required: true
       responses:
         201:
@@ -166,6 +179,7 @@ components:
       properties:
         id:
           type: string
+          description: The marketplace's ID of the category for which an auction will be run.
           example: c_yogurt
 
     GeoTargeting:
@@ -197,11 +211,16 @@ components:
               description: An array of objects, each describing a product that should participate in the auction.
               items:
                 $ref: '#/components/schemas/Product'
+              minItems: 1
             geoTargeting:
               $ref: '#/components/schemas/GeoTargeting'
+          required:
+            - products
       example:
         type: listings
         slots: 2
+        products:
+          - productId: p_OAmRYLx9qN51
         # category:
         #   id: c_yogurt
         # searchQuery: Noosa Peach
@@ -303,7 +322,7 @@ components:
       properties:
         productId:
           type: string
-          format: string
+          description: The marketplace's ID of the product which will participate in the auction.
           example: p_SA0238
 
     TopsortError:
