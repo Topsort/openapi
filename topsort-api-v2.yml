@@ -157,8 +157,6 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
 
     Category:
       type: object
@@ -180,9 +178,11 @@ components:
           type: string
 
     AuctionRequestSponsoredListings:
+      # TODO: add back searchQuery when supported
       description: >
         Describes the intent of running a sponsored listings auction.
-        At least one of the following fields must be set: category, searchQuery, products.
+        At least one of the following fields must be set: category,
+        products.
       allOf:
         - $ref: '#/components/schemas/AuctionRequestBase'
         - type: object
@@ -197,6 +197,8 @@ components:
               description: An array of objects, each describing a product that should participate in the auction.
               items:
                 $ref: '#/components/schemas/Product'
+            geoTargeting:
+              $ref: '#/components/schemas/GeoTargeting'
       example:
         type: listings
         slots: 2
@@ -215,23 +217,24 @@ components:
           properties:
             category:
               $ref: '#/components/schemas/Category'
-            searchQuery:
+            # searchQuery:
+            #   type: string
+            #   description: The search string provided by a user.
+            aspectRatio:
               type: string
-              description: The search string provided by a user.
-            slotId:
-              type: string
+              pattern: '^\d+:\d+$'
               description: >
                 The marketplace's ID for a specific slot for a banner in the marketplace app.
                 This slot's ID and Dimensions must have been previously set up in the Topsort app.
           required:
-            - slotId
+            - aspectRatio
       example:
         type: banners
         slots: 1
-        slotId: search_lhs_banner
+        aspectRatio: '4:1'
         category:
           id: c_yogurt
-        searchQuery: Noosa Peach
+        # searchQuery: Noosa Peach
 
     AuctionRequest:
       description: Describes the intent of running a single auction.
