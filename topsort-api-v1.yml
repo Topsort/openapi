@@ -277,7 +277,7 @@ components:
               properties:
                 auctionId:
                   type: string
-                  description: Topsort assigned ID for auction. Should be used in reporting impressions, clicks and purchases.
+                  description: Topsort assigned ID for the auction. Should be used in reporting impressions, clicks and purchases.
                   example: AKFU78
                 winners:
                   type: array
@@ -563,7 +563,7 @@ components:
           example: 70ed4d78-34aa-42c7-b6e2-6a670568b6e3
         id:
           type: string
-          description: Marketplace ID for the impression, if provided.
+          description: The marketplace's ID for the impression, if provided.
           example: 234f678-f90c
       required:
         - impressionId
@@ -591,7 +591,7 @@ components:
           example: 00b55a66-a221-4cdd-8c76-8e422558f1c3
         id:
           type: string
-          description: Marketplace ID for the click, if provided.
+          description: The marketplace's ID for the click, if provided.
           example: 234f678-f90c
       required:
         - clickId
@@ -605,7 +605,7 @@ components:
           example: 3f15c9a5-5129-4359-b39c-099e273afe66
         id:
           type: string
-          description: Marketplace ID for the purchase, if provided.
+          description: The marketplace's ID for the purchase, if provided.
           example: 234f678-f90c
       required:
         - purchaseId
