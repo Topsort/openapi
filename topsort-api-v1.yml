@@ -180,7 +180,6 @@ components:
     AuctionRequest:
       description: >
         Multiple different slot types may be combined into a single request.
-      type: object
       anyOf:
         - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
         - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
@@ -228,6 +227,7 @@ components:
           $ref: '#/components/schemas/BannerOptions'
 
     AuctionRequestHomepageStandaloneBanners:
+      type: object
       required:
         - slots
         - bannerOptions
@@ -569,6 +569,8 @@ components:
           type: integer
           example: 2
           minimum: 1
+      required:
+        - listings
 
     BannersSlots:
       description:
@@ -582,6 +584,8 @@ components:
           type: integer
           example: 2
           minimum: 1
+      required:
+        - bannerAds
 
     BannerOptions:
       description: 'The BannerOptions object specifies options to take into consideration when running a banner auction.'
@@ -593,6 +597,8 @@ components:
             - Home-page
             - Category-page
             - Search-page
+      required:
+        - placement
 
     TopsortError:
       type: object
