@@ -180,7 +180,7 @@ components:
 
     AuctionRequestSponsoredListings:
       allOf:
-        - $ref: "#/components/schemas/AuctionRequest"
+        - $ref: '#/components/schemas/AuctionRequest'
         - type: object
           # TODO: add back searchQuery to description when supported
           description: >
@@ -223,7 +223,7 @@ components:
 
     AuctionRequestBanners:
       allOf:
-        - $ref: "#/components/schemas/AuctionRequest"
+        - $ref: '#/components/schemas/AuctionRequest'
         - type: object
           description: Describes the intent of running a banner ads auction.
           properties:
