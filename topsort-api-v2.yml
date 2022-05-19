@@ -154,6 +154,26 @@ components:
             $ref: '#/components/schemas/TopsortError'
 
   schemas:
+    AuctionRequestBase:
+      type: object
+      required:
+        - type
+        - slots
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          enum:
+            - listings
+            - banners
+          description: Discriminator for the type of auction.
+        slots:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Specifies the maximum number of auction winners that should be returned.
+
     Category:
       type: object
       description: An object describing the category of the bids that will participate in an auction.
@@ -175,40 +195,30 @@ components:
           type: string
 
     AuctionRequestSponsoredListings:
-      type: object
-      # TODO: add back searchQuery to description when supported
+      # TODO: add back searchQuery when supported
       description: >
         Describes the intent of running a sponsored listings auction.
         At least one of the following fields must be set: category,
         products.
-      properties:
-        type:
-          type: string
-          enum:
-            - listings
-          description: Discriminator for the type of auction.
-        slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
-        # category:
-        #   $ref: '#/components/schemas/Category'
-        # searchQuery:
-        #   type: string
-        #   description: The search string provided by a user.
-        products:
-          type: array
-          description: An array of objects, each describing a product that should participate in the auction.
-          items:
-            $ref: '#/components/schemas/Product'
-          minItems: 1
-        geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
-      required:
-        - type
-        - slots
-        - products
+      allOf:
+        - $ref: '#/components/schemas/AuctionRequestBase'
+        - type: object
+          properties:
+            # category:
+            #   $ref: '#/components/schemas/Category'
+            # searchQuery:
+            #   type: string
+            #   description: The search string provided by a user.
+            products:
+              type: array
+              description: An array of objects, each describing a product that should participate in the auction.
+              items:
+                $ref: '#/components/schemas/Product'
+              minItems: 1
+            geoTargeting:
+              $ref: '#/components/schemas/GeoTargeting'
+          required:
+            - products
       example:
         type: listings
         slots: 2
@@ -226,32 +236,23 @@ components:
     AuctionRequestBanners:
       type: object
       description: Describes the intent of running a banner ads auction.
-      properties:
-        type:
-          type: string
-          enum:
-            - banners
-          description: Discriminator for the type of auction.
-        slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
-        category:
-          $ref: '#/components/schemas/Category'
-        # searchQuery:
-        #   type: string
-        #   description: The search string provided by a user.
-        aspectRatio:
-          type: string
-          pattern: '^\d+:\d+$'
-          description: >
-            The aspect ratio for a specific slot for a banner placement in the marketplace app.
-            The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
-      required:
-        - type
-        - slots
-        - aspectRatio
+      allOf:
+        - $ref: '#/components/schemas/AuctionRequestBase'
+        - type: object
+          properties:
+            category:
+              $ref: '#/components/schemas/Category'
+            # searchQuery:
+            #   type: string
+            #   description: The search string provided by a user.
+            aspectRatio:
+              type: string
+              pattern: '^\d+:\d+$'
+              description: >
+                The aspect ratio for a specific slot for a banner placement in the marketplace app.
+                The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
+          required:
+            - aspectRatio
       example:
         type: banners
         slots: 1
