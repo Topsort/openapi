@@ -50,11 +50,11 @@ tags:
       ## Click Event
       <SchemaDefinition schemaRef="#/components/schemas/ClickEvent" />
 
+      ## Click Response
+      <SchemaDefinition schemaRef="#/components/schemas/ClickResponse" />
+
       ## Event
       <SchemaDefinition schemaRef="#/components/schemas/Event" />
-
-      ## Event Response
-      <SchemaDefinition schemaRef="#/components/schemas/EventResponse" />
 
       ## Impression
       <SchemaDefinition schemaRef="#/components/schemas/Impression" />
@@ -62,8 +62,8 @@ tags:
       ## Impression Event
       <SchemaDefinition schemaRef="#/components/schemas/ImpressionEvent" />
 
-      ## Impression Response
-      <SchemaDefinition schemaRef="#/components/schemas/ImpressionResponse" />
+      ## Impressions Response
+      <SchemaDefinition schemaRef="#/components/schemas/ImpressionsResponse" />
 
       ## Listings Slots
       <SchemaDefinition schemaRef="#/components/schemas/ListingsSlots" />
@@ -79,6 +79,9 @@ tags:
 
       ## Purchase Item
       <SchemaDefinition schemaRef="#/components/schemas/PurchaseItem" />
+
+      ## Purchase Response
+      <SchemaDefinition schemaRef="#/components/schemas/PurchaseResponse" />
 
       ## Session
       <SchemaDefinition schemaRef="#/components/schemas/Session" />
@@ -159,7 +162,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EventResponse'
+                oneOf:
+                  - $ref: '#/components/schemas/ImpressionsResponse'
+                  - $ref: '#/components/schemas/ClickResponse'
+                  - $ref: '#/components/schemas/PurchaseResponse'
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
@@ -452,6 +458,7 @@ components:
                 $ref: '#/components/schemas/Impression'
               example:
                 - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                  id: 234f678-f90c
                   placement:
                     page: Search-page
                     location: listing-1
@@ -550,30 +557,52 @@ components:
     ImpressionResponse:
       type: object
       properties:
-        id:
-          type: string
-          example: 234f678-f90c
         impressionId:
           type: string
-          example: i_k31xyz
-
-    EventResponse:
-      type: object
-      properties:
+          example: 70ed4d78-34aa-42c7-b6e2-6a670568b6e3
         id:
           type: string
           example: 234f678-f90c
-        clickId:
-          type: string
-          example: c_k37sdm
+      required:
+        - impressionId
+
+    ImpressionsResponse:
+      type: object
+      properties:
         impressions:
           type: array
           items:
             $ref: '#/components/schemas/ImpressionResponse'
+      example:
+        impressions:
+          - impressionId: 70ed4d78-34aa-42c7-b6e2-6a670568b6e3
+            id: 234f678-f90c
+          - impressionId: 41505d1d-c196-4fe5-a89d-fa3a2c8a94c2
+
+    ClickResponse:
+      type: object
+      properties:
+        clickId:
+          type: string
+          example: 00b55a66-a221-4cdd-8c76-8e422558f1c3
+        id:
+          type: string
+          example: 234f678-f90c
+      required:
+        - clickId
+
+    PurchaseResponse:
+      type: object
+      properties:
         purchaseId:
           type: string
-          example: p_k39abc
-
+          example: 3f15c9a5-5129-4359-b39c-099e273afe66
+        id:
+          type: string
+          example: 234f678-f90c
+      required:
+        - purchaseId
+    
     ListingsSlots:
       description:
         'The Slots object specifies how many auctions winners should be
