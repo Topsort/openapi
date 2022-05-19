@@ -345,11 +345,10 @@ components:
 
     Event:
       type: object
+      x-extendedDiscriminator: eventType
       required:
         - session
         - eventType
-      discriminator:
-        propertyName: eventType
       properties:
         eventType:
           type: string
@@ -404,8 +403,21 @@ components:
             occurredAt:
               type: string
               format: date-time
-              description: RFC3339 formatted timestamp including UTC offset
+              description: RFC3339 formatted timestamp including UTC offset.
               example: '2022-01-23T12:34:56-05:00'
+          example:
+            eventType: Impression
+            session:
+              sessionId: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
+            impressions:
+              - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                placement:
+                  page: Search-page
+                  location: listing-1
+              - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                placement:
+                  page: Search-page
+                  location: listing-2
 
     Impression:
       type: object
