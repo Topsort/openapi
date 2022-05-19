@@ -27,9 +27,6 @@ tags:
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auction Request
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
-
       ## Auction Request (Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
 
@@ -74,7 +71,14 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/AuctionRequest'
+                    discriminator:
+                      propertyName: type
+                      mapping:
+                        listings: '#/components/schemas/AuctionRequestSponsoredListings'
+                        banners: '#/components/schemas/AuctionRequestBanners'
+                    oneOf:
+                      - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
+                      - $ref: '#/components/schemas/AuctionRequestBanners'
                   minItems: 1
                   maxItems: 10
               required:
@@ -154,26 +158,6 @@ components:
             $ref: '#/components/schemas/TopsortError'
 
   schemas:
-    AuctionRequestBase:
-      type: object
-      required:
-        - type
-        - slots
-      discriminator:
-        propertyName: type
-      properties:
-        type:
-          type: string
-          enum:
-            - listings
-            - banners
-          description: Discriminator for the type of auction.
-        slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
-
     Category:
       type: object
       description: An object describing the category of the bids that will participate in an auction.
@@ -195,15 +179,19 @@ components:
           type: string
 
     AuctionRequestSponsoredListings:
-      # TODO: add back searchQuery when supported
-      description: >
-        Describes the intent of running a sponsored listings auction.
-        At least one of the following fields must be set: category,
-        products.
       allOf:
-        - $ref: '#/components/schemas/AuctionRequestBase'
+        - $ref: "#/components/schemas/AuctionRequest"
         - type: object
+          # TODO: add back searchQuery to description when supported
+          description: >
+            Describes the intent of running a sponsored listings auction.
+            At least one of the following fields must be set: category,
+            products.
           properties:
+            type:
+              type: string
+              enum:
+                - listings
             # category:
             #   $ref: '#/components/schemas/Category'
             # searchQuery:
@@ -219,27 +207,30 @@ components:
               $ref: '#/components/schemas/GeoTargeting'
           required:
             - products
-      example:
-        type: listings
-        slots: 2
-        products:
-          - productId: p_PJbnN
-          - productId: p_ojng4
-          - productId: p_8VKDt
-          - productId: p_Mfk15
-        # category:
-        #   id: c_yogurt
-        # searchQuery: Noosa Peach
-        geoTargeting:
-          location: New York
+          example:
+            type: listings
+            slots: 2
+            products:
+              - productId: p_PJbnN
+              - productId: p_ojng4
+              - productId: p_8VKDt
+              - productId: p_Mfk15
+            # category:
+            #   id: c_yogurt
+            # searchQuery: Noosa Peach
+            geoTargeting:
+              location: New York
 
     AuctionRequestBanners:
-      type: object
-      description: Describes the intent of running a banner ads auction.
       allOf:
-        - $ref: '#/components/schemas/AuctionRequestBase'
+        - $ref: "#/components/schemas/AuctionRequest"
         - type: object
+          description: Describes the intent of running a banner ads auction.
           properties:
+            type:
+              type: string
+              enum:
+                - banners
             category:
               $ref: '#/components/schemas/Category'
             # searchQuery:
@@ -253,24 +244,30 @@ components:
                 The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
           required:
             - aspectRatio
-      example:
-        type: banners
-        slots: 1
-        aspectRatio: '4:1'
-        category:
-          id: c_yogurt
-        # searchQuery: Noosa Peach
+          example:
+            type: banners
+            slots: 1
+            aspectRatio: '4:1'
+            category:
+              id: c_yogurt
+            # searchQuery: Noosa Peach
 
     AuctionRequest:
       description: Describes the intent of running a single auction.
-      oneOf:
-        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-        - $ref: '#/components/schemas/AuctionRequestBanners'
-      discriminator:
-        propertyName: type
-        mapping:
-          listings: '#/components/schemas/AuctionRequestSponsoredListings'
-          banners: '#/components/schemas/AuctionRequestBanners'
+      x-extendedDiscriminator: type
+      type: object
+      required:
+        - type
+        - slots
+      properties:
+        type:
+          type: string
+          description: Discriminator for the type of auction.
+        slots:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Specifies the maximum number of auction winners that should be returned.
 
     Auction:
       type: object
