@@ -29,9 +29,6 @@ tags:
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auction Request (Full Definition)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
-
       ## Auction Request (General Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestGeneralBanners" />
 
