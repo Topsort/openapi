@@ -559,9 +559,11 @@ components:
       properties:
         impressionId:
           type: string
+          description: Topsort assigned ID for the impression.
           example: 70ed4d78-34aa-42c7-b6e2-6a670568b6e3
         id:
           type: string
+          description: Marketplace ID for the impression, if provided.
           example: 234f678-f90c
       required:
         - impressionId
@@ -571,6 +573,7 @@ components:
       properties:
         impressions:
           type: array
+          description: The collection of all impressions that were processed correctly.
           items:
             $ref: '#/components/schemas/ImpressionResponse'
       example:
@@ -584,9 +587,11 @@ components:
       properties:
         clickId:
           type: string
+          description: Topsort assigned ID for the click.
           example: 00b55a66-a221-4cdd-8c76-8e422558f1c3
         id:
           type: string
+          description: Marketplace ID for the click, if provided.
           example: 234f678-f90c
       required:
         - clickId
@@ -596,13 +601,15 @@ components:
       properties:
         purchaseId:
           type: string
+          description: Topsort assigned ID for the purchase.
           example: 3f15c9a5-5129-4359-b39c-099e273afe66
         id:
           type: string
+          description: Marketplace ID for the purchase, if provided.
           example: 234f678-f90c
       required:
         - purchaseId
-    
+
     ListingsSlots:
       description:
         'The Slots object specifies how many auctions winners should be
