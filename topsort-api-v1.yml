@@ -53,9 +53,6 @@ tags:
       ## Click Response
       <SchemaDefinition schemaRef="#/components/schemas/ClickResponse" />
 
-      ## Event
-      <SchemaDefinition schemaRef="#/components/schemas/Event" />
-
       ## Impression
       <SchemaDefinition schemaRef="#/components/schemas/Impression" />
 
@@ -145,12 +142,6 @@ paths:
                 - $ref: '#/components/schemas/ImpressionEvent'
                 - $ref: '#/components/schemas/ClickEvent'
                 - $ref: '#/components/schemas/PurchaseEvent'
-              discriminator:
-                propertyName: eventType
-                mapping:
-                  Impression: '#/components/schemas/ImpressionEvent'
-                  Click: '#/components/schemas/ClickEvent'
-                  Purchase: '#/components/schemas/PurchaseEvent'
         required: true
       responses:
         200:
@@ -372,24 +363,6 @@ components:
         #   type: string
         #   example: cid_86hkz2p3171joer80pdkltu7n
 
-    Event:
-      type: object
-      required:
-        - session
-        - eventType
-      discriminator:
-        propertyName: eventType
-      properties:
-        eventType:
-          type: string
-          enum:
-            - Impression
-            - Click
-            - Purchase
-          description: Discriminator for the type of event.
-        session:
-          $ref: '#/components/schemas/Session'
-
     Placement:
       type: object
       required:
@@ -406,34 +379,41 @@ components:
 
     ClickEvent:
       description: ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort charges the vendor and pays the marketplace for clicks on impressions in promoted placements on the e-commerce site.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - placement
-          properties:
-            placement:
-              $ref: '#/components/schemas/Placement'
-            productId:
-              type: string
-              description: The product that was clicked.
-              example: p_SA0238
-            auctionId:
-              type: string
-              description: Required for promoted products. Must be the ID for the auction the product won.
-              example: AKFU78
-            id:
-              type: string
-              description: The marketplace's unique ID for the click.
-              example: 234f678-f90c
-            occurredAt:
-              type: string
-              format: date-time
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2009-01-01T12:59:59-05:00'
-            resolvedBidId:
-              type: string
-              example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+      type: object
+      required:
+        - eventType
+        - session
+        - placement
+      properties:
+        eventType:
+          type: string
+          description: Discriminator for the type of event.
+          enum:
+            - Click
+        session:
+          $ref: '#/components/schemas/Session'
+        placement:
+          $ref: '#/components/schemas/Placement'
+        productId:
+          type: string
+          description: The product that was clicked.
+          example: p_SA0238
+        auctionId:
+          type: string
+          description: Required for promoted products. Must be the ID for the auction the product won.
+          example: AKFU78
+        id:
+          type: string
+          description: The marketplace's unique ID for the click.
+          example: 234f678-f90c
+        occurredAt:
+          type: string
+          format: date-time
+          description: RFC3339 formatted timestamp including UTC offset
+          example: '2009-01-01T12:59:59-05:00'
+        resolvedBidId:
+          type: string
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
       example:
         eventType: Click
         session:
@@ -444,33 +424,43 @@ components:
         resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
 
     ImpressionEvent:
-      description: A product has become visible to the consumer. In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results. It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - impressions
-          properties:
-            impressions:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/Impression'
-              example:
-                - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                  id: 234f678-f90c
-                  placement:
-                    page: Search-page
-                    location: listing-1
-                - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                  placement:
-                    page: Search-page
-                    location: listing-2
-            occurredAt:
-              type: string
-              format: date-time
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2022-01-23T12:34:56-05:00'
+      description: >
+        A product has become visible to the consumer.
+        In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results.
+        It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
+      type: object
+      required:
+        - eventType
+        - session
+        - impressions
+      properties:
+        eventType:
+          type: string
+          description: Discriminator for the type of event.
+          enum:
+            - Impression
+        session:
+          $ref: '#/components/schemas/Session'
+        impressions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Impression'
+          example:
+            - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              id: 234f678-f90c
+              placement:
+                page: Search-page
+                location: listing-1
+            - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              placement:
+                page: Search-page
+                location: listing-2
+        occurredAt:
+          type: string
+          format: date-time
+          description: RFC3339 formatted timestamp including UTC offset
+          example: '2022-01-23T12:34:56-05:00'
 
     Impression:
       type: object
@@ -497,29 +487,36 @@ components:
 
     PurchaseEvent:
       description: The consumer has purchased some products.
-      allOf:
-        - $ref: '#/components/schemas/Event'
-        - type: object
-          required:
-            - id
-            - purchasedAt
-            - items
-          properties:
-            id:
-              type: string
-              description: The marketplace assigned ID for the order.
-              example: o:567-123
-            purchasedAt:
-              type: string
-              description: RFC3339 formatted timestamp including UTC offset
-              example: '2021-10-12T07:20:50.52Z'
-              format: date-time
-            items:
-              type: array
-              description: Items purchased.
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/PurchaseItem'
+      type: object
+      required:
+        - eventType
+        - session
+        - id
+        - purchasedAt
+        - items
+      properties:
+        eventType:
+          type: string
+          description: Discriminator for the type of event.
+          enum:
+            - Purchase
+        session:
+          $ref: '#/components/schemas/Session'
+        id:
+          type: string
+          description: The marketplace assigned ID for the order.
+          example: o:567-123
+        purchasedAt:
+          type: string
+          description: RFC3339 formatted timestamp including UTC offset
+          example: '2021-10-12T07:20:50.52Z'
+          format: date-time
+        items:
+          type: array
+          description: Items purchased.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/PurchaseItem'
 
     PurchaseItem:
       type: object
