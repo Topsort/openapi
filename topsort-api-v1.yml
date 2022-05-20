@@ -105,26 +105,7 @@ paths:
         content:
           application/json:
             schema:
-              anyOf:
-                - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-                - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
-                - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
-              example:
-                slots:
-                  listings: 2
-                  bannerAds: 1
-                products:
-                  - productId: p_SA0238
-                    quality: 0.75
-                  - productId: p_SA0250
-                    quality: 0.9
-                  - productId: p_SA0259
-                    quality: 0.7
-                vendors:
-                  - vendorId: v_SA0362
-                  - vendorId: v_SA0056
-                bannerOptions:
-                  placement: Category-page
+              $ref: '#/components/schemas/AuctionRequest'
         required: true
       responses:
         201:
@@ -194,6 +175,28 @@ components:
             $ref: '#/components/schemas/TopsortError'
 
   schemas:
+    AuctionRequest:
+      anyOf:
+        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
+        - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
+        - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
+      example:
+        slots:
+          listings: 2
+          bannerAds: 1
+        products:
+          - productId: p_SA0238
+            quality: 0.75
+          - productId: p_SA0250
+            quality: 0.9
+          - productId: p_SA0259
+            quality: 0.7
+        vendors:
+          - vendorId: v_SA0362
+          - vendorId: v_SA0056
+        bannerOptions:
+          placement: Category-page
+
     AuctionRequestSponsoredListings:
       type: object
       required:
