@@ -130,10 +130,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
-                - $ref: '#/components/schemas/ImpressionEvent'
-                - $ref: '#/components/schemas/ClickEvent'
-                - $ref: '#/components/schemas/PurchaseEvent'
+              $ref: "#/components/schemas/Event"
         required: true
       responses:
         200:
@@ -538,6 +535,12 @@ components:
         productId: p_SA0238
         unitPrice: 1295
         resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+
+    Event:
+      oneOf:
+        - $ref: '#/components/schemas/ImpressionEvent'
+        - $ref: '#/components/schemas/ClickEvent'
+        - $ref: '#/components/schemas/PurchaseEvent'
 
     ImpressionResponse:
       type: object
