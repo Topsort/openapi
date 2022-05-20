@@ -29,9 +29,6 @@ tags:
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auction Request (Full Definition)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
-
       ## Auction Request (General Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestGeneralBanners" />
 
@@ -43,9 +40,6 @@ tags:
 
       ## Banner Options
       <SchemaDefinition schemaRef="#/components/schemas/BannerOptions" />
-
-      ## Banners Slots
-      <SchemaDefinition schemaRef="#/components/schemas/BannersSlots" />
 
       ## Click Event
       <SchemaDefinition schemaRef="#/components/schemas/ClickEvent" />
@@ -64,9 +58,6 @@ tags:
 
       ## Impressions Response
       <SchemaDefinition schemaRef="#/components/schemas/ImpressionsResponse" />
-
-      ## Listings Slots
-      <SchemaDefinition schemaRef="#/components/schemas/ListingsSlots" />
 
       ## Placement
       <SchemaDefinition schemaRef="#/components/schemas/Placement" />
@@ -110,10 +101,30 @@ paths:
           The information describing what will be auctioned.
           Topsort will run an auction for each slot type, for which products and/or vendors' bids will compete against each other.
           The products and vendors that will participate are also included in the request.
+          Multiple different slot types may be combined into a single request.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuctionRequest'
+              anyOf:
+                - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
+                - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
+                - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
+              example:
+                slots:
+                  listings: 2
+                  bannerAds: 1
+                products:
+                  - productId: p_SA0238
+                    quality: 0.75
+                  - productId: p_SA0250
+                    quality: 0.9
+                  - productId: p_SA0259
+                    quality: 0.7
+                vendors:
+                  - vendorId: v_SA0362
+                  - vendorId: v_SA0056
+                bannerOptions:
+                  placement: Category-page
         required: true
       responses:
         201:
@@ -183,32 +194,6 @@ components:
             $ref: '#/components/schemas/TopsortError'
 
   schemas:
-    AuctionRequest:
-      description: >
-        Multiple different slot types may be combined into a single request.
-
-      type: object
-      anyOf:
-        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-        - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
-        - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
-      example:
-        slots:
-          listings: 2
-          bannerAds: 1
-        products:
-          - productId: p_SA0238
-            quality: 0.75
-          - productId: p_SA0250
-            quality: 0.9
-          - productId: p_SA0259
-            quality: 0.7
-        vendors:
-          - vendorId: v_SA0362
-          - vendorId: v_SA0056
-        bannerOptions:
-          placement: Category-page
-
     AuctionRequestSponsoredListings:
       type: object
       required:
