@@ -77,24 +77,25 @@ paths:
               required:
                 - auctions
               example:
-                - type: listings
-                  slots: 2
-                  products:
-                    - productId: p_PJbnN
-                    - productId: p_ojng4
-                    - productId: p_8VKDt
-                    - productId: p_Mfk15
-                  # category:
-                  #   id: c_yogurt
-                  # searchQuery: Noosa Peach
-                  geoTargeting:
-                    location: New York
-                - type: banners
-                  slots: 1
-                  aspectRatio: '4:1'
-                  category:
-                    id: c_yogurt
-                  # searchQuery: Noosa Peach
+                auctions:
+                  - type: listings
+                    slots: 2
+                    products:
+                      - productId: p_PJbnN
+                      - productId: p_ojng4
+                      - productId: p_8VKDt
+                      - productId: p_Mfk15
+                    # category:
+                    #   id: c_yogurt
+                    # searchQuery: Noosa Peach
+                    geoTargeting:
+                      location: New York
+                  - type: banners
+                    slots: 1
+                    aspectRatio: '4:1'
+                    category:
+                      id: c_yogurt
+                    # searchQuery: Noosa Peach
         required: true
       responses:
         201:
