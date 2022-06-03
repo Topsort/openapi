@@ -170,6 +170,7 @@ components:
         - location
       properties:
         location:
+          description: The location this banner is being run for.
           type: string
 
     AuctionRequestSponsoredListings:

@@ -200,6 +200,8 @@ components:
             $ref: '#/components/schemas/Product'
         session:
           $ref: '#/components/schemas/Session'
+        geoTargeting:
+          $ref: '#/components/schemas/GeoTargeting'
 
     AuctionRequestGeneralBanners:
       type: object
@@ -262,6 +264,16 @@ components:
                   description:
                     'Array of winner objects in order from highest to lowest bid.
                     May be empty if there were no qualifying bids.'
+
+    GeoTargeting:
+      type: object
+      description: An object describing geographical information associated with this auction.
+      required:
+        - location
+      properties:
+        location:
+          description: The location this banner is being run for.
+          type: string
 
     Winner:
       type: object
