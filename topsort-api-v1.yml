@@ -47,6 +47,9 @@ tags:
       ## Click Response
       <SchemaDefinition schemaRef="#/components/schemas/ClickResponse" />
 
+      ## GeoTargeting
+      <SchemaDefinition schemaRef="#/components/schemas/GeoTargeting" />
+
       ## Impression
       <SchemaDefinition schemaRef="#/components/schemas/Impression" />
 
