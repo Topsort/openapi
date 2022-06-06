@@ -286,10 +286,11 @@ components:
       properties:
         rank:
           type: integer
-          description: "Where the product's bid ranked in the auction.
-            Zero-based, so the product with rank 0 won the auction and had the highest bid.
-            In an auction response, the winners array is sorted so rank will match the entry's index"
-          minimum: 0
+          description: >
+            Where the product's bid ranked in the auction.
+            One-based, so the product with rank 1 won the auction.
+            In an auction response, the winners array is sorted so rank will match the entry's index.
+          minimum: 1
         productId:
           type: string
           description: The marketplace's ID for the product. It will match the ID for a product in the request's products array.
