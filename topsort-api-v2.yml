@@ -73,7 +73,7 @@ paths:
                   items:
                     $ref: '#/components/schemas/AuctionRequest'
                   minItems: 1
-                  maxItems: 10
+                  maxItems: 5
               required:
                 - auctions
               example:
@@ -115,7 +115,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Auction'
                     minItems: 1
-                    maxItems: 10
+                    maxItems: 5
                 required:
                   - results
                 example:
