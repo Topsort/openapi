@@ -135,7 +135,11 @@ paths:
                           winnerType: product
                           winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
-                          assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN.png
+                          assets:
+                            - factor: 1x
+                              url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+                            - factor: 2x
+                              url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-2x.png
                       error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
@@ -323,12 +327,26 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-        assetUrl:
-          type: string
-          format: uri
-          description: >
-            The vendor defined asset that the marketplace has to use as a banner.
-            The asset will be served by Topsort's CDN.
+        assets:
+          description: The set of available assets (scaling factors) for a banner or video.
+          type: array
+          items:
+            type: object
+            properties:
+              factor:
+                type: string
+                description: The scaling factor of this source.
+                example: 1x
+              url:
+                type: string
+                format: uri
+                description: >
+                  The vendor defined asset that the marketplace has to use as a banner.
+                  The asset will be served by Topsort's CDN.
+            required: 
+              - factor
+              - url
+          minLength: 1
 
     Product:
       required:
