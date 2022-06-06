@@ -343,7 +343,7 @@ components:
                 description: >
                   The vendor defined asset that the marketplace has to use as a banner.
                   The asset will be served by Topsort's CDN.
-            required: 
+            required:
               - factor
               - url
           minLength: 1
