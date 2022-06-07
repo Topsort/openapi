@@ -24,6 +24,9 @@ tags:
   - name: Models
     x-displayName: All Models
     description: |
+      ## AssetSources
+      <SchemaDefinition schemaRef="#/components/schemas/AssetSources" />
+
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
@@ -297,6 +300,54 @@ components:
         - winners
         - error
 
+    # Dimensions:
+    #   type: object
+    #   description: The dimensions of this source.
+    #   properties:
+    #     width:
+    #       type: integer
+    #       format: int32
+    #       description: The source width in pixels.
+    #       minimum: 1
+    #     height:
+    #       type: integer
+    #       format: int32
+    #       description: The source height in pixels.
+    #       minimum: 1
+    #   required:
+    #     - width
+    #     - height
+
+    AssetSources:
+      description: The list of available sources for an asset (banner or video).
+      type: array
+      items:
+        type: object
+        properties:
+          # mimeType:
+          #   type: string
+          #   description: The MIME type of this source.
+          #   example: image/png
+          # dimensions:
+          #   $ref: '#/components/schemas/Dimensions'
+          # fileSize:
+          #   type: integer
+          #   format: int32
+          #   description: The file size in bytes.
+          #   example: 238490
+          url:
+            type: string
+            format: uri
+            description: >
+              A vendor provided asset that the marketplace has to use as a banner.
+              The asset will be served by Topsort's CDN.
+        required:
+          # - mimeType
+          # - dimensions
+          # - fileSize
+          - url
+      minLength: 1
+
     Winner:
       type: object
       required:
@@ -327,26 +378,8 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-        assets:
-          description: The set of available assets (scaling factors) for a banner or video.
-          type: array
-          items:
-            type: object
-            properties:
-              factor:
-                type: string
-                description: The scaling factor of this source.
-                example: 1x
-              url:
-                type: string
-                format: uri
-                description: >
-                  The vendor defined asset that the marketplace has to use as a banner.
-                  The asset will be served by Topsort's CDN.
-            required:
-              - factor
-              - url
-          minLength: 1
+        asset:
+          $ref: '#/components/schemas/AssetSources'
 
     Product:
       required:
