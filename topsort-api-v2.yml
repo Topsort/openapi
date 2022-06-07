@@ -138,11 +138,8 @@ paths:
                           winnerType: product
                           winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
-                          assets:
-                            - factor: 1x
-                              url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
-                            - factor: 2x
-                              url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-2x.png
+                          asset:
+                            - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
                       error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
