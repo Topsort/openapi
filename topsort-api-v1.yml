@@ -47,7 +47,10 @@ tags:
       ## Click Response
       <SchemaDefinition schemaRef="#/components/schemas/ClickResponse" />
 
-      ## GeoTargeting
+      ## Error
+      <SchemaDefinition schemaRef="#/components/schemas/Error" />
+
+      ## Geotargeting
       <SchemaDefinition schemaRef="#/components/schemas/GeoTargeting" />
 
       ## Impression
@@ -76,9 +79,6 @@ tags:
 
       ## Session
       <SchemaDefinition schemaRef="#/components/schemas/Session" />
-
-      ## Topsort Error
-      <SchemaDefinition schemaRef="#/components/schemas/TopsortError" />
 
       ## Vendor
       <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
@@ -163,7 +163,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TopsortError'
+            $ref: '#/components/schemas/Error'
 
   schemas:
     AuctionRequest:
@@ -651,7 +651,7 @@ components:
             - Category-page
             - Search-page
 
-    TopsortError:
+    Error:
       type: object
       required:
         - errCode
@@ -660,6 +660,7 @@ components:
           type: string
           enum:
             - bad_request
+            - empty_request
             - internal_server_error
             - invalid_api_key
             - invalid_auction_id
@@ -674,10 +675,12 @@ components:
             - missing_slots
             - no_products
             - no_purchase_items
+            - purchase_item_quantity_less_or_equal_than_zero
+            - resolved_bid_id_not_found
             - too_few_impressions
             - too_few_slots
         docUrl:
-          enum: ['https://topsort-api.redoc.ly']
+          enum: ['https://docs.topsort.com/reference/errors']
         message:
           type: string
 
