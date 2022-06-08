@@ -658,6 +658,7 @@ components:
       properties:
         errCode:
           type: string
+          description: A short string uniquely identifying the problem.
           enum:
             - bad_request
             - empty_request
@@ -680,9 +681,14 @@ components:
             - too_few_impressions
             - too_few_slots
         docUrl:
-          enum: ['https://docs.topsort.com/reference/errors']
+          type: string
+          description: A link to a documentation page providing more information about the error.
+          example: https://docs.topsort.com/reference/errors
         message:
           type: string
+          description: >
+            Human-readable explanation of or details about the error.
+            The string for a given error may change over time; code should not parse or dispatch based on particular values for this field.
 
   securitySchemes:
     BearerAuth:
