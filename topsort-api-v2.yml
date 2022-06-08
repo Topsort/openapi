@@ -373,6 +373,7 @@ components:
             - too_many_auctions
         docUrl:
           type: string
+          format: uri
           description: A link to a documentation page providing more information about the error.
           example: https://docs.topsort.com/reference/errors
         message:
