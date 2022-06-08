@@ -129,12 +129,14 @@ paths:
                           winnerType: product
                           winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                      error: false
                     - winners:
                         - rank: 1
                           winnerType: product
                           winnerId: p_PJbnN
                           resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
                           assetUrl: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN.png
+                      error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
@@ -277,11 +279,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Winner'
-          description:
-            'Array of winner objects in order from highest to lowest bid.
-            May be empty if there were no qualifying bids.'
+          description: >
+            Array of winner objects in order from highest to lowest bid.
+            It will be empty if there were no qualifying bids or if there was an error.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
       required:
         - winners
+        - error
 
     Winner:
       type: object
