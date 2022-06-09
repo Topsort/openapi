@@ -141,11 +141,15 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
 
 components:
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
+    PaymentRequired:
+      description: A monthly invoice has been issued and payment is late
     BadRequest:
       description: HTTP status codes as registered with IANA.
       content:
