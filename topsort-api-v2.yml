@@ -24,8 +24,8 @@ tags:
   - name: Models
     x-displayName: All Models
     description: |
-      ## AssetSources
-      <SchemaDefinition schemaRef="#/components/schemas/AssetSources" />
+      ## AssetSource
+      <SchemaDefinition schemaRef="#/components/schemas/AssetSource" />
 
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
@@ -315,35 +315,32 @@ components:
     #     - width
     #     - height
 
-    AssetSources:
-      description: The list of available sources for an asset (banner or video).
-      type: array
-      items:
-        type: object
-        properties:
-          # mimeType:
-          #   type: string
-          #   description: The MIME type of this source.
-          #   example: image/png
-          # dimensions:
-          #   $ref: '#/components/schemas/Dimensions'
-          # fileSize:
-          #   type: integer
-          #   format: int32
-          #   description: The file size in bytes.
-          #   example: 238490
-          url:
-            type: string
-            format: uri
-            description: >
-              A vendor provided asset that the marketplace has to use as a banner.
-              The asset will be served by Topsort's CDN.
-        required:
-          # - mimeType
-          # - dimensions
-          # - fileSize
-          - url
-      minLength: 1
+    AssetSource:
+      description: A source available for an asset (banner or video).
+      type: object
+      properties:
+        # mimeType:
+        #   type: string
+        #   description: The MIME type of this source.
+        #   example: image/png
+        # dimensions:
+        #   $ref: '#/components/schemas/Dimensions'
+        # fileSize:
+        #   type: integer
+        #   format: int32
+        #   description: The file size in bytes.
+        #   example: 238490
+        url:
+          type: string
+          format: uri
+          description: >
+            A vendor provided asset that the marketplace has to use as a banner.
+            The asset will be served by Topsort's CDN.
+      required:
+        # - mimeType
+        # - dimensions
+        # - fileSize
+        - url
 
     Winner:
       type: object
@@ -376,7 +373,11 @@ components:
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         asset:
-          $ref: '#/components/schemas/AssetSources'
+          description: The list of available sources for an asset (banner or video).
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetSource'
+          minLength: 1
 
     Product:
       required:
