@@ -1,0 +1,661 @@
+openapi: 3.0.2
+info:
+  title: Catalog API
+  version: 0.1.1
+paths:
+  /catalog/categories:
+    get:
+      tags:
+        - Categories API
+      summary: List Categories
+      operationId: list_categories
+      responses:
+        '200':
+          description: The paginated list of categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryPage'
+  /catalog/categories/{categoryId}:
+    post:
+      tags:
+        - Categories API
+      summary: Create Category
+      operationId: create_category
+      parameters:
+        - required: true
+          schema:
+            title: Category ID
+            description: The ID of the category to create.
+            type: string
+          name: categoryId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      responses:
+        '200':
+          description: The newly created category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '409':
+          description: A category with the provided ID already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPConflictError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    get:
+      tags:
+        - Categories API
+      summary: Get Category
+      operationId: get_category_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Category ID
+            description: The ID of the category to fetch.
+            type: string
+          name: categoryId
+          in: path
+      responses:
+        '200':
+          description: The requested category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: No category exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+      security:
+        - HTTPBearer: []
+    patch:
+      tags:
+        - Categories API
+      summary: Update Category
+      operationId: update_category_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Category ID
+            description: The ID of the category to update.
+            type: string
+          name: categoryId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      responses:
+        '200':
+          description: The newly updated category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: No category exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    delete:
+      tags:
+        - Categories API
+      summary: Delete Category
+      operationId: delete_category_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Category ID
+            description: The ID of the category to delete.
+            type: string
+          name: categoryId
+          in: path
+      responses:
+        '204':
+          description: The category with the provided ID was deleted.
+        '404':
+          description: No category exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        '409':
+          description: The category with the provided ID is associated to one or more products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPConflictError'
+      security:
+        - HTTPBearer: []
+  /catalog/products:
+    get:
+      tags:
+        - Products API
+      summary: List Products
+      operationId: list_products
+      responses:
+        '200':
+          description: The paginated list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPage'
+  /catalog/products/{productId}:
+    post:
+      tags:
+        - Products API
+      summary: Create Product
+      operationId: create_product
+      parameters:
+        - required: true
+          schema:
+            title: Product ID
+            description: The ID of the product to create.
+            type: string
+          name: productId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: The newly created product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '409':
+          description: A product with the provided ID already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPConflictError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    get:
+      tags:
+        - Products API
+      summary: Get Product
+      operationId: get_product_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Product ID
+            description: The ID of the product to fetch.
+            type: string
+          name: productId
+          in: path
+      responses:
+        '200':
+          description: The requested product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: No product exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+      security:
+        - HTTPBearer: []
+    patch:
+      tags:
+        - Products API
+      summary: Update Product
+      operationId: update_product_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Product ID
+            description: The ID of the product to update.
+            type: string
+          name: productId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: The newly updated product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: No product exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    delete:
+      tags:
+        - Products API
+      summary: Delete Product
+      operationId: delete_product_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Product ID
+            description: The ID of the product to delete.
+            type: string
+          name: productId
+          in: path
+      responses:
+        '204':
+          description: The product with the provided ID was deleted.
+        '404':
+          description: No product exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+      security:
+        - HTTPBearer: []
+  /catalog/vendors:
+    get:
+      tags:
+        - Vendors API
+      summary: List Vendors
+      operationId: list_vendors
+      responses:
+        '200':
+          description: The paginated list of vendors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorPage'
+  /catalog/vendors/{vendorId}:
+    post:
+      tags:
+        - Vendors API
+      summary: Create Vendor
+      operationId: create_vendor
+      parameters:
+        - required: true
+          schema:
+            title: Vendor ID
+            description: The ID of the vendor to create.
+            type: string
+          name: vendorId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+        required: true
+      responses:
+        '200':
+          description: The newly created vendor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '409':
+          description: A vendor with the provided ID already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPConflictError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    get:
+      tags:
+        - Vendors API
+      summary: Get Vendor
+      operationId: get_vendor_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Vendor ID
+            description: The ID of the vendor to fetch.
+            type: string
+          name: vendorId
+          in: path
+      responses:
+        '200':
+          description: The requested vendor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '404':
+          description: No vendor exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+      security:
+        - HTTPBearer: []
+    patch:
+      tags:
+        - Vendors API
+      summary: Update Vendor
+      operationId: update_vendor_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Vendor ID
+            description: The ID of the vendor to update.
+            type: string
+          name: vendorId
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+        required: true
+      responses:
+        '200':
+          description: The newly updated vendor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '404':
+          description: No vendor exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        '422':
+          description: Validation Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    delete:
+      tags:
+        - Vendors API
+      summary: Delete Vendor
+      operationId: delete_vendor_by_id
+      parameters:
+        - required: true
+          schema:
+            title: Vendor ID
+            description: The ID of the vendor to delete.
+            type: string
+          name: vendorId
+          in: path
+      responses:
+        '204':
+          description: The vendor with the provided ID was deleted.
+        '404':
+          description: No vendor exists with the provided ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        '409':
+          description: The vendor with the provided ID is associated to one or more products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPConflictError'
+      security:
+        - HTTPBearer: []
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          description: >
+            The category ID.
+            If there is no ID for categories in the marketplace,
+            this can be the category name as long as it is unique.
+          type: string
+          minLength: 1
+          example: ahEDqV5uhjj8
+        name:
+          description: The category name.
+          type: string
+          minLength: 1
+          example: Beers/Belgian
+        parentId:
+          description: >
+            The ID of the parent category.
+            This model assumes each category can at most one parent category.
+            In this example, `bneEmHKG2yUe` could be a reference to the `Beers` category.
+          type: string
+          minLength: 1
+          example: bneEmHKG2yUe
+      required:
+        - id
+        - name
+    CategoryPage:
+      title: Category page
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        response:
+          description: Array of categories.
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+      required:
+        - next
+        - response
+    Next:
+      type: object
+      nullable: true
+      example: null
+      properties:
+        offset:
+          title: Offset
+          description: How many items to skip from the beginning of the list.
+          type: integer
+          format: int32
+        limit:
+          title: Limit
+          description: How many items to return.
+          type: integer
+          format: int32
+          default: 100
+    Product:
+      type: object
+      properties:
+        id:
+          description: The product ID.
+          type: string
+          minLength: 1
+          example: eyGqR4YQgBJa
+          readOnly: true
+        name:
+          description: The product name.
+          type: string
+          minLength: 1
+          example: Delirium Tremens Beer Bottle 330cc x6
+        description:
+          description: The product description.
+          type: string
+          minLength: 1
+          example: >
+            Named as "Best Beer in the World" in 2008 at the World Beer Championships in Chicago, Illinois.
+        vendorIds:
+          description: The vendor IDs.
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minLength: 1
+          example:
+            - 9SiwYqqL8vdG
+        categoryIds:
+          description: The category IDs.
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minLength: 1
+          example:
+            - ahEDqV5uhjj8
+        imageUrl:
+          description: >
+            The product image URL.
+            Its size should be between 250x250 and 600x600 pixels.
+            This is recommended in case the Topsort UI will be used to manage campaigns.
+          type: string
+          format: uri
+          example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
+        price:
+          description: The product price in the configured currency.
+          type: number
+          format: double
+          minimum: 0.0
+          exclusiveMinimum: true
+          example: 18.99
+      required:
+        - id
+        - name
+        - vendorIds
+        - categoryIds
+    ProductPage:
+      title: Product page
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        response:
+          description: Array of products.
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+        - next
+        - response
+    Vendor:
+      title: Vendor
+      type: object
+      properties:
+        id:
+          description: >
+            The vendor ID.
+            If there is no ID for vendors in the marketplace,
+            this can be the vendor name as long as it is unique.
+          type: string
+          minLength: 1
+          example: 9SiwYqqL8vdG
+          readOnly: true
+        name:
+          description: The vendor name.
+          type: string
+          minLength: 1
+          example: Huyghe Brewery
+      required:
+        - id
+        - name
+    VendorPage:
+      title: Vendor page
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        response:
+          description: Array of vendors.
+          type: array
+          items:
+            $ref: '#/components/schemas/Vendor'
+      required:
+        - next
+        - response
+    HTTPConflictError:
+      title: HTTP Conflict Error
+      required:
+        - msg
+      type: object
+      properties:
+        msg:
+          title: Message
+          type: string
+          example: Conflicting operation.
+    HTTPNotFoundError:
+      title: HTTP Not Found Error
+      required:
+        - msg
+      type: object
+      properties:
+        msg:
+          title: Message
+          type: string
+    HTTPValidationError:
+      title: HTTP Validation Error
+      required:
+        - msg
+      type: object
+      properties:
+        msg:
+          title: Message
+          type: string
+          example: Entity not found.
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
+tags:
+  - name: Categories API
+    description: 'CRUD API to manage category entities'
+  - name: Products API
+    description: 'CRUD API to manage product entities'
+  - name: Vendors API
+    description: 'CRUD API to manage vendor entities'
