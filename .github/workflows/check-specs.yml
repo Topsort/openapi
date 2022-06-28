@@ -30,5 +30,8 @@ jobs:
       - name: Check Spec (Topsort Endpoints v2)
         run: openapi-generator-cli validate -i topsort-api-v2.yml
 
+      - name: Check Spec (Catalog CRUD API)
+        run: openapi-generator-cli validate -i catalog-crud-api.yml
+
       - name: Check Spec (Catalog Service)
         run: openapi-generator-cli validate -i topsort-catalog-service.yml
