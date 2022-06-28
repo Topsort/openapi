@@ -466,6 +466,7 @@ components:
           type: string
           minLength: 1
           example: ahEDqV5uhjj8
+          readOnly: true
         name:
           description: The category name.
           type: string
