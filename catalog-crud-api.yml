@@ -9,6 +9,9 @@ paths:
         - Categories API
       summary: List Categories
       operationId: list_categories
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: The paginated list of categories.
@@ -161,6 +164,9 @@ paths:
         - Products API
       summary: List Products
       operationId: list_products
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: The paginated list of products.
@@ -307,6 +313,9 @@ paths:
         - Vendors API
       summary: List Vendors
       operationId: list_vendors
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: The paginated list of vendors.
@@ -512,7 +521,6 @@ components:
           description: How many items to return.
           type: integer
           format: int32
-          default: 100
     Product:
       type: object
       properties:
@@ -653,6 +661,27 @@ components:
     HTTPBearer:
       type: http
       scheme: bearer
+  parameters:
+    offset:
+      in: query
+      name: Offset
+      schema:
+        type: integer
+        format: int32
+      description: >
+        An integer identifying how many items to skip from the beginning of the list of entities.
+        You may provide the value returned in the `next` field from the response of a previous page.
+        If not present, the first page will be returned.
+    limit:
+      in: query
+      name: Limit
+      schema:
+        type: integer
+        format: int32
+        maximum: 100
+      description: >
+        An integer identifying how many items will be returned starting from the `offset` item.
+        You may provide the value returned in the `next` field from the response of a previous page.
 tags:
   - name: Categories API
     description: 'CRUD API to manage category entities'
