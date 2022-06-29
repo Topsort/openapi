@@ -45,8 +45,8 @@ tags:
       ## Geotargeting
       <SchemaDefinition schemaRef="#/components/schemas/GeoTargeting" />
 
-      ## Product
-      <SchemaDefinition schemaRef="#/components/schemas/Product" />
+      ## Products
+      <SchemaDefinition schemaRef="#/components/schemas/Products" />
 
       ## Winner
       <SchemaDefinition schemaRef="#/components/schemas/Winner" />
@@ -207,11 +207,7 @@ components:
         #   type: string
         #   description: The search string provided by a user.
         products:
-          type: array
-          description: An array of objects, each describing a product that should participate in the auction.
-          items:
-            $ref: '#/components/schemas/Product'
-          minItems: 1
+          $ref: '#/components/schemas/Products'
         geoTargeting:
           $ref: '#/components/schemas/GeoTargeting'
       required:
@@ -379,17 +375,20 @@ components:
             $ref: '#/components/schemas/AssetSource'
           minLength: 1
 
-    Product:
+    Products:
       required:
-        - id
+        - ids
       type: object
       properties:
-        id:
-          type: string
-          description: >
-            The marketplace's ID of the product which will participate in the auction.
-            These ID must match those in the catalog integration with Topsort.
-          example: p_SA0238
+        ids:
+          type: array
+          description: An array of objects, each describing a product ID that should participate in the auction.
+          items:
+            type: string
+            description: >
+              The marketplace's ID of a product which will participate in the auction.
+              These ID must match those in the catalog integration with Topsort.
+            example: p_SA0238
 
     Error:
       type: object
