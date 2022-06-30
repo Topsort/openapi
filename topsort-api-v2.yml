@@ -84,10 +84,11 @@ paths:
                   - type: listings
                     slots: 2
                     products:
-                      - id: p_PJbnN
-                      - id: p_ojng4
-                      - id: p_8VKDt
-                      - id: p_Mfk15
+                      ids:
+                        - p_PJbnN
+                        - p_ojng4
+                        - p_8VKDt
+                        - p_Mfk15
                     # category:
                     #   id: c_yogurt
                     # searchQuery: Noosa Peach
@@ -218,10 +219,11 @@ components:
         type: listings
         slots: 2
         products:
-          - id: p_PJbnN
-          - id: p_ojng4
-          - id: p_8VKDt
-          - id: p_Mfk15
+          ids:
+            - p_PJbnN
+            - p_ojng4
+            - p_8VKDt
+            - p_Mfk15
         # category:
         #   id: c_yogurt
         # searchQuery: Noosa Peach
@@ -373,7 +375,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AssetSource'
-          minLength: 1
+          minItems: 1
 
     Products:
       required:
@@ -389,6 +391,10 @@ components:
               The marketplace's ID of a product which will participate in the auction.
               These ID must match those in the catalog integration with Topsort.
             example: p_SA0238
+            uniqueItems: true
+            minLength: 1
+          minItems: 1
+          maxItems: 10000
 
     Error:
       type: object
