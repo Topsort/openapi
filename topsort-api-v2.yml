@@ -89,9 +89,6 @@ paths:
                         - p_ojng4
                         - p_8VKDt
                         - p_Mfk15
-                    # category:
-                    #   id: c_yogurt
-                    # searchQuery: Noosa Peach
                     geoTargeting:
                       location: New York
                   - type: banners
@@ -99,7 +96,10 @@ paths:
                     aspectRatio: '4:1'
                     category:
                       id: c_yogurt
-                    # searchQuery: Noosa Peach
+                  - type: banners
+                    slots: 1
+                    aspectRatio: '3:2'
+                    searchQuery: Noosa Peach
         required: true
       responses:
         201:
@@ -194,7 +194,7 @@ components:
 
     AuctionRequestSponsoredListings:
       type: object
-      # TODO: add back searchQuery to description when supported
+      # TODO: add back category and searchQuery to description when supported
       description: >
         Describes the intent of running a sponsored listings auction.
         At least one of the following fields must be set: category,
@@ -240,7 +240,9 @@ components:
 
     AuctionRequestBanners:
       type: object
-      description: Describes the intent of running a banner ads auction.
+      description: >
+        Describes the intent of running a banner ads auction.
+        Only one field between category and searchQuery must be provided.
       properties:
         type:
           type: string
@@ -254,9 +256,9 @@ components:
           description: Specifies the maximum number of auction winners that should be returned.
         category:
           $ref: '#/components/schemas/Category'
-        # searchQuery:
-        #   type: string
-        #   description: The search string provided by a user.
+        searchQuery:
+          type: string
+          description: The search string provided by a user.
         device:
           $ref: '#/components/schemas/Device'
         aspectRatio:
@@ -275,7 +277,6 @@ components:
         aspectRatio: '4:1'
         category:
           id: c_yogurt
-        # searchQuery: Noosa Peach
 
     AuctionRequest:
       description: Describes the intent of running a single auction.
