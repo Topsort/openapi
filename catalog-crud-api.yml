@@ -490,23 +490,23 @@ components:
   parameters:
     offset:
       in: query
-      name: Offset
+      name: offset
       schema:
         type: integer
         format: int32
       description: >
-        An integer identifying how many items to skip from the beginning of the list of entities.
+        An integer indicating how many items to skip from the beginning of the list of entities.
         You may provide the value returned in the `next` field from the response of a previous page.
-        If not present, the first page will be returned.
+        If not present, values will be returned from the start.
     limit:
       in: query
-      name: Limit
+      name: limit
       schema:
         type: integer
         format: int32
         maximum: 100
       description: >
-        An integer identifying how many items will be returned starting from the `offset` item.
+        An integer indicating how many items will be returned taking the `offset` into account.
         You may provide the value returned in the `next` field from the response of a previous page.
 tags:
   - name: Categories API
