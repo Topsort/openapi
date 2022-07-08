@@ -19,39 +19,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryPage'
-  /catalog/categories/{categoryId}:
-    post:
+    put:
       tags:
         - Categories API
-      summary: Create Category
-      operationId: create_category
-      parameters:
-        - required: true
-          schema:
-            title: Category ID
-            description: The ID of the category to create.
-            type: string
-          name: categoryId
-          in: path
+      summary: Upsert Categories
+      description: >
+        Creates the categories passed in the body.
+        If a category with the same ID already exists, the new content will completely replace the previous contents
+        (i.e. the result is the same as deleting any categories with the IDs that were passed in the request and then creating them from scratch).
+      operationId: upsert_categories
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Category'
+              $ref: '#/components/schemas/Categories'
         required: true
       responses:
-        '200':
-          description: The newly created category.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Category'
-        '409':
-          description: A category with the provided ID already exists.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPConflictError'
+        '204':
+          description: The categories were stored successfully.
         '422':
           description: Validation Error.
           content:
@@ -60,6 +45,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
         - HTTPBearer: []
+    delete:
+      tags:
+        - Categories API
+      summary: Delete Categories
+      operationId: delete_categories_by_id
+      responses:
+        '204':
+          description: The categories with provided IDs were deleted.
+        '404':
+          description: One or more provided category IDs were not present.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+        # '409':
+        #   description: One or more provided category IDs are associated to one or more products.
+        #   content:
+        #     application/json:
+        #       schema:
+        #         $ref: '#/components/schemas/HTTPConflictError'
+      security:
+        - HTTPBearer: []
+  /catalog/categories/{categoryId}:
     get:
       tags:
         - Categories API
@@ -88,76 +96,6 @@ paths:
                 $ref: '#/components/schemas/HTTPNotFoundError'
       security:
         - HTTPBearer: []
-    patch:
-      tags:
-        - Categories API
-      summary: Update Category
-      operationId: update_category_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Category ID
-            description: The ID of the category to update.
-            type: string
-          name: categoryId
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Category'
-        required: true
-      responses:
-        '200':
-          description: The newly updated category.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Category'
-        '404':
-          description: No category exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-        '422':
-          description: Validation Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBearer: []
-    delete:
-      tags:
-        - Categories API
-      summary: Delete Category
-      operationId: delete_category_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Category ID
-            description: The ID of the category to delete.
-            type: string
-          name: categoryId
-          in: path
-      responses:
-        '204':
-          description: The category with the provided ID was deleted.
-        '404':
-          description: No category exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-        '409':
-          description: The category with the provided ID is associated to one or more products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPConflictError'
-      security:
-        - HTTPBearer: []
   /catalog/products:
     get:
       tags:
@@ -174,39 +112,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductPage'
-  /catalog/products/{productId}:
-    post:
+    put:
       tags:
         - Products API
-      summary: Create Product
-      operationId: create_product
-      parameters:
-        - required: true
-          schema:
-            title: Product ID
-            description: The ID of the product to create.
-            type: string
-          name: productId
-          in: path
+      summary: Upsert Products
+      description: >
+        Creates the products passed in the body.
+        If a product with the same ID already exists, the new content will completely replace the previous contents
+        (i.e. the result is the same as deleting any products with the IDs that were passed in the request and then creating them from scratch).
+      operationId: upsert_products
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/Products'
         required: true
       responses:
-        '200':
-          description: The newly created product.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        '409':
-          description: A product with the provided ID already exists.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPConflictError'
+        '204':
+          description: The products were stored successfully.
         '422':
           description: Validation Error.
           content:
@@ -215,6 +138,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
         - HTTPBearer: []
+    delete:
+      tags:
+        - Products API
+      summary: Delete Products
+      operationId: delete_products_by_id
+      responses:
+        '204':
+          description: The products with provided IDs were deleted.
+        '404':
+          description: One or more provided product IDs were not present.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+  /catalog/products/{productId}:
     get:
       tags:
         - Products API
@@ -243,70 +181,6 @@ paths:
                 $ref: '#/components/schemas/HTTPNotFoundError'
       security:
         - HTTPBearer: []
-    patch:
-      tags:
-        - Products API
-      summary: Update Product
-      operationId: update_product_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Product ID
-            description: The ID of the product to update.
-            type: string
-          name: productId
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Product'
-        required: true
-      responses:
-        '200':
-          description: The newly updated product.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        '404':
-          description: No product exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-        '422':
-          description: Validation Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBearer: []
-    delete:
-      tags:
-        - Products API
-      summary: Delete Product
-      operationId: delete_product_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Product ID
-            description: The ID of the product to delete.
-            type: string
-          name: productId
-          in: path
-      responses:
-        '204':
-          description: The product with the provided ID was deleted.
-        '404':
-          description: No product exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-      security:
-        - HTTPBearer: []
   /catalog/vendors:
     get:
       tags:
@@ -323,39 +197,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VendorPage'
-  /catalog/vendors/{vendorId}:
-    post:
+    put:
       tags:
         - Vendors API
-      summary: Create Vendor
-      operationId: create_vendor
-      parameters:
-        - required: true
-          schema:
-            title: Vendor ID
-            description: The ID of the vendor to create.
-            type: string
-          name: vendorId
-          in: path
+      summary: Upsert Vendors
+      description: >
+        Creates the vendors passed in the body.
+        If a vendor with the same ID already exists, the new content will completely replace the previous contents
+        (i.e. the result is the same as deleting any vendors with the IDs that were passed in the request and then creating them from scratch).
+      operationId: upsert_vendors
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/Vendors'
         required: true
       responses:
-        '200':
-          description: The newly created vendor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Vendor'
-        '409':
-          description: A vendor with the provided ID already exists.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPConflictError'
+        '204':
+          description: The vendors were stored successfully.
         '422':
           description: Validation Error.
           content:
@@ -364,6 +223,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       security:
         - HTTPBearer: []
+    delete:
+      tags:
+        - Vendors API
+      summary: Delete Vendors
+      operationId: delete_vendors_by_id
+      responses:
+        '204':
+          description: The vendors with provided IDs were deleted.
+        '404':
+          description: One or more provided vendors IDs were not present.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPNotFoundError'
+  /catalog/vendors/{vendorId}:
     get:
       tags:
         - Vendors API
@@ -392,76 +266,6 @@ paths:
                 $ref: '#/components/schemas/HTTPNotFoundError'
       security:
         - HTTPBearer: []
-    patch:
-      tags:
-        - Vendors API
-      summary: Update Vendor
-      operationId: update_vendor_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Vendor ID
-            description: The ID of the vendor to update.
-            type: string
-          name: vendorId
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Vendor'
-        required: true
-      responses:
-        '200':
-          description: The newly updated vendor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Vendor'
-        '404':
-          description: No vendor exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-        '422':
-          description: Validation Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBearer: []
-    delete:
-      tags:
-        - Vendors API
-      summary: Delete Vendor
-      operationId: delete_vendor_by_id
-      parameters:
-        - required: true
-          schema:
-            title: Vendor ID
-            description: The ID of the vendor to delete.
-            type: string
-          name: vendorId
-          in: path
-      responses:
-        '204':
-          description: The vendor with the provided ID was deleted.
-        '404':
-          description: No vendor exists with the provided ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPNotFoundError'
-        '409':
-          description: The vendor with the provided ID is associated to one or more products.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPConflictError'
-      security:
-        - HTTPBearer: []
 components:
   schemas:
     Category:
@@ -475,7 +279,6 @@ components:
           type: string
           minLength: 1
           example: ahEDqV5uhjj8
-          readOnly: true
         name:
           description: The category name.
           type: string
@@ -492,6 +295,17 @@ components:
       required:
         - id
         - name
+    Categories:
+      type: object
+      properties:
+        categories:
+          description: The list of categories to create or substitute.
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+          minLength: 1
+      required:
+        - categories
     CategoryPage:
       title: Category page
       type: object
@@ -579,6 +393,17 @@ components:
         - name
         - vendorIds
         - categoryIds
+    Products:
+      type: object
+      properties:
+        products:
+          description: The list of products to create or substitute.
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+          minLength: 1
+      required:
+        - products
     ProductPage:
       title: Product page
       type: object
@@ -614,6 +439,17 @@ components:
       required:
         - id
         - name
+    Vendors:
+      type: object
+      properties:
+        vendors:
+          description: The list of vendors to create or substitute.
+          type: array
+          items:
+            $ref: '#/components/schemas/Vendor'
+          minLength: 1
+      required:
+        - vendors
     VendorPage:
       title: Vendor page
       type: object
@@ -628,16 +464,6 @@ components:
       required:
         - next
         - response
-    HTTPConflictError:
-      title: HTTP Conflict Error
-      required:
-        - msg
-      type: object
-      properties:
-        msg:
-          title: Message
-          type: string
-          example: Conflicting operation.
     HTTPNotFoundError:
       title: HTTP Not Found Error
       required:
