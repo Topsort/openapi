@@ -409,9 +409,9 @@ components:
         quality_scores:
           type: array
           description: |
-            An array of marketplace defined quality scores corresponding to the given products.
-            If given these values will combined with our internal quality scores to provide a score
-            that better represents the relevancy of the participating products.
+            An array of marketplace defined quality scores, each corresponding to the product ID with matching array index.
+            If given, these values will be combined with our internal quality scores to provide a score
+            that better represents the relevance of the participating products.
             Note that the length of this array must be the same as the length of the `ids` array and
             that the values must be between 0 and 1.
           items:
