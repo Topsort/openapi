@@ -2,9 +2,19 @@ openapi: 3.0.2
 info:
   title: Catalog API
   version: 0.1.1
+  description: Integration API to sync your catalog with Topsort.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://assets.website-files.com/61a717c57f45d64e5e24eebf/61ee6ccc3f6a684756ef6dec_logo.svg
+    backgroundColor: '#fff'
+    altText: Topsort
 servers:
   - url: https://central-services.api.sandbox.topsort.ai/public/v1/catalog-search-service
     description: Sandbox server
+security:
+  - HTTPBearer: []
 paths:
   /catalogs/categories:
     get:
