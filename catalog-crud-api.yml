@@ -2,8 +2,11 @@ openapi: 3.0.2
 info:
   title: Catalog API
   version: 0.1.1
+servers:
+  - url: https://central-services.api.sandbox.topsort.ai/public/v1/catalog-search-service
+    description: Sandbox server
 paths:
-  /catalog/categories:
+  /catalogs/categories:
     get:
       tags:
         - Categories API
@@ -67,7 +70,7 @@ paths:
         #         $ref: '#/components/schemas/HTTPConflictError'
       security:
         - HTTPBearer: []
-  /catalog/categories/{categoryId}:
+  /catalogs/categories/{categoryId}:
     get:
       tags:
         - Categories API
@@ -96,7 +99,7 @@ paths:
                 $ref: '#/components/schemas/HTTPNotFoundError'
       security:
         - HTTPBearer: []
-  /catalog/products:
+  /catalogs/products:
     get:
       tags:
         - Products API
@@ -152,7 +155,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPNotFoundError'
-  /catalog/products/{productId}:
+  /catalogs/products/{productId}:
     get:
       tags:
         - Products API
@@ -181,7 +184,7 @@ paths:
                 $ref: '#/components/schemas/HTTPNotFoundError'
       security:
         - HTTPBearer: []
-  /catalog/vendors:
+  /catalogs/vendors:
     get:
       tags:
         - Vendors API
@@ -237,7 +240,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPNotFoundError'
-  /catalog/vendors/{vendorId}:
+  /catalogs/vendors/{vendorId}:
     get:
       tags:
         - Vendors API
