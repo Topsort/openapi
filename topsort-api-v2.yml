@@ -395,7 +395,7 @@ components:
       properties:
         ids:
           type: array
-          description: An array of objects, each describing a product ID that should participate in the auction.
+          description: An array of product IDs that should participate in the auction.
           items:
             type: string
             description: >
@@ -404,6 +404,17 @@ components:
             example: p_SA0238
             uniqueItems: true
             minLength: 1
+          minItems: 1
+          maxItems: 10000
+        quality_scores:
+          type: array
+          description: An array of quality scores corresponding to the given products. Note that the length of this array must be the same as the length of the `ids` array and that the values must be between 0 and 1.
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+            example: 0.75
+            format: float
           minItems: 1
           maxItems: 10000
 
