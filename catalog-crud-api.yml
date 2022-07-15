@@ -343,7 +343,6 @@ components:
           type: string
           minLength: 1
           example: eyGqR4YQgBJa
-          readOnly: true
         name:
           description: The product name.
           type: string
@@ -355,7 +354,7 @@ components:
           minLength: 1
           example: >
             Named as "Best Beer in the World" in 2008 at the World Beer Championships in Chicago, Illinois.
-        vendorIds:
+        vendors:
           description: The vendor IDs.
           type: array
           items:
@@ -364,7 +363,7 @@ components:
           minLength: 1
           example:
             - 9SiwYqqL8vdG
-        categoryIds:
+        categories:
           description: The category IDs.
           type: array
           items:
@@ -388,11 +387,30 @@ components:
           minimum: 0.0
           exclusiveMinimum: true
           example: 18.99
+        brand:
+          description: The product brand information.
+          type: object
+          properties:
+            id:
+              type: string
+              description: The brand ID.
+              example: es5086vyV
+            name:
+              type: string
+              description: The brand name.
+              example: Delirium
+          required:
+            - id
+            - name
       required:
         - id
         - name
-        - vendorIds
-        - categoryIds
+        - description
+        - vendors
+        - categories
+        - brand
+        - price
+        - imageUrl
     Products:
       type: object
       properties:
@@ -430,7 +448,6 @@ components:
           type: string
           minLength: 1
           example: 9SiwYqqL8vdG
-          readOnly: true
         name:
           description: The vendor name.
           type: string
