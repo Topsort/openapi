@@ -29,17 +29,8 @@ tags:
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auction Request (General Banners)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestGeneralBanners" />
-
-      ## Auction Request (Homepage Standalone Banners)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestHomepageStandaloneBanners" />
-
       ## Auction Request (Sponsored Listings)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
-
-      ## Banner Options
-      <SchemaDefinition schemaRef="#/components/schemas/BannerOptions" />
+      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequest" />
 
       ## Click Event
       <SchemaDefinition schemaRef="#/components/schemas/ClickEvent" />
@@ -80,9 +71,6 @@ tags:
       ## Session
       <SchemaDefinition schemaRef="#/components/schemas/Session" />
 
-      ## Vendor
-      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
-
       ## Winner
       <SchemaDefinition schemaRef="#/components/schemas/Winner" />
 
@@ -99,9 +87,8 @@ paths:
       requestBody:
         description: >
           The information describing what will be auctioned.
-          Topsort will run an auction for each slot type, for which products and/or vendors' bids will compete against each other.
-          The products and vendors that will participate are also included in the request.
-          Multiple different slot types may be combined into a single request.
+          Topsort will run an auction for each slot type, for which products' bids will compete against each other.
+          The products that will participate are included in the request.
         content:
           application/json:
             schema:
@@ -112,7 +99,7 @@ paths:
           description:
             "The auction results. The list of Winner objects will contain at most slots entries.
             It may contain fewer or no entries at all if there aren't enough products with usable bids.
-            Bid become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc."
+            Bids become unusable if their campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc."
           content:
             application/json:
               schema:
@@ -159,9 +146,9 @@ paths:
 components:
   responses:
     UnauthorizedError:
-      description: Access token is missing or invalid
+      description: Access token is missing or invalid.
     PaymentRequired:
-      description: A monthly invoice has been issued and payment is late
+      description: A monthly invoice has been issued and payment is late.
     BadRequest:
       description: HTTP status codes as registered with IANA.
       content:
@@ -171,35 +158,13 @@ components:
 
   schemas:
     AuctionRequest:
-      anyOf:
-        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-        - $ref: '#/components/schemas/AuctionRequestHomepageStandaloneBanners'
-        - $ref: '#/components/schemas/AuctionRequestGeneralBanners'
-      example:
-        slots:
-          listings: 2
-          bannerAds: 1
-        products:
-          - productId: p_SA0238
-            quality: 0.75
-          - productId: p_SA0250
-            quality: 0.9
-          - productId: p_SA0259
-            quality: 0.7
-        vendors:
-          - vendorId: v_SA0362
-          - vendorId: v_SA0056
-        bannerOptions:
-          placement: Category-page
-
-    AuctionRequestSponsoredListings:
       type: object
       required:
         - slots
         - products
       properties:
         slots:
-          $ref: '#/components/schemas/ListingsSlots'
+          $ref: '#/components/schemas/Slots'
         products:
           type: array
           description: An array of objects, each describing a product that should participate in the auction.
@@ -209,47 +174,16 @@ components:
           $ref: '#/components/schemas/Session'
         geoTargeting:
           $ref: '#/components/schemas/GeoTargeting'
-
-    AuctionRequestGeneralBanners:
-      type: object
-      required:
-        - slots
-        - products
-        - vendors
-        - bannerOptions
-      properties:
+      example:
         slots:
-          $ref: '#/components/schemas/BannersSlots'
+          listings: 2
         products:
-          type: array
-          description: An array of objects, each describing a product that should participate in the auction.
-          items:
-            $ref: '#/components/schemas/Product'
-        vendors:
-          type: array
-          description: An array of objects, each describing a vendor that should participate in the auction.
-          items:
-            $ref: '#/components/schemas/Vendor'
-        session:
-          $ref: '#/components/schemas/Session'
-        bannerOptions:
-          $ref: '#/components/schemas/BannerOptions'
-
-    AuctionRequestHomepageStandaloneBanners:
-      required:
-        - slots
-        - bannerOptions
-      properties:
-        slots:
-          $ref: '#/components/schemas/BannersSlots'
-        session:
-          $ref: '#/components/schemas/Session'
-        bannerOptions:
-          properties:
-            placement:
-              type: string
-              enum:
-                - Home-page
+          - productId: p_SA0238
+            quality: 0.75
+          - productId: p_SA0250
+            quality: 0.9
+          - productId: p_SA0259
+            quality: 0.7
 
     Auction:
       type: object
@@ -335,15 +269,6 @@ components:
           format: float
       xml:
         name: Product
-    Vendor:
-      required:
-        - vendorId
-      type: object
-      properties:
-        vendorId:
-          type: string
-          format: string
-          example: v_89kjm
 
     Session:
       description: The Session object allows correlating user activity during a session whether or not they are actually logged in.
@@ -618,7 +543,7 @@ components:
       required:
         - purchaseId
 
-    ListingsSlots:
+    Slots:
       description:
         'The Slots object specifies how many auctions winners should be
         returned for each promotion type. The promotion types depend on
@@ -630,30 +555,6 @@ components:
           type: integer
           example: 2
           minimum: 1
-
-    BannersSlots:
-      description:
-        'The Slots object specifies how many auctions winners should be
-        returned for each promotion type. The promotion types depend on
-        the marketplace configuration. For banner ads, use the "bannerAds"
-        key.'
-      type: object
-      properties:
-        bannerAds:
-          type: integer
-          example: 2
-          minimum: 1
-
-    BannerOptions:
-      description: 'The BannerOptions object specifies options to take into consideration when running a banner auction.'
-      type: object
-      properties:
-        placement:
-          type: string
-          enum:
-            - Home-page
-            - Category-page
-            - Search-page
 
     Error:
       type: object
