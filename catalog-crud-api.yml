@@ -515,3 +515,14 @@ tags:
     description: 'CRUD API to manage product entities'
   - name: Vendors API
     description: 'CRUD API to manage vendor entities'
+  - name: Models
+    x-displayName: Catalog Models
+    description: |
+      ## Category
+      <SchemaDefinition schemaRef="#/components/schemas/Category" />
+
+      ## Product
+      <SchemaDefinition schemaRef="#/components/schemas/Product" />
+
+      ## Vendor
+      <SchemaDefinition schemaRef="#/components/schemas/Vendor" />
