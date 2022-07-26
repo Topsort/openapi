@@ -312,7 +312,7 @@ components:
       type: object
       properties:
         categories:
-          description: The list of categories to create or substitute.
+          description: The categories to create or substitute.
           type: array
           items:
             $ref: '#/components/schemas/Category'
@@ -428,7 +428,7 @@ components:
       type: object
       properties:
         products:
-          description: The list of products to create or substitute.
+          description: The products to create or substitute.
           type: array
           items:
             $ref: '#/components/schemas/Product'
@@ -466,6 +466,14 @@ components:
           type: string
           minLength: 1
           example: Huyghe Brewery
+        imageUrl:
+          description: >
+            The vendor logo.
+            Its size should be between 250x250 and 600x600 pixels.
+            This is recommended in case the Topsort UI will be used to manage campaigns.
+          type: string
+          format: uri
+          example: https://r.btcdn.co/r/eyJzaG9wX2lkIjozMzU4LCJnIjoiMjYweCJ9/1759e16e6314a24/669830-Cerveza_Delirium_Tremens_Botella_330cc_x6.png
       required:
         - id
         - name
@@ -473,7 +481,7 @@ components:
       type: object
       properties:
         vendors:
-          description: The list of vendors to create or substitute.
+          description: The vendors to create or substitute.
           type: array
           items:
             $ref: '#/components/schemas/Vendor'
