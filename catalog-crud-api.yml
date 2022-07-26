@@ -385,7 +385,7 @@ components:
           minLength: 1
           example:
             - ahEDqV5uhjj8
-        imageUrl:
+        imageURL:
           description: >
             The product image URL.
             Its size should be between 250x250 and 600x600 pixels.
@@ -423,7 +423,7 @@ components:
         - categories
         - brand
         - price
-        - imageUrl
+        - imageURL
     Products:
       type: object
       properties:
@@ -466,7 +466,7 @@ components:
           type: string
           minLength: 1
           example: Huyghe Brewery
-        imageUrl:
+        imageURL:
           description: >
             The vendor logo.
             Its size should be between 250x250 and 600x600 pixels.
