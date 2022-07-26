@@ -247,10 +247,6 @@ components:
           type: string
           description: An opaque topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-        assetUrl:
-          type: string
-          description: The vendor defined asset that the marketplace has to use as a banner.
-          example: 'https://address.to/image.png'
 
     Product:
       required:
