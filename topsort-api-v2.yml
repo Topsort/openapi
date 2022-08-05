@@ -701,50 +701,23 @@ components:
         impressions:
           type: array
           items:
-            type: object
-            properties:
-              impressionId:
-                type: string
-                description: Topsort assigned ID for the impression.
-                example: b65257d1-1f2d-48cf-a647-142b9187ac61
-              id:
-                type: string
-                description: The marketplace's ID for the impression, if provided.
-                example: 234f678-f90c
-            required:
-              - impressionId
+            type: string
+            description: The marketplace's ID for the impression.
+            example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
           minItems: 1
         clicks:
           type: array
           items:
-            type: object
-            properties:
-              clickId:
-                type: string
-                description: Topsort assigned ID for the click.
-                example: 00b55a66-a221-4cdd-8c76-8e422558f1c3
-              id:
-                type: string
-                description: The marketplace's ID for the click, if provided.
-                example: 234f678-f90c
-            required:
-              - clickId
+            type: string
+            description: The marketplace's ID for the click.
+            example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
           minItems: 1
         purchases:
           type: array
           items:
-            type: object
-            properties:
-              purchaseId:
-                type: string
-                description: Topsort assigned ID for the purchase.
-                example: 7e712902-b6f9-46c9-8593-618731dc950d
-              id:
-                type: string
-                description: The marketplace's ID for the purchase, if provided.
-                example: 234f678-f90c
-            required:
-              - purchaseId
+            type: string
+            description: The marketplace's ID for the purchase.
+            example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
           minItems: 1
       minProperties: 1
 
