@@ -537,6 +537,22 @@ components:
             For paginated pages this should indicate how many items are in each result page.
           minimum: 1
           example: 15
+        productId:
+          type: string
+          description: The ID of the product associated to this event.
+          minLength: 1
+        categoryId:
+          type: string
+          description: >
+            The ID of the category associated to the page in which this event occurred, if applicable.
+            This ID must match the ID that was provided in the auction request (if provided).
+          minLength: 1
+        searchQuery:
+          type: string
+          description: >
+            The search string provided by the user in the page where this event occurred, if applicable.
+            This search string must match the searchQuery field that was provided in the auction request (if provided).
+          minLength: 1
     EventsRequest:
       type: object
       properties:
