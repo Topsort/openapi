@@ -555,7 +555,7 @@ components:
         - resolvedBidId
         - placement
         - occurredAt
-        - deviceId
+        - opaqueUserId
         - id
       properties:
         resolvedBidId:
@@ -569,9 +569,9 @@ components:
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
           example: '2009-01-01T12:59:59-05:00'
-        deviceId:
+        opaqueUserId:
           type: string
-          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -589,7 +589,7 @@ components:
         - resolvedBidId
         - placement
         - occurredAt
-        - deviceId
+        - opaqueUserId
         - id
       properties:
         resolvedBidId:
@@ -603,9 +603,9 @@ components:
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
           example: '2009-01-01T12:59:59-05:00'
-        deviceId:
+        opaqueUserId:
           type: string
-          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -620,7 +620,7 @@ components:
       type: object
       required:
         - occurredAt
-        - deviceId
+        - opaqueUserId
         - items
         - id
       properties:
@@ -629,9 +629,9 @@ components:
           description: RFC3339 formatted timestamp including UTC offset
           example: '2021-10-12T07:20:50.52Z'
           format: date-time
-        deviceId:
+        opaqueUserId:
           type: string
-          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
           example: 71303ce0-de89-496d-8270-6434589615e8
         items:
           type: array
