@@ -691,7 +691,8 @@ components:
         unitPrice:
           type: number
           format: float
-          exclusiveMinimum: 0.0
+          minimum: 0.0
+          exclusiveMinimum: true
           description: The price of a single item in the marketplace currency.
           example: 12.95
     EventsResponse:
