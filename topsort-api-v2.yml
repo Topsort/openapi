@@ -652,7 +652,8 @@ components:
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
     Purchase:
       description: >
-        A purchase is sent to Topsort once the user makes a payment transaction and it has been confirmed by the payment provider or financial entity in charge processing the transaction.
+        A purchase is sent to Topsort once a marketplace customer creates an order.
+        These events are used to measure the effectiveness of an ad campaign.
       type: object
       required:
         - occurredAt
