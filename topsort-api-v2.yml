@@ -32,23 +32,41 @@ tags:
       ## Auction
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auction Request (Banners)
+      ## Auctions Request (Banners)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
 
-      ## Auction Request (Sponsored Listings)
+      ## Auctions Request (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
 
       ## Category
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
 
+      ## Click
+      <SchemaDefinition schemaRef="#/components/schemas/Click" />
+
       ## Error
       <SchemaDefinition schemaRef="#/components/schemas/Error" />
+
+      ## Events Request
+      <SchemaDefinition schemaRef="#/components/schemas/EventsRequest" />
+
+      ## Events Response
+      <SchemaDefinition schemaRef="#/components/schemas/EventsResponse" />
 
       ## Geotargeting
       <SchemaDefinition schemaRef="#/components/schemas/GeoTargeting" />
 
+      ## Impression
+      <SchemaDefinition schemaRef="#/components/schemas/Impression" />
+
       ## Products
       <SchemaDefinition schemaRef="#/components/schemas/Products" />
+
+      ## Purchase
+      <SchemaDefinition schemaRef="#/components/schemas/Purchase" />
+
+      ## Purchase Item
+      <SchemaDefinition schemaRef="#/components/schemas/PurchaseItem" />
 
       ## Winner
       <SchemaDefinition schemaRef="#/components/schemas/Winner" />
@@ -548,6 +566,7 @@ components:
           minItems: 1
           maxItems: 50
       minProperties: 1
+      additionalProperties: false
     Impression:
       type: object
       description: >
