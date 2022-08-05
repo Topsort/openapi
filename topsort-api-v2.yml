@@ -332,6 +332,7 @@ components:
         error:
           type: boolean
           description: A boolean indicating whether this auction was resolved successfully.
+          example: false
       required:
         - winners
         - error
