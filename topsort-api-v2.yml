@@ -21,6 +21,8 @@ servers:
 tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
+  - name: Events
+    description: Significant consumer interactions on the e-commerce site.
   - name: Models
     x-displayName: All Models
     description: |
@@ -59,7 +61,7 @@ paths:
     post:
       tags:
         - Auctions
-      summary: Creates new auctions
+      summary: Create new auctions
       operationId: createAuctions
       requestBody:
         description: >
