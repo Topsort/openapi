@@ -608,7 +608,6 @@ components:
         Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the marketplace app.
       type: object
       required:
-        - resolvedBidId
         - placement
         - occurredAt
         - opaqueUserId
@@ -616,7 +615,7 @@ components:
       properties:
         resolvedBidId:
           type: string
-          description: The `resolvedBidId` field received from the /auctions request.
+          description: If the click is over an ad promotion, this is the `resolvedBidId` field received from the /auctions request.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         placement:
           $ref: '#/components/schemas/Placement'
@@ -699,26 +698,44 @@ components:
       type: object
       properties:
         impressions:
-          type: array
-          items:
-            type: string
-            description: The marketplace's ID for the impression.
-            example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-          minItems: 1
+          type: object
+          required:
+            - ids
+          properties:
+            ids:
+              type: array
+              description: An array of impression IDs that were reported.
+              items:
+                type: string
+                description: The marketplace's ID for the impression.
+                example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+              minItems: 1
         clicks:
-          type: array
-          items:
-            type: string
-            description: The marketplace's ID for the click.
-            example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
-          minItems: 1
+          type: object
+          required:
+            - ids
+          properties:
+            ids:
+              type: array
+              description: An array of click IDs that were reported.
+              items:
+                type: string
+                description: The marketplace's ID for the click.
+                example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
+              minItems: 1
         purchases:
-          type: array
-          items:
-            type: string
-            description: The marketplace's ID for the purchase.
-            example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
-          minItems: 1
+          type: object
+          required:
+            - ids
+          properties:
+            ids:
+              type: array
+              description: An array of purchase IDs that were reported.
+              items:
+                type: string
+                description: The marketplace's ID for the purchase.
+                example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
+              minItems: 1
       minProperties: 1
 
   securitySchemes:
