@@ -514,17 +514,17 @@ components:
             For components with multiple items
             (i.e. search results, similar products, etc),
             this should indicate the index of a given item within that list.
-          minimum: 0
+          minimum: 1
         page:
           type: integer
           description: >
             For paginated pages, this should indicate which page number triggered the event.
-          minimum: 0
+          minimum: 1
         pageSize:
           type: integer
           description: >
             For paginated pages this should indicate how many items are in each result page.
-          minimum: 2
+          minimum: 1
           example: 15
     EventsRequest:
       type: object
