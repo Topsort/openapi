@@ -670,10 +670,11 @@ components:
           description: Count of products purchased.
           example: 2
         unitPrice:
-          type: integer
-          minimum: 1
-          description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
-          example: 1295
+          type: number
+          format: float
+          exclusiveMinimum: 0.0
+          description: The price of a single item in the marketplace currency.
+          example: 12.95
     EventsResponse:
       type: object
       properties:
