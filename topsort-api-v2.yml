@@ -517,7 +517,10 @@ components:
           type: string
           description: >
             URL path of the page triggering the event.
-            This can be obtained in JS using `window.location.pathname`.
+            For web apps, this can be obtained in JS using `window.location.pathname`.
+
+            For mobile apps, use the deep link for the current view, if available.
+            Otherwise, encode the view from which the event occurred in your app as a path-like string (e.g. `/root/categories/:categoryId`).
           example: /categories/dairy
         position:
           type: integer
