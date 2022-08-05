@@ -683,10 +683,6 @@ components:
           type: string
           description: The marketplace ID of the product being purchased.
           example: p_SA0238
-        resolvedBidId:
-          type: string
-          description: If known, the product's `resolvedBidId` if the consumer clicked on a promoted link before purchasing.
-          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         quantity:
           type: integer
           minimum: 1
