@@ -59,8 +59,8 @@ paths:
     post:
       tags:
         - Auctions
-      summary: Creates a new auction
-      operationId: createAuction
+      summary: Creates new auctions
+      operationId: createAuctions
       requestBody:
         description: >
           The information describing what will be auctioned.
@@ -148,7 +148,35 @@ paths:
           $ref: '#/components/responses/BadRequest'
         402:
           $ref: '#/components/responses/PaymentRequired'
-
+  /events:
+    post:
+      tags:
+        - Events
+      summary: Report events
+      operationId: reportEvents
+      requestBody:
+        description: >
+          Use the `/events` endpoint to notify Topsort about significant consumer interactions on the e-commerce site:
+          impressions -- product links become visible to the consumer;
+          clicks -- the consumer clicks on a product link;
+          and purchases -- the consumer buys some products.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventsRequest'
+        required: true
+      responses:
+        200:
+          description: An object containing the markeplace ID and the Topsort-issued ID for each of the events in the same order they were reported.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventsResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        
 components:
   responses:
     UnauthorizedError:
@@ -466,7 +494,210 @@ components:
           description: >
             Human-readable explanation of or details about the error.
             The string for a given error may change over time; code should not parse or dispatch based on particular values for this field.
-
+    Placement:
+      type: object
+      required:
+        - page
+      properties:
+        page:
+          type: string
+          description: A marketplace assigned name for a page.
+          example: search_results
+        location:
+          type: string
+          description: A marketplace defined name for a page part.
+          example: position_1
+    EventsRequest:
+      type: object
+      properties:
+        impressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Impression'
+          minItems: 1
+        clicks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Click'
+          minItems: 1
+        purchases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Purchase'
+          minItems: 1
+      minProperties: 1
+    Impression:
+      type: object
+      description: >
+        An impression means an ad has become visible to the consumer.
+        In case you cannot send an impression when the product becomes visible, send us an impression event when the product was rendered in the HTML or, if that's also not possible, when your API returns the results.
+        It is important to select the most specific event so that your vendors have more accurate CTR metrics, which will allow them to better predict their campaigns.
+      required:
+        - resolvedBidId
+        - placement
+        - occurredAt
+        - deviceId
+      properties:
+        resolvedBidId:
+          type: string
+          description: The `resolvedBidId` field received from the /auctions request.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        placement:
+          $ref: '#/components/schemas/Placement'
+        occurredAt:
+          type: string
+          format: date-time
+          description: RFC3339 formatted timestamp including UTC offset.
+          example: '2009-01-01T12:59:59-05:00'
+        deviceId:
+          type: string
+          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        id:
+          type: string
+          description: The marketplace's unique ID for the impression.
+          example: 234f678-f90c
+    Click:
+      description: >
+        A click is sent to Topsort when the consumer has clicked on an ad.
+        Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the e-commerce site.
+      type: object
+      required:
+        - resolvedBidId
+        - placement
+        - occurredAt
+        - deviceId
+      properties:
+        resolvedBidId:
+          type: string
+          description: The `resolvedBidId` field received from the /auctions request.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        placement:
+          $ref: '#/components/schemas/Placement'
+        occurredAt:
+          type: string
+          format: date-time
+          description: RFC3339 formatted timestamp including UTC offset.
+          example: '2009-01-01T12:59:59-05:00'
+        deviceId:
+          type: string
+          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        id:
+          type: string
+          description: The marketplace's unique ID for the click.
+          example: 234f678-f90c
+    Purchase:
+      description: >
+        A purchase is sent to Topsort once the user makes a payment transaction and it has been confirmed by the payment provider or financial entity in charge processing the transaction.
+      type: object
+      required:
+        - occurredAt
+        - deviceId
+        - items
+        - id
+      properties:
+        occurredAt:
+          type: string
+          description: RFC3339 formatted timestamp including UTC offset
+          example: '2021-10-12T07:20:50.52Z'
+          format: date-time
+        deviceId:
+          type: string
+          description: The device ID allows correlating user activity during a session whether or not they are actually logged in.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        items:
+          type: array
+          description: Items purchased.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/PurchaseItem'
+        id:
+          type: string
+          description: The marketplace assigned ID for the order.
+          example: o:567-123
+    PurchaseItem:
+      type: object
+      required:
+        - productId
+        - unitPrice
+      properties:
+        productId:
+          type: string
+          description: The marketplace ID of the product being purchased.
+          example: p_SA0238
+        resolvedBidId:
+          type: string
+          description: If known, the product's `resolvedBidId` if the consumer clicked on a promoted link before purchasing.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        quantity:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Count of products purchased.
+          example: 2
+        unitPrice:
+          type: integer
+          minimum: 1
+          description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
+          example: 1295
+      example:
+        productId: p_SA0238
+        unitPrice: 1295
+        resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    EventsResponse:
+      type: object
+      properties:
+        impressions:
+          type: array
+          items:
+            type: object
+            properties:
+              impressionId:
+                type: string
+                description: Topsort assigned ID for the impression.
+                example: b65257d1-1f2d-48cf-a647-142b9187ac61
+              id:
+                type: string
+                description: The marketplace's ID for the impression, if provided.
+                example: 234f678-f90c
+            required:
+              - impressionId
+          minItems: 1
+        clicks:
+          type: array
+          items:
+            type: object
+            properties:
+              clickId:
+                type: string
+                description: Topsort assigned ID for the click.
+                example: 00b55a66-a221-4cdd-8c76-8e422558f1c3
+              id:
+                type: string
+                description: The marketplace's ID for the click, if provided.
+                example: 234f678-f90c
+            required:
+              - clickId
+          minItems: 1
+        purchases:
+          type: array
+          items:
+            type: object
+            properties:
+              purchaseId:
+                type: string
+                description: Topsort assigned ID for the purchase.
+                example: 7e712902-b6f9-46c9-8593-618731dc950d
+              id:
+                type: string
+                description: The marketplace's ID for the purchase, if provided.
+                example: 234f678-f90c
+            required:
+              - purchaseId
+          minItems: 1
+      minProperties: 1
+        
   securitySchemes:
     BearerAuth:
       type: http
