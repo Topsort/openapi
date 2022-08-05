@@ -534,16 +534,19 @@ components:
           items:
             $ref: '#/components/schemas/Impression'
           minItems: 1
+          maxItems: 50
         clicks:
           type: array
           items:
             $ref: '#/components/schemas/Click'
           minItems: 1
+          maxItems: 50
         purchases:
           type: array
           items:
             $ref: '#/components/schemas/Purchase'
           minItems: 1
+          maxItems: 50
       minProperties: 1
     Impression:
       type: object
