@@ -556,6 +556,7 @@ components:
         - placement
         - occurredAt
         - deviceId
+        - id
       properties:
         resolvedBidId:
           type: string
@@ -574,8 +575,11 @@ components:
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
-          description: The marketplace's unique ID for the impression.
-          example: 234f678-f90c
+          description: >
+            The marketplace's unique ID for the impression.
+            This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
+            If there is no impression model on the marketplace side, generate a unique string that does not change if the event is resent.
+          example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
     Click:
       description: >
         A click is sent to Topsort when the consumer has clicked on an ad.
@@ -586,6 +590,7 @@ components:
         - placement
         - occurredAt
         - deviceId
+        - id
       properties:
         resolvedBidId:
           type: string
@@ -604,8 +609,11 @@ components:
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
-          description: The marketplace's unique ID for the click.
-          example: 234f678-f90c
+          description: >
+            The marketplace's unique ID for the click.
+            This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
+            If there is no click model on the marketplace side, generate a unique string that does not change if the event is resent.
+          example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
     Purchase:
       description: >
         A purchase is sent to Topsort once the user makes a payment transaction and it has been confirmed by the payment provider or financial entity in charge processing the transaction.
@@ -633,8 +641,11 @@ components:
             $ref: '#/components/schemas/PurchaseItem'
         id:
           type: string
-          description: The marketplace assigned ID for the order.
-          example: o:567-123
+          description: >
+            The marketplace unique ID for the order.
+            This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
+            If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event is resent.
+          example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
     PurchaseItem:
       type: object
       required:
