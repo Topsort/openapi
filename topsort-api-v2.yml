@@ -653,7 +653,7 @@ components:
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
     Purchase:
       description: >
-        A purchase is sent to Topsort once a marketplace customer creates an order.
+        A purchase is sent to Topsort once a marketplace customer places an order.
         These events are used to measure the effectiveness of an ad campaign.
       type: object
       required:
@@ -664,7 +664,7 @@ components:
       properties:
         occurredAt:
           type: string
-          description: RFC3339 formatted timestamp including UTC offset
+          description: RFC3339 formatted timestamp, including UTC offset, of the instant in which the order was placed.
           example: '2021-10-12T07:20:50.52Z'
           format: date-time
         opaqueUserId:
