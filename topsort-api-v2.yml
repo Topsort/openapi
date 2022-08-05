@@ -674,10 +674,6 @@ components:
           minimum: 1
           description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
           example: 1295
-      example:
-        productId: p_SA0238
-        unitPrice: 1295
-        resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
     EventsResponse:
       type: object
       properties:
