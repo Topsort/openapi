@@ -593,7 +593,9 @@ components:
           example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
           type: string
-          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: >
+            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
+            It must be long lived.
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -626,7 +628,9 @@ components:
           example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
           type: string
-          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: >
+            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
+            It must be long lived.
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -652,7 +656,9 @@ components:
           format: date-time
         opaqueUserId:
           type: string
-          description: The opaque user ID allows correlating user activity during a session whether or not they are actually logged in.
+          description: >
+            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
+            It must be long lived.
           example: 71303ce0-de89-496d-8270-6434589615e8
         items:
           type: array
