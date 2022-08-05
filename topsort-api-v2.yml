@@ -22,7 +22,7 @@ tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
   - name: Events
-    description: Significant consumer interactions on the e-commerce site.
+    description: Significant consumer interactions on the marketplace app.
   - name: Models
     x-displayName: All Models
     description: |
@@ -158,7 +158,7 @@ paths:
       operationId: reportEvents
       requestBody:
         description: >
-          Use the `/events` endpoint to notify Topsort about significant consumer interactions on the e-commerce site:
+          Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
           impressions -- product links become visible to the consumer;
           clicks -- the consumer clicks on a product link;
           and purchases -- the consumer buys some products.
@@ -578,7 +578,7 @@ components:
     Click:
       description: >
         A click is sent to Topsort when the consumer has clicked on an ad.
-        Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the e-commerce site.
+        Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the marketplace app.
       type: object
       required:
         - resolvedBidId
