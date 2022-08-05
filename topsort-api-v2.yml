@@ -567,7 +567,6 @@ components:
         In case you cannot send an impression when the product becomes visible, send us an impression event when the product was rendered in the HTML or, if that's also not possible, when your API returns the results.
         It is important to select the most specific event so that your vendors have more accurate CTR metrics, which will allow them to better predict their campaigns.
       required:
-        - resolvedBidId
         - placement
         - occurredAt
         - opaqueUserId
@@ -575,7 +574,7 @@ components:
       properties:
         resolvedBidId:
           type: string
-          description: The `resolvedBidId` field received from the `/auctions` request.
+          description: If the impression is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         placement:
           $ref: '#/components/schemas/Placement'
