@@ -499,16 +499,32 @@ components:
     Placement:
       type: object
       required:
-        - page
+        - path
       properties:
+        path:
+          type: string
+          description: >
+            URL path of the page triggering the event.
+            This can be obtained in JS using `window.location.pathname`.
+          example: /categories/dairy
+        position:
+          type: integer
+          description: >
+            For components with multiple items
+            (i.e. search results, similar products, etc),
+            this should indicate the index of a given item within that list.
+          minimum: 0
         page:
-          type: string
-          description: A marketplace assigned name for a page.
-          example: search_results
-        location:
-          type: string
-          description: A marketplace defined name for a page part.
-          example: position_1
+          type: integer
+          description: >
+            For paginated pages, this should indicate which page number triggered the event.
+          minimum: 0
+        pageSize:
+          type: integer
+          description: >
+            For paginated pages this should indicate how many items are in each result page.
+          minimum: 2
+          example: 15
     EventsRequest:
       type: object
       properties:
