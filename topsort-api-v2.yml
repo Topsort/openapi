@@ -549,7 +549,7 @@ components:
           type: string
           description: >
             The ID of the category associated to the page in which this event occurred, if applicable.
-            This ID must match the ID that was provided in the auction request (if provided).
+            This ID must match the ID provided through the catalog service.
           minLength: 1
         searchQuery:
           type: string
