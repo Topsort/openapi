@@ -159,9 +159,9 @@ paths:
       requestBody:
         description: >
           Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
-          impressions -- product links become visible to the consumer;
-          clicks -- the consumer clicks on a product link;
-          and purchases -- the consumer buys some products.
+          impressions — product links become visible to the consumer;
+          clicks — the consumer clicks on a product link;
+          and purchases — the consumer buys some products.
         content:
           application/json:
             schema:
