@@ -543,7 +543,9 @@ components:
           example: 15
         productId:
           type: string
-          description: The ID of the product associated to this event.
+          description: >
+            The ID of the product associated to this event.
+            This field is used to disambiguate between products from the same PLP.
           minLength: 1
         categoryId:
           type: string
