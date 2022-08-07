@@ -587,7 +587,6 @@ components:
         In case you cannot send an impression when the product becomes visible, send us an impression event when the product was rendered in the HTML or, if that's also not possible, when your API returns the results.
         It is important to select the most specific event so that your vendors have more accurate CTR metrics, which will allow them to better predict their campaigns.
       required:
-        - placement
         - occurredAt
         - opaqueUserId
         - id
@@ -622,7 +621,6 @@ components:
         Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the marketplace app.
       type: object
       required:
-        - placement
         - occurredAt
         - opaqueUserId
         - id
