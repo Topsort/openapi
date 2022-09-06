@@ -448,7 +448,7 @@ components:
             minLength: 1
           minItems: 1
           maxItems: 10000
-        quality_scores:
+        qualityScores:
           type: array
           description: |
             An array of marketplace defined quality scores, each corresponding to the product ID with matching array index.
