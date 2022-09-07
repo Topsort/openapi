@@ -581,7 +581,6 @@ components:
           minItems: 1
           maxItems: 50
       minProperties: 1
-      additionalProperties: false
     Impression:
       type: object
       description: >
