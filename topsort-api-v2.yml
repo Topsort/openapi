@@ -173,6 +173,10 @@ paths:
       operationId: reportEvents
       requestBody:
         description: >
+          **BETA OPERATION**
+
+          **The specification details, particularly around unpromoted events and placement data, will change in the short term.**
+
           Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
           impressions — ad promotions become visible to the consumer;
           clicks — the consumer clicks on an ad promotion;
@@ -545,7 +549,7 @@ components:
           type: string
           description: >
             The ID of the product associated to this event.
-            This field is used to disambiguate between products from the same PLP.
+            This field is used to disambiguate between products from the same PDP.
           minLength: 1
         categoryId:
           type: string
