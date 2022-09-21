@@ -25,8 +25,10 @@ tags:
     description: >
       **BETA MODULE**
 
+
       **The specification details, particularly around unpromoted events and placement data, will change in the short term.**
-      **Please use (Events V1)[https://openapi.topsort.com/api/v1#operation/reportEvent] you need a more stable endpoint to call.**
+      **Please use [Events V1](https://openapi.topsort.com/api/v1#operation/reportEvent) you need a more stable endpoint to call.**
+
 
       Significant consumer interactions on the marketplace app.
   - name: Models
