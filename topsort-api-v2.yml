@@ -173,7 +173,7 @@ paths:
   /events:
     post:
       tags:
-        - Events
+        - Events (Beta)
       summary: Report events
       operationId: reportEvents
       requestBody:
