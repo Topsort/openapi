@@ -22,7 +22,13 @@ tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
   - name: Events
-    description: Significant consumer interactions on the marketplace app.
+    description: >
+      **BETA MODULE**
+
+      **The specification details, particularly around unpromoted events and placement data, will change in the short term.**
+      **Please use (Events V1)[https://openapi.topsort.com/api/v1#operation/reportEvent] you need a more stable endpoint to call.**
+
+      Significant consumer interactions on the marketplace app.
   - name: Models
     x-displayName: All Models
     description: |
@@ -173,10 +179,6 @@ paths:
       operationId: reportEvents
       requestBody:
         description: >
-          **BETA OPERATION**
-
-          **The specification details, particularly around unpromoted events and placement data, will change in the short term.**
-
           Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
           impressions — ad promotions become visible to the consumer;
           clicks — the consumer clicks on an ad promotion;
