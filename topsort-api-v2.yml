@@ -1,6 +1,10 @@
 openapi: 3.0.1
 info:
   title: Topsort Endpoints API Reference
+  description: >-
+    In order for a storefront to be able to run auctions in Topsort and report auction-related events back to Topsort,
+    both the /v2/auctions and /v2/events endpoints must be integrated.
+    Below are the endpoint and model definitions for each.
   contact:
     email: wicha@topsort.com
   license:
@@ -517,6 +521,7 @@ components:
       type: object
       required:
         - path
+      additionalProperties: false
       properties:
         path:
           type: string
@@ -566,6 +571,7 @@ components:
           minLength: 1
     EventsRequest:
       type: object
+      additionalProperties: false
       properties:
         impressions:
           type: array
@@ -596,6 +602,7 @@ components:
         - occurredAt
         - opaqueUserId
         - id
+      additionalProperties: false
       properties:
         resolvedBidId:
           type: string
@@ -630,6 +637,7 @@ components:
         - occurredAt
         - opaqueUserId
         - id
+      additionalProperties: false
       properties:
         resolvedBidId:
           type: string
@@ -665,6 +673,7 @@ components:
         - opaqueUserId
         - items
         - id
+      additionalProperties: false
       properties:
         occurredAt:
           type: string
@@ -688,13 +697,14 @@ components:
           description: >
             The marketplace unique ID for the order.
             This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
-            If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event is resent.
+            If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event needs to be resent.
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
     PurchaseItem:
       type: object
       required:
         - productId
         - unitPrice
+      additionalProperties: false
       properties:
         productId:
           type: string
@@ -708,7 +718,7 @@ components:
           example: 2
         unitPrice:
           type: number
-          format: float
+          format: double
           minimum: 0.0
           exclusiveMinimum: true
           description: The price of a single item in the marketplace currency.
