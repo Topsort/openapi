@@ -168,6 +168,8 @@ paths:
                           asset:
                             - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
                       error: false
+                    - winners: {}
+                      error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
         400:
