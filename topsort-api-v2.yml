@@ -572,31 +572,26 @@ components:
     EventsRequest:
       type: object
       additionalProperties: false
-      anyOf:
-        - type: object
-          properties:
-            impressions:
-              type: array
-              items:
-                $ref: '#/components/schemas/Impression'
-              minItems: 1
-              maxItems: 50
-        - type: object
-          properties:
-            clicks:
-              type: array
-              items:
-                $ref: '#/components/schemas/Click'
-              minItems: 1
-              maxItems: 50
-        - type: object
-          properties:
-            purchases:
-              type: array
-              items:
-                $ref: '#/components/schemas/Purchase'
-              minItems: 1
-              maxItems: 50
+      properties:
+        impressions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Impression'
+          minItems: 1
+          maxItems: 50
+        clicks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Click'
+          minItems: 1
+          maxItems: 50
+        purchases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Purchase'
+          minItems: 1
+          maxItems: 50
+      minProperties: 1
     Impression:
       type: object
       description: >
