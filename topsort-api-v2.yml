@@ -91,7 +91,7 @@ paths:
         description: >
           The information describing what will be auctioned.
           Topsort will run an auction for each batched auction request, for which products, brands and/or vendors' bids will compete against each other.
-          Provided fields are additive, in the sense that only bids that match all filtering fields are considered (e.g. in the example below, only bids for products in the c_yogurt category that match the "Noosa Peach" search string will participate in the acution).
+          Provided fields are additive, in the sense that only bids that match all filtering fields are considered (e.g. in the example below, only bids for products in the c_yogurt category that match the "Noosa Peach" search string will participate in the auction).
         content:
           application/json:
             schema:
