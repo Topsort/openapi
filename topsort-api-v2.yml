@@ -3,7 +3,7 @@ info:
   title: Topsort Endpoints API Reference
   description: >-
     In order for a storefront to be able to run auctions in Topsort and report auction-related events back to Topsort,
-    both the /v2/auctions and /v2/events endpoints must be integrated.
+    both the `/v2/auctions` and `/v2/events` endpoints must be integrated.
     Below are the endpoint and model definitions for each.
   contact:
     email: wicha@topsort.com
