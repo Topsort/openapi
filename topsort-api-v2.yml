@@ -594,37 +594,37 @@ components:
       minProperties: 1
       example:
         impressions:
-          - occurredAt: '2019-01-01T12:59:59-05:00'
+          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+            occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
             placement:
               path: /categories/dairy
               position: 1
               page: 1
               pageSize: 15
               categoryId: 9BLIe
+            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         clicks:
-          - occurredAt: '2019-01-01T13:01:42-05:00'
+          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+            occurredAt: '2019-01-01T13:01:42-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
             placement:
               path: /categories/dairy
               position: 1
               page: 1
               pageSize: 15
               categoryId: 9BLIe
+            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         purchases:
-          - occurredAt: '2019-01-01T12:59:59-05:00'
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
             items:
               - productId: p_SA0238
                 unitPrice: 12.95
                 quantity: 2
               - productId: p_oajf2D
                 unitPrice: 1.49
+            occurredAt: '2019-01-01T12:59:59-05:00'
+            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
     Impression:
       type: object
       description: >
