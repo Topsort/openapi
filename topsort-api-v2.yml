@@ -19,7 +19,7 @@ info:
 servers:
   - url: https://<slug>.api.sandbox.topsort.ai/v2
     description: Sandbox server (uses test data)
-  - url: https://<slug>.api.topsort.ai//v2
+  - url: https://<slug>.api.topsort.ai/v2
     description: Production server (uses live data)
 
 tags:
