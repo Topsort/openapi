@@ -605,7 +605,7 @@ components:
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         clicks:
-          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+          - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
             occurredAt: '2019-01-01T13:01:42-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             placement:
@@ -616,7 +616,7 @@ components:
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         purchases:
-          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+          - id: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
             items:
               - productId: p_SA0238
                 unitPrice: 12.95
