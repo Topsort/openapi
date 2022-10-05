@@ -223,7 +223,8 @@ components:
       properties:
         id:
           type: string
-          description: The marketplace's ID of the category.
+          description: The ID of the category.
+          minLength: 1
           example: c_yogurt
 
     Device:
