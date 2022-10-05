@@ -217,13 +217,13 @@ components:
   schemas:
     Category:
       type: object
-      description: An object describing a category of the bids that will participate in an auction.
+      description: An object describing a category for the purpose of running an auction.
       required:
         - id
       properties:
         id:
           type: string
-          description: A marketplace's ID of one the categories for which an auction will be run.
+          description: The marketplace's ID of the category.
           example: c_yogurt
 
     Device:
@@ -266,7 +266,7 @@ components:
           type: array
           description: >
             An array containing the categories of the bids that will participate in an auction.
-            The product associated to the bid must belong to all of the categories in the request.
+            In order to participate in the auction, the product associated to a bid must belong to all of the categories in the request.
           items:
             $ref: '#/components/schemas/Category'
           minItems: 1
