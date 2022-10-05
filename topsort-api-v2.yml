@@ -262,14 +262,14 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        # categories:
-        #   type: array
-        #   description: >
-        #     An array containing the categories of the bids that will participate in an auction.
-        #     The product associated to the bid must belong to all of the categories in the request.
-        #   items:
-        #     $ref: '#/components/schemas/Category'
-        #   minItems: 1
+        categories:
+          type: array
+          description: >
+            An array containing the categories of the bids that will participate in an auction.
+            The product associated to the bid must belong to all of the categories in the request.
+          items:
+            $ref: '#/components/schemas/Category'
+          minItems: 1
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
