@@ -170,6 +170,7 @@ components:
           description: An array of objects, each describing a product that should participate in the auction.
           items:
             $ref: '#/components/schemas/Product'
+          minLength: 1
         session:
           $ref: '#/components/schemas/Session'
         geoTargeting:
@@ -257,12 +258,13 @@ components:
           type: string
           format: string
           example: p_SA0238
+          minLength: 1
         quality:
           type: number
           minimum: 0
           maximum: 1
           example: 0.75
-          format: float
+          format: double
       xml:
         name: Product
 
@@ -279,6 +281,7 @@ components:
             If your users are always logged in you may use a hash of your customer ID.
             If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
           type: string
+          minLength: 1
           example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
         # consumerId:
         #   description: >
@@ -551,6 +554,7 @@ components:
           type: integer
           example: 2
           minimum: 1
+      minProperties: 1
 
     Error:
       type: object
