@@ -26,10 +26,9 @@ tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
   - name: Events (Beta)
-    description: >
-      **The specification details, particularly around unpromoted events and placement data, will change in the short term.**
-      **Please use [Events V1](https://openapi.topsort.com/api/v1#operation/reportEvent) for now if you need a stable API to report events.**
-
+    description: |
+      **The specification details, particularly around placement data, may change in the short term.**
+      **If this is not acceptable for your integration, please use [Events V1](https://openapi.topsort.com/api/v1#operation/reportEvent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
   - name: Models
