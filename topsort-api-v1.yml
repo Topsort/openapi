@@ -170,7 +170,7 @@ components:
           description: An array of objects, each describing a product that should participate in the auction.
           items:
             $ref: '#/components/schemas/Product'
-          minLength: 1
+          minItems: 1
         session:
           $ref: '#/components/schemas/Session'
         geoTargeting:
