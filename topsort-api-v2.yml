@@ -560,8 +560,8 @@ components:
         productId:
           type: string
           description: >
-            The ID of the product associated to this event.
-            This field is used to disambiguate between products from the same PDP.
+            The ID of the product associated to the page in which this event occurred, if applicable.
+            This ID must match the ID provided through the catalog service.
           minLength: 1
         categoryId:
           type: string
