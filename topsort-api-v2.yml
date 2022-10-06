@@ -530,8 +530,9 @@ components:
       properties:
         path:
           type: string
-          description: >
+          description: |
             URL path of the page triggering the event.
+
             For web apps, this can be obtained in JS using `window.location.pathname`.
 
             For mobile apps, use the deep link for the current view, if available.
