@@ -587,10 +587,11 @@ components:
           description: The marketplace's ID of the entity associated with the interaction.
           minLength: 1
         type:
+          type: string
+          description: The type of entity associated with the interaction.
           enum:
             - product
             - vendor
-          description: The type of entity associated with the interaction.
     EventsRequest:
       type: object
       additionalProperties: false
