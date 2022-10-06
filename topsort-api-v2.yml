@@ -596,8 +596,10 @@ components:
           type: array
           description: >
             An impression means a promotable has become visible to the consumer.
+
             For promoted entities, include the `resolvedBidId` field from the `/v2/auctions` response.
             For unpromoted entities, include the `entity` field to describe what was seen.
+
             In case you cannot send an impression when the product becomes visible, send us an impression event when the product was rendered in the HTML or, if that's also not possible, when your API returns the results.
             It is important to select the most specific event so that your vendors have more accurate CTR metrics, which will allow them to better predict their campaigns.
           items:
@@ -608,8 +610,10 @@ components:
           type: array
           description: >
             A click is sent to Topsort when the consumer has clicked on a promotable.
+
             For promoted entities, include the `resolvedBidId` field from the `/v2/auctions` response.
             For unpromoted entities, include the `entity` field to describe what was clicked.
+
             Topsort charges the vendor and pays the marketplace for clicks on ads in promoted placements on the marketplace app.
           items:
             $ref: '#/components/schemas/Click'
@@ -619,6 +623,7 @@ components:
           type: array
           description: >
             A purchase is sent to Topsort once a marketplace customer places an order.
+
             These events are used to measure the effectiveness of an ad campaign.
           items:
             $ref: '#/components/schemas/Purchase'
