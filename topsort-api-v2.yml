@@ -219,13 +219,14 @@ components:
   schemas:
     Category:
       type: object
-      description: An object describing the category of the bids that will participate in an auction.
+      description: An object describing a category for the purpose of running an auction.
       required:
         - id
       properties:
         id:
           type: string
-          description: The marketplace's ID of the category for which an auction will be run.
+          description: The ID of the category.
+          minLength: 1
           example: c_yogurt
 
     Device:
@@ -248,10 +249,10 @@ components:
 
     AuctionRequestSponsoredListings:
       type: object
-      # TODO: add back category and searchQuery to description when supported
+      # TODO: add back categories and searchQuery to description when supported
       description: >
         Describes the intent of running a sponsored listings auction.
-        At least one of the following fields must be set: category,
+        Exactly one of the following fields must be set:
         products.
       properties:
         type:
@@ -264,8 +265,14 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        # category:
-        #   $ref: '#/components/schemas/Category'
+        # categories:
+        #   type: array
+        #   description: >
+        #     An array containing the categories of the bids that will participate in an auction.
+        #     In order to participate in the auction, the product associated to a bid must belong to all of the categories in the request.
+        #   items:
+        #     $ref: '#/components/schemas/Category'
+        #   minItems: 1
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
@@ -562,12 +569,17 @@ components:
             The ID of the product associated to the page in which this event occurred, if applicable.
             This ID must match the ID provided through the catalog service.
           minLength: 1
-        categoryId:
-          type: string
+        categoryIds:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            uniqueItems: true
+            description: A category ID.
           description: >
-            The ID of the category associated to the page in which this event occurred, if applicable.
-            This ID must match the ID provided through the catalog service.
-          minLength: 1
+            An array of IDs of the categories associated to the page in which this event occurred, if applicable.
+            These IDs must match the IDs provided through the catalog service.
+          minItems: 1
         searchQuery:
           type: string
           description: >
