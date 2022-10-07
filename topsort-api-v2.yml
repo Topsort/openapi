@@ -182,9 +182,9 @@ paths:
       summary: Report events
       operationId: reportEvents
       requestBody:
-        description: | # Pipe preserves newlines
+        description: |
           Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
-          - **Impressions** — an impression means a promotable has become visible to the consumer.
+          - **Impressions** — a set of impressions means such promotables have become visible to the consumer.
           - **Clicks** — a click is sent to Topsort when the consumer has clicked on a promotable.
           - **Purchases** — a purchase is sent to Topsort once a consumer places an order.
 
