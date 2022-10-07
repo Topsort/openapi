@@ -588,7 +588,9 @@ components:
           minLength: 1
     Entity:
       type: object
-      description: The entity associated with the promotable over which the interaction occurred.
+      description: >
+        The entity associated with the promotable over which the interaction occurred.
+        It will be ignored if `resolvedBidId` is not blank.
       required:
         - id
         - type
