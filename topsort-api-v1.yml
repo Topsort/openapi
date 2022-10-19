@@ -216,6 +216,7 @@ components:
         location:
           description: The location this banner is being run for.
           type: string
+          minLength: 1
 
     Winner:
       type: object
@@ -300,10 +301,12 @@ components:
         page:
           type: string
           description: A marketplace assigned name for a page.
+          minLength: 1
           example: search_results
         location:
           type: string
           description: A marketplace defined name for a page part.
+          minLength: 1
           example: position_1
 
     ClickEvent:
@@ -326,14 +329,17 @@ components:
         productId:
           type: string
           description: The product that was clicked.
+          minLength: 1
           example: p_SA0238
         auctionId:
           type: string
           description: Required for promoted products. Must be the ID for the auction the product won.
+          minLength: 1
           example: AKFU78
         id:
           type: string
           description: The marketplace's unique ID for the click.
+          minLength: 1
           example: 234f678-f90c
         occurredAt:
           type: string
@@ -342,6 +348,7 @@ components:
           example: '2009-01-01T12:59:59-05:00'
         resolvedBidId:
           type: string
+          minLength: 1
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
       example:
         eventType: Click
@@ -405,13 +412,16 @@ components:
         auctionId:
           type: string
           description: Required for promoted products. Must be the ID for the auction the product won.
+          minLength: 1
           example: AKFU78
         id:
           type: string
           description: The marketplace's ID for the impression.
+          minLength: 1
           example: 234f678-f90c
         resolvedBidId:
           type: string
+          minLength: 1
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
 
     PurchaseEvent:
@@ -434,6 +444,7 @@ components:
         id:
           type: string
           description: The marketplace assigned ID for the order.
+          minLength: 1
           example: o:567-123
         purchasedAt:
           type: string
@@ -456,10 +467,12 @@ components:
         productId:
           type: string
           description: The marketplace ID of the product being purchased.
+          minLength: 1
           example: p_SA0238
         auctionId:
           type: string
           description: If known, the product's auction ID if the consumer clicked on a promoted link before purchasing.
+          minLength: 1
           example: AKFU78
         quantity:
           type: integer
@@ -474,6 +487,7 @@ components:
           example: 1295
         resolvedBidId:
           type: string
+          minLength: 1
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
       example:
         productId: p_SA0238

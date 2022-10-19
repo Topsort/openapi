@@ -728,6 +728,7 @@ components:
           description: >
             The opaque user ID allows correlating user activity, whether or not they are actually logged in.
             It must be long lived.
+          minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -735,6 +736,7 @@ components:
             The marketplace's unique ID for the impression.
             This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
             If there is no impression model on the marketplace side, generate a unique string that does not change if the event is resent.
+          minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
     Click:
       description: >
@@ -767,6 +769,7 @@ components:
           description: >
             The opaque user ID allows correlating user activity, whether or not they are actually logged in.
             It must be long lived.
+          minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
           type: string
@@ -774,6 +777,7 @@ components:
             The marketplace's unique ID for the click.
             This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
             If there is no click model on the marketplace side, generate a unique string that does not change if the event is resent.
+          minLength: 1
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
     Purchase:
       description: >
@@ -797,6 +801,7 @@ components:
           description: >
             The opaque user ID allows correlating user activity, whether or not they are actually logged in.
             It must be long lived.
+          minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         items:
           type: array
@@ -810,6 +815,7 @@ components:
             The marketplace unique ID for the order.
             This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
             If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event needs to be resent.
+          minLength: 1
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
     PurchaseItem:
       type: object
@@ -821,6 +827,7 @@ components:
         productId:
           type: string
           description: The marketplace ID of the product being purchased.
+          minLength: 1
           example: p_SA0238
         quantity:
           type: integer
