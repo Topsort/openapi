@@ -249,11 +249,14 @@ components:
 
     AuctionRequestSponsoredListings:
       type: object
-      # TODO: add back categories and searchQuery to description when supported
-      description: >
+      # TODO: add back searchQuery to description when supported
+      description: |
         Describes the intent of running a sponsored listings auction.
-        Exactly one of the following fields must be set:
-        products.
+        Exactly **one** of the following fields must be set:
+        - `categoryId`
+        - `categoryIds`
+        - `facetedIds`
+        - `products`
       properties:
         type:
           type: string
@@ -265,14 +268,34 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        # categories:
-        #   type: array
-        #   description: >
-        #     An array containing the categories of the bids that will participate in an auction.
-        #     In order to participate in the auction, the product associated to a bid must belong to all of the categories in the request.
-        #   items:
-        #     $ref: '#/components/schemas/Category'
-        #   minItems: 1
+        categoryId:
+          type: string
+          description: The category ID of the bids that will participate in an auction.
+          minimum: 1
+        categoryIds:
+          type: array
+          description: |
+            An array containing the category IDs of the bids that will participate in an auction.
+            In order to participate in an auction, a bid product must belong to **all** of the categories provided in the auction request.
+          items:
+            type: string
+            description: A category ID.
+            minimum: 1
+          minItems: 1
+        facetedIds:
+          type: array
+          description: |
+            An array representing sets of categories grouped by facet.
+            In order to participate in an auction, a bid product must belong to at least one of the categories for each of the facets provided in the auction request.
+          items:
+            type: array
+            description: An array of category IDs representing a facet.
+            items:
+              type: string
+              description: A category ID.
+              minimum: 1
+            minItems: 1
+          minItems: 1
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
