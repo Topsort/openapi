@@ -46,7 +46,7 @@ tags:
       ## Auctions Request (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
 
-      ## Category
+      ## CategoryDisjunction
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
 
       ## Click
@@ -228,14 +228,20 @@ components:
           description: The ID of the category.
           minLength: 1
           example: c_yogurt
-    FacetOptions:
-      type: array
-      description: An array of category IDs representing a facet.
-      items:
-        type: string
-        description: A category ID.
-        minimum: 1
-      minItems: 1
+
+    CategoryDisjunction:
+      type: object
+      properties:
+        categoryIds:
+          type: array
+          description: |
+            An array of category IDs.
+            A bid entity must belong to at least one of the categories in the disjunction in order to participate in the auction.
+          items:
+            type: string
+            description: A category ID.
+            minimum: 1
+          minItems: 1
 
     Device:
       type: string
@@ -296,7 +302,7 @@ components:
             An array representing sets of categories grouped by facet.
             In order to participate in an auction, a bid product must belong to at least one of the categories for each of the facets provided in the auction request.
           items:
-            $ref: '#/components/schemas/FacetOptions'
+            $ref: '#/components/schemas/CategoryDisjunction'
           minItems: 1
         # searchQuery:
         #   type: string
