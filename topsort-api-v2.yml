@@ -46,8 +46,11 @@ tags:
       ## Auctions Request (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
 
-      ## CategoryDisjunction
+      ## Category
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
+
+      ## Category Disjunction
+      <SchemaDefinition schemaRef="#/components/schemas/CategoryDisjunction" />
 
       ## Click
       <SchemaDefinition schemaRef="#/components/schemas/Click" />
