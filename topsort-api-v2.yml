@@ -37,14 +37,14 @@ tags:
       ## AssetSource
       <SchemaDefinition schemaRef="#/components/schemas/AssetSource" />
 
-      ## Auction
+      ## Auction Result
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
-      ## Auctions Request (Banners)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestBanners" />
+      ## Auction (Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/BannersAuction" />
 
-      ## Auctions Request (Sponsored Listings)
-      <SchemaDefinition schemaRef="#/components/schemas/AuctionRequestSponsoredListings" />
+      ## Auction (Sponsored Listings)
+      <SchemaDefinition schemaRef="#/components/schemas/SponsoredListingsAuction" />
 
       ## Category
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
@@ -87,10 +87,9 @@ paths:
       summary: Create new auctions
       operationId: createAuctions
       requestBody:
-        description: >
+        description: |
           The information describing what will be auctioned.
-          Topsort will run an auction for each batched auction request, for which products, brands and/or vendors' bids will compete against each other.
-          Provided fields are additive, in the sense that only bids that match all filtering fields are considered (e.g. in the example below, only bids for products in the c_yogurt category that match the "Noosa Peach" search string will participate in the auction).
+          Topsort will run an auction for each batched auction request, for which products' bids will compete against each other.
         content:
           application/json:
             schema:
@@ -247,13 +246,15 @@ components:
           description: The location this banner is being run for.
           type: string
 
-    AuctionRequestSponsoredListings:
+    SponsoredListingsAuction:
       type: object
-      # TODO: add back categories and searchQuery to description when supported
-      description: >
+      # TODO: add back searchQuery to description when ready
+      description: |
         Describes the intent of running a sponsored listings auction.
-        Exactly one of the following fields must be set:
-        products.
+
+        Exactly **one** of the following fields must be set:
+          * `products`
+          * `category`
       properties:
         type:
           type: string
@@ -265,14 +266,8 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        # categories:
-        #   type: array
-        #   description: >
-        #     An array containing the categories of the bids that will participate in an auction.
-        #     In order to participate in the auction, the product associated to a bid must belong to all of the categories in the request.
-        #   items:
-        #     $ref: '#/components/schemas/Category'
-        #   minItems: 1
+        category:
+          $ref: '#/components/schemas/Category'
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
@@ -283,7 +278,6 @@ components:
       required:
         - type
         - slots
-        - products
       example:
         type: listings
         slots: 2
@@ -299,11 +293,14 @@ components:
         geoTargeting:
           location: New York
 
-    AuctionRequestBanners:
+    BannersAuction:
       type: object
-      description: >
+      description: |
         Describes the intent of running a banner ads auction.
-        Only one field between category and searchQuery must be provided.
+
+        At most **one** of the following fields must be set:
+          * `category`
+          * `searchQuery`
       properties:
         type:
           type: string
@@ -342,13 +339,8 @@ components:
     AuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
-        - $ref: '#/components/schemas/AuctionRequestBanners'
-      discriminator:
-        propertyName: type
-        mapping:
-          listings: '#/components/schemas/AuctionRequestSponsoredListings'
-          banners: '#/components/schemas/AuctionRequestBanners'
+        - $ref: '#/components/schemas/SponsoredListingsAuction'
+        - $ref: '#/components/schemas/BannersAuction'
 
     Auction:
       type: object
