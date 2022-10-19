@@ -337,7 +337,7 @@ components:
 
     BannersAuction:
       type: object
-      description: >
+      description: |
         Describes the intent of running a banner ads auction.
 
         Exactly **one** of the following fields must be set:
