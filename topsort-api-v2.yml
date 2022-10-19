@@ -237,7 +237,8 @@ components:
         categoryIds:
           type: array
           description: |
-            An array of category IDs.
+            An array of category IDs, describing a categories facet.
+
             A bid entity must belong to at least one of the categories in the disjunction in order to participate in the auction.
           items:
             type: string
@@ -302,7 +303,8 @@ components:
         categoryDisjunctions:
           type: array
           description: |
-            An array representing sets of categories grouped by facet.
+            An array of arrays containing category IDs, grouped according to facets.
+
             In order to participate in an auction, a bid product must belong to at least one of the categories for each of the facets provided in the auction request.
           items:
             $ref: '#/components/schemas/CategoryDisjunction'
