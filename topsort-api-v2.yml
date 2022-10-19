@@ -339,7 +339,10 @@ components:
       type: object
       description: >
         Describes the intent of running a banner ads auction.
-        Only one field between category and searchQuery must be provided.
+
+        Exactly **one** of the following fields must be set:
+          * `category`
+          * `searchQuery`
       properties:
         type:
           type: string
