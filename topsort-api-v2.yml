@@ -37,7 +37,7 @@ tags:
       ## AssetSource
       <SchemaDefinition schemaRef="#/components/schemas/AssetSource" />
 
-      ## Auction
+      ## Auction Result
       <SchemaDefinition schemaRef="#/components/schemas/Auction" />
 
       ## Auction (Banners)
@@ -268,6 +268,7 @@ components:
       # TODO: add back searchQuery to description when supported
       description: |
         Describes the intent of running a sponsored listings auction.
+
         Exactly **one** of the following fields must be set:
         * `categoryId`
         * `categoryIds`
