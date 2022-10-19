@@ -90,10 +90,9 @@ paths:
       summary: Create new auctions
       operationId: createAuctions
       requestBody:
-        description: >
+        description: |
           The information describing what will be auctioned.
           Topsort will run an auction for each batched auction request, for which products, brands and/or vendors' bids will compete against each other.
-          Provided fields are additive, in the sense that only bids that match all filtering fields are considered (e.g. in the example below, only bids for products in the c_yogurt category that match the "Noosa Peach" search string will participate in the auction).
         content:
           application/json:
             schema:
@@ -270,10 +269,10 @@ components:
       description: |
         Describes the intent of running a sponsored listings auction.
         Exactly **one** of the following fields must be set:
-        - `categoryId`
-        - `categoryIds`
-        - `facetedIds`
-        - `products`
+        * `categoryId`
+        * `categoryIds`
+        * `categoryDisjunctions`
+        * `products`
       properties:
         type:
           type: string
@@ -299,7 +298,7 @@ components:
             description: A category ID.
             minimum: 1
           minItems: 1
-        facetedIds:
+        categoryDisjunctions:
           type: array
           description: |
             An array representing sets of categories grouped by facet.
@@ -378,11 +377,6 @@ components:
       oneOf:
         - $ref: '#/components/schemas/AuctionRequestSponsoredListings'
         - $ref: '#/components/schemas/AuctionRequestBanners'
-      discriminator:
-        propertyName: type
-        mapping:
-          listings: '#/components/schemas/AuctionRequestSponsoredListings'
-          banners: '#/components/schemas/AuctionRequestBanners'
 
     Auction:
       type: object
