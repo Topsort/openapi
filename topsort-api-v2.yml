@@ -310,11 +310,11 @@ components:
     SponsoredListingsAuction:
       type: object
       # TODO: add back category and searchQuery to description when ready
-      description: >
+      description: |
         Describes the intent of running a sponsored listings auction.
 
         Exactly **one** of the following fields must be set:
-        - `products`
+          * `products`
       properties:
         type:
           type: string
