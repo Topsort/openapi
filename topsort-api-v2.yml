@@ -220,24 +220,62 @@ components:
 
   schemas:
     Category:
-      type: object
-      description: An object describing a category for the purpose of running an auction.
-      required:
-        - id
-      properties:
-        id:
-          type: string
-          description: The ID of the category.
-          minLength: 1
-          example: c_yogurt
-
+      oneOf: 
+        - type: object
+          description: An object describing a category for the purpose of running an auction.
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              description: The category ID of the bids that will participate in an auction.
+              minLength: 1
+              example: c_yogurt
+        - type: object
+          required:
+            - ids
+          properties:
+            ids:
+              type: array
+              description: |
+                An array containing the category IDs of the bids that will participate in an auction.
+                In order to participate in an auction, a bid product must belong to **all** of the categories provided in the auction request.
+              items:
+                type: string
+                description: A category ID.
+                minLength: 1
+              minItems: 1
+              example:
+                - c_men_clothing
+                - c_shoes
+        - type: object
+          required:
+            - disjunctions
+          properties:
+            disjunctions:
+              type: array
+              description: |
+                An array of arrays containing category IDs, grouped by disjunctions.
+    
+                In order to participate in an auction, a bid product must belong to at least one of the categories for each of the disjunctions provided in the auction request.
+              items:
+                $ref: '#/components/schemas/CategoryDisjunction'
+              minItems: 1
+              example:
+                - ids:
+                  - c_red
+                  - c_blue
+                - ids:
+                  - c_circle
+                  - c_square
+      
     CategoryDisjunction:
       type: object
       properties:
-        categoryIds:
+        ids:
           type: array
           description: |
-            An array of category IDs, describing a categories facet.
+            An array of category IDs, describing a category disjunction.
 
             A bid entity must belong to at least one of the categories in the disjunction in order to participate in the auction.
           items:
@@ -266,14 +304,11 @@ components:
 
     SponsoredListingsAuction:
       type: object
-      # TODO: add back searchQuery to description when supported
-      description: |
+      # TODO: add back category and searchQuery to description when ready
+      description: >
         Describes the intent of running a sponsored listings auction.
 
         Exactly **one** of the following fields must be set:
-        * `categoryId`
-        * `categoryIds`
-        * `categoryDisjunctions`
         * `products`
       properties:
         type:
@@ -286,29 +321,8 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        categoryId:
-          type: string
-          description: The category ID of the bids that will participate in an auction.
-          minimum: 1
-        categoryIds:
-          type: array
-          description: |
-            An array containing the category IDs of the bids that will participate in an auction.
-            In order to participate in an auction, a bid product must belong to **all** of the categories provided in the auction request.
-          items:
-            type: string
-            description: A category ID.
-            minimum: 1
-          minItems: 1
-        categoryDisjunctions:
-          type: array
-          description: |
-            An array of arrays containing category IDs, grouped according to facets.
-
-            In order to participate in an auction, a bid product must belong to at least one of the categories for each of the facets provided in the auction request.
-          items:
-            $ref: '#/components/schemas/CategoryDisjunction'
-          minItems: 1
+        # category:
+        #  $ref: '#/components/schemas/Category'
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
