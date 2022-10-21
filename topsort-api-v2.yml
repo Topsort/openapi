@@ -222,7 +222,8 @@ components:
     Category:
       oneOf:
         - type: object
-          description: An object describing a category for the purpose of running an auction.
+          title: Single Category
+          description: A category for the purpose of running an auction.
           required:
             - id
           properties:
@@ -232,6 +233,8 @@ components:
               minLength: 1
               example: c_yogurt
         - type: object
+          title: Multiple Categories
+          description: A set of categories for the purpose of running an auction.
           required:
             - ids
           properties:
@@ -249,6 +252,8 @@ components:
                 - c_men_clothing
                 - c_shoes
         - type: object
+          title: Category Disjunctions
+          description: Multiple disjunctions of categories for the purpose of running an auction.
           required:
             - disjunctions
           properties:
