@@ -309,7 +309,7 @@ components:
         Describes the intent of running a sponsored listings auction.
 
         Exactly **one** of the following fields must be set:
-        * `products`
+        - `products`
       properties:
         type:
           type: string
@@ -321,8 +321,8 @@ components:
           format: int32
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
-        # category:
-        #  $ref: '#/components/schemas/Category'
+        category:
+         $ref: '#/components/schemas/Category'
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
