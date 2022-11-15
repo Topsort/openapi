@@ -328,7 +328,7 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-         $ref: '#/components/schemas/Category'
+          $ref: '#/components/schemas/Category'
         # searchQuery:
         #   type: string
         #   description: The search string provided by a user.
