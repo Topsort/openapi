@@ -339,7 +339,6 @@ components:
       required:
         - type
         - slots
-        - products
       example:
         type: listings
         slots: 2
