@@ -92,7 +92,7 @@ paths:
       requestBody:
         description: |
           The information describing what will be auctioned.
-          Topsort will run an auction for each batched auction request, for which products, brands and/or vendors' bids will compete against each other.
+          Topsort will run an auction for each batched auction request, for which products' bids will compete against each other.
         content:
           application/json:
             schema:
@@ -359,7 +359,7 @@ components:
       description: |
         Describes the intent of running a banner ads auction.
 
-        Exactly **one** of the following fields must be set:
+        At most **one** of the following fields must be set:
           * `category`
           * `searchQuery`
       properties:
