@@ -110,6 +110,16 @@ paths:
                 auctions:
                   - type: listings
                     slots: 2
+                    category:
+                      disjunctions:
+                        - ids:
+                            - c_large
+                            - c_medium
+                        - ids:
+                            - c_red
+                            - c_blue
+                  - type: listings
+                    slots: 2
                     products:
                       ids:
                         - p_PJbnN
@@ -123,10 +133,6 @@ paths:
                     aspectRatio: '4:1'
                     category:
                       id: c_yogurt
-                  - type: banners
-                    slots: 1
-                    aspectRatio: '3:2'
-                    searchQuery: Noosa Peach
         required: true
       responses:
         201:
@@ -260,7 +266,7 @@ components:
             disjunctions:
               type: array
               description: |
-                An array of arrays containing category IDs, grouped by disjunctions.
+                An array of disjunctions.
 
                 In order to participate in an auction, a bid product must belong to at least one of the categories for each of the disjunctions provided in the auction request.
               items:
