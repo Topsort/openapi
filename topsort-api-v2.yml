@@ -117,7 +117,7 @@ paths:
                       location: New York
                   - type: banners
                     slots: 1
-                    aspectRatio: '4:1'
+                    slotId: 254b6dfc-3447-4ddf-a270-ed23101023ef
                     category:
                       id: c_yogurt
                   - type: banners
@@ -319,20 +319,21 @@ components:
           description: The search string provided by a user.
         device:
           $ref: '#/components/schemas/Device'
-        aspectRatio:
+        slotId:
           type: string
-          pattern: '^\d+:\d+$'
           description: >
-            The aspect ratio for a specific slot for a banner placement in the marketplace app.
-            The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
+            The ID of the region for which this auction will be run for.
+            It must match the values provided when creating the banner campaign.
+            This can be a DOM `id` property for the element where the banner will appear.
+          minLength: 1
       required:
         - type
         - slots
-        - aspectRatio
+        - slotId
       example:
         type: banners
         slots: 1
-        aspectRatio: '4:1'
+        slotId: 254b6dfc-3447-4ddf-a270-ed23101023ef
         category:
           id: c_yogurt
 
@@ -494,7 +495,6 @@ components:
             - invalid_event_type
             - invalid_promotion_type
             - invalid_session
-            - missing_aspect_ratio
             - missing_auctions
             - missing_context
             - missing_placement
