@@ -508,6 +508,7 @@ components:
             - missing_promotion_type
             - missing_purchased_at
             - missing_session
+            - missing_slot_id
             - missing_slots
             - no_products
             - no_purchase_items
