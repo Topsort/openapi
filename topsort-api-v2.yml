@@ -130,7 +130,7 @@ paths:
                       location: New York
                   - type: banners
                     slots: 1
-                    aspectRatio: '4:1'
+                    slotId: categories-ribbon-banner
                     category:
                       id: c_yogurt
         required: true
@@ -386,20 +386,27 @@ components:
           description: The search string provided by a user.
         device:
           $ref: '#/components/schemas/Device'
+        slotId:
+          type: string
+          description: The ID of the banner placement for which this auction will be run for.
+          minLength: 1
         aspectRatio:
           type: string
           pattern: '^\d+:\d+$'
-          description: >
+          description: |
+            **Deprecated: use slotId instead.**
+
             The aspect ratio for a specific slot for a banner placement in the marketplace app.
             The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
+          deprecated: true
       required:
         - type
         - slots
-        - aspectRatio
+        - slotId
       example:
         type: banners
         slots: 1
-        aspectRatio: '4:1'
+        slotId: categories-ribbon-banner
         category:
           id: c_yogurt
 
@@ -561,7 +568,6 @@ components:
             - invalid_event_type
             - invalid_promotion_type
             - invalid_session
-            - missing_aspect_ratio
             - missing_auctions
             - missing_context
             - missing_placement
@@ -569,6 +575,7 @@ components:
             - missing_promotion_type
             - missing_purchased_at
             - missing_session
+            - missing_slot_id
             - missing_slots
             - no_products
             - no_purchase_items
