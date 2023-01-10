@@ -37,14 +37,17 @@ tags:
       ## AssetSource
       <SchemaDefinition schemaRef="#/components/schemas/AssetSource" />
 
-      ## Auction Result
-      <SchemaDefinition schemaRef="#/components/schemas/Auction" />
-
       ## Auction (Banners)
       <SchemaDefinition schemaRef="#/components/schemas/BannersAuction" />
 
       ## Auction (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/SponsoredListingsAuction" />
+
+      ## Auction Result (Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/BannersAuctionResult" />
+
+      ## Auction Result (Sponsored Listings)
+      <SchemaDefinition schemaRef="#/components/schemas/SponsoredListingsAuctionResult" />
 
       ## Category
       <SchemaDefinition schemaRef="#/components/schemas/Category" />
@@ -76,8 +79,11 @@ tags:
       ## Purchase Item
       <SchemaDefinition schemaRef="#/components/schemas/PurchaseItem" />
 
-      ## Winner
-      <SchemaDefinition schemaRef="#/components/schemas/Winner" />
+      ## Winner (Banners)
+      <SchemaDefinition schemaRef="#/components/schemas/BannersWinner" />
+
+      ## Winner (Sponsored Listings)
+      <SchemaDefinition schemaRef="#/components/schemas/SponsoredListingsWinner" />
 
 security:
   - BearerAuth: []
@@ -150,7 +156,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Auction'
+                      $ref: '#/components/schemas/AuctionResult'
                     minItems: 1
                     maxItems: 5
                 required:
@@ -416,13 +422,18 @@ components:
         - $ref: '#/components/schemas/SponsoredListingsAuction'
         - $ref: '#/components/schemas/BannersAuction'
 
-    Auction:
+    AuctionResult:
+      oneOf: 
+        - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
+        - $ref: '#/components/schemas/BannersAuctionResult'
+
+    BannersAuctionResult:
       type: object
       properties:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/Winner'
+            $ref: '#/components/schemas/BannersWinner'
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -433,6 +444,93 @@ components:
       required:
         - winners
         - error
+
+    SponsoredListingsAuctionResult:
+      type: object
+      properties:
+        winners:
+          type: array
+          items:
+            $ref: '#/components/schemas/SponsoredListingsWinner'
+          description: >
+            Array of winner objects in order from highest to lowest bid.
+            It will be empty if there were no qualifying bids or if there was an error.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
+          example: false
+      required:
+        - winners
+        - error
+
+    SponsoredListingsWinner:
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: >
+            Where the product's bid ranked in the auction.
+            One-based, so the product with rank 1 won the auction.
+            In an auction response, the winners array is sorted so rank will match the entry's index.
+          minimum: 1
+        type:
+          type: string
+          description: The type of the winning bid.
+          enum:
+            - product
+            - vendor
+        id:
+          type: string
+          description: The marketplace's ID of the winning entity, depending on the campaign.
+          example: p_Mfk15
+        resolvedBidId:
+          type: string
+          description: An opaque Topsort ID to be used when this item is interacted with.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+
+    BannersWinner:
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+        - asset
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: >
+            Where the product's bid ranked in the auction.
+            One-based, so the product with rank 1 won the auction.
+            In an auction response, the winners array is sorted so rank will match the entry's index.
+          minimum: 1
+        type:
+          type: string
+          description: The type of the winning bid.
+          enum:
+            - product
+            - vendor
+        id:
+          type: string
+          description: The marketplace's ID of the winning entity, depending on the campaign.
+          example: p_Mfk15
+        resolvedBidId:
+          type: string
+          description: An opaque Topsort ID to be used when this item is interacted with.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        asset:
+          description: The list of available sources for a banner.
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetSource'
+          minItems: 1
 
     # Dimensions:
     #   type: object
@@ -478,43 +576,6 @@ components:
         # - dimensions
         # - fileSize
         - url
-
-    Winner:
-      type: object
-      required:
-        - rank
-        - type
-        - id
-        - resolvedBidId
-      properties:
-        rank:
-          type: integer
-          format: int32
-          description: >
-            Where the product's bid ranked in the auction.
-            One-based, so the product with rank 1 won the auction.
-            In an auction response, the winners array is sorted so rank will match the entry's index.
-          minimum: 1
-        type:
-          type: string
-          description: The type of the winning bid.
-          enum:
-            - product
-            - vendor
-        id:
-          type: string
-          description: The marketplace's ID of the winning entity, depending on the campaign.
-          example: p_Mfk15
-        resolvedBidId:
-          type: string
-          description: An opaque Topsort ID to be used when this item is interacted with.
-          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-        asset:
-          description: The list of available sources for an asset (banner or video).
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetSource'
-          minItems: 1
 
     Products:
       required:
