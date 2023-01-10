@@ -423,7 +423,7 @@ components:
         - $ref: '#/components/schemas/BannersAuction'
 
     AuctionResult:
-      oneOf: 
+      oneOf:
         - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
         - $ref: '#/components/schemas/BannersAuctionResult'
 
