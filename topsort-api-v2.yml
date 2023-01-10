@@ -365,9 +365,9 @@ components:
       description: |
         Describes the intent of running a banner ads auction.
 
-        At most **one** of the following fields must be set:
-          * `category`
-          * `searchQuery`
+          * For **Homepage** banners, `category` and `searchQuery` must be empty.
+          * For **Category** banners, the `category` field must be set.
+          * For **Keywords** banners, the `searchQuery` field must be set.
       properties:
         type:
           type: string
