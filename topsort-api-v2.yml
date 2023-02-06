@@ -481,13 +481,16 @@ components:
           minimum: 1
         type:
           type: string
-          description: The type of the winning bid.
+          description: The target type of the winning bid.
           enum:
             - product
             - vendor
+            - brand
+            - url
         id:
           type: string
-          description: The marketplace's ID of the winning entity, depending on the campaign.
+          description: |-
+            The marketplace's ID of the winning entity, depending on the target of the campaign.
           example: p_Mfk15
         resolvedBidId:
           type: string
