@@ -321,7 +321,6 @@ components:
 
     SponsoredListingsAuction:
       type: object
-      # TODO: add back searchQuery to description when ready
       description: |
         Describes the intent of running a sponsored listings auction.
 
@@ -341,9 +340,9 @@ components:
           description: Specifies the maximum number of auction winners that should be returned.
         category:
           $ref: '#/components/schemas/Category'
-        # searchQuery:
-        #   type: string
-        #   description: The search string provided by a user.
+        searchQuery:
+          type: string
+          description: The search string provided by a user.
         products:
           $ref: '#/components/schemas/Products'
         geoTargeting:
