@@ -118,12 +118,10 @@ paths:
                     slots: 2
                     category:
                       disjunctions:
-                        - ids:
-                            - c_large
-                            - c_medium
-                        - ids:
-                            - c_red
-                            - c_blue
+                        - - c_large
+                          - c_medium
+                        - - c_red
+                          - c_blue
                   - type: listings
                     slots: 2
                     products:
@@ -279,27 +277,22 @@ components:
                 $ref: '#/components/schemas/CategoryDisjunction'
               minItems: 1
               example:
-                - ids:
-                    - c_red
-                    - c_blue
-                - ids:
-                    - c_circle
-                    - c_square
+                - - c_red
+                  - c_blue
+                - - c_circle
+                  - c_square
 
     CategoryDisjunction:
-      type: object
-      properties:
-        ids:
-          type: array
-          description: |
-            An array of category IDs, describing a category disjunction.
+      type: array
+      description: |
+        An array of category IDs, describing a category disjunction.
 
-            A bid entity must belong to at least one of the categories in the disjunction in order to participate in the auction.
-          items:
-            type: string
-            description: A category ID.
-            minimum: 1
-          minItems: 1
+        A bid entity must belong to at least one of the categories in the disjunction in order to participate in the auction.
+      items:
+        type: string
+        description: A category ID.
+        minimum: 1
+      minItems: 1
 
     Device:
       type: string
