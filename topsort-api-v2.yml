@@ -385,6 +385,8 @@ components:
           description: The search string provided by a user.
         device:
           $ref: '#/components/schemas/Device'
+        geoTargeting:
+          $ref: '#/components/schemas/GeoTargeting'
         slotId:
           type: string
           description: The ID of the banner placement for which this auction will be run for.
