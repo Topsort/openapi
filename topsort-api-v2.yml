@@ -821,7 +821,7 @@ components:
           type: string
           description: |
             <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
-            whether or not they are actually logged in. It must be long lived (months) so that Topsort can attribute purchases.
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
             </p>
             <p>
             If your users are always logged in you may use a hash of your customer ID.
@@ -869,7 +869,7 @@ components:
           type: string
           description: |
             <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
-            whether or not they are actually logged in. It must be long lived (months) so that Topsort can attribute purchases.
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
             </p>
             <p>
             If your users are always logged in you may use a hash of your customer ID.
@@ -908,7 +908,7 @@ components:
           type: string
           description: |
             <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
-            whether or not they are actually logged in. It must be long lived (months) so that Topsort can attribute purchases.
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
             </p>
             <p>
             If your users are always logged in you may use a hash of your customer ID.
