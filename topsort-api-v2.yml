@@ -391,6 +391,8 @@ components:
           type: string
           description: The ID of the banner placement for which this auction will be run for.
           minLength: 1
+        products:
+          $ref: '#/components/schemas/Products'
         aspectRatio:
           type: string
           pattern: '^\d+:\d+$'
