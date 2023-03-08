@@ -384,10 +384,14 @@ components:
           description: The search string provided by a user.
         device:
           $ref: '#/components/schemas/Device'
+        geoTargeting:
+          $ref: '#/components/schemas/GeoTargeting'
         slotId:
           type: string
           description: The ID of the banner placement for which this auction will be run for.
           minLength: 1
+        products:
+          $ref: '#/components/schemas/Products'
         aspectRatio:
           type: string
           pattern: '^\d+:\d+$'
@@ -816,9 +820,16 @@ components:
           example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
           type: string
-          description: >
-            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
-            It must be long lived.
+          description: |
+            <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
+            </p>
+            <p>
+            If your users are always logged in you may use a hash of your customer ID.
+            If your users may interact with your app or site while logged out we
+            recommend generating a random identifier (UUIDv4) on first load and store it on
+            local storage (cookie, local storage, etc) and let it live for at least a year.
+            </p>
           minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
@@ -857,9 +868,16 @@ components:
           example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
           type: string
-          description: >
-            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
-            It must be long lived.
+          description: |
+            <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
+            </p>
+            <p>
+            If your users are always logged in you may use a hash of your customer ID.
+            If your users may interact with your app or site while logged out we
+            recommend generating a random identifier (UUIDv4) on first load and store it on
+            local storage (cookie, local storage, etc) and let it live for at least a year.
+            </p>
           minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         id:
@@ -889,9 +907,16 @@ components:
           format: date-time
         opaqueUserId:
           type: string
-          description: >
-            The opaque user ID allows correlating user activity, whether or not they are actually logged in.
-            It must be long lived.
+          description: |
+            <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
+            </p>
+            <p>
+            If your users are always logged in you may use a hash of your customer ID.
+            If your users may interact with your app or site while logged out we
+            recommend generating a random identifier (UUIDv4) on first load and store it on
+            local storage (cookie, local storage, etc) and let it live for at least a year.
+            </p>
           minLength: 1
           example: 71303ce0-de89-496d-8270-6434589615e8
         items:
