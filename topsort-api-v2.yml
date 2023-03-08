@@ -420,6 +420,11 @@ components:
         - $ref: '#/components/schemas/BannersAuction'
 
     AuctionResult:
+      discriminator:
+        propertyName: resultType
+        mapping:
+          listings: '#/components/schemas/SponsoredListingsAuctionResult'
+          banners: '#/components/schemas/BannersAuctionResult'
       oneOf:
         - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
         - $ref: '#/components/schemas/BannersAuctionResult'
@@ -427,6 +432,8 @@ components:
     BannersAuctionResult:
       type: object
       properties:
+        resultType: 
+          type: string
         winners:
           type: array
           items:
@@ -441,10 +448,13 @@ components:
       required:
         - winners
         - error
+        - resultType
 
     SponsoredListingsAuctionResult:
       type: object
       properties:
+        resultType: 
+          type: string
         winners:
           type: array
           items:
@@ -459,6 +469,7 @@ components:
       required:
         - winners
         - error
+        - resultType
 
     SponsoredListingsWinner:
       type: object
