@@ -432,7 +432,7 @@ components:
     BannersAuctionResult:
       type: object
       properties:
-        resultType: 
+        resultType:
           type: string
         winners:
           type: array
@@ -453,7 +453,7 @@ components:
     SponsoredListingsAuctionResult:
       type: object
       properties:
-        resultType: 
+        resultType:
           type: string
         winners:
           type: array
