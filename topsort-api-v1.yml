@@ -8,6 +8,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
+    backgroundColor: '#fff'
     altText: Topsort
   version: 1.0.1
 
