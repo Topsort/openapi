@@ -11,7 +11,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
-    url: https://assets.website-files.com/61a717c57f45d64e5e24eebf/61ee6ccc3f6a684756ef6dec_logo.svg
+    url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
     backgroundColor: '#fff'
     altText: Topsort
   version: 2.0.0
@@ -419,6 +419,11 @@ components:
         - $ref: '#/components/schemas/BannersAuction'
 
     AuctionResult:
+      discriminator:
+        propertyName: resultType
+        mapping:
+          listings: '#/components/schemas/SponsoredListingsAuctionResult'
+          banners: '#/components/schemas/BannersAuctionResult'
       oneOf:
         - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
         - $ref: '#/components/schemas/BannersAuctionResult'
@@ -426,6 +431,8 @@ components:
     BannersAuctionResult:
       type: object
       properties:
+        resultType:
+          type: string
         winners:
           type: array
           items:
@@ -440,10 +447,13 @@ components:
       required:
         - winners
         - error
+        - resultType
 
     SponsoredListingsAuctionResult:
       type: object
       properties:
+        resultType:
+          type: string
         winners:
           type: array
           items:
@@ -458,6 +468,7 @@ components:
       required:
         - winners
         - error
+        - resultType
 
     SponsoredListingsWinner:
       type: object
