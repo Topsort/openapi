@@ -309,7 +309,7 @@ components:
         - location
       properties:
         location:
-          description: The location this banner is being run for.
+          description: The location this auction is being run for.
           type: string
 
     SponsoredListingsAuction:
