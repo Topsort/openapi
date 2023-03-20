@@ -115,7 +115,7 @@ paths:
               example:
                 auctions:
                   - type: listings
-                    slots: 2
+                    slots: 1
                     category:
                       disjunctions:
                         - - c_large
@@ -137,6 +137,9 @@ paths:
                     slotId: categories-ribbon-banner
                     category:
                       id: c_yogurt
+                  - type: banners
+                    slots: 1
+                    slotId: homepage-banner
         required: true
       responses:
         201:
@@ -164,6 +167,12 @@ paths:
                     - winners:
                         - rank: 1
                           type: product
+                          id: p_Mfk11
+                          resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                      error: false
+                    - winners:
+                        - rank: 1
+                          type: product
                           id: p_Mfk15
                           resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                         - rank: 2
@@ -179,7 +188,7 @@ paths:
                           asset:
                             - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
                       error: false
-                    - winners: {}
+                    - winners: []
                       error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
