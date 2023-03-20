@@ -168,7 +168,7 @@ paths:
                         - rank: 1
                           type: product
                           id: p_Mfk11
-                          resolvedBidId:  WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                          resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
                       error: false
                     - winners:
                         - rank: 1
