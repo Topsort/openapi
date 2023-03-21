@@ -402,15 +402,6 @@ components:
           minLength: 1
         products:
           $ref: '#/components/schemas/Products'
-        aspectRatio:
-          type: string
-          pattern: '^\d+:\d+$'
-          description: |
-            **Deprecated: use slotId instead.**
-
-            The aspect ratio for a specific slot for a banner placement in the marketplace app.
-            The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
-          deprecated: true
       required:
         - type
         - slots
