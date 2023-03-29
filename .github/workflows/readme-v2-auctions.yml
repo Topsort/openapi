@@ -4,7 +4,6 @@
 # Here we refer to the ReadMe internal versioning, not the API version
 name: ReadMe v2.0 Auctions 🦉
 
-
 on:
   push:
     branches:
