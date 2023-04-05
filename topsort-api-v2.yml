@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Topsort Endpoints API Reference
+  title: Topsort Endpoints v2 API Reference
   description: >-
     In order for a storefront to be able to run auctions in Topsort and report auction-related events back to Topsort,
     both the `/v2/auctions` and `/v2/events` endpoints must be integrated.
