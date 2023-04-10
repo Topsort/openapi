@@ -285,6 +285,7 @@ components:
               items:
                 $ref: '#/components/schemas/CategoryDisjunction'
               minItems: 1
+              maxItems: 5
               example:
                 - - c_red
                   - c_blue
