@@ -17,7 +17,7 @@ info:
   version: 2.0.0
 
 servers:
-  - url: https://<slug>.api.sandbox.topsort.ai/v2
+  - url: https://ts-ohio.api.sandbox.topsort.ai/v2
     description: Sandbox server (uses test data)
   - url: https://<slug>.api.topsort.ai/v2
     description: Production server (uses live data)
@@ -25,10 +25,10 @@ servers:
 tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
-  - name: Events (Beta)
+  - name: Events
     description: |
       **The specification details, particularly around placement data, may change in the short term.**
-      **If this is not acceptable for your integration, please use [Events V1](https://openapi.topsort.com/api/v1#operation/reportEvent) as an alternative.**
+      **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
   - name: Models
@@ -199,7 +199,7 @@ paths:
   /events:
     post:
       tags:
-        - Events (Beta)
+        - Events
       summary: Report events
       operationId: reportEvents
       requestBody:
