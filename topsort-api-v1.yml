@@ -13,7 +13,7 @@ info:
   version: 1.0.1
 
 servers:
-  - url: https://<slug>.api.sandbox.topsort.ai/v1
+  - url: https://ts-ohio.api.sandbox.topsort.ai/v1
     description: Sandbox server (uses test data)
   - url: https://<slug>.api.topsort.ai/v1
     description: Production server (uses live data)
