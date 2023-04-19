@@ -264,6 +264,7 @@ components:
           type: number
           minimum: 0
           maximum: 1
+          exclusiveMaximum: true
           example: 0.75
           format: double
       xml:
