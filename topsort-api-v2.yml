@@ -622,7 +622,7 @@ components:
             type: number
             minimum: 0
             maximum: 1
-            exclusiveMaximum: true
+            exclusiveMinimum: true
             example: 0.75
             format: double
           minItems: 1
