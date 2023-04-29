@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Topsort Endpoints API Reference
+  title: Topsort Endpoints v2 API Reference
   description: >-
     In order for a storefront to be able to run auctions in Topsort and report auction-related events back to Topsort,
     both the `/v2/auctions` and `/v2/events` endpoints must be integrated.
@@ -17,7 +17,7 @@ info:
   version: 2.0.0
 
 servers:
-  - url: https://<slug>.api.sandbox.topsort.ai/v2
+  - url: https://ts-ohio.api.sandbox.topsort.ai/v2
     description: Sandbox server (uses test data)
   - url: https://<slug>.api.topsort.ai/v2
     description: Production server (uses live data)
@@ -25,10 +25,10 @@ servers:
 tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
-  - name: Events (Beta)
+  - name: Events
     description: |
       **The specification details, particularly around placement data, may change in the short term.**
-      **If this is not acceptable for your integration, please use [Events V1](https://openapi.topsort.com/api/v1#operation/reportEvent) as an alternative.**
+      **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
   - name: Models
@@ -115,7 +115,7 @@ paths:
               example:
                 auctions:
                   - type: listings
-                    slots: 2
+                    slots: 1
                     category:
                       disjunctions:
                         - - c_large
@@ -137,6 +137,9 @@ paths:
                     slotId: categories-ribbon-banner
                     category:
                       id: c_yogurt
+                  - type: banners
+                    slots: 1
+                    slotId: homepage-banner
         required: true
       responses:
         201:
@@ -164,6 +167,12 @@ paths:
                     - winners:
                         - rank: 1
                           type: product
+                          id: p_Mfk11
+                          resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                      error: false
+                    - winners:
+                        - rank: 1
+                          type: product
                           id: p_Mfk15
                           resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                         - rank: 2
@@ -179,7 +188,7 @@ paths:
                           asset:
                             - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
                       error: false
-                    - winners: {}
+                    - winners: []
                       error: false
         401:
           $ref: '#/components/responses/UnauthorizedError'
@@ -190,7 +199,7 @@ paths:
   /events:
     post:
       tags:
-        - Events (Beta)
+        - Events
       summary: Report events
       operationId: reportEvents
       requestBody:
@@ -276,6 +285,7 @@ components:
               items:
                 $ref: '#/components/schemas/CategoryDisjunction'
               minItems: 1
+              maxItems: 5
               example:
                 - - c_red
                   - c_blue
@@ -309,7 +319,7 @@ components:
         - location
       properties:
         location:
-          description: The location this banner is being run for.
+          description: The location this auction is being run for.
           type: string
 
     SponsoredListingsAuction:
@@ -363,7 +373,7 @@ components:
       description: |
         Describes the intent of running a banner ads auction.
 
-          * For **Homepage** banners, `category` and `searchQuery` must be empty.
+          * For **Landing Page** banners, `category` and `searchQuery` must be empty.
           * For **Category** banners, the `category` field must be set.
           * For **Keywords** banners, the `searchQuery` field must be set.
       properties:
@@ -392,15 +402,6 @@ components:
           minLength: 1
         products:
           $ref: '#/components/schemas/Products'
-        aspectRatio:
-          type: string
-          pattern: '^\d+:\d+$'
-          description: |
-            **Deprecated: use slotId instead.**
-
-            The aspect ratio for a specific slot for a banner placement in the marketplace app.
-            The aspect ratio for the category (or home page, if no category ID was provided in the request) must have been previously set up in the Topsort app.
-          deprecated: true
       required:
         - type
         - slots
@@ -620,8 +621,9 @@ components:
             type: number
             minimum: 0
             maximum: 1
+            exclusiveMinimum: true
             example: 0.75
-            format: float
+            format: double
           minItems: 1
           maxItems: 10000
 

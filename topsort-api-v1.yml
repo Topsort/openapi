@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Topsort Endpoints API Reference
+  title: Topsort Endpoints v1 API Reference
   contact:
     email: wicha@topsort.com
   license:
@@ -13,9 +13,9 @@ info:
   version: 1.0.1
 
 servers:
-  - url: https://demo.api.topsort.com/v1
-    description: Demo server (uses test data)
-  - url: https://api.topsort.com/v1
+  - url: https://ts-ohio.api.sandbox.topsort.ai/v1
+    description: Sandbox server (uses test data)
+  - url: https://<slug>.api.topsort.ai/v1
     description: Production server (uses live data)
 
 tags:
@@ -214,7 +214,7 @@ components:
         - location
       properties:
         location:
-          description: The location this banner is being run for.
+          description: The location this auction is being run for.
           type: string
           minLength: 1
 
@@ -264,6 +264,7 @@ components:
           type: number
           minimum: 0
           maximum: 1
+          exclusiveMinimum: true
           example: 0.75
           format: double
       xml:
