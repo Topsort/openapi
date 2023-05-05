@@ -17,10 +17,8 @@ info:
   version: 2.0.0
 
 servers:
-  - url: https://ts-ohio.api.sandbox.topsort.ai/v2
-    description: Sandbox server (uses test data)
-  - url: https://<slug>.api.topsort.ai/v2
-    description: Production server (uses live data)
+  - url: https://api.topsort.com/v2
+    description: Auctions v2 path
 
 tags:
   - name: Auctions
