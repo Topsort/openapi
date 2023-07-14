@@ -729,9 +729,9 @@ components:
     Entity:
       type: object
       description: >
-         `Entity` is meant for reporting organic events, not sponsored or promoted products. It refers to the object 
-         involved in the organic interaction. But, in most cases, you won't need to fill in this object. Be aware that
-         if `resolvedBidId` has any value, `entity` will be disregarded.
+        `Entity` is meant for reporting organic events, not sponsored or promoted products. It refers to the object 
+        involved in the organic interaction. But, in most cases, you won't need to fill in this object. Be aware that
+        if `resolvedBidId` has any value, `entity` will be disregarded.
       required:
         - id
         - type
