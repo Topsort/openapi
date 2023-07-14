@@ -729,8 +729,9 @@ components:
     Entity:
       type: object
       description: >
-        The entity associated with the promotable over which the interaction occurred.
-        It will be ignored if `resolvedBidId` is not blank.
+         `Entity` is meant for reporting organic events, not sponsored or promoted products. It refers to the object 
+         involved in the organic interaction. But, in most cases, you won't need to fill in this object. Be aware that
+         if `resolvedBidId` has any value, `entity` will be disregarded.
       required:
         - id
         - type
@@ -818,7 +819,7 @@ components:
       properties:
         resolvedBidId:
           type: string
-          description: If the impression is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request.
+          description: If the impression is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
           $ref: '#/components/schemas/Entity'
@@ -866,7 +867,7 @@ components:
       properties:
         resolvedBidId:
           type: string
-          description: If the click is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request.
+          description: If the click is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
           $ref: '#/components/schemas/Entity'
@@ -913,7 +914,7 @@ components:
       properties:
         occurredAt:
           type: string
-          description: RFC3339 formatted timestamp, including UTC offset, of the instant in which the order was placed.
+          description: RFC3339 formatted timestamp, including UTC offset, of the instant in which the order was placed. Please note that purchases will NOT be attributed to an auction that happened after.
           example: '2021-10-12T07:20:50.52Z'
           format: date-time
         opaqueUserId:
