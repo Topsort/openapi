@@ -909,7 +909,7 @@ components:
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
         additionalAttribution:
           description: >
-            If the marketplace wants to attribute a click or impression to an additional entity, they can use
+            If the marketplace wants to attribute a click to an additional entity, they can use
             the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
             in the event body.
           $ref: '#/components/schemas/Entity'
