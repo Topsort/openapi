@@ -729,7 +729,7 @@ components:
     Entity:
       type: object
       description: >
-        `Entity` is meant for reporting organic events, not sponsored or promoted products. It refers to the object 
+        `Entity` is meant for reporting organic events, not sponsored or promoted products. It refers to the object
         involved in the organic interaction. But, in most cases, you won't need to fill in this object. Be aware that
         if `resolvedBidId` has any value, `entity` will be disregarded.
       required:
@@ -852,6 +852,13 @@ components:
             If there is no impression model on the marketplace side, generate a unique string that does not change if the event is resent.
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+        additionalAttribution:
+          description: >
+            If the marketplace wants to attribute a click or impression to an additional entity, they can use
+            the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
+            in the event body.
+          $ref: '#/components/schemas/Entity'
+
     Click:
       description: >
         A click is sent to Topsort when the consumer has clicked on a promotable.
@@ -900,6 +907,12 @@ components:
             If there is no click model on the marketplace side, generate a unique string that does not change if the event is resent.
           minLength: 1
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
+        additionalAttribution:
+          description: >
+            If the marketplace wants to attribute a click or impression to an additional entity, they can use
+            the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
+            in the event body.
+          $ref: '#/components/schemas/Entity'
     Purchase:
       description: >
         A purchase is sent to Topsort once a marketplace customer places an order.
