@@ -76,6 +76,13 @@ security:
   - BearerAuth: []
 
 paths:
+  /fake:
+    get:
+      summary: Fake route to keep ReadMe happy.
+      operationId: fake
+      responses:
+        204:
+          description: No content
   /auctions:
     post:
       tags:
