@@ -85,6 +85,7 @@ paths:
           description: No content
   /auctions:
     post:
+      deprecated: true
       tags:
         - Auctions
       summary: Creates a new auction
@@ -118,6 +119,7 @@ paths:
 
   /events:
     post:
+      deprecated: true
       tags:
         - Events
       summary: Report an event
