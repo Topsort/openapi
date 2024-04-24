@@ -110,12 +110,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Auction'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        
 
   /events:
     post:
