@@ -766,7 +766,7 @@ components:
             The asset will be served by Topsort's CDN.
         role:
           type: string
-          description: The role of the asset.
+          description: The role of the asset. It can be either `logo` or `image`.
         contentType:
           type: string
           description: The asset MIME type.
