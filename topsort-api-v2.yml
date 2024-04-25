@@ -682,7 +682,7 @@ components:
             format: double
           minItems: 1
           maxItems: 10000
- 
+
     SponsoredBrandAuctionRequest:
       type: object
       description: |
@@ -703,7 +703,7 @@ components:
           $ref: '#/components/schemas/Products'
       required:
         - winners
-    
+
     SponsoredBrandAuctionResult:
       type: object
       properties:
@@ -764,8 +764,8 @@ components:
           type: string
           format: uri
           description: >
-              A vendor provided asset that the marketplace has to render.
-              The asset will be served by Topsort's CDN.
+            A vendor provided asset that the marketplace has to render.
+            The asset will be served by Topsort's CDN.
         role:
           type: string
           description: The role of the asset.
