@@ -98,7 +98,7 @@ paths:
     post:
       tags:
         - Auctions
-      summary: Create new auctions
+      summary: Create auctions
       operationId: createAuctions
       requestBody:
         description: |
@@ -199,6 +199,55 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+  /auctions/sponsored-brand:
+    post:
+      tags:
+        - Auctions
+      summary: Create sponsored brand auctions
+      operationId: createSponsoredBrandAuctions
+      requestBody:
+        description: |
+          The information describing what will be auctioned.
+          Topsort will run an auction for each batched auction request, for which products' bids will compete against each other.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auctions:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SponsoredBrandAuctionRequest'
+                  minItems: 1
+                  maxItems: 5
+              required:
+                - auctions
+        required: true
+      responses:
+        201:
+          description: >
+            The auction results.
+            The list of winners will contain at most `winners` entries per auction.
+            It may contain fewer or no entries at all if there aren't enough products with usable bids, that is,
+            a bid amount greater than the reserve price and belonging to a campaign with enough remaining budget.
+            Bids become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SponsoredBrandAuctionResult'
+                    minItems: 1
+                    maxItems: 5
+                required:
+                  - results
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   /events:
     post:
       tags:
@@ -245,15 +294,7 @@ components:
       oneOf:
         - type: object
           title: Single Category
-          description: A category for the purpose of running an auction.
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              description: The category ID of the bids that will participate in an auction.
-              minLength: 1
-              example: c_yogurt
+          $ref: '#/components/schemas/SingleCategory'
         - type: object
           title: Multiple Categories
           description: A set of categories for the purpose of running an auction.
@@ -294,6 +335,18 @@ components:
                   - c_blue
                 - - c_circle
                   - c_square
+
+    SingleCategory:
+      type: object
+      description: A category for the purpose of running an auction.
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: The category ID of the bids that will participate in an auction.
+          minLength: 1
+          example: c_yogurt
 
     CategoryDisjunction:
       type: array
@@ -629,6 +682,108 @@ components:
             format: double
           minItems: 1
           maxItems: 10000
+ 
+    SponsoredBrandAuctionRequest:
+      type: object
+      description: |
+        Describes the intent of running a sponsored brand auction.
+
+        Exactly **one** of the following fields must be set:
+          * `products`
+          * `category`
+      properties:
+        winners:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Specifies the maximum number of auction winners that should be returned.
+        category:
+          $ref: '#/components/schemas/SingleCategory'
+        products:
+          $ref: '#/components/schemas/Products'
+      required:
+        - winners
+    
+    SponsoredBrandAuctionResult:
+      type: object
+      properties:
+        winners:
+          type: array
+          items:
+            $ref: '#/components/schemas/SponsoredBrandWinner'
+          description: >
+            Array of winner objects in order from highest to lowest bid.
+            It will be empty if there were no qualifying bids or if there was an error.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
+          example: false
+      required:
+        - winners
+        - error
+
+    SponsoredBrandWinner:
+      type: object
+      required:
+        - rank
+        - productId
+        - resolvedBidId
+        - assets
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: >
+            Where the product's bid ranked in the auction.
+            One-based, so the product with rank 1 won the auction.
+            In an auction response, the winners array is sorted so rank will match the entry's index.
+          minimum: 1
+        productId:
+          type: string
+          description: |-
+            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          example: p_Mfk15
+        resolvedBidId:
+          type: string
+          description: An opaque Topsort ID to be used when this item is interacted with.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        title:
+          type: string
+          description: An optional title for the sponsored brand selected when creating the campaign.
+        assets:
+          description: Assets used to render the sponsored brand ad.
+          type: array
+          items:
+            $ref: '#/components/schemas/SponsoredBrandAsset'
+          minItems: 1
+
+    SponsoredBrandAsset:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >
+              A vendor provided asset that the marketplace has to render.
+              The asset will be served by Topsort's CDN.
+        role:
+          type: string
+          description: The role of the asset.
+        contentType:
+          type: string
+          description: The asset MIME type.
+        contentLength:
+          type: integer
+          format: uint32
+          description: The size of the asset in bytes.
+        width:
+          type: integer
+          format: uint32
+          description: The asset width in pixels.
+        height:
+          type: integer
+          format: uint32
+          description: The asset height in pixels.
 
     Error:
       type: object
