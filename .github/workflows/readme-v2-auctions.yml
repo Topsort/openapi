@@ -22,7 +22,7 @@ jobs:
       - name: Run `openapi` command (v1) 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi topsort-api-v1.yml --key=${{ secrets.README_API_KEY }} --id=65492281f39360089af5618d
+          rdme: openapi topsort-api-v1.yml --key=${{ secrets.README_API_KEY }} --id=6647abcaeb5567003642b702
       - name: Run `openapi` command  (v2) 🚀
         uses: readmeio/rdme@v8
         with:
