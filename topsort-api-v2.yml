@@ -1144,7 +1144,9 @@ components:
           example: 12.95
         vendorId:
           type: string
-          description: The marketplace ID of the vendor selling the product.
+          description: >
+            The vendor ID of the product being purchased. This field is optional 
+            and should be filled in if a product is sold by multiple vendors.
           minLength: 1
           example: v_8fj2D
 
