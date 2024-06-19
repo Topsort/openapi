@@ -957,6 +957,7 @@ components:
               - productId: p_SA0238
                 unitPrice: 12.95
                 quantity: 2
+                vendorId: v_8fj2D
               - productId: p_oajf2D
                 unitPrice: 1.49
             occurredAt: '2019-01-01T12:59:59-05:00'
@@ -1141,6 +1142,11 @@ components:
           exclusiveMinimum: true
           description: The price of a single item in the marketplace currency.
           example: 12.95
+        vendorId:
+          type: string
+          description: The marketplace ID of the vendor selling the product.
+          minLength: 1
+          example: v_8fj2D
 
   securitySchemes:
     BearerAuth:
