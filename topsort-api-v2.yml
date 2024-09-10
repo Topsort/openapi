@@ -17,8 +17,8 @@ info:
   version: 2.0.0
 
 servers:
-  - url: https://api.topsort.com/v2
-    description: Auctions v2 path
+  - url: https://api.topsort.com/
+    description: Base API URL
 
 tags:
   - name: Auctions
@@ -87,7 +87,7 @@ security:
   - BearerAuth: []
 
 paths:
-  /auctions:
+  /v2/auctions:
     post:
       tags:
         - Auctions
@@ -241,7 +241,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-  /events:
+  /v2/events:
     post:
       tags:
         - Events
