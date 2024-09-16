@@ -19,7 +19,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: npm install -g prettier@2.5.1 @openapitools/openapi-generator-cli@2.4.24
+        run: npm install -g prettier@2.5.1 @openapitools/openapi-generator-cli@2.5.2
 
       - name: Check Formatting
         run: prettier --check .

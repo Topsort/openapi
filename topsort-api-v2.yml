@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: Topsort Endpoints v2 API Reference
   description: >-
@@ -10,6 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
+    identifier: Apache-2.0
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
     backgroundColor: '#fff'
@@ -545,12 +546,41 @@ components:
         id:
           type: string
           description: |-
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
-          example: p_Mfk15
+            The marketplace's ID of the winning entity or an URL for a banner destination page, depending on the target of the campaign.
         resolvedBidId:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        examples:
+          winnerProduct:
+            value:
+              {
+                'rank': 1,
+                'type': 'product',
+                'id': 'p_Mfk15',
+                'resolvedBidId': 'WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=',
+              }
+          winnerVendor:
+            {
+              'rank': 1,
+              'type': 'vendor',
+              'id': 'https://your.marketplace.com/products/path-to-a-product-page',
+              'resolvedBidId': 'WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=',
+            }
+          winnerUrl:
+            {
+              'rank': 1,
+              'type': 'url',
+              'id': '',
+              'resolvedBidId': 'WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=',
+            }
+          winnerDeepLink:
+            {
+              'rank': 1,
+              'type': 'url',
+              'id': 'intent://your.markketplace.com/_u/products/path-to-a-product-page_#Intent;package=com.marketplace.android;scheme=https;end',
+              'resolvedBidId': 'WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=',
+            }
 
     BannersWinner:
       type: object
