@@ -529,6 +529,7 @@ components:
         - type
         - id
         - resolvedBidId
+        - campaignId
       properties:
         rank:
           type: integer
@@ -555,6 +556,10 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        campaignId:
+          type: string
+          description: The ID of the campaign that won the auction.
+          example: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
 
     BannersWinner:
       type: object
@@ -590,6 +595,10 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        campaignId:
+          type: string
+          description: The ID of the campaign that won the auction.
+          example: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
         asset:
           description: The list of available sources for a banner.
           type: array
