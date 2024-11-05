@@ -118,8 +118,6 @@ paths:
                       disjunctions:
                         - - c_large
                           - c_medium
-                        - - c_red
-                          - c_blue
                   - type: listings
                     slots: 2
                     products:
