@@ -654,7 +654,9 @@ components:
       properties:
         ids:
           type: array
-          description: An array of product IDs that should participate in the auction.
+          description: >
+            An array of product IDs that should participate in the auction.
+            We recommend sending no more than 500 products per auction.
           items:
             type: string
             description: >
