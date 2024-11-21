@@ -19,19 +19,22 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: npm install -g prettier@2.5.1 @openapitools/openapi-generator-cli@2.4.24
+        run: npm install -g prettier@2.5.1
+
+      - name: Download OpenAPI binaries
+        run: curl https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/6.2.0/openapi-generator-cli-6.2.0.jar -o openapi-cli.jar
 
       - name: Check Formatting
         run: prettier --check .
 
       - name: Check Spec (Topsort Endpoints v1)
-        run: openapi-generator-cli validate -i topsort-api-v1.yml
+        run: java -jar openapi-cli.jar validate -i topsort-api-v1.yml
 
       - name: Check Spec (Topsort Endpoints v2)
-        run: openapi-generator-cli validate -i topsort-api-v2.yml
+        run: java -jar openapi-cli.jar validate -i topsort-api-v2.yml
 
       - name: Check Spec (Catalog CRUD API)
-        run: openapi-generator-cli validate -i catalog-crud-api.yml
+        run: java -jar openapi-cli.jar validate -i catalog-crud-api.yml
 
       - name: Check Spec (Catalog Service)
-        run: openapi-generator-cli validate -i topsort-catalog-service.yml
+        run: java -jar openapi-cli.jar validate -i topsort-catalog-service.yml
