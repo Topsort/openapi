@@ -243,6 +243,55 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
+  /v2/auctions/travel:
+    post:
+      tags:
+        - Auctions
+      summary: Create an auction for hotel related products
+      operationId: createTravelAuctions
+      requestBody:
+        description: |
+          The information describing what will be auctioned.
+          Topsort will run an auction for each batched auction request, for which products' bids will compete against each other.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auctions:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TravelAuctionRequest'
+                  minItems: 1
+                  maxItems: 5
+              required:
+                - auctions
+        required: true
+      responses:
+        201:
+          description: >
+            The auction results.
+            The list of winners will contain at most `winners` entries per auction.
+            It may contain fewer or no entries at all if there aren't enough products with usable bids, that is,
+            a bid amount greater than the reserve price and belonging to a campaign with enough remaining budget.
+            Bids become unusable if campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuctionResult'
+                    minItems: 1
+                    maxItems: 5
+                required:
+                  - results
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/events:
     post:
       tags:
@@ -847,6 +896,96 @@ components:
           type: integer
           format: uint32
           description: The asset height in pixels.
+
+    TravelAuctionRequest:
+      type: object
+      description: Describes the intent of running a travel auction.
+      properties:
+        type:
+          type: string
+          enum:
+            - hotels
+          description: Discriminator for the type of travel auction.
+        slots:
+          type: integer
+          format: int32
+          description: Specifies the maximum number of auction winners that should be returned.
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/TravelProduct'
+        travelContext:
+          $ref: '#/components/schemas/TravelContext'
+      x-examples:
+        Example 1:
+          auctions:
+            - type: hotels
+              slots: 2
+              products:
+                - id: hotel-1
+                  qualityScore: 0.7
+                - id: hotel-2
+              travelContext:
+                - travelStartDate: 2025-01-01
+                - travelEndDate: 2025-01-15
+                - site: travel.argentina.com
+                - passengers: 2
+                - travelerType: couple
+
+    TravelProduct:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: An array of hotels IDs that should participate in the auction.
+          example: miami-hotel
+        qualityScore:
+          type: number
+          minimum: 0
+          maximum: 1
+          exclusiveMinimum: true
+          example: 0.75
+          format: double
+          description: |
+            If given, this value will be combined with our internal quality score to provide a score
+            that better represents the relevance of the participating products.
+            Values must be between 0 and 1.
+
+    TravelContext:
+      type: object
+      required:
+        - site
+      properties:
+        travelStartDate:
+          type: string
+          format: date
+          description: RFC3339 formatted date representing the travel start point.
+          example: '2009-01-01'
+        travelEndDate:
+          type: string
+          format: date
+          description: |
+            RFC3339 formatted date representing the travel end point. Must be greater than start date.
+          example: '2009-01-15'
+        site:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: Web site requesting the auction
+          example: travel.argentina.com
+        passengers:
+          type: integer
+          description: Number of passengers. Must not exceed 10.
+          example: 3
+        travelerType:
+          type: string
+          enum:
+            - family
+            - group
+            - solo
+            - couple
 
     Error:
       type: object
