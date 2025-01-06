@@ -949,8 +949,9 @@ components:
           example: 0.75
           format: double
           description: |
-            If given, this value will be combined with our internal quality score to provide a score
-            that better represents the relevance of the participating products.
+            If given, this value will be combined with our internal quality
+            score to provide a score that better represents the relevance of the
+            participating products. If not given it will default to 1.
             Values must be between 0 and 1.
 
     TravelContext:
