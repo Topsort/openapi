@@ -410,7 +410,8 @@ components:
 
     OpaqueUserID:
       type: string
-      description: Ideally the same user for events. The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
+      description:
+        Ideally the same user for events. The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
         whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can
         attribute purchases. If your users are always logged in you may use a hash of your customer ID. If your users
         may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on
