@@ -319,6 +319,48 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
+  /v2/events/beta/link-users:
+    post:
+      tags:
+        - Events
+      summary: '[Beta] Report Link Users'
+      x-beta: 'true'
+      operationId: linkUsers
+      requestBody:
+        description: |
+          Use the `/events/beta/link-users` endpoint to report to Topsort linked opaque user IDs.
+
+          This endpoint allows linking two opaque user IDs for attribution purposes. The `from` field represents the 
+          original opaque user ID, and the `to` field represents the target opaque user ID to be linked.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                  description: The opaque user ID of the original user account.
+                  minLength: 1
+                  maxLength: 64
+                to:
+                  type: string
+                  description: The opaque user ID of the target user account to be linked.
+                  minLength: 1
+                  maxLength: 64
+              required:
+                - from
+                - to
+              example:
+                from: 'user123'
+                to: 'user456'
+        required: true
+      responses:
+        204:
+          description: Users account link was reported successfully.
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        400:
+          $ref: '#/components/responses/BadRequest'
 
 components:
   responses:
