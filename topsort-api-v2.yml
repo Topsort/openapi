@@ -411,8 +411,8 @@ components:
     OpaqueUserID:
       type: string
       description:
-        An anonymized unique identifier that maps to the original user ID without revealing the original value.
-        Ideally the same user for events. The opaque user ID allows correlating user activity, such as Impressions,
+        An anonymized unique identifier that maps to the original user ID without revealing the original value and
+        should match the value used for events. The opaque user ID allows correlating user activity, such as Impressions,
         Clicks and Purchases, whether or not they are actually logged in. It must be long lived (at least a year) so
         that Topsort can attribute purchases. If your users are always logged in you may use a hash of your customer ID.
         If your users may interact with your app or site while logged out we recommend generating a random identifier
@@ -423,7 +423,7 @@ components:
     PlacementId:
       type: integer
       format: int32
-      description: The ID of the placement where the ad will appear.
+      description: The marketplace's ID of the placement where the ad will appear.
 
     GeoTargeting:
       type: object
