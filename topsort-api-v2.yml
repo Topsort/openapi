@@ -297,16 +297,16 @@ paths:
       tags:
         - Events
       summary: Report events
+      description: |
+        Use the `/events` endpoint to notify Topsort about significant user interactions on the marketplace app:
+        - **Impressions** — a promotable was shown to a user.
+        - **Clicks** — a user clicked on a promotable.
+        - **Purchases** — a user created an order.
+
+        For promoted interactions, include the `resolvedBidId` field from the `/v2/auctions` response.
+        For unpromoted interactions, include the `entity` field to describe what was interacted with.
       operationId: reportEvents
       requestBody:
-        description: |
-          Use the `/events` endpoint to notify Topsort about significant consumer interactions on the marketplace app:
-          - **Impressions** — a set of impressions means such promotables have become visible to the consumer.
-          - **Clicks** — a click is sent to Topsort when the consumer has clicked on a promotable.
-          - **Purchases** — a purchase is sent to Topsort once a consumer places an order.
-
-          For promoted interactions, include the `resolvedBidId` field from the `/v2/auctions` response.
-          For unpromoted interactions, include the `entity` field to describe what was interacted with.
         content:
           application/json:
             schema:
