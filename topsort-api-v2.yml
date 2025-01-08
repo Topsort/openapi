@@ -326,11 +326,11 @@ paths:
       summary: '[Beta] Report Link Users'
       description: |
         Use the `/events/beta/link-users` endpoint to report to Topsort linked opaque user IDs.
-        
+
         This endpoint allows linking two opaque user IDs for attribution purposes. The `from` field represents the 
         original opaque user ID, and the `to` field represents the target opaque user ID to be linked. The request 
         will fail if the `from` and `to` opaque user IDs are the same.
-        
+
         Contact your sales representative to gain access to this endpoint and start using it.
       x-beta: 'true'
       operationId: linkUsers
