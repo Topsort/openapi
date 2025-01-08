@@ -92,6 +92,9 @@ paths:
       tags:
         - Auctions
       summary: Create auctions
+      description: |
+        Use the `/auctions` endpoint to create and run auctions. Each batch of auction requests can be a mix of 
+        sponsored listing auctions and banner auctions. **Note** Banner auctions require the additional `slotId` field.
       operationId: createAuctions
       requestBody:
         description: |
