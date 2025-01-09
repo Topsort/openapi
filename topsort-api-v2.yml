@@ -411,24 +411,13 @@ components:
     OpaqueUserID:
       type: string
       description:
-        An anonymized unique identifier that maps to the original user ID without revealing the original value. The
-        opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases, whether or
-        not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute
-        purchases. If your users are always logged in you may use a hash of your customer ID. If your users may
-        interact with your app or site while logged out we recommend generating a random identifier (UUIDv7) on first
-        load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
-      example: 71303ce0-de89-496d-8270-6434589615e8
-
-    OpaqueUserIDAuction:
-      type: string
-      description:
-        An anonymized unique identifier that maps to the original user ID without revealing the original value and
-        should match the value used for events. The opaque user ID allows correlating user activity, such as Impressions,
-        Clicks and Purchases, whether or not they are actually logged in. It must be long lived (at least a year) so
-        that Topsort can attribute purchases. If your users are always logged in you may use a hash of your customer ID.
-        If your users may interact with your app or site while logged out we recommend generating a random identifier
-        (UUIDv7) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least
-        a year.
+        The opaque user ID is an anonymized unique identifier that maps to the original user ID without revealing the
+        original value. This identifier allows Topsort to correlate user activity between auctions and user
+        interactions, independent of the user's logged-in status. For apps or sites where users might interact while
+        logged out, we recommend generating a random identifier (UUIDv7) on the first load, storing it on local storage
+        (cookie, local storage, etc), and letting it live for at least a year. Otherwise, if your users are always
+        logged in for interactions, you may use a hash of your customer ID. Correct purchase attribution requires
+        long-lived (at least a year) opaque user IDs consistent between auction and event requests.
       example: 71303ce0-de89-496d-8270-6434589615e8
 
     PlacementId:
@@ -475,7 +464,7 @@ components:
         geoTargeting:
           $ref: '#/components/schemas/GeoTargeting'
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserIDAuction'
+          $ref: '#/components/schemas/OpaqueUserID'
         placementId:
           $ref: '#/components/schemas/PlacementId'
       required:
@@ -531,7 +520,7 @@ components:
         products:
           $ref: '#/components/schemas/Products'
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserIDAuction'
+          $ref: '#/components/schemas/OpaqueUserID'
         placementId:
           $ref: '#/components/schemas/PlacementId'
       required:
