@@ -93,7 +93,7 @@ paths:
         - Auctions
       summary: Create auctions
       description: |
-        Use the `/auctions` endpoint to create and run auctions. Each batch of auction requests can be a mix of 
+        Use the `/auctions` endpoint to create auctions. Each batch of auction requests can be a combination of 
         sponsored listing auctions and banner auctions. Each auction type has a unique body schemas.
       operationId: createAuctions
       requestBody:
@@ -301,13 +301,13 @@ paths:
         - Events
       summary: Report events
       description: |
-        Use the `/events` endpoint to notify Topsort about significant user interactions on the marketplace app:
+        Use the `/events` endpoint to report user interactions and activity in on a marketplace:
         - **Impressions** — a user viewed an asset.
         - **Clicks** — a user clicked on an asset.
         - **Purchases** — a user created an order.
 
         Interactions require either a `resolvedBidId` from the `/v2/auctions` response or an `entity` that describes 
-        the asset.
+        the entity to attribute.
       operationId: reportEvents
       requestBody:
         content:
