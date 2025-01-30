@@ -12,7 +12,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
     altText: Topsort
   version: 2.0.0
 
@@ -108,7 +108,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/AuctionRequest'
+                    $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
               required:
@@ -156,7 +156,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AuctionResult'
+                      $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
@@ -194,9 +194,9 @@ paths:
                     - winners: []
                       error: false
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/sponsored-brand:
     post:
       tags:
@@ -215,7 +215,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/SponsoredBrandAuctionRequest'
+                    $ref: "#/components/schemas/SponsoredBrandAuctionRequest"
                   minItems: 1
                   maxItems: 5
               required:
@@ -237,15 +237,15 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SponsoredBrandAuctionResult'
+                      $ref: "#/components/schemas/SponsoredBrandAuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
                   - results
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/travel:
     post:
       tags:
@@ -264,7 +264,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/TravelAuctionRequest'
+                    $ref: "#/components/schemas/TravelAuctionRequest"
                   minItems: 1
                   maxItems: 5
               required:
@@ -286,15 +286,15 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AuctionResult'
+                      $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
                   - results
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/events:
     post:
       tags:
@@ -313,20 +313,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventsRequest'
+              $ref: "#/components/schemas/EventsRequest"
         required: true
       responses:
         204:
           description: All events were reported successfully.
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
   /v2/events/beta/link-users:
     post:
       tags:
         - Events
-      summary: '[Beta] Report Link Users'
+      summary: "[Beta] Report Link Users"
       description: |
         Use the `/events/beta/link-users` endpoint to report to Topsort linked opaque user IDs.
 
@@ -335,7 +335,7 @@ paths:
         will fail if the `from` and `to` opaque user IDs are the same.
 
         Contact your sales representative to gain access to this endpoint and start using it.
-      x-beta: 'true'
+      x-beta: "true"
       operationId: linkUsers
       requestBody:
         content:
@@ -357,16 +357,16 @@ paths:
                 - from
                 - to
               example:
-                from: 'user123'
-                to: 'user456'
+                from: "user123"
+                to: "user456"
         required: true
       responses:
         204:
           description: Users account link was reported successfully.
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
 
 components:
   responses:
@@ -377,14 +377,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
 
   schemas:
     Category:
       oneOf:
         - type: object
           title: Single Category
-          $ref: '#/components/schemas/SingleCategory'
+          $ref: "#/components/schemas/SingleCategory"
         - type: object
           title: Multiple Categories
           description: A set of categories for the purpose of running an auction.
@@ -417,7 +417,7 @@ components:
 
                 In order to participate in an auction, a bid product must belong to at least one of the categories of the disjunction provided in the auction request.
               items:
-                $ref: '#/components/schemas/CategoryDisjunction'
+                $ref: "#/components/schemas/CategoryDisjunction"
               minItems: 1
               maxItems: 5
               example:
@@ -503,18 +503,18 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
         searchQuery:
           type: string
           description: The search string provided by a user.
         products:
-          $ref: '#/components/schemas/Products'
+          $ref: "#/components/schemas/Products"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         placementId:
-          $ref: '#/components/schemas/PlacementId'
+          $ref: "#/components/schemas/PlacementId"
       required:
         - type
         - slots
@@ -553,24 +553,24 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
         searchQuery:
           type: string
           description: The search string provided by a user.
         device:
-          $ref: '#/components/schemas/Device'
+          $ref: "#/components/schemas/Device"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
         slotId:
           type: string
           description: The ID of the banner placement for which this auction will be run for.
           minLength: 1
         products:
-          $ref: '#/components/schemas/Products'
+          $ref: "#/components/schemas/Products"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         placementId:
-          $ref: '#/components/schemas/PlacementId'
+          $ref: "#/components/schemas/PlacementId"
       required:
         - type
         - slots
@@ -585,18 +585,18 @@ components:
     AuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: '#/components/schemas/SponsoredListingsAuction'
-        - $ref: '#/components/schemas/BannersAuction'
+        - $ref: "#/components/schemas/SponsoredListingsAuction"
+        - $ref: "#/components/schemas/BannersAuction"
 
     AuctionResult:
       discriminator:
         propertyName: resultType
         mapping:
-          listings: '#/components/schemas/SponsoredListingsAuctionResult'
-          banners: '#/components/schemas/BannersAuctionResult'
+          listings: "#/components/schemas/SponsoredListingsAuctionResult"
+          banners: "#/components/schemas/BannersAuctionResult"
       oneOf:
-        - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
-        - $ref: '#/components/schemas/BannersAuctionResult'
+        - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
+        - $ref: "#/components/schemas/BannersAuctionResult"
 
     BannersAuctionResult:
       type: object
@@ -606,7 +606,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/BannersWinner'
+            $ref: "#/components/schemas/BannersWinner"
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -627,7 +627,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredListingsWinner'
+            $ref: "#/components/schemas/SponsoredListingsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -721,7 +721,7 @@ components:
           description: The list of available sources for a banner.
           type: array
           items:
-            $ref: '#/components/schemas/AssetSource'
+            $ref: "#/components/schemas/AssetSource"
           minItems: 1
 
     # Dimensions:
@@ -835,9 +835,9 @@ components:
             id: ne5n2vzri6o92
           properties:
             category:
-              $ref: '#/components/schemas/SingleCategory'
+              $ref: "#/components/schemas/SingleCategory"
             products:
-              $ref: '#/components/schemas/Products'
+              $ref: "#/components/schemas/Products"
       x-examples:
         Example 1:
           auctions:
@@ -846,8 +846,8 @@ components:
               triggers:
                 products:
                   ids:
-                    - '1'
-                    - '8'
+                    - "1"
+                    - "8"
 
     SponsoredBrandAuctionResult:
       type: object
@@ -855,7 +855,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredBrandWinner'
+            $ref: "#/components/schemas/SponsoredBrandWinner"
           description: |
             Array of winner objects in order from highest to lowest bid. It will be empty if there were no qualifying bids or if there was an error.
         error:
@@ -871,16 +871,16 @@ components:
             - winners:
                 - rank: 1
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  productId: '1'
+                  productId: "1"
                   title: Brand Example Promo 1
                   assets:
-                    - url: 'https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png'
+                    - url: "https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png"
                       role: image
                       contentType: image/png
                       contentLength: 33902
                       width: 920
                       height: 920
-                    - url: 'https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png'
+                    - url: "https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png"
                       role: logo
                       contentType: image/png
                       contentLength: 80648
@@ -889,16 +889,16 @@ components:
                   campaignId: 018f3ff3-0d7c-7b75-bf99-629c62c09dc3
                 - rank: 2
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  productId: '8'
+                  productId: "8"
                   title: Brand Example Promo 2
                   assets:
-                    - url: 'https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg'
+                    - url: "https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg"
                       role: image
                       contentType: image/jpeg
                       contentLength: 4505
                       width: 403
                       height: 125
-                    - url: 'https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png'
+                    - url: "https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png"
                       role: logo
                       contentType: image/png
                       contentLength: 34747
@@ -939,7 +939,7 @@ components:
           description: Assets used to render the sponsored brand ad.
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredBrandAsset'
+            $ref: "#/components/schemas/SponsoredBrandAsset"
           minItems: 1
 
     SponsoredBrandAsset:
@@ -986,9 +986,9 @@ components:
         products:
           type: array
           items:
-            $ref: '#/components/schemas/TravelProduct'
+            $ref: "#/components/schemas/TravelProduct"
         travelContext:
-          $ref: '#/components/schemas/TravelContext'
+          $ref: "#/components/schemas/TravelContext"
       x-examples:
         Example 1:
           auctions:
@@ -1036,13 +1036,13 @@ components:
           type: string
           format: date
           description: RFC3339 formatted date representing the travel start point.
-          example: '2009-01-01'
+          example: "2009-01-01"
         travelEndDate:
           type: string
           format: date
           description: |
             RFC3339 formatted date representing the travel end point. Must be greater than start date.
-          example: '2009-01-15'
+          example: "2009-01-15"
         site:
           type: string
           minLength: 1
@@ -1190,26 +1190,26 @@ components:
         impressions:
           type: array
           items:
-            $ref: '#/components/schemas/Impression'
+            $ref: "#/components/schemas/Impression"
           minItems: 1
           maxItems: 50
         clicks:
           type: array
           items:
-            $ref: '#/components/schemas/Click'
+            $ref: "#/components/schemas/Click"
           minItems: 1
           maxItems: 50
         purchases:
           type: array
           items:
-            $ref: '#/components/schemas/Purchase'
+            $ref: "#/components/schemas/Purchase"
           minItems: 1
           maxItems: 50
       minProperties: 1
       example:
         impressions:
           - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-            occurredAt: '2019-01-01T12:59:59-05:00'
+            occurredAt: "2019-01-01T12:59:59-05:00"
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             placement:
               path: /categories/dairy
@@ -1220,7 +1220,7 @@ components:
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         clicks:
           - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
-            occurredAt: '2019-01-01T13:01:42-05:00'
+            occurredAt: "2019-01-01T13:01:42-05:00"
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             placement:
               path: /categories/dairy
@@ -1238,7 +1238,7 @@ components:
                 vendorId: v_8fj2D
               - productId: p_oajf2D
                 unitPrice: 1.49
-            occurredAt: '2019-01-01T12:59:59-05:00'
+            occurredAt: "2019-01-01T12:59:59-05:00"
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
     Impression:
       type: object
@@ -1259,16 +1259,16 @@ components:
           description: If the impression is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         occurredAt:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
-          example: '2009-01-01T12:59:59-05:00'
+          example: "2009-01-01T12:59:59-05:00"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         id:
           type: string
           description: >
@@ -1282,7 +1282,7 @@ components:
             If the marketplace wants to attribute an impression to an additional entity, they can use
             the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
             in the event body.
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
 
     Click:
       description: >
@@ -1302,16 +1302,16 @@ components:
           description: If the click is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         occurredAt:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
-          example: '2009-01-01T12:59:59-05:00'
+          example: "2009-01-01T12:59:59-05:00"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         id:
           type: string
           description: >
@@ -1325,7 +1325,7 @@ components:
             If the marketplace wants to attribute a click to an additional entity, they can use
             the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
             in the event body.
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
     Purchase:
       description: >
         A purchase is sent to Topsort once a marketplace customer places an order.
@@ -1341,16 +1341,16 @@ components:
         occurredAt:
           type: string
           description: RFC3339 formatted timestamp, including UTC offset, of the instant in which the order was placed. Please note that purchases will NOT be attributed to an auction that happened after.
-          example: '2021-10-12T07:20:50.52Z'
+          example: "2021-10-12T07:20:50.52Z"
           format: date-time
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         items:
           type: array
           description: Items purchased.
           minItems: 1
           items:
-            $ref: '#/components/schemas/PurchaseItem'
+            $ref: "#/components/schemas/PurchaseItem"
         id:
           type: string
           description: >
@@ -1388,7 +1388,8 @@ components:
           type: string
           description: >
             The vendor ID of the product being purchased. This field is optional
-            and should be filled in if a product is sold by multiple vendors.
+            and should be filled in if 1. a product is sold by multiple vendors, or
+            2. you want to use it for halo attribution
           minLength: 1
           example: v_8fj2D
 
