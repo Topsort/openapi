@@ -1388,7 +1388,8 @@ components:
           type: string
           description: >
             The vendor ID of the product being purchased. This field is optional
-            and should be filled in if a product is sold by multiple vendors.
+            and should be filled in if 1. a product is sold by multiple vendors, or
+            2. you want to use it for halo attribution
           minLength: 1
           example: v_8fj2D
 
