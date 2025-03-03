@@ -29,6 +29,9 @@ tags:
       **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
+  - name: Toptimize
+    description: |
+      An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
   - name: Models
     x-displayName: All Models
     description: |
@@ -82,6 +85,18 @@ tags:
 
       ## Winner (Sponsored Listings)
       <SchemaDefinition schemaRef="#/components/schemas/SponsoredListingsWinner" />
+
+      ## Page
+      <SchemaDefinition schemaRef="#/components/schemas/Page" />
+
+      ## RankingRequest
+      <SchemaDefinition schemaRef="#/components/schemas/RankingRequest" />
+
+      ## RankingResult
+      <SchemaDefinition schemaRef="#/components/schemas/RankingResult" />
+
+      ## RankingWinner
+      <SchemaDefinition schemaRef="#/components/schemas/RankingWinner" />
 
 security:
   - BearerAuth: []
@@ -367,6 +382,77 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
+  /v2/rank:
+    post:
+      tags:
+        - Toptimize
+      summary: Rank organic and sponsored products based on context.
+      operationId: createRanking
+      requestBody:
+        description: |
+          The context information to get the ranking.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ranking:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RankingRequest'
+                  minItems: 1
+                  maxItems: 5
+              required:
+                - ranking
+              example:
+                ranking:
+                  - type: listings
+                    slots: 3
+                    pageSize: 3
+                    category:
+                      ids: ['sneakers', 'shoes']
+                    products:
+                      ids: ['p_PJbnN', 'p_ojng4']
+        required: true
+      responses:
+        201:
+          description: >
+            The ranking results.
+            The list of winners will contain at most `slots` entries per auction.
+            It may contain fewer or no entries at all if there aren't enough products to fill the slots.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RankingResult'
+                    minItems: 1
+                    maxItems: 5
+                required:
+                  - results
+                example:
+                  results:
+                    - products:
+                        - rank: 1
+                          type: organic
+                          id: p_Mfk11
+                          resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                        - rank: 2
+                          type: sponsored
+                          id: p_Mfk15
+                          resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        - rank: 3
+                          type: organic
+                          id: p_PJbnN
+                          resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                      error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
 
 components:
   responses:
@@ -455,6 +541,32 @@ components:
         - desktop
         - mobile
       default: desktop
+
+    Page:
+      type: object
+      title: HomePage
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - home
+            - category
+            - PDP
+            - search
+            - cart
+            - other
+          description: Type of page.
+          example: 'category'
+        value:
+          type: string
+          description: Detail of the page, depending on the type
+          example: 'electronics'
+        pageId:
+          type: string
+          description: Marketplace id for the page
+          example: '/category/electronics'
 
     OpaqueUserID:
       type: string
@@ -587,6 +699,65 @@ components:
       oneOf:
         - $ref: '#/components/schemas/SponsoredListingsAuction'
         - $ref: '#/components/schemas/BannersAuction'
+
+    RankingRequest:
+      type: object
+      description: |
+        Describes the context related to a Ranking request
+      properties:
+        type:
+          type: string
+          enum:
+            - listings
+          description: Type of object to be ranked
+        slots:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Specifies the maximum number of ranked objects that should be returned.
+        pageSize:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Specifies the maximum number of ranked objects per page that should be returned.
+        page:
+          $ref: '#/components/schemas/Page'
+        category:
+          $ref: '#/components/schemas/Category'
+        device:
+          $ref: '#/components/schemas/Device'
+        geoTargeting:
+          $ref: '#/components/schemas/GeoTargeting'
+        products:
+          $ref: '#/components/schemas/Products'
+        opaqueUserId:
+          type: string
+          description: |
+            <p>The opaque user ID allows correlating user activity, such as Impressions, Clicks and Purchases,
+            whether or not they are actually logged in. It must be long lived (at least a year) so that Topsort can attribute purchases.
+            </p>
+            <p>
+            If your users are always logged in you may use a hash of your customer ID.
+            If your users may interact with your app or site while logged out we
+            recommend generating a random identifier (UUIDv4) on first load and store it on
+            local storage (cookie, local storage, etc) and let it live for at least a year.
+            </p>
+          minLength: 1
+          example: 71303ce0-de89-496d-8270-6434589615e8
+      required:
+        - type
+        - slots
+        - pageSize
+        - page
+        - opaqueUserId
+      example:
+        type: listings
+        slots: 10
+        pageSize: 10
+        category:
+          ids: ['sneakers', 'shoes']
+        products:
+          ids: ['p_PJbnN', 'p_ojng4']
 
     AuctionResult:
       discriminator:
@@ -723,6 +894,56 @@ components:
           items:
             $ref: '#/components/schemas/AssetSource'
           minItems: 1
+
+    RankingResult:
+      type: object
+      properties:
+        resultType:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankingWinner'
+          description: >
+            Array of ranking objects in order from highest to lowest relevancy.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
+          example: false
+      required:
+        - results
+        - error
+        - resultType
+
+    RankingWinner:
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedItemId
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: >
+            Where is the product ranked in the auction.
+          minimum: 1
+        type:
+          type: string
+          description: The target type of the winning bid.
+          enum:
+            - organic
+            - sponsored
+        id:
+          type: string
+          description: |-
+            The marketplace's ID of the ranked entity.
+          example: p_Mfk15
+        resolvedItemId:
+          type: string
+          description: An opaque Topsort ID to be used when this item is interacted with.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
 
     # Dimensions:
     #   type: object
