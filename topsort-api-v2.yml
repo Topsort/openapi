@@ -895,25 +895,25 @@ components:
             $ref: '#/components/schemas/AssetSource'
           minItems: 1
 
-      RankingResult:
-        type: object
-        properties:
-          resultType:
-            type: string
-          results:
-            type: array
-            items:
-              $ref: '#/components/schemas/RankingWinner'
-            description: >
-              Array of ranking objects in order from highest to lowest relevancy.
-          error:
-            type: boolean
-            description: A boolean indicating whether this auction was resolved successfully.
-            example: false
-        required:
-          - results
-          - error
-          - resultType
+    RankingResult:
+      type: object
+      properties:
+        resultType:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankingWinner'
+          description: >
+            Array of ranking objects in order from highest to lowest relevancy.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
+          example: false
+      required:
+        - results
+        - error
+        - resultType
 
     RankingWinner:
       type: object
