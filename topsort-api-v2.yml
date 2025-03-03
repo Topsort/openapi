@@ -386,11 +386,14 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: Rank organic and sponsored products based on context.
+      summary: '[Beta] Rank organic and sponsored products based on context.'
       operationId: createRanking
       requestBody:
         description: |
           The context information to get the ranking.
+
+          This endpoint is in Beta and is subject to change.
+        x-beta: 'true'
         content:
           application/json:
             schema:
