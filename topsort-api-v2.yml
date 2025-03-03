@@ -386,13 +386,12 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Rank objects'
+      summary: 'Rank objects'
       operationId: createRanking
       requestBody:
         description: |
           The context information to get the ranking, to rank organic and sponsored products.
 
-          This endpoint is in Beta and is subject to change.
         x-beta: 'true'
         content:
           application/json:
