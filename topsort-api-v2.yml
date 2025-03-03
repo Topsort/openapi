@@ -383,83 +383,76 @@ paths:
         400:
           $ref: '#/components/responses/BadRequest'
 /v2/rank:
-    post:
-      tags:
-        - Toptimize
-      summary: Rank organic and sponsored products based on context.
-      operationId: createRanking
-      requestBody:
-        description: |
-          The context information to get the ranking.
+  post:
+    tags:
+      - Toptimize
+    summary: Rank organic and sponsored products based on context.
+    operationId: createRanking
+    requestBody:
+      description: |
+        The context information to get the ranking.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ranking:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RankingRequest'
+                minItems: 1
+                maxItems: 5
+            required:
+              - ranking
+            example:
+              ranking:
+                - type: listings
+                  slots: 3
+                  pageSize: 3
+                  category:
+                    ids: ['sneakers', 'shoes']
+                  products:
+                    ids: ['p_PJbnN', 'p_ojng4']
+      required: true
+    responses:
+      201:
+        description: >
+          The ranking results.
+          The list of winners will contain at most `slots` entries per auction.
+          It may contain fewer or no entries at all if there aren't enough products to fill the slots.
         content:
           application/json:
             schema:
               type: object
               properties:
-                ranking:
+                results:
                   type: array
                   items:
-                    $ref: '#/components/schemas/RankingRequest'
+                    $ref: '#/components/schemas/RankingResult'
                   minItems: 1
                   maxItems: 5
               required:
-                - ranking
+                - results
               example:
-                ranking:
-                  - type: listings
-                    slots: 3
-                    pageSize: 3
-                    category:
-                      ids: [
-                        "sneakers",
-                        "shoes"
-                      ]
-                    products:
-                      ids: [
-                        "p_PJbnN",
-                        "p_ojng4"
-                      ]
-        required: true
-      responses:
-        201:
-          description: >
-            The ranking results.
-            The list of winners will contain at most `slots` entries per auction.
-            It may contain fewer or no entries at all if there aren't enough products to fill the slots. 
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  results:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/RankingResult'
-                    minItems: 1
-                    maxItems: 5
-                required:
-                  - results
-                example:
-                  results:
-                    - products:
-                        - rank: 1
-                          type: organic
-                          id: p_Mfk11
-                          resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
-                        - rank: 2
-                          type: sponsored
-                          id: p_Mfk15
-                          resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                        - rank: 3
-                          type: organic
-                          id: p_PJbnN
-                          resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                      error: false
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-
+                results:
+                  - products:
+                      - rank: 1
+                        type: organic
+                        id: p_Mfk11
+                        resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                      - rank: 2
+                        type: sponsored
+                        id: p_Mfk15
+                        resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                      - rank: 3
+                        type: organic
+                        id: p_PJbnN
+                        resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                    error: false
+      400:
+        $ref: '#/components/responses/BadRequest'
+      401:
+        $ref: '#/components/responses/UnauthorizedError'
 
 components:
   responses:
@@ -562,18 +555,18 @@ components:
             - category
             - PDP
             - search
-            - cart 
+            - cart
             - other
           description: Type of page.
-          example: "category"
+          example: 'category'
         value:
           type: string
           description: Detail of the page, depending on the type
-          example: "electronics"
+          example: 'electronics'
         pageId:
           type: string
           description: Marketplace id for the page
-          example: "/category/electronics"
+          example: '/category/electronics'
 
     OpaqueUserID:
       type: string
@@ -762,15 +755,9 @@ components:
         slots: 10
         pageSize: 10
         category:
-          ids: [
-            "sneakers",
-            "shoes"
-          ]
+          ids: ['sneakers', 'shoes']
         products:
-          ids: [
-            "p_PJbnN",
-            "p_ojng4"
-          ]
+          ids: ['p_PJbnN', 'p_ojng4']
 
     AuctionResult:
       discriminator:
@@ -957,7 +944,6 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-
 
     # Dimensions:
     #   type: object
