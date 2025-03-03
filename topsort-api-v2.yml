@@ -751,7 +751,7 @@ components:
       example:
         type: listings
         slots: 10
-        pageSize: 10it swicth
+        pageSize: 10
         category:
           ids: [
             "sneakers",
