@@ -393,6 +393,7 @@ paths:
           The context information to get the ranking.
 
           This endpoint is in Beta and is subject to change.
+        x-beta: 'true'
         content:
           application/json:
             schema:
