@@ -89,6 +89,15 @@ tags:
       ## Page
       <SchemaDefinition schemaRef="#/components/schemas/Page" />
 
+      ## RankingRequest
+      <SchemaDefinition schemaRef="#/components/schemas/RankingRequest" />
+
+      ## RankingResult
+      <SchemaDefinition schemaRef="#/components/schemas/RankingResult" />
+
+      ## RankingWinner
+      <SchemaDefinition schemaRef="#/components/schemas/RankingWinner" />
+
 security:
   - BearerAuth: []
 
