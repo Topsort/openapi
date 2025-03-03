@@ -386,7 +386,7 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Rank organic and sponsored products based on context.''
+      summary: '[Beta] Rank organic and sponsored products based on context.'
       operationId: createRanking
       requestBody:
         description: |
