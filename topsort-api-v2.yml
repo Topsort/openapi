@@ -1061,6 +1061,8 @@ components:
               $ref: '#/components/schemas/SingleCategory'
             products:
               $ref: '#/components/schemas/Products'
+        opaqueUserId:
+          $ref: '#/components/schemas/OpaqueUserID'
       x-examples:
         Example 1:
           auctions:
@@ -1158,6 +1160,10 @@ components:
         title:
           type: string
           description: An optional title for the sponsored brand selected when creating the campaign.
+        vendorId:
+          type: string
+          description: The ID of the vendor associated with this sponsored brand winner.
+          example: v_8fj2D
         assets:
           description: Assets used to render the sponsored brand ad.
           type: array
