@@ -323,6 +323,12 @@ paths:
 
         Interactions require either a `resolvedBidId` from the `/v2/auctions` response or an `entity` that describes 
         the entity to attribute.
+
+        For analytics purposes, you can use the `placement` field to differentiate different listings or banners.
+        For example, on a product page with a carousel of products, you can track impressions and clicks related to the carousel
+        by including `/carousel` at the end of the `path` field in the `placement` object. This allows you to monitor
+        the performance of carousel products in the [Data Room](https://docs.topsort.com/knowledge-base/analytics/data-room/).
+
       operationId: reportEvents
       requestBody:
         content:
