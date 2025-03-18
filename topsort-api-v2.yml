@@ -339,6 +339,30 @@ paths:
                     maxItems: 5
                 required:
                   - results
+                example:
+                  - results:
+                      - resultType: hotels
+                        winners:
+                          - rank: 1
+                            id: hotel-1
+                            resolvedBidId: ChAHd-K97Xs8MNRELdY9VCeJFiBCk1_aEYz8eb-WZqyhzL4EFhBCk5Mt_X2_b8Yu_vXJgzPWJhVLBTFRBTGssk9
+                            campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
+                          - rank: 2
+                            id: hotel-2
+                            resolvedBidId: ChAJe-M23Yr5QPTEFdX7VBgJGhCDm2_wDXy6cb-XZpxjxK6GHhCDm3Ku_W1_c9Zw_wYHfzQYKjTLBVGQBTLttu6
+                            campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
+                      - resultType: hotels
+                        winners:
+                          - rank: 1
+                            id: L0_SAO-ORL
+                            resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
+                            campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
+                            variationID: "002"
+                          - rank: 2
+                            id: L0_SAO-ORL
+                            resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
+                            campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
+                            variationID: "001"
         400:
           $ref: '#/components/responses/BadRequest'
         401:
