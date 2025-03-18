@@ -305,7 +305,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AuctionResult'
+                      $ref: '#/components/schemas/TravelAuctionResult'
                     minItems: 1
                     maxItems: 5
                 required:
@@ -781,6 +781,11 @@ components:
         - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
         - $ref: '#/components/schemas/BannersAuctionResult'
 
+    TravelAuctionResult:
+      oneOf:
+        - $ref: '#/components/schemas/HotelsAuctionResult'
+        - $ref: '#/components/schemas/FlightsAuctionResult'
+
     BannersAuctionResult:
       type: object
       properties:
@@ -906,6 +911,73 @@ components:
           items:
             $ref: '#/components/schemas/AssetSource'
           minItems: 1
+
+    HotelsAuctionResult:
+      $ref: '#/components/schemas/SponsoredListingsAuctionResult'
+
+    FlightsAuctionResult:
+      type: object
+      properties:
+        resultType:
+          type: string
+        winners:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlightsWinner'
+          description: >
+            Array of winner objects in order from highest to lowest bid.
+            It will be empty if there were no qualifying bids or if there was an error.
+        error:
+          type: boolean
+          description: A boolean indicating whether this auction was resolved successfully.
+          example: false
+      required:
+        - winners
+        - error
+        - resultType
+
+    FlightsWinner:
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+        - campaignId
+        - variationID
+      properties:
+        rank:
+          type: integer
+          format: int32
+          description: >
+            Where the product's bid ranked in the auction.
+            One-based, so the product with rank 1 won the auction.
+            In an auction response, the winners array is sorted so rank will match the entry's index.
+          minimum: 1
+        type:
+          type: string
+          description: The target type of the winning bid.
+          enum:
+            - product
+            - vendor
+            - brand
+            - url
+        id:
+          type: string
+          description: |-
+            The marketplace's ID of the winning flight product, depending on the target of the campaign.
+          example: p_Mfk15
+        resolvedBidId:
+          type: string
+          description: An opaque Topsort ID to be used when this item is interacted with.
+          example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+        campaignId:
+          type: string
+          description: The ID of the campaign that won the auction.
+          example: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+        variationID:
+          type: string
+          description: The marketplace's ID for the winning flight product's variation.
 
     RankingResult:
       type: object
@@ -1213,10 +1285,11 @@ components:
       description: Describes the intent of running a single auction.
       oneOf:
         - $ref: '#/components/schemas/HotelsAuctionRequest'
+        - $ref: '#/components/schemas/FlightsAuctionRequest'
 
     HotelsAuctionRequest:
       type: object
-      description: Describes the intent of running a travel auction.
+      description: Describes the intent of running a hotel travel auction.
       properties:
         type:
           type: string
@@ -1229,6 +1302,7 @@ components:
           description: Specifies the maximum number of auction winners that should be returned.
         products:
           type: array
+          description: An array of hotels products that should participate in the auction.
           items:
             $ref: '#/components/schemas/HotelsTravelProduct'
         travelContext:
@@ -1256,7 +1330,7 @@ components:
       properties:
         id:
           type: string
-          description: An array of hotels IDs that should participate in the auction.
+          description: ID to identify flight product ID.
           example: miami-hotel
         qualityScore:
           type: number
@@ -1304,6 +1378,101 @@ components:
             - group
             - solo
             - couple
+        pageName:
+          type: string
+          description: Page name e.g. "flights", "hotels", "package", ...
+        platform:
+          type: string
+          description: Platform e.g. "app", "mobile", "web", ...
+
+    FlightsAuctionRequest:
+      type: object
+      description: Describes the intent of running a flight travel auction.
+      properties:
+        type:
+          type: string
+          enum:
+            - flights
+          description: Discriminator for the type of travel auction.
+        slots:
+          type: integer
+          format: int32
+          description: Specifies the maximum number of auction winners that should be returned.
+        products:
+          type: array
+          description: An array of flight products that should participate in the auction.
+          items:
+            $ref: '#/components/schemas/FlightsTravelProduct'
+        travelContext:
+          $ref: '#/components/schemas/FlightsTravelContext'
+      x-examples:
+        Example 1:
+          auctions:
+            - type: flights
+              slots: 2
+              products:
+                - id: L0_SAO-ORL
+                  variationID: 001
+                  price: 1500
+                  qualityScore: 0.7
+                - id: L0_SAO-ORL
+                  variationID: 002
+                  price: 2000
+              travelContext:
+                - site: travel.argentina.com
+                - passengers: 2
+                - route: SAO-ORL
+                - flightType: one-way
+
+    FlightsTravelProduct:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          description: ID to identify flight product ID.
+          example: L0_SAO-ORL
+        variationID:
+          type: string
+          description: ID to identify flight product variation.
+        price:
+          type: number
+          description: Flight product variation total price in marketplace currency.
+        qualityScore:
+          type: number
+          minimum: 0
+          maximum: 1
+          exclusiveMinimum: true
+          example: 0.75
+          format: double
+          description: |
+            If given, this value will be combined with our internal quality
+            score to provide a score that better represents the relevance of the
+            participating products. If not given it will default to 1.
+            Values must be between 0 and 1.
+
+    FlightsTravelContext:
+      type: object
+      required:
+        - site
+      properties:
+        site:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: Web site requesting the auction
+          example: travel.argentina.com
+        passengers:
+          type: integer
+          description: Number of passengers. Must not exceed 10.
+          example: 3
+        route:
+          type: string
+          description: Flight route using standard airport 3 letter code. Example 'SAO-ORL'.
+        flightType:
+          type: string
+          description: Flight type e.g. "round_trip", "one_way", ...
         pageName:
           type: string
           description: Page name e.g. "flights", "hotels", "package", ...
