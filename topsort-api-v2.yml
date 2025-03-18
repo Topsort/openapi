@@ -266,8 +266,9 @@ paths:
       tags:
         - Auctions
       summary: Create travel auctions
-      description: Use the `/auctions/travel` endpoint to create batch auctions for sponsored travel listings. We support
-        two types of sponsored travel listings, hotels and flights. Each batch of auction requests can be a combination 
+      description:
+        Use the `/auctions/travel` endpoint to create batch auctions for sponsored travel listings. We support
+        two types of sponsored travel listings, hotels and flights. Each batch of auction requests can be a combination
         of sponsored hotel and flight listing auctions. Each auction type has a unique body schemas.
       operationId: createTravelAuctions
       requestBody:
@@ -305,12 +306,12 @@ paths:
                   - type: flights
                     slots: 2
                     products:
-                      - id: "L0_SAO-ORL"
-                        variationID: "001"
+                      - id: 'L0_SAO-ORL'
+                        variationID: '001'
                         price: 1500
                         qualityScore: 0.7
-                      - id: "L0_SAO-ORL"
-                        variationID: "002"
+                      - id: 'L0_SAO-ORL'
+                        variationID: '002'
                         price: 2000
                     travelContext:
                       - site: travel.argentina.com
@@ -357,12 +358,12 @@ paths:
                             id: L0_SAO-ORL
                             resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
                             campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
-                            variationID: "002"
+                            variationID: '002'
                           - rank: 2
                             id: L0_SAO-ORL
                             resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
                             campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
-                            variationID: "001"
+                            variationID: '001'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
