@@ -265,12 +265,16 @@ paths:
     post:
       tags:
         - Auctions
-      summary: Create an auction for hotel related products
+      summary: Create travel auctions
+      description: Use the `/auctions/travel` endpoint to create batch auctions for sponsored travel listings. We support
+        two types of sponsored travel listings, hotels and flights. Each batch of auction requests can be a combination 
+        of sponsored hotel and flight listing auctions. Each auction type has a unique body schemas.
       operationId: createTravelAuctions
       requestBody:
         description: |
           The information describing what will be auctioned.
-          Topsort will run an auction for each batched auction request, for which products' bids will compete against each other.
+          Topsort will run an auction for each batched auction request, for which travel products' bids will compete 
+          against each other.
         content:
           application/json:
             schema:
@@ -1206,6 +1210,11 @@ components:
           description: The asset height in pixels.
 
     TravelAuctionRequest:
+      description: Describes the intent of running a single auction.
+      oneOf:
+        - $ref: '#/components/schemas/HotelsAuctionRequest'
+
+    HotelsAuctionRequest:
       type: object
       description: Describes the intent of running a travel auction.
       properties:
@@ -1221,9 +1230,9 @@ components:
         products:
           type: array
           items:
-            $ref: '#/components/schemas/TravelProduct'
+            $ref: '#/components/schemas/HotelsTravelProduct'
         travelContext:
-          $ref: '#/components/schemas/TravelContext'
+          $ref: '#/components/schemas/HotelsTravelContext'
       x-examples:
         Example 1:
           auctions:
@@ -1240,7 +1249,7 @@ components:
                 - passengers: 2
                 - travelerType: couple
 
-    TravelProduct:
+    HotelsTravelProduct:
       type: object
       required:
         - id
@@ -1262,7 +1271,7 @@ components:
             participating products. If not given it will default to 1.
             Values must be between 0 and 1.
 
-    TravelContext:
+    HotelsTravelContext:
       type: object
       required:
         - site
@@ -1295,6 +1304,12 @@ components:
             - group
             - solo
             - couple
+        pageName:
+          type: string
+          description: Page name e.g. "flights", "hotels", "package", ...
+        platform:
+          type: string
+          description: Platform e.g. "app", "mobile", "web", ...
 
     Error:
       type: object
