@@ -288,6 +288,35 @@ paths:
                   maxItems: 5
               required:
                 - auctions
+              example:
+                auctions:
+                  - type: hotels
+                    slots: 2
+                    products:
+                      - id: hotel-1
+                        qualityScore: 0.7
+                      - id: hotel-2
+                    travelContext:
+                      - travelStartDate: 2025-01-01
+                      - travelEndDate: 2025-01-15
+                      - site: travel.argentina.com
+                      - passengers: 2
+                      - travelerType: couple
+                  - type: flights
+                    slots: 2
+                    products:
+                      - id: "L0_SAO-ORL"
+                        variationID: "001"
+                        price: 1500
+                        qualityScore: 0.7
+                      - id: "L0_SAO-ORL"
+                        variationID: "002"
+                        price: 2000
+                    travelContext:
+                      - site: travel.argentina.com
+                      - passengers: 2
+                      - route: SAO-ORL
+                      - flightType: one-way
         required: true
       responses:
         201:
@@ -1309,21 +1338,6 @@ components:
             $ref: '#/components/schemas/HotelsTravelProduct'
         travelContext:
           $ref: '#/components/schemas/HotelsTravelContext'
-      x-examples:
-        Example 1:
-          auctions:
-            - type: hotels
-              slots: 2
-              products:
-                - id: hotel-1
-                  qualityScore: 0.7
-                - id: hotel-2
-              travelContext:
-                - travelStartDate: 2025-01-01
-                - travelEndDate: 2025-01-15
-                - site: travel.argentina.com
-                - passengers: 2
-                - travelerType: couple
 
     HotelsTravelProduct:
       type: object
@@ -1415,24 +1429,6 @@ components:
             $ref: '#/components/schemas/FlightsTravelProduct'
         travelContext:
           $ref: '#/components/schemas/FlightsTravelContext'
-      x-examples:
-        Example 1:
-          auctions:
-            - type: flights
-              slots: 2
-              products:
-                - id: L0_SAO-ORL
-                  variationID: 001
-                  price: 1500
-                  qualityScore: 0.7
-                - id: L0_SAO-ORL
-                  variationID: 002
-                  price: 2000
-              travelContext:
-                - site: travel.argentina.com
-                - passengers: 2
-                - route: SAO-ORL
-                - flightType: one-way
 
     FlightsTravelProduct:
       type: object
