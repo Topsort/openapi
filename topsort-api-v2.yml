@@ -1290,6 +1290,8 @@ components:
     HotelsAuctionRequest:
       type: object
       description: Describes the intent of running a hotel travel auction.
+      required:
+        - travelContext
       properties:
         type:
           type: string
@@ -1345,22 +1347,11 @@ components:
             participating products. If not given it will default to 1.
             Values must be between 0 and 1.
 
-    HotelsTravelContext:
+    BaseTravelContext:
       type: object
       required:
         - site
       properties:
-        travelStartDate:
-          type: string
-          format: date
-          description: RFC3339 formatted date representing the travel start point.
-          example: '2009-01-01'
-        travelEndDate:
-          type: string
-          format: date
-          description: |
-            RFC3339 formatted date representing the travel end point. Must be greater than start date.
-          example: '2009-01-15'
         site:
           type: string
           minLength: 1
@@ -1371,13 +1362,6 @@ components:
           type: integer
           description: Number of passengers. Must not exceed 10.
           example: 3
-        travelerType:
-          type: string
-          enum:
-            - family
-            - group
-            - solo
-            - couple
         pageName:
           type: string
           description: Page name e.g. "flights", "hotels", "package", ...
@@ -1385,9 +1369,35 @@ components:
           type: string
           description: Platform e.g. "app", "mobile", "web", ...
 
+    HotelsTravelContext:
+      allOf:
+        - $ref: '#/components/schemas/BaseTravelContext'
+        - type: object
+          properties:
+            travelStartDate:
+              type: string
+              format: date
+              description: RFC3339 formatted date representing the travel start point.
+              example: '2009-01-01'
+            travelEndDate:
+              type: string
+              format: date
+              description: |
+                RFC3339 formatted date representing the travel end point. Must be greater than start date.
+              example: '2009-01-15'
+            travelerType:
+              type: string
+              enum:
+                - family
+                - group
+                - solo
+                - couple
+
     FlightsAuctionRequest:
       type: object
       description: Describes the intent of running a flight travel auction.
+      required:
+        - travelContext
       properties:
         type:
           type: string
@@ -1453,32 +1463,16 @@ components:
             Values must be between 0 and 1.
 
     FlightsTravelContext:
-      type: object
-      required:
-        - site
-      properties:
-        site:
-          type: string
-          minLength: 1
-          maxLength: 64
-          description: Web site requesting the auction
-          example: travel.argentina.com
-        passengers:
-          type: integer
-          description: Number of passengers. Must not exceed 10.
-          example: 3
-        route:
-          type: string
-          description: Flight route using standard airport 3 letter code. Example 'SAO-ORL'.
-        flightType:
-          type: string
-          description: Flight type e.g. "round_trip", "one_way", ...
-        pageName:
-          type: string
-          description: Page name e.g. "flights", "hotels", "package", ...
-        platform:
-          type: string
-          description: Platform e.g. "app", "mobile", "web", ...
+      allOf:
+        - $ref: '#/components/schemas/BaseTravelContext'
+        - type: object
+          properties:
+            route:
+              type: string
+              description: Flight route using standard airport 3 letter code. Example 'SAO-ORL'.
+            flightType:
+              type: string
+              description: Flight type e.g. "round_trip", "one_way", ...
 
     Error:
       type: object
