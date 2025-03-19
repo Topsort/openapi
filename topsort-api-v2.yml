@@ -300,7 +300,7 @@ paths:
                     travelContext:
                       - travelStartDate: 2025-01-01
                       - travelEndDate: 2025-01-15
-                      - site: travel.argentina.com
+                      - site: argentina
                       - passengers: 2
                       - travelerType: couple
                   - type: flights
@@ -314,7 +314,7 @@ paths:
                         variationID: '002'
                         price: 2000
                     travelContext:
-                      - site: travel.argentina.com
+                      - site: argentina
                       - passengers: 2
                       - route: SAO-ORL
                       - flightType: one-way
@@ -352,7 +352,7 @@ paths:
                             id: hotel-2
                             resolvedBidId: ChAJe-M23Yr5QPTEFdX7VBgJGhCDm2_wDXy6cb-XZpxjxK6GHhCDm3Ku_W1_c9Zw_wYHfzQYKjTLBVGQBTLttu6
                             campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
-                      - resultType: hotels
+                      - resultType: flights
                         winners:
                           - rank: 1
                             id: L0_SAO-ORL
@@ -1013,9 +1013,6 @@ components:
           description: The target type of the winning bid.
           enum:
             - product
-            - vendor
-            - brand
-            - url
         id:
           type: string
           description: |-
@@ -1396,11 +1393,29 @@ components:
           minLength: 1
           maxLength: 64
           description: Web site requesting the auction
-          example: travel.argentina.com
+          example: argentina
         passengers:
           type: integer
           description: Number of passengers. Must not exceed 10.
           example: 3
+        travelStartDate:
+          type: string
+          format: date
+          description: RFC3339 formatted date representing the travel start point.
+          example: '2009-01-01'
+        travelEndDate:
+          type: string
+          format: date
+          description: |
+            RFC3339 formatted date representing the travel end point. Must be greater than start date.
+          example: '2009-01-15'
+        travelerType:
+          type: string
+          enum:
+            - family
+            - group
+            - solo
+            - couple
         pageName:
           type: string
           description: Page name e.g. "flights", "hotels", "package", ...
@@ -1411,26 +1426,6 @@ components:
     HotelsTravelContext:
       allOf:
         - $ref: '#/components/schemas/BaseTravelContext'
-        - type: object
-          properties:
-            travelStartDate:
-              type: string
-              format: date
-              description: RFC3339 formatted date representing the travel start point.
-              example: '2009-01-01'
-            travelEndDate:
-              type: string
-              format: date
-              description: |
-                RFC3339 formatted date representing the travel end point. Must be greater than start date.
-              example: '2009-01-15'
-            travelerType:
-              type: string
-              enum:
-                - family
-                - group
-                - solo
-                - couple
 
     FlightsAuctionRequest:
       type: object
@@ -1490,7 +1485,7 @@ components:
           properties:
             route:
               type: string
-              description: Flight route using standard airport 3 letter code. Example 'SAO-ORL'.
+              description: Flight route code.
             flightType:
               type: string
               description: Flight type e.g. "round_trip", "one_way", ...
