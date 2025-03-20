@@ -1368,7 +1368,7 @@ components:
       properties:
         id:
           type: string
-          description: ID to identify flight product ID.
+          description: ID to identify hotel product.
           example: miami-hotel
         qualityScore:
           type: number
@@ -1457,7 +1457,7 @@ components:
       properties:
         id:
           type: string
-          description: ID to identify flight product ID.
+          description: ID to identify flight product.
           example: L0_SAO-ORL
         variationID:
           type: string
