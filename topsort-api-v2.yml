@@ -298,11 +298,11 @@ paths:
                         qualityScore: 0.7
                       - id: hotel-2
                     travelContext:
-                        travelStartDate: 2025-01-01
-                        travelEndDate: 2025-01-15
-                        site: argentina
-                        passengers: 2
-                        travelerType: couple
+                      travelStartDate: 2025-01-01
+                      travelEndDate: 2025-01-15
+                      site: argentina
+                      passengers: 2
+                      travelerType: couple
                   - type: flights
                     slots: 2
                     products:
@@ -314,10 +314,10 @@ paths:
                         variationID: '002'
                         price: 2000
                     travelContext:
-                        site: argentina
-                        passengers: 2
-                        route: SAO-ORL
-                        flightType: one-way
+                      site: argentina
+                      passengers: 2
+                      route: SAO-ORL
+                      flightType: one-way
         required: true
       responses:
         201:
