@@ -1094,6 +1094,7 @@ components:
 
     InteractionObject:
       type: object
+      description: Information regarding an organic or non-sponsored event.
       required:
         - type
       properties:
@@ -1806,6 +1807,13 @@ components:
           $ref: '#/components/schemas/Page'
         object:
           $ref: '#/components/schemas/InteractionObject'
+        clickType:
+          type: string
+          description: For sponsored events only, signals the specific interaction flavor with the listing.
+          enum:
+            - product
+            - like
+            - add-to-cart
         externalCampaignId:
           type: string
           description: Marketplace provided ID for a campaign
