@@ -1101,7 +1101,7 @@ components:
           example: banner_asset_001
         clickType:
           type: string
-          description: When type is `listing`, signals the specific interaction flavor wth the listing.
+          description: When type is `listing`, signals the specific interaction flavor with the listing.
           enum:
             - product
             - like
