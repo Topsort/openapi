@@ -380,8 +380,8 @@ paths:
         - **Purchases** — a user created an order.
         - **Pageviews** - a user navigate on a page.
 
-        Interactions require either a `resolvedBidId`, called sponsored events, from the `/v2/auctions` response
-        or an `entity` that describes the entity to attribute, known as organic or non-sponsored event.
+        Interactions require either a `resolvedBidId`, for sponsored events coming from the `/v2/auctions` response,
+        or an `entity` that describes the entity that was interacted with, in the case of organic or non-sponsored events.
 
         For analytics purposes, you can use the `placement` field to differentiate different listings or banners.
         For example, on a product page with a carousel of products, you can track impressions and clicks related to the carousel
@@ -1825,8 +1825,8 @@ components:
     Pageview:
       type: object
       description: >
-        A page view represents the navigation of the user trougout the page. They are considered organic events.
-        In contrast to clicks or impressions, which are events within a page. A page view is the interaction with the full page page.
+        A page view represents the navigation of the user throughout the page. They are considered organic events.
+        In contrast to clicks or impressions, which are events within a page, a page view is the interaction with the full page, which can contain multiple objects.
       required:
         - occurredAt
         - opaqueUserId
@@ -1846,9 +1846,9 @@ components:
         id:
           type: string
           description: >
-            The marketplace's unique ID for the impression.
+            The marketplace's unique ID for the event.
             This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
-            If there is no impression model on the marketplace side, generate a unique string that does not change if the event is resent.
+            If there is no pageview model on the marketplace side, generate a unique string that does not change if the event is resent.
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
 
