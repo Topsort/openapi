@@ -378,9 +378,10 @@ paths:
         - **Impressions** — a user viewed an asset.
         - **Clicks** — a user clicked on an asset.
         - **Purchases** — a user created an order.
+        - **Pageviews** - a user navigate on a page.
 
-        Interactions require either a `resolvedBidId` from the `/v2/auctions` response or an `entity` that describes 
-        the entity to attribute.
+        Interactions require either a `resolvedBidId`, called sponsored events, from the `/v2/auctions` response
+        or an `entity` that describes the entity to attribute, known as organic or non-sponsored event.
 
         For analytics purposes, you can use the `placement` field to differentiate different listings or banners.
         For example, on a product page with a carousel of products, you can track impressions and clicks related to the carousel
@@ -1821,6 +1822,35 @@ components:
             2. you want to use it for halo attribution
           minLength: 1
           example: v_8fj2D
+    Pageview:
+      type: object
+      description: >
+        A page view represents the navigation of the user trougout the page. They are considered organic events.
+        In contrast to clicks or impressions, which are events within a page. A page view is the interaction with the full page page.
+      required:
+        - occurredAt
+        - opaqueUserId
+        - id
+        - page
+      additionalProperties: false
+      properties:
+        page:
+          $ref: '#/components/schemas/Page'
+        occurredAt:
+          type: string
+          format: date-time
+          description: RFC3339 formatted timestamp including UTC offset.
+          example: '2009-01-01T12:59:59-05:00'
+        opaqueUserId:
+          $ref: '#/components/schemas/OpaqueUserID'
+        id:
+          type: string
+          description: >
+            The marketplace's unique ID for the impression.
+            This field ensures the event reporting is idempotent in case there is a network issue and the request is retried.
+            If there is no impression model on the marketplace side, generate a unique string that does not change if the event is resent.
+          minLength: 1
+          example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
 
   securitySchemes:
     BearerAuth:
