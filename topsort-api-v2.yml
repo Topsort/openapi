@@ -98,6 +98,9 @@ tags:
       ## RankingWinner
       <SchemaDefinition schemaRef="#/components/schemas/RankingWinner" />
 
+      ## Interaction Object
+      <SchemaDefinition schemaRef="#/components/schemas/InteractionObject" />
+
 security:
   - BearerAuth: []
 
@@ -1080,6 +1083,30 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    
+    InteractionObject:
+      type: object
+      required:
+        - type
+      properties:
+        type: 
+          type: string
+          description: The type of object that is being reported on the interaction. 
+          enum:
+            - listing
+            - banner
+        assetId:
+          type: string
+          description: When type is `banner`, signals the ID of the asset of the banner
+          example: banner_asset_001
+        clickType:
+          type: string
+          description: When type is `listing`, signals the specific interaction flavor wth the listing.
+          enum:
+            - product
+            - like
+            - add-to-cart
+          
 
     # Dimensions:
     #   type: object
@@ -1713,6 +1740,10 @@ components:
             the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
             in the event body.
           $ref: '#/components/schemas/Entity'
+        page:
+          $ref: '#/components/schemas/Page'
+        object:
+          $ref: '#/components/schemas/InteractionObject'
 
     Click:
       description: >
@@ -1756,6 +1787,11 @@ components:
             the `additionalAttribution` field. When using this field, the `resolvedBidId` must also exist
             in the event body.
           $ref: '#/components/schemas/Entity'
+        page:
+          $ref: '#/components/schemas/Page'
+        object:
+          $ref: '#/components/schemas/InteractionObject'
+        
     Purchase:
       description: >
         A purchase is sent to Topsort once a marketplace customer places an order.
