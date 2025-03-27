@@ -614,6 +614,7 @@ components:
       title: HomePage
       required:
         - type
+        - pageId
       properties:
         type:
           type: string
@@ -627,12 +628,19 @@ components:
           description: Type of page.
           example: 'category'
         value:
-          type: string
-          description: Detail of the page, depending on the type
-          example: 'electronics'
+          oneOf:
+            - type: string
+              description: Detail of the page, depending on the type
+              example: 'electronics'
+            - type: array
+              items:
+                type: string
+                description: Only valid for type cart. Items on the cart
+                example: '[ "coffee", "cookies", "apples" ]'
+              minItems: 1
         pageId:
           type: string
-          description: Marketplace id for the page
+          description: Identifies the page
           example: '/category/electronics'
 
     OpaqueUserID:
