@@ -1083,15 +1083,15 @@ components:
           type: string
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-    
+
     InteractionObject:
       type: object
       required:
         - type
       properties:
-        type: 
+        type:
           type: string
-          description: The type of object that is being reported on the interaction. 
+          description: The type of object that is being reported on the interaction.
           enum:
             - listing
             - banner
@@ -1106,7 +1106,6 @@ components:
             - product
             - like
             - add-to-cart
-          
 
     # Dimensions:
     #   type: object
@@ -1744,6 +1743,14 @@ components:
           $ref: '#/components/schemas/Page'
         object:
           $ref: '#/components/schemas/InteractionObject'
+        externalCampaignId:
+          type: string
+          description: Marketplace provided ID for a campaign
+          example: 'awareness-campaign-2025'
+        externalVendorId:
+          type: string
+          description: Marketplace provided ID for a vendor
+          example: 'my-new-vendor'
 
     Click:
       description: >
@@ -1791,7 +1798,15 @@ components:
           $ref: '#/components/schemas/Page'
         object:
           $ref: '#/components/schemas/InteractionObject'
-        
+        externalCampaignId:
+          type: string
+          description: Marketplace provided ID for a campaign
+          example: 'awareness-campaign-2025'
+        externalVendorId:
+          type: string
+          description: Marketplace provided ID for a vendor
+          example: 'my-new-vendor'
+
     Purchase:
       description: >
         A purchase is sent to Topsort once a marketplace customer places an order.
