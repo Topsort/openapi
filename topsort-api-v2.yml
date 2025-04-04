@@ -381,7 +381,7 @@ paths:
         - **Impressions** — a user viewed an asset.
         - **Clicks** — a user clicked on an asset.
         - **Purchases** — a user created an order.
-        - **Pageviews** - a user navigate on a page.
+        - **Pageviews** — a user navigated on a page.
 
         Interactions require either a `resolvedBidId`, for sponsored events coming from the `/v2/auctions` response,
         or an `entity` that describes the entity that was interacted with, in the case of organic or non-sponsored events.
@@ -614,7 +614,7 @@ components:
 
     Page:
       type: object
-      title: HomePage
+      title: Page
       required:
         - type
         - pageId
@@ -1670,6 +1670,12 @@ components:
             $ref: '#/components/schemas/Purchase'
           minItems: 1
           maxItems: 50
+        pageview:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pageview'
+          minItems: 1
+          maxItems: 50
       minProperties: 1
       example:
         impressions:
@@ -1705,6 +1711,14 @@ components:
                 unitPrice: 1.49
             occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+        pageview:
+          - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
+            occurredAt: '2019-01-01T12:59:58-05:00'
+            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+            page:
+              - type: category
+              - value: dairy
+              - pageId: /categories/dairy
     Impression:
       type: object
       description: >
