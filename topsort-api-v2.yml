@@ -381,7 +381,7 @@ paths:
         - **Impressions** — a user viewed an asset.
         - **Clicks** — a user clicked on an asset.
         - **Purchases** — a user created an order.
-        - **Pageviews** — a user navigated on a page.
+        - **Pageviews** — a user visited a page.
 
         Interactions require either a `resolvedBidId`, for sponsored events coming from the `/v2/auctions` response,
         or an `entity` that describes the entity that was interacted with, in the case of organic or non-sponsored events.
