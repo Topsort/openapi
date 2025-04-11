@@ -550,22 +550,22 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Create a new advertiser'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/advertisers/{id}:
     get:
       operationId: get_offsite_advertiser_public
       parameters:
-      - description: The advertiser ID
-        in: path
-        name: id
-        required: true
-        schema:
-          description: The advertiser ID
-          title: Id
-          type: string
+        - description: The advertiser ID
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The advertiser ID
+            title: Id
+            type: string
       responses:
         '200':
           content:
@@ -580,49 +580,51 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get advertiser details'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/audiences:
     get:
       operationId: list_offsite_audiences_public
       parameters:
-      - description: Filter by DSPs
-        in: query
-        name: dsps
-        required: false
-        schema:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PublicDSP'
-            type: array
-          - type: 'null'
-          description: Filter by DSPs
-          title: Dsps
-      - description: Pagination cursor as provided in an earlier response. If provided
-          will fetch the next page of results.
-        in: query
-        name: next_page
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination cursor as provided in an earlier response. If provided
+        - description: Filter by DSPs
+          in: query
+          name: dsps
+          required: false
+          schema:
+            anyOf:
+              - items:
+                  $ref: '#/components/schemas/PublicDSP'
+                type: array
+              - type: 'null'
+            description: Filter by DSPs
+            title: Dsps
+        - description:
+            Pagination cursor as provided in an earlier response. If provided
             will fetch the next page of results.
-          title: Next Page
-      - description: The maximum number of items to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 50
-          description: The maximum number of items to return per page.
-          maximum: 100
-          minimum: 1
-          title: Limit
-          type: integer
+          in: query
+          name: next_page
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            description:
+              Pagination cursor as provided in an earlier response. If provided
+              will fetch the next page of results.
+            title: Next Page
+        - description: The maximum number of items to return per page.
+          in: query
+          name: limit
+          required: false
+          schema:
+            default: 50
+            description: The maximum number of items to return per page.
+            maximum: 100
+            minimum: 1
+            title: Limit
+            type: integer
       responses:
         '200':
           content:
@@ -637,10 +639,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] List all audiences'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
     post:
       operationId: create_offsite_audience_public
       requestBody:
@@ -663,23 +665,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Create a new audience'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/audiences/{audience_id}/users:
     post:
       operationId: upload_audience_users_public
       parameters:
-      - description: The audience ID
-        in: path
-        name: audience_id
-        required: true
-        schema:
-          description: The audience ID
-          format: uuid
-          title: Audience Id
-          type: string
+        - description: The audience ID
+          in: path
+          name: audience_id
+          required: true
+          schema:
+            description: The audience ID
+            format: uuid
+            title: Audience Id
+            type: string
       requestBody:
         content:
           multipart/form-data:
@@ -700,59 +702,61 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Upload users to an audience'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/campaigns:
     get:
       operationId: list_offsite_campaigns_public
       parameters:
-      - description: Filter by DSPs.
-        in: query
-        name: dsps
-        required: false
-        schema:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PublicDSP'
-            type: array
-          - type: 'null'
-          description: Filter by DSPs.
-          title: Dsps
-      - description: Filter by campaign status.
-        in: query
-        name: status
-        required: false
-        schema:
-          anyOf:
-          - $ref: '#/components/schemas/Status'
-          - type: 'null'
-          description: Filter by campaign status.
-          title: Status
-      - description: Pagination cursor as provided in an earlier response. If provided
-          will fetch the next page of results.
-        in: query
-        name: next_page
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination cursor as provided in an earlier response. If provided
+        - description: Filter by DSPs.
+          in: query
+          name: dsps
+          required: false
+          schema:
+            anyOf:
+              - items:
+                  $ref: '#/components/schemas/PublicDSP'
+                type: array
+              - type: 'null'
+            description: Filter by DSPs.
+            title: Dsps
+        - description: Filter by campaign status.
+          in: query
+          name: status
+          required: false
+          schema:
+            anyOf:
+              - $ref: '#/components/schemas/Status'
+              - type: 'null'
+            description: Filter by campaign status.
+            title: Status
+        - description:
+            Pagination cursor as provided in an earlier response. If provided
             will fetch the next page of results.
-          title: Next Page
-      - description: The maximum number of items to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 50
-          description: The maximum number of items to return per page.
-          maximum: 100
-          minimum: 1
-          title: Limit
-          type: integer
+          in: query
+          name: next_page
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            description:
+              Pagination cursor as provided in an earlier response. If provided
+              will fetch the next page of results.
+            title: Next Page
+        - description: The maximum number of items to return per page.
+          in: query
+          name: limit
+          required: false
+          schema:
+            default: 50
+            description: The maximum number of items to return per page.
+            maximum: 100
+            minimum: 1
+            title: Limit
+            type: integer
       responses:
         '200':
           content:
@@ -767,10 +771,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] List all campaigns'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
     post:
       operationId: create_offsite_campaign_public
       requestBody:
@@ -793,23 +797,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Create a new campaign'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/campaigns/{campaign_id}:
     get:
       operationId: get_offsite_campaign_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
       responses:
         '200':
           content:
@@ -824,22 +828,22 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get campaign details'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
     patch:
       operationId: update_offsite_campaign_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
       requestBody:
         content:
           application/json:
@@ -860,23 +864,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Update campaign settings'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/campaigns/{campaign_id}/geotargeting:
     get:
       operationId: get_offsite_campaign_geotargeting_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
       responses:
         '200':
           content:
@@ -891,23 +895,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get campaign geotargeting settings'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/jobs/{job_id}:
     get:
       operationId: get_offsite_job_status_public
       parameters:
-      - description: The unique identifier for the queued job.
-        in: path
-        name: job_id
-        required: true
-        schema:
-          description: The unique identifier for the queued job.
-          format: uuid
-          title: Job Id
-          type: string
+        - description: The unique identifier for the queued job.
+          in: path
+          name: job_id
+          required: true
+          schema:
+            description: The unique identifier for the queued job.
+            format: uuid
+            title: Job Id
+            type: string
       responses:
         '200':
           content:
@@ -922,41 +926,41 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get Job Status'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}:
     get:
       operationId: get_offsite_summary_report_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
-      - description: Start date for the report.
-        in: query
-        name: start_date
-        required: true
-        schema:
-          description: Start date for the report.
-          format: date
-          title: Start Date
-          type: string
-      - description: End date for the report.
-        in: query
-        name: end_date
-        required: true
-        schema:
-          description: End date for the report.
-          format: date
-          title: End Date
-          type: string
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
+        - description: Start date for the report.
+          in: query
+          name: start_date
+          required: true
+          schema:
+            description: Start date for the report.
+            format: date
+            title: Start Date
+            type: string
+        - description: End date for the report.
+          in: query
+          name: end_date
+          required: true
+          schema:
+            description: End date for the report.
+            format: date
+            title: End Date
+            type: string
       responses:
         '200':
           content:
@@ -971,64 +975,66 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get campaign performance summary'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}/daily:
     get:
       operationId: get_offsite_daily_report_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
-      - description: Start date for the report.
-        in: query
-        name: start_date
-        required: true
-        schema:
-          description: Start date for the report.
-          format: date
-          title: Start Date
-          type: string
-      - description: End date for the report.
-        in: query
-        name: end_date
-        required: true
-        schema:
-          description: End date for the report.
-          format: date
-          title: End Date
-          type: string
-      - description: Pagination cursor as provided in an earlier response. If provided
-          will fetch the next page of results.
-        in: query
-        name: next_page
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination cursor as provided in an earlier response. If provided
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
+        - description: Start date for the report.
+          in: query
+          name: start_date
+          required: true
+          schema:
+            description: Start date for the report.
+            format: date
+            title: Start Date
+            type: string
+        - description: End date for the report.
+          in: query
+          name: end_date
+          required: true
+          schema:
+            description: End date for the report.
+            format: date
+            title: End Date
+            type: string
+        - description:
+            Pagination cursor as provided in an earlier response. If provided
             will fetch the next page of results.
-          title: Next Page
-      - description: The maximum number of items to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 50
-          description: The maximum number of items to return per page.
-          maximum: 100
-          minimum: 1
-          title: Limit
-          type: integer
+          in: query
+          name: next_page
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            description:
+              Pagination cursor as provided in an earlier response. If provided
+              will fetch the next page of results.
+            title: Next Page
+        - description: The maximum number of items to return per page.
+          in: query
+          name: limit
+          required: false
+          schema:
+            default: 50
+            description: The maximum number of items to return per page.
+            maximum: 100
+            minimum: 1
+            title: Limit
+            type: integer
       responses:
         '200':
           content:
@@ -1043,64 +1049,66 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get daily campaign performance report'
       tags:
-      - Offsite Ads API
+        - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}/products:
     get:
       operationId: get_offsite_product_report_public
       parameters:
-      - description: The unique identifier of the campaign.
-        in: path
-        name: campaign_id
-        required: true
-        schema:
-          description: The unique identifier of the campaign.
-          format: uuid
-          title: Campaign Id
-          type: string
-      - description: Start date for the report.
-        in: query
-        name: start_date
-        required: true
-        schema:
-          description: Start date for the report.
-          format: date
-          title: Start Date
-          type: string
-      - description: End date for the report.
-        in: query
-        name: end_date
-        required: true
-        schema:
-          description: End date for the report.
-          format: date
-          title: End Date
-          type: string
-      - description: Pagination cursor as provided in an earlier response. If provided
-          will fetch the next page of results.
-        in: query
-        name: next_page
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination cursor as provided in an earlier response. If provided
+        - description: The unique identifier of the campaign.
+          in: path
+          name: campaign_id
+          required: true
+          schema:
+            description: The unique identifier of the campaign.
+            format: uuid
+            title: Campaign Id
+            type: string
+        - description: Start date for the report.
+          in: query
+          name: start_date
+          required: true
+          schema:
+            description: Start date for the report.
+            format: date
+            title: Start Date
+            type: string
+        - description: End date for the report.
+          in: query
+          name: end_date
+          required: true
+          schema:
+            description: End date for the report.
+            format: date
+            title: End Date
+            type: string
+        - description:
+            Pagination cursor as provided in an earlier response. If provided
             will fetch the next page of results.
-          title: Next Page
-      - description: The maximum number of items to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 50
-          description: The maximum number of items to return per page.
-          maximum: 100
-          minimum: 1
-          title: Limit
-          type: integer
+          in: query
+          name: next_page
+          required: false
+          schema:
+            anyOf:
+              - type: string
+              - type: 'null'
+            description:
+              Pagination cursor as provided in an earlier response. If provided
+              will fetch the next page of results.
+            title: Next Page
+        - description: The maximum number of items to return per page.
+          in: query
+          name: limit
+          required: false
+          schema:
+            default: 50
+            description: The maximum number of items to return per page.
+            maximum: 100
+            minimum: 1
+            title: Limit
+            type: integer
       responses:
         '200':
           content:
@@ -1115,11 +1123,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       security:
-      - HTTPBearer: []
+        - HTTPBearer: []
       summary: '[BETA] Get product-level campaign performance report'
       tags:
-      - Offsite Ads API
-
+        - Offsite Ads API
 
 components:
   responses:
@@ -2535,8 +2542,8 @@ components:
           type: string
         description:
           anyOf:
-          - type: string
-          - type: 'null'
+            - type: string
+            - type: 'null'
           description: Optional description of the audience.
           title: Description
         dsp:
@@ -2561,12 +2568,12 @@ components:
           title: Usercount
           type: integer
       required:
-      - id
-      - name
-      - dsp
-      - userCount
-      - createdAt
-      - updatedAt
+        - id
+        - name
+        - dsp
+        - userCount
+        - createdAt
+        - updatedAt
       title: AudienceResponsePublic
       type: object
     Body_upload_audience_users_public:
@@ -2577,7 +2584,7 @@ components:
           title: File
           type: string
       required:
-      - file
+        - file
       title: Body_upload_audience_users_public
       type: object
     CampaignCreationJobResult:
@@ -2588,7 +2595,7 @@ components:
           title: Campaignid
           type: string
       required:
-      - campaignId
+        - campaignId
       title: CampaignCreationJobResult
       type: object
     CampaignGeoTargetingResponse:
@@ -2600,7 +2607,7 @@ components:
           title: Regionids
           type: array
       required:
-      - regionIds
+        - regionIds
       title: CampaignGeoTargetingResponse
       type: object
     CampaignResponsePublic:
@@ -2611,9 +2618,9 @@ components:
           type: integer
         endDate:
           anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
+            - format: date-time
+              type: string
+            - type: 'null'
           description: The end date and time of the campaign (UTC), optional.
           title: Enddate
         id:
@@ -2634,11 +2641,11 @@ components:
           $ref: '#/components/schemas/Status'
           description: The current status of the campaign.
       required:
-      - id
-      - name
-      - startDate
-      - budget
-      - status
+        - id
+        - name
+        - startDate
+        - budget
+        - status
       title: CampaignResponsePublic
       type: object
     CreateAdvertiserRequestPublic:
@@ -2651,16 +2658,16 @@ components:
           title: Vendorid
           type: string
       required:
-      - vendorId
-      - dsp
+        - vendorId
+        - dsp
       title: CreateAdvertiserRequestPublic
       type: object
     CreateAudienceRequestPublic:
       properties:
         description:
           anyOf:
-          - type: string
-          - type: 'null'
+            - type: string
+            - type: 'null'
           description: Optional description of the audience.
           title: Description
         dsp:
@@ -2671,8 +2678,8 @@ components:
           title: Name
           type: string
       required:
-      - name
-      - dsp
+        - name
+        - dsp
       title: CreateAudienceRequestPublic
       type: object
     CreateCampaignRequestPublic:
@@ -2686,9 +2693,9 @@ components:
           description: The demand-side platform (DSP) for the campaign.
         endDate:
           anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
+            - format: date-time
+              type: string
+            - type: 'null'
           description: The end date and time of the campaign (UTC), optional.
           title: Enddate
         locationIds:
@@ -2703,10 +2710,10 @@ components:
           type: string
         productIds:
           anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
+            - items:
+                type: string
+              type: array
+            - type: 'null'
           description: List of product IDs to target, optional.
           title: Productids
         startDate:
@@ -2715,15 +2722,16 @@ components:
           title: Startdate
           type: string
       required:
-      - dsp
-      - name
-      - startDate
-      - locationIds
-      - budget
+        - dsp
+        - name
+        - startDate
+        - locationIds
+        - budget
       title: CreateCampaignRequestPublic
       type: object
     DailyReportData:
-      description: Clicks, impressions and purchases attributed to this report item
+      description:
+        Clicks, impressions and purchases attributed to this report item
         so far, for a particular date
       properties:
         clicks:
@@ -2741,30 +2749,32 @@ components:
           $ref: '#/components/schemas/Purchases'
           description: How many purchases are attributed to this report item.
       required:
-      - impressions
-      - clicks
-      - purchases
-      - date
+        - impressions
+        - clicks
+        - purchases
+        - date
       title: DailyReportData
       type: object
     DailyReportResponse:
       description: Response for daily aggregation reports
       properties:
         hasMore:
-          description: Flag that indicates whether more results are available. `true`
+          description:
+            Flag that indicates whether more results are available. `true`
             indicates there is a next page of results. `false` indicates  this response
             contains the last page of results.
           title: Hasmore
           type: boolean
         nextPage:
           anyOf:
-          - minLength: 1
-            type: string
-          - type: 'null'
-          description: Pagination cursor. Provide this value as a `next_page` query
+            - minLength: 1
+              type: string
+            - type: 'null'
+          description:
+            Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
           examples:
-          - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
+            - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
         reports:
           description: A list with report data aggregated by day.
@@ -2773,8 +2783,8 @@ components:
           title: Reports
           type: array
       required:
-      - hasMore
-      - reports
+        - hasMore
+        - reports
       title: DailyReportResponse
       type: object
     DspOnboardingStatus:
@@ -2791,16 +2801,17 @@ components:
           $ref: '#/components/schemas/OnboardingStatus'
           description: The current onboarding status
       required:
-      - dsp
-      - status
-      - lastUpdated
+        - dsp
+        - status
+        - lastUpdated
       title: DspOnboardingStatus
       type: object
     Events:
       description: Aggregation of events.
       properties:
         adSpent:
-          description: Ad spent over a period of time, in minor units of currency
+          description:
+            Ad spent over a period of time, in minor units of currency
             according to ISO 4217.
           format: int64
           title: Adspent
@@ -2816,9 +2827,9 @@ components:
           title: Total
           type: integer
       required:
-      - total
-      - charged
-      - adSpent
+        - total
+        - charged
+        - adSpent
       title: Events
       type: object
     HTTPValidationError:
@@ -2834,8 +2845,8 @@ components:
       properties:
         error:
           anyOf:
-          - type: string
-          - type: 'null'
+            - type: string
+            - type: 'null'
           description: Error message if the job failed.
           title: Error
         id:
@@ -2845,9 +2856,10 @@ components:
           type: string
         jobResponse:
           anyOf:
-          - $ref: '#/components/schemas/CampaignCreationJobResult'
-          - type: 'null'
-          description: Result data if the job was successful (e.g., created campaign
+            - $ref: '#/components/schemas/CampaignCreationJobResult'
+            - type: 'null'
+          description:
+            Result data if the job was successful (e.g., created campaign
             ID).
         requestType:
           $ref: '#/components/schemas/RequestType'
@@ -2856,9 +2868,9 @@ components:
           $ref: '#/components/schemas/JobStatus'
           description: The current status of the job.
       required:
-      - id
-      - requestType
-      - status
+        - id
+        - requestType
+        - status
       title: JobDetailsResponse
       type: object
     JobResponseBase:
@@ -2869,14 +2881,14 @@ components:
           title: Jobid
           type: string
       required:
-      - jobId
+        - jobId
       title: JobResponseBase
       type: object
     JobStatus:
       enum:
-      - PENDING
-      - SUCCESS
-      - FAILED
+        - PENDING
+        - SUCCESS
+        - FAILED
       title: JobStatus
       type: string
     ListAudiencesResponsePublic:
@@ -2888,24 +2900,26 @@ components:
           title: Audiences
           type: array
         hasMore:
-          description: Flag that indicates whether more results are available. `true`
+          description:
+            Flag that indicates whether more results are available. `true`
             indicates there is a next page of results. `false` indicates  this response
             contains the last page of results.
           title: Hasmore
           type: boolean
         nextPage:
           anyOf:
-          - minLength: 1
-            type: string
-          - type: 'null'
-          description: Pagination cursor. Provide this value as a `next_page` query
+            - minLength: 1
+              type: string
+            - type: 'null'
+          description:
+            Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
           examples:
-          - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
+            - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
       required:
-      - hasMore
-      - audiences
+        - hasMore
+        - audiences
       title: ListAudiencesResponsePublic
       type: object
     ListCampaignsResponsePublic:
@@ -2917,32 +2931,34 @@ components:
           title: Campaigns
           type: array
         hasMore:
-          description: Flag that indicates whether more results are available. `true`
+          description:
+            Flag that indicates whether more results are available. `true`
             indicates there is a next page of results. `false` indicates  this response
             contains the last page of results.
           title: Hasmore
           type: boolean
         nextPage:
           anyOf:
-          - minLength: 1
-            type: string
-          - type: 'null'
-          description: Pagination cursor. Provide this value as a `next_page` query
+            - minLength: 1
+              type: string
+            - type: 'null'
+          description:
+            Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
           examples:
-          - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
+            - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
       required:
-      - hasMore
-      - campaigns
+        - hasMore
+        - campaigns
       title: ListCampaignsResponsePublic
       type: object
     OnboardingStatus:
       enum:
-      - PENDING
-      - IN_PROGRESS
-      - COMPLETED
-      - FAILED
+        - PENDING
+        - IN_PROGRESS
+        - COMPLETED
+        - FAILED
       title: OnboardingStatus
       type: string
     PublicAdvertiserResponse:
@@ -2962,14 +2978,14 @@ components:
           title: Name
           type: string
       required:
-      - id
-      - name
+        - id
+        - name
       title: PublicAdvertiserResponse
       type: object
     PublicDSP:
       enum:
-      - google_ads
-      - meta
+        - google_ads
+        - meta
       title: PublicDSP
       type: string
     PublicProductReportData:
@@ -2988,29 +3004,31 @@ components:
           $ref: '#/components/schemas/Purchases'
           description: How many purchases are attributed to this report item.
       required:
-      - impressions
-      - clicks
-      - purchases
-      - productId
+        - impressions
+        - clicks
+        - purchases
+        - productId
       title: PublicProductReportData
       type: object
     PublicProductReportResponse:
       properties:
         hasMore:
-          description: Flag that indicates whether more results are available. `true`
+          description:
+            Flag that indicates whether more results are available. `true`
             indicates there is a next page of results. `false` indicates  this response
             contains the last page of results.
           title: Hasmore
           type: boolean
         nextPage:
           anyOf:
-          - minLength: 1
-            type: string
-          - type: 'null'
-          description: Pagination cursor. Provide this value as a `next_page` query
+            - minLength: 1
+              type: string
+            - type: 'null'
+          description:
+            Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
           examples:
-          - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
+            - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
         reports:
           description: A list with report data, separated by product
@@ -3019,15 +3037,16 @@ components:
           title: Reports
           type: array
       required:
-      - hasMore
-      - reports
+        - hasMore
+        - reports
       title: PublicProductReportResponse
       type: object
     Purchases:
       description: Aggregation of purchase events.
       properties:
         amount:
-          description: Amount of money made by purchases over a period of time, in
+          description:
+            Amount of money made by purchases over a period of time, in
             minor units of currency according to ISO 4217.
           format: int64
           title: Amount
@@ -3039,11 +3058,12 @@ components:
           type: integer
         countByProduct:
           anyOf:
-          - additionalProperties:
-              type: integer
-            type: object
-          - type: 'null'
-          description: Purchase count by product. Available if `count_by_product`
+            - additionalProperties:
+                type: integer
+              type: object
+            - type: 'null'
+          description:
+            Purchase count by product. Available if `count_by_product`
             is set to `true`.
           title: Countbyproduct
         quantity:
@@ -3052,13 +3072,14 @@ components:
           title: Quantity
           type: integer
       required:
-      - amount
-      - count
-      - quantity
+        - amount
+        - count
+        - quantity
       title: Purchases
       type: object
     ReportData:
-      description: Clicks, impressions and purchases attributed to this report item
+      description:
+        Clicks, impressions and purchases attributed to this report item
         so far.
       properties:
         clicks:
@@ -3071,73 +3092,73 @@ components:
           $ref: '#/components/schemas/Purchases'
           description: How many purchases are attributed to this report item.
       required:
-      - impressions
-      - clicks
-      - purchases
+        - impressions
+        - clicks
+        - purchases
       title: ReportData
       type: object
     RequestType:
       enum:
-      - ADVERTISER_CREATION
-      - CAMPAIGN_CREATION
-      - CAMPAIGN_UPDATE
+        - ADVERTISER_CREATION
+        - CAMPAIGN_CREATION
+        - CAMPAIGN_UPDATE
       title: RequestType
       type: string
     Status:
       enum:
-      - ENABLED
-      - PAUSED
-      - REMOVED
+        - ENABLED
+        - PAUSED
+        - REMOVED
       title: Status
       type: string
     UpdateCampaignRequestPublic:
       properties:
         budget:
           anyOf:
-          - type: integer
-          - type: 'null'
+            - type: integer
+            - type: 'null'
           description: Optional new budget for the campaign.
           title: Budget
         endDate:
           anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
+            - format: date-time
+              type: string
+            - type: 'null'
           description: Optional new end date for the campaign.
           title: Enddate
         geotargetingIds:
           anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
+            - items:
+                type: string
+              type: array
+            - type: 'null'
           description: Optional new list of geotargeting IDs.
           title: Geotargetingids
         name:
           anyOf:
-          - type: string
-          - type: 'null'
+            - type: string
+            - type: 'null'
           description: Optional new name for the campaign.
           title: Name
         productIds:
           anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
+            - items:
+                type: string
+              type: array
+            - type: 'null'
           description: Optional new list of product IDs.
           title: Productids
         startDate:
           anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
+            - format: date-time
+              type: string
+            - type: 'null'
           description: Optional new start date (cannot be changed for started campaigns).
           title: Startdate
         status:
           anyOf:
-          - $ref: '#/components/schemas/Status'
-          - type: 'null'
+            - $ref: '#/components/schemas/Status'
+            - type: 'null'
           description: Optional new status for the campaign.
       title: UpdateCampaignRequestPublic
       type: object
@@ -3146,8 +3167,8 @@ components:
         loc:
           items:
             anyOf:
-            - type: string
-            - type: integer
+              - type: string
+              - type: integer
           title: Location
           type: array
         msg:
@@ -3157,9 +3178,9 @@ components:
           title: Error Type
           type: string
       required:
-      - loc
-      - msg
-      - type
+        - loc
+        - msg
+        - type
       title: ValidationError
       type: object
 
