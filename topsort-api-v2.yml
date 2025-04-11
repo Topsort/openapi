@@ -923,7 +923,7 @@ paths:
           description: Validation Error
       security:
       - HTTPBearer: []
-      summary: Get Job Status
+      summary: '[BETA] Get Job Status'
       tags:
       - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}:
