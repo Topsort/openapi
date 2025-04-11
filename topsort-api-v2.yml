@@ -2773,7 +2773,7 @@ components:
           description:
             Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
-          examples:
+          x-examples:
             - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
         reports:
@@ -2914,7 +2914,7 @@ components:
           description:
             Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
-          examples:
+          x-examples:
             - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
       required:
@@ -2945,7 +2945,7 @@ components:
           description:
             Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
-          examples:
+          x-examples:
             - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
       required:
@@ -3027,7 +3027,7 @@ components:
           description:
             Pagination cursor. Provide this value as a `next_page` query
             parameter in a new request to retrieve the next page of results.
-          examples:
+          x-examples:
             - SSBzb2xlbW5seSBzd2VhciB0aGF0IEkgYW0gdXAgdG8gbm8gZ29vZAo=
           title: Nextpage
         reports:
