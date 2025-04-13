@@ -12,7 +12,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
     altText: Topsort
   version: 2.0.0
 
@@ -128,7 +128,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: "#/components/schemas/AuctionRequest"
+                    $ref: '#/components/schemas/AuctionRequest'
                   minItems: 1
                   maxItems: 5
               required:
@@ -176,7 +176,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: "#/components/schemas/AuctionResult"
+                      $ref: '#/components/schemas/AuctionResult'
                     minItems: 1
                     maxItems: 5
                 required:
@@ -214,9 +214,9 @@ paths:
                     - winners: []
                       error: false
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/auctions/sponsored-brand:
     post:
       tags:
@@ -235,7 +235,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: "#/components/schemas/SponsoredBrandAuctionRequest"
+                    $ref: '#/components/schemas/SponsoredBrandAuctionRequest'
                   minItems: 1
                   maxItems: 5
               required:
@@ -257,15 +257,15 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: "#/components/schemas/SponsoredBrandAuctionResult"
+                      $ref: '#/components/schemas/SponsoredBrandAuctionResult'
                     minItems: 1
                     maxItems: 5
                 required:
                   - results
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/auctions/travel:
     post:
       tags:
@@ -289,7 +289,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: "#/components/schemas/TravelAuctionRequest"
+                    $ref: '#/components/schemas/TravelAuctionRequest'
                   minItems: 1
                   maxItems: 5
               required:
@@ -311,12 +311,12 @@ paths:
                   - type: flights
                     slots: 2
                     products:
-                      - id: "L0_SAO-ORL"
-                        variationID: "001"
+                      - id: 'L0_SAO-ORL'
+                        variationID: '001'
                         price: 1500
                         qualityScore: 0.7
-                      - id: "L0_SAO-ORL"
-                        variationID: "002"
+                      - id: 'L0_SAO-ORL'
+                        variationID: '002'
                         price: 2000
                     travelContext:
                       site: argentina
@@ -340,7 +340,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: "#/components/schemas/TravelAuctionResult"
+                      $ref: '#/components/schemas/TravelAuctionResult'
                     minItems: 1
                     maxItems: 5
                 required:
@@ -363,16 +363,16 @@ paths:
                             id: L0_SAO-ORL
                             resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
                             campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
-                            variationID: "002"
+                            variationID: '002'
                           - rank: 2
                             id: L0_SAO-ORL
                             resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
                             campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
-                            variationID: "001"
+                            variationID: '001'
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/events:
     post:
       tags:
@@ -398,20 +398,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventsRequest"
+              $ref: '#/components/schemas/EventsRequest'
         required: true
       responses:
         204:
           description: All events were reported successfully.
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
   /v2/events/beta/link-users:
     post:
       tags:
         - Events
-      summary: "[Beta] Report Link Users"
+      summary: '[Beta] Report Link Users'
       description: |
         Use the `/events/beta/link-users` endpoint to report to Topsort linked opaque user IDs.
 
@@ -420,7 +420,7 @@ paths:
         will fail if the `from` and `to` opaque user IDs are the same.
 
         Contact your sales representative to gain access to this endpoint and start using it.
-      x-beta: "true"
+      x-beta: 'true'
       operationId: linkUsers
       requestBody:
         content:
@@ -442,27 +442,27 @@ paths:
                 - from
                 - to
               example:
-                from: "user123"
-                to: "user456"
+                from: 'user123'
+                to: 'user456'
         required: true
       responses:
         204:
           description: Users account link was reported successfully.
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
   /v2/rank:
     post:
       tags:
         - Toptimize
-      summary: "Rank objects"
+      summary: 'Rank objects'
       operationId: createRanking
       requestBody:
         description: |
           The context information to get the ranking, to rank organic and sponsored products.
 
-        x-beta: "true"
+        x-beta: 'true'
         content:
           application/json:
             schema:
@@ -471,7 +471,7 @@ paths:
                 ranking:
                   type: array
                   items:
-                    $ref: "#/components/schemas/RankingRequest"
+                    $ref: '#/components/schemas/RankingRequest'
                   minItems: 1
                   maxItems: 5
               required:
@@ -482,9 +482,9 @@ paths:
                     slots: 3
                     pageSize: 3
                     category:
-                      ids: ["sneakers", "shoes"]
+                      ids: ['sneakers', 'shoes']
                     products:
-                      ids: ["p_PJbnN", "p_ojng4"]
+                      ids: ['p_PJbnN', 'p_ojng4']
         required: true
       responses:
         201:
@@ -500,7 +500,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: "#/components/schemas/RankingResult"
+                      $ref: '#/components/schemas/RankingResult'
                     minItems: 1
                     maxItems: 5
                 required:
@@ -522,9 +522,9 @@ paths:
                           resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                       error: false
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         401:
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/offsite-ads/advertisers:
     post:
       operationId: create_offsite_advertiser_public
@@ -532,24 +532,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateAdvertiserRequestPublic"
+              $ref: '#/components/schemas/CreateAdvertiserRequestPublic'
         required: true
       responses:
-        "201":
+        '201':
           description: Advertiser already exists
-        "202":
+        '202':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResponseBase"
+                $ref: '#/components/schemas/JobResponseBase'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Create a new advertiser"
+      summary: '[BETA] Create a new advertiser'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/advertisers/{id}:
@@ -565,19 +565,19 @@ paths:
             title: Id
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PublicAdvertiserResponse"
+                $ref: '#/components/schemas/PublicAdvertiserResponse'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get advertiser details"
+      summary: '[BETA] Get advertiser details'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/audiences:
@@ -591,7 +591,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/PublicDSP"
+              $ref: '#/components/schemas/PublicDSP'
             description: Filter by DSPs
             title: Dsps
         - description:
@@ -618,19 +618,19 @@ paths:
             title: Limit
             type: integer
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListAudiencesResponsePublic"
+                $ref: '#/components/schemas/ListAudiencesResponsePublic'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] List all audiences"
+      summary: '[BETA] List all audiences'
       tags:
         - Offsite Ads API
     post:
@@ -639,22 +639,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateAudienceRequestPublic"
+              $ref: '#/components/schemas/CreateAudienceRequestPublic'
         required: true
       responses:
-        "202":
+        '202':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResponseBase"
+                $ref: '#/components/schemas/JobResponseBase'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Create a new audience"
+      summary: '[BETA] Create a new audience'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/audiences/{audience_id}/users:
@@ -674,22 +674,22 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Body_upload_audience_users_public"
+              $ref: '#/components/schemas/Body_upload_audience_users_public'
         required: true
       responses:
-        "202":
+        '202':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResponseBase"
+                $ref: '#/components/schemas/JobResponseBase'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Upload users to an audience"
+      summary: '[BETA] Upload users to an audience'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/campaigns:
@@ -703,7 +703,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/PublicDSP"
+              $ref: '#/components/schemas/PublicDSP'
             description: Filter by DSPs.
             title: Dsps
         - description: Filter by campaign status.
@@ -711,7 +711,7 @@ paths:
           name: status
           required: false
           schema:
-            $ref: "#/components/schemas/Status"
+            $ref: '#/components/schemas/Status'
         - description:
             Pagination cursor as provided in an earlier response. If provided
             will fetch the next page of results.
@@ -736,19 +736,19 @@ paths:
             title: Limit
             type: integer
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListCampaignsResponsePublic"
+                $ref: '#/components/schemas/ListCampaignsResponsePublic'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] List all campaigns"
+      summary: '[BETA] List all campaigns'
       tags:
         - Offsite Ads API
     post:
@@ -757,22 +757,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCampaignRequestPublic"
+              $ref: '#/components/schemas/CreateCampaignRequestPublic'
         required: true
       responses:
-        "202":
+        '202':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResponseBase"
+                $ref: '#/components/schemas/JobResponseBase'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Create a new campaign"
+      summary: '[BETA] Create a new campaign'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/campaigns/{campaign_id}:
@@ -789,19 +789,19 @@ paths:
             title: Campaign Id
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CampaignResponsePublic"
+                $ref: '#/components/schemas/CampaignResponsePublic'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get campaign details"
+      summary: '[BETA] Get campaign details'
       tags:
         - Offsite Ads API
     patch:
@@ -820,22 +820,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateCampaignRequestPublic"
+              $ref: '#/components/schemas/UpdateCampaignRequestPublic'
         required: true
       responses:
-        "202":
+        '202':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobResponseBase"
+                $ref: '#/components/schemas/JobResponseBase'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Update campaign settings"
+      summary: '[BETA] Update campaign settings'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/campaigns/{campaign_id}/geotargeting:
@@ -852,19 +852,19 @@ paths:
             title: Campaign Id
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CampaignGeoTargetingResponse"
+                $ref: '#/components/schemas/CampaignGeoTargetingResponse'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get campaign geotargeting settings"
+      summary: '[BETA] Get campaign geotargeting settings'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/jobs/{job_id}:
@@ -881,19 +881,19 @@ paths:
             title: Job Id
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/JobDetailsResponse"
+                $ref: '#/components/schemas/JobDetailsResponse'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get Job Status"
+      summary: '[BETA] Get Job Status'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}:
@@ -928,19 +928,19 @@ paths:
             title: End Date
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReportData"
+                $ref: '#/components/schemas/ReportData'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get campaign performance summary"
+      summary: '[BETA] Get campaign performance summary'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}/daily:
@@ -998,19 +998,19 @@ paths:
             title: Limit
             type: integer
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DailyReportResponse"
+                $ref: '#/components/schemas/DailyReportResponse'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get daily campaign performance report"
+      summary: '[BETA] Get daily campaign performance report'
       tags:
         - Offsite Ads API
   /v2/offsite-ads/reporting/campaigns/{campaign_id}/products:
@@ -1068,19 +1068,19 @@ paths:
             title: Limit
             type: integer
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PublicProductReportResponse"
+                $ref: '#/components/schemas/PublicProductReportResponse'
           description: Successful Response
-        "422":
+        '422':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/HTTPValidationError"
+                $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: "[BETA] Get product-level campaign performance report"
+      summary: '[BETA] Get product-level campaign performance report'
       tags:
         - Offsite Ads API
 
@@ -1093,12 +1093,12 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
 
   schemas:
     Category:
       oneOf:
-        - $ref: "#/components/schemas/SingleCategory"
+        - $ref: '#/components/schemas/SingleCategory'
         - type: object
           title: Multiple Categories
           description: A set of categories for the purpose of running an auction.
@@ -1131,7 +1131,7 @@ components:
 
                 In order to participate in an auction, a bid product must belong to at least one of the categories of the disjunction provided in the auction request.
               items:
-                $ref: "#/components/schemas/CategoryDisjunction"
+                $ref: '#/components/schemas/CategoryDisjunction'
               minItems: 1
               maxItems: 5
               example:
@@ -1187,12 +1187,12 @@ components:
             - cart
             - other
           description: Type of page.
-          example: "category"
+          example: 'category'
         value:
           oneOf:
             - type: string
               description: Detail of the page, depending on the type
-              example: "electronics"
+              example: 'electronics'
             - type: array
               items:
                 type: string
@@ -1202,7 +1202,7 @@ components:
         pageId:
           type: string
           description: Identifies the page
-          example: "/category/electronics"
+          example: '/category/electronics'
 
     OpaqueUserID:
       type: string
@@ -1251,18 +1251,18 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: '#/components/schemas/Category'
         searchQuery:
           type: string
           description: The search string provided by a user.
         products:
-          $ref: "#/components/schemas/Products"
+          $ref: '#/components/schemas/Products'
         geoTargeting:
-          $ref: "#/components/schemas/GeoTargeting"
+          $ref: '#/components/schemas/GeoTargeting'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         placementId:
-          $ref: "#/components/schemas/PlacementId"
+          $ref: '#/components/schemas/PlacementId'
       required:
         - type
         - slots
@@ -1301,24 +1301,24 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: '#/components/schemas/Category'
         searchQuery:
           type: string
           description: The search string provided by a user.
         device:
-          $ref: "#/components/schemas/Device"
+          $ref: '#/components/schemas/Device'
         geoTargeting:
-          $ref: "#/components/schemas/GeoTargeting"
+          $ref: '#/components/schemas/GeoTargeting'
         slotId:
           type: string
           description: The ID of the banner placement for which this auction will be run for.
           minLength: 1
         products:
-          $ref: "#/components/schemas/Products"
+          $ref: '#/components/schemas/Products'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         placementId:
-          $ref: "#/components/schemas/PlacementId"
+          $ref: '#/components/schemas/PlacementId'
       required:
         - type
         - slots
@@ -1333,8 +1333,8 @@ components:
     AuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: "#/components/schemas/SponsoredListingsAuction"
-        - $ref: "#/components/schemas/BannersAuction"
+        - $ref: '#/components/schemas/SponsoredListingsAuction'
+        - $ref: '#/components/schemas/BannersAuction'
 
     RankingRequest:
       type: object
@@ -1357,15 +1357,15 @@ components:
           minimum: 1
           description: Specifies the maximum number of ranked objects per page that should be returned.
         page:
-          $ref: "#/components/schemas/Page"
+          $ref: '#/components/schemas/Page'
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: '#/components/schemas/Category'
         device:
-          $ref: "#/components/schemas/Device"
+          $ref: '#/components/schemas/Device'
         geoTargeting:
-          $ref: "#/components/schemas/GeoTargeting"
+          $ref: '#/components/schemas/GeoTargeting'
         products:
-          $ref: "#/components/schemas/Products"
+          $ref: '#/components/schemas/Products'
         opaqueUserId:
           type: string
           description: |
@@ -1388,24 +1388,24 @@ components:
         slots: 10
         pageSize: 10
         category:
-          ids: ["sneakers", "shoes"]
+          ids: ['sneakers', 'shoes']
         products:
-          ids: ["p_PJbnN", "p_ojng4"]
+          ids: ['p_PJbnN', 'p_ojng4']
 
     AuctionResult:
       discriminator:
         propertyName: resultType
         mapping:
-          listings: "#/components/schemas/SponsoredListingsAuctionResult"
-          banners: "#/components/schemas/BannersAuctionResult"
+          listings: '#/components/schemas/SponsoredListingsAuctionResult'
+          banners: '#/components/schemas/BannersAuctionResult'
       oneOf:
-        - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
-        - $ref: "#/components/schemas/BannersAuctionResult"
+        - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
+        - $ref: '#/components/schemas/BannersAuctionResult'
 
     TravelAuctionResult:
       oneOf:
-        - $ref: "#/components/schemas/HotelsAuctionResult"
-        - $ref: "#/components/schemas/FlightsAuctionResult"
+        - $ref: '#/components/schemas/HotelsAuctionResult'
+        - $ref: '#/components/schemas/FlightsAuctionResult'
 
     BannersAuctionResult:
       type: object
@@ -1415,7 +1415,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/BannersWinner"
+            $ref: '#/components/schemas/BannersWinner'
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -1436,7 +1436,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredListingsWinner"
+            $ref: '#/components/schemas/SponsoredListingsWinner'
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -1530,11 +1530,11 @@ components:
           description: The list of available sources for a banner.
           type: array
           items:
-            $ref: "#/components/schemas/AssetSource"
+            $ref: '#/components/schemas/AssetSource'
           minItems: 1
 
     HotelsAuctionResult:
-      $ref: "#/components/schemas/SponsoredListingsAuctionResult"
+      $ref: '#/components/schemas/SponsoredListingsAuctionResult'
 
     FlightsAuctionResult:
       type: object
@@ -1544,7 +1544,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/FlightsWinner"
+            $ref: '#/components/schemas/FlightsWinner'
           description: >
             Array of winner objects in order from highest to lowest bid.
             It will be empty if there were no qualifying bids or if there was an error.
@@ -1605,7 +1605,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/RankingWinner"
+            $ref: '#/components/schemas/RankingWinner'
           description: >
             Array of ranking objects in order from highest to lowest relevancy.
         error:
@@ -1781,11 +1781,11 @@ components:
             id: ne5n2vzri6o92
           properties:
             category:
-              $ref: "#/components/schemas/SingleCategory"
+              $ref: '#/components/schemas/SingleCategory'
             products:
-              $ref: "#/components/schemas/Products"
+              $ref: '#/components/schemas/Products'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
       x-examples:
         Example 1:
           auctions:
@@ -1794,8 +1794,8 @@ components:
               triggers:
                 products:
                   ids:
-                    - "1"
-                    - "8"
+                    - '1'
+                    - '8'
 
     SponsoredBrandAuctionResult:
       type: object
@@ -1803,7 +1803,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredBrandWinner"
+            $ref: '#/components/schemas/SponsoredBrandWinner'
           description: |
             Array of winner objects in order from highest to lowest bid. It will be empty if there were no qualifying bids or if there was an error.
         error:
@@ -1819,16 +1819,16 @@ components:
             - winners:
                 - rank: 1
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  productId: "1"
+                  productId: '1'
                   title: Brand Example Promo 1
                   assets:
-                    - url: "https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png"
+                    - url: 'https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png'
                       role: image
                       contentType: image/png
                       contentLength: 33902
                       width: 920
                       height: 920
-                    - url: "https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png"
+                    - url: 'https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png'
                       role: logo
                       contentType: image/png
                       contentLength: 80648
@@ -1837,16 +1837,16 @@ components:
                   campaignId: 018f3ff3-0d7c-7b75-bf99-629c62c09dc3
                 - rank: 2
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  productId: "8"
+                  productId: '8'
                   title: Brand Example Promo 2
                   assets:
-                    - url: "https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg"
+                    - url: 'https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg'
                       role: image
                       contentType: image/jpeg
                       contentLength: 4505
                       width: 403
                       height: 125
-                    - url: "https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png"
+                    - url: 'https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png'
                       role: logo
                       contentType: image/png
                       contentLength: 34747
@@ -1891,7 +1891,7 @@ components:
           description: Assets used to render the sponsored brand ad.
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredBrandAsset"
+            $ref: '#/components/schemas/SponsoredBrandAsset'
           minItems: 1
 
     SponsoredBrandAsset:
@@ -1925,8 +1925,8 @@ components:
     TravelAuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: "#/components/schemas/HotelsAuctionRequest"
-        - $ref: "#/components/schemas/FlightsAuctionRequest"
+        - $ref: '#/components/schemas/HotelsAuctionRequest'
+        - $ref: '#/components/schemas/FlightsAuctionRequest'
 
     HotelsAuctionRequest:
       type: object
@@ -1947,9 +1947,9 @@ components:
           type: array
           description: An array of hotels products that should participate in the auction.
           items:
-            $ref: "#/components/schemas/HotelsTravelProduct"
+            $ref: '#/components/schemas/HotelsTravelProduct'
         travelContext:
-          $ref: "#/components/schemas/HotelsTravelContext"
+          $ref: '#/components/schemas/HotelsTravelContext'
 
     HotelsTravelProduct:
       type: object
@@ -1992,13 +1992,13 @@ components:
           type: string
           format: date
           description: RFC3339 formatted date representing the travel start point.
-          example: "2009-01-01"
+          example: '2009-01-01'
         travelEndDate:
           type: string
           format: date
           description: |
             RFC3339 formatted date representing the travel end point. Must be greater than start date.
-          example: "2009-01-15"
+          example: '2009-01-15'
         travelerType:
           type: string
           enum:
@@ -2015,7 +2015,7 @@ components:
 
     HotelsTravelContext:
       allOf:
-        - $ref: "#/components/schemas/BaseTravelContext"
+        - $ref: '#/components/schemas/BaseTravelContext'
 
     FlightsAuctionRequest:
       type: object
@@ -2036,9 +2036,9 @@ components:
           type: array
           description: An array of flight products that should participate in the auction.
           items:
-            $ref: "#/components/schemas/FlightsTravelProduct"
+            $ref: '#/components/schemas/FlightsTravelProduct'
         travelContext:
-          $ref: "#/components/schemas/FlightsTravelContext"
+          $ref: '#/components/schemas/FlightsTravelContext'
 
     FlightsTravelProduct:
       type: object
@@ -2070,7 +2070,7 @@ components:
 
     FlightsTravelContext:
       allOf:
-        - $ref: "#/components/schemas/BaseTravelContext"
+        - $ref: '#/components/schemas/BaseTravelContext'
         - type: object
           properties:
             route:
@@ -2208,32 +2208,32 @@ components:
         impressions:
           type: array
           items:
-            $ref: "#/components/schemas/Impression"
+            $ref: '#/components/schemas/Impression'
           minItems: 1
           maxItems: 50
         clicks:
           type: array
           items:
-            $ref: "#/components/schemas/Click"
+            $ref: '#/components/schemas/Click'
           minItems: 1
           maxItems: 50
         purchases:
           type: array
           items:
-            $ref: "#/components/schemas/Purchase"
+            $ref: '#/components/schemas/Purchase'
           minItems: 1
           maxItems: 50
         pageview:
           type: array
           items:
-            $ref: "#/components/schemas/Pageview"
+            $ref: '#/components/schemas/Pageview'
           minItems: 1
           maxItems: 50
       minProperties: 1
       example:
         impressions:
           - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-            occurredAt: "2019-01-01T12:59:59-05:00"
+            occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             placement:
               path: /categories/dairy
@@ -2244,7 +2244,7 @@ components:
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         clicks:
           - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
-            occurredAt: "2019-01-01T13:01:42-05:00"
+            occurredAt: '2019-01-01T13:01:42-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             placement:
               path: /categories/dairy
@@ -2262,11 +2262,11 @@ components:
                 vendorId: v_8fj2D
               - productId: p_oajf2D
                 unitPrice: 1.49
-            occurredAt: "2019-01-01T12:59:59-05:00"
+            occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
         pageview:
           - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
-            occurredAt: "2019-01-01T12:59:58-05:00"
+            occurredAt: '2019-01-01T12:59:58-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             page:
               - type: category
@@ -2291,16 +2291,16 @@ components:
           description: If the impression is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
-          $ref: "#/components/schemas/Entity"
+          $ref: '#/components/schemas/Entity'
         placement:
-          $ref: "#/components/schemas/Placement"
+          $ref: '#/components/schemas/Placement'
         occurredAt:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
-          example: "2009-01-01T12:59:59-05:00"
+          example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         id:
           type: string
           description: >
@@ -2310,19 +2310,19 @@ components:
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         additionalAttribution:
-          $ref: "#/components/schemas/Entity"
+          $ref: '#/components/schemas/Entity'
         page:
-          $ref: "#/components/schemas/Page"
+          $ref: '#/components/schemas/Page'
         object:
-          $ref: "#/components/schemas/InteractionObject"
+          $ref: '#/components/schemas/InteractionObject'
         externalCampaignId:
           type: string
           description: Marketplace provided ID for a campaign
-          example: "awareness-campaign-2025"
+          example: 'awareness-campaign-2025'
         externalVendorId:
           type: string
           description: Marketplace provided ID for a vendor
-          example: "my-new-vendor"
+          example: 'my-new-vendor'
 
     Click:
       description: >
@@ -2342,16 +2342,16 @@ components:
           description: If the click is over an ad promotion, this is the `resolvedBidId` field received from the `/auctions` request. In most situations, especially when reporting a sponsored interaction, you'll want to fill in this field.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
-          $ref: "#/components/schemas/Entity"
+          $ref: '#/components/schemas/Entity'
         placement:
-          $ref: "#/components/schemas/Placement"
+          $ref: '#/components/schemas/Placement'
         occurredAt:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
-          example: "2009-01-01T12:59:59-05:00"
+          example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         id:
           type: string
           description: >
@@ -2361,11 +2361,11 @@ components:
           minLength: 1
           example: b39d39ed-ea0e-4059-9d15-4990b39c85a2
         additionalAttribution:
-          $ref: "#/components/schemas/Entity"
+          $ref: '#/components/schemas/Entity'
         page:
-          $ref: "#/components/schemas/Page"
+          $ref: '#/components/schemas/Page'
         object:
-          $ref: "#/components/schemas/InteractionObject"
+          $ref: '#/components/schemas/InteractionObject'
         clickType:
           type: string
           description: For sponsored events only, signals the specific interaction flavor with the listing.
@@ -2376,11 +2376,11 @@ components:
         externalCampaignId:
           type: string
           description: Marketplace provided ID for a campaign
-          example: "awareness-campaign-2025"
+          example: 'awareness-campaign-2025'
         externalVendorId:
           type: string
           description: Marketplace provided ID for a vendor
-          example: "my-new-vendor"
+          example: 'my-new-vendor'
 
     Purchase:
       description: >
@@ -2397,16 +2397,16 @@ components:
         occurredAt:
           type: string
           description: RFC3339 formatted timestamp, including UTC offset, of the instant in which the order was placed. Please note that purchases will NOT be attributed to an auction that happened after.
-          example: "2021-10-12T07:20:50.52Z"
+          example: '2021-10-12T07:20:50.52Z'
           format: date-time
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         items:
           type: array
           description: Items purchased.
           minItems: 1
           items:
-            $ref: "#/components/schemas/PurchaseItem"
+            $ref: '#/components/schemas/PurchaseItem'
         id:
           type: string
           description: >
@@ -2461,14 +2461,14 @@ components:
       additionalProperties: false
       properties:
         page:
-          $ref: "#/components/schemas/Page"
+          $ref: '#/components/schemas/Page'
         occurredAt:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset.
-          example: "2009-01-01T12:59:59-05:00"
+          example: '2009-01-01T12:59:59-05:00'
         opaqueUserId:
-          $ref: "#/components/schemas/OpaqueUserID"
+          $ref: '#/components/schemas/OpaqueUserID'
         id:
           type: string
           description: >
@@ -2489,7 +2489,7 @@ components:
           description: Optional description of the audience.
           title: Description
         dsp:
-          $ref: "#/components/schemas/PublicDSP"
+          $ref: '#/components/schemas/PublicDSP'
         id:
           description: The unique identifier of the audience.
           format: uuid
@@ -2577,7 +2577,7 @@ components:
           title: Startdate
           type: string
         status:
-          $ref: "#/components/schemas/Status"
+          $ref: '#/components/schemas/Status'
       required:
         - id
         - name
@@ -2589,7 +2589,7 @@ components:
     CreateAdvertiserRequestPublic:
       properties:
         dsp:
-          $ref: "#/components/schemas/PublicDSP"
+          $ref: '#/components/schemas/PublicDSP'
         vendorId:
           description: The vendor ID from the external system.
           title: Vendorid
@@ -2606,7 +2606,7 @@ components:
           description: Optional description of the audience.
           title: Description
         dsp:
-          $ref: "#/components/schemas/PublicDSP"
+          $ref: '#/components/schemas/PublicDSP'
         name:
           description: The name of the audience.
           title: Name
@@ -2623,7 +2623,7 @@ components:
           title: Budget
           type: integer
         dsp:
-          $ref: "#/components/schemas/PublicDSP"
+          $ref: '#/components/schemas/PublicDSP'
         endDate:
           type: string
           format: date-time
@@ -2664,16 +2664,16 @@ components:
         so far, for a particular date
       properties:
         clicks:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         date:
           description: The date for this aggregation.
           format: date
           title: Date
           type: string
         impressions:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         purchases:
-          $ref: "#/components/schemas/Purchases"
+          $ref: '#/components/schemas/Purchases'
       required:
         - impressions
         - clicks
@@ -2703,7 +2703,7 @@ components:
         reports:
           description: A list with report data aggregated by day.
           items:
-            $ref: "#/components/schemas/DailyReportData"
+            $ref: '#/components/schemas/DailyReportData'
           title: Reports
           type: array
       required:
@@ -2714,14 +2714,14 @@ components:
     DspOnboardingStatus:
       properties:
         dsp:
-          $ref: "#/components/schemas/PublicDSP"
+          $ref: '#/components/schemas/PublicDSP'
         lastUpdated:
           description: When the status was last updated
           format: date-time
           title: Lastupdated
           type: string
         status:
-          $ref: "#/components/schemas/OnboardingStatus"
+          $ref: '#/components/schemas/OnboardingStatus'
       required:
         - dsp
         - status
@@ -2758,7 +2758,7 @@ components:
       properties:
         detail:
           items:
-            $ref: "#/components/schemas/ValidationError"
+            $ref: '#/components/schemas/ValidationError'
           title: Detail
           type: array
       title: HTTPValidationError
@@ -2775,11 +2775,11 @@ components:
           title: Id
           type: string
         jobResponse:
-          $ref: "#/components/schemas/CampaignCreationJobResult"
+          $ref: '#/components/schemas/CampaignCreationJobResult'
         requestType:
-          $ref: "#/components/schemas/RequestType"
+          $ref: '#/components/schemas/RequestType'
         status:
-          $ref: "#/components/schemas/JobStatus"
+          $ref: '#/components/schemas/JobStatus'
       required:
         - id
         - requestType
@@ -2809,7 +2809,7 @@ components:
         audiences:
           description: A list of audiences.
           items:
-            $ref: "#/components/schemas/AudienceResponsePublic"
+            $ref: '#/components/schemas/AudienceResponsePublic'
           title: Audiences
           type: array
         hasMore:
@@ -2838,7 +2838,7 @@ components:
         campaigns:
           description: A list of campaigns.
           items:
-            $ref: "#/components/schemas/CampaignResponsePublic"
+            $ref: '#/components/schemas/CampaignResponsePublic'
           title: Campaigns
           type: array
         hasMore:
@@ -2875,7 +2875,7 @@ components:
         dspOnboardingStatus:
           description: The onboarding status for each DSP
           items:
-            $ref: "#/components/schemas/DspOnboardingStatus"
+            $ref: '#/components/schemas/DspOnboardingStatus'
           title: Dsponboardingstatus
           type: array
         id:
@@ -2900,15 +2900,15 @@ components:
     PublicProductReportData:
       properties:
         clicks:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         impressions:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         productId:
           description: The id of the product whose report data we want to see
           title: Productid
           type: string
         purchases:
-          $ref: "#/components/schemas/Purchases"
+          $ref: '#/components/schemas/Purchases'
       required:
         - impressions
         - clicks
@@ -2937,7 +2937,7 @@ components:
         reports:
           description: A list with report data, separated by product
           items:
-            $ref: "#/components/schemas/PublicProductReportData"
+            $ref: '#/components/schemas/PublicProductReportData'
           title: Reports
           type: array
       required:
@@ -2985,11 +2985,11 @@ components:
         so far.
       properties:
         clicks:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         impressions:
-          $ref: "#/components/schemas/Events"
+          $ref: '#/components/schemas/Events'
         purchases:
-          $ref: "#/components/schemas/Purchases"
+          $ref: '#/components/schemas/Purchases'
       required:
         - impressions
         - clicks
@@ -3043,7 +3043,7 @@ components:
           description: Optional new start date (cannot be changed for started campaigns).
           title: Startdate
         status:
-          $ref: "#/components/schemas/Status"
+          $ref: '#/components/schemas/Status'
       title: UpdateCampaignRequestPublic
       type: object
     ValidationError:
