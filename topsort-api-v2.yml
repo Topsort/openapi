@@ -2270,6 +2270,15 @@ components:
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             device_type: desktop
             channel: onsite
+          - id: b7147656-504f-4ae7-b335-740829ff64c6
+            items:
+              - productId: p_SA0279
+                unitPrice: 119.95
+                quantity: 5
+                vendorId: v_8fj2D
+            occurredAt: '2019-01-01T13:59:59-05:00'
+            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+            channel: instore
         pageview:
           - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
             occurredAt: '2019-01-01T12:59:58-05:00'
