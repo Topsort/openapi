@@ -1117,15 +1117,13 @@ paths:
               metrics:
                 ctr: true
               opaqueUserId: 'u_9ske45'
-              products:
-              ids: ['p_PJbnN', 'p_ojng4']
+              productIds: ['p_PJbnN', 'p_ojng4']
         required: true
       responses:
         201:
           description: >
-            The ranking results.
-            The list of winners will contain at most `slots` entries per auction.
-            It may contain fewer or no entries at all if there aren't enough products to fill the slots.
+            The prediction results. This will provide a numerical value for each combination of metric/product
+            requested on the API call.
           content:
             application/json:
               schema:
@@ -1456,12 +1454,14 @@ components:
       properties:
         metrics:
           type: object
-          description: Metrics to predict
+          description: Metrics to predict, the response will include all the selected metrics.
           properties:
             ctr:
               type: boolean
+              description: If `true` a Click Through Rate prediction will be made.
             cvr:
               type: boolean
+              description: If `true` a Conversion Rate prediction will be made.
         opaqueUserId:
           type: string
           description:
@@ -1751,6 +1751,7 @@ components:
           enum:
             - listings
             - banners
+        description: The type of object that was predicted.
         predictions:
           type: array
           items:
@@ -1758,10 +1759,13 @@ components:
             properties:
               productId:
                 type: string
+                description: Product identifier defined on the request.
               ctr:
                 type: number
+                description: Click-Through Rate prediction.
               cvr:
                 type: number
+                description: Conversion Rate prediction.
           description: >
             Predicted objects.
       required:
