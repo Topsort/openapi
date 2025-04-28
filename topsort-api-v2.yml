@@ -1751,7 +1751,7 @@ components:
           enum:
             - listings
             - banners
-        description: The type of object that was predicted.
+          description: The type of object that was predicted.
         predictions:
           type: array
           items:
