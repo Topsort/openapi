@@ -2347,7 +2347,7 @@ components:
             $ref: '#/components/schemas/Purchase'
           minItems: 1
           maxItems: 50
-        pageview:
+        pageviews:
           type: array
           items:
             $ref: '#/components/schemas/Pageview'
@@ -2403,14 +2403,14 @@ components:
             occurredAt: '2019-01-01T13:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             channel: instore
-        pageview:
+        pageviews:
           - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
             occurredAt: '2019-01-01T12:59:58-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             page:
-              - type: category
-                pageId: /categories/dairy
-                value: dairy
+              type: category
+              pageId: /categories/dairy
+              value: dairy
             device_type: mobile
             channel: onsite
     Impression:
