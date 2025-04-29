@@ -2366,6 +2366,8 @@ components:
               pageSize: 15
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+            device_type: mobile
+            channel: onsite
         clicks:
           - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
             occurredAt: '2019-01-01T13:01:42-05:00'
@@ -2377,6 +2379,8 @@ components:
               pageSize: 15
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+            device_type: mobile
+            channel: offsite
         purchases:
           - id: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
             items:
@@ -2388,14 +2392,27 @@ components:
                 unitPrice: 1.49
             occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+            device_type: desktop
+            channel: onsite
+          - id: b7147656-504f-4ae7-b335-740829ff64c6
+            items:
+              - productId: p_SA0279
+                unitPrice: 119.95
+                quantity: 5
+                vendorId: v_8fj2D
+            occurredAt: '2019-01-01T13:59:59-05:00'
+            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+            channel: instore
         pageview:
           - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
             occurredAt: '2019-01-01T12:59:58-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             page:
               - type: category
-                value: dairy
                 pageId: /categories/dairy
+                value: dairy
+            device_type: mobile
+            channel: onsite
     Impression:
       type: object
       description: >
@@ -2447,6 +2464,16 @@ components:
           type: string
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
+        device_type:
+          type: string
+          description: Optional. The type of device used by the user.
+          enum: ['mobile', 'desktop']
+          example: 'mobile'
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum: ['onsite', 'offsite', 'instore']
+          example: 'onsite'
 
     Click:
       description: >
@@ -2505,6 +2532,16 @@ components:
           type: string
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
+        device_type:
+          type: string
+          description: Optional. The type of device used by the user.
+          enum: ['mobile', 'desktop']
+          example: 'mobile'
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum: ['onsite', 'offsite', 'instore']
+          example: 'onsite'
 
     Purchase:
       description: >
@@ -2539,6 +2576,16 @@ components:
             If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event needs to be resent.
           minLength: 1
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
+        device_type:
+          type: string
+          description: Optional. The type of device used by the user.
+          enum: ['mobile', 'desktop']
+          example: 'mobile'
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum: ['onsite', 'offsite', 'instore']
+          example: 'onsite'
     PurchaseItem:
       type: object
       required:
@@ -2601,6 +2648,16 @@ components:
             If there is no pageview model on the marketplace side, generate a unique string that does not change if the event is resent.
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+        device_type:
+          type: string
+          description: Optional. The type of device used by the user.
+          enum: ['mobile', 'desktop']
+          example: 'mobile'
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum: ['onsite', 'offsite', 'instore']
+          example: 'onsite'
     AudienceResponsePublic:
       properties:
         createdAt:
