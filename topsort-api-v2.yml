@@ -92,8 +92,14 @@ tags:
       ## RankingRequest
       <SchemaDefinition schemaRef="#/components/schemas/RankingRequest" />
 
+      ## PredictionRequest
+      <SchemaDefinition schemaRef="#/components/schemas/PredictionRequest" />
+
       ## RankingResult
       <SchemaDefinition schemaRef="#/components/schemas/RankingResult" />
+
+      ## PredictionResult
+      <SchemaDefinition schemaRef="#/components/schemas/PredictionResult" />
 
       ## RankingWinner
       <SchemaDefinition schemaRef="#/components/schemas/RankingWinner" />
@@ -452,12 +458,15 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
-  /v2/rank:
+  /toptimize/v1/rank:
     post:
       tags:
         - Toptimize
       summary: 'Rank objects'
       operationId: createRanking
+      description: |
+        Use the `/ranking` endpoint to re-rank objects to show on a page. This endpoint can retrieve sponsored
+        and non-sonsored objects and rank them together, according to an appropriate context and behavior information.
       requestBody:
         description: |
           The context information to get the ranking, to rank organic and sponsored products.
@@ -1084,6 +1093,54 @@ paths:
       tags:
         - Offsite Ads API
 
+  /toptimize/v1/predictions:
+    post:
+      tags:
+        - Toptimize
+      summary: 'Get CTR/CVR predictions'
+      description: |
+        Use the `/predictions` endpoint to get contextual predictions of conversion and relevance metrics,
+        which are personalized by user and context. 
+
+        In order to provide predictions, Topsort requires that events are also sent, as a source of
+        information.
+      operationId: getPredictions
+      requestBody:
+        description: |
+          The context information for the predictions, including which metrics to predict.
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictionRequest'
+            example:
+              metrics:
+                ctr: true
+              opaqueUserId: 'u_9ske45'
+              productIds: ['p_PJbnN', 'p_ojng4']
+        required: true
+      responses:
+        201:
+          description: >
+            The prediction results. This will provide a numerical value for each combination of metric/product
+            requested on the API call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictionResult'
+              example:
+                objectType: 'listing'
+                predictions:
+                  - productId: 'p_PJbnN'
+                    ctr: 0.03
+                  - productId: 'p_ojng4'
+                    ctr: 0.056
+                error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
 components:
   responses:
     UnauthorizedError:
@@ -1392,6 +1449,45 @@ components:
         products:
           ids: ['p_PJbnN', 'p_ojng4']
 
+    PredictionRequest:
+      type: object
+      properties:
+        metrics:
+          type: object
+          description: Metrics to predict, the response will include all the selected metrics.
+          properties:
+            ctr:
+              type: boolean
+              description: If `true` a Click Through Rate prediction will be made.
+            cvr:
+              type: boolean
+              description: If `true` a Conversion Rate prediction will be made.
+        opaqueUserId:
+          type: string
+          description:
+            The opaque user ID is an anonymized unique identifier that maps to the original user ID without revealing the
+            original value. This identifier allows Topsort to use interactions information to later on provide a prediction
+            of the outcome of the interaction between the user and a product.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        page:
+          $ref: '#/components/schemas/Page'
+        objectType:
+          type: string
+          description: The type of object that is being reported on the interaction.
+          enum:
+            - listings
+            - banners
+        deviceType:
+          $ref: '#/components/schemas/Device'
+        productIds:
+          type: array
+          items:
+            type: string
+            example: ['p_1234', 'p_5678']
+      required:
+        - metrics
+        - productIds
+
     AuctionResult:
       discriminator:
         propertyName: resultType
@@ -1647,6 +1743,34 @@ components:
           description: An opaque Topsort ID to be used when this item is interacted with.
           example: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
 
+    PredictionResult:
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+            - listings
+            - banners
+          description: The type of object that was predicted.
+        predictions:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+                description: Product identifier defined on the request.
+              ctr:
+                type: number
+                description: Click-Through Rate prediction.
+              cvr:
+                type: number
+                description: Conversion Rate prediction.
+          description: >
+            Predicted objects.
+      required:
+        - objectType
+        - predictions
     InteractionObject:
       type: object
       description: Information regarding an organic or non-sponsored event.
@@ -2285,11 +2409,10 @@ components:
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
             page:
               - type: category
-              - value: dairy
-              - pageId: /categories/dairy
+                pageId: /categories/dairy
+                value: dairy
             device_type: mobile
             channel: onsite
-
     Impression:
       type: object
       description: >
