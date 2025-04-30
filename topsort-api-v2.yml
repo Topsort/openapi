@@ -2366,7 +2366,7 @@ components:
               pageSize: 15
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-            device_type: mobile
+            deviceType: mobile
             channel: onsite
         clicks:
           - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
@@ -2379,7 +2379,7 @@ components:
               pageSize: 15
               categoryId: 9BLIe
             resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-            device_type: mobile
+            deviceType: mobile
             channel: offsite
         purchases:
           - id: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
@@ -2392,7 +2392,7 @@ components:
                 unitPrice: 1.49
             occurredAt: '2019-01-01T12:59:59-05:00'
             opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            device_type: desktop
+            deviceType: desktop
             channel: onsite
           - id: b7147656-504f-4ae7-b335-740829ff64c6
             items:
@@ -2411,7 +2411,7 @@ components:
               type: category
               pageId: /categories/dairy
               value: dairy
-            device_type: mobile
+            deviceType: mobile
             channel: onsite
     Impression:
       type: object
@@ -2464,7 +2464,7 @@ components:
           type: string
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
-        device_type:
+        deviceType:
           type: string
           description: Optional. The type of device used by the user.
           enum: ['mobile', 'desktop']
@@ -2532,7 +2532,7 @@ components:
           type: string
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
-        device_type:
+        deviceType:
           type: string
           description: Optional. The type of device used by the user.
           enum: ['mobile', 'desktop']
@@ -2576,7 +2576,7 @@ components:
             If there is no unique ID for orders on the marketplace side, generate a unique string that does not change if the event needs to be resent.
           minLength: 1
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
-        device_type:
+        deviceType:
           type: string
           description: Optional. The type of device used by the user.
           enum: ['mobile', 'desktop']
@@ -2648,7 +2648,7 @@ components:
             If there is no pageview model on the marketplace side, generate a unique string that does not change if the event is resent.
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-        device_type:
+        deviceType:
           type: string
           description: Optional. The type of device used by the user.
           enum: ['mobile', 'desktop']
