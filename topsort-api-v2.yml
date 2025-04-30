@@ -1888,7 +1888,7 @@ components:
                 type: number
                 description: Relevance score for the retrieved products.
           description: >
-            Retr9eved objects.
+            Retrieved objects.
       required:
         - objectType
         - objects
