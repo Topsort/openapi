@@ -1148,7 +1148,8 @@ paths:
       summary: 'Retrieve objects'
       description: |
         Use the `/retirieval` endpoint to get recommendations of which products are relevant given a
-        certain context. 
+        certain context. Context is provided by user information, plus seed products. This can be used
+        to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
 
         In order to provide retrieval, Topsort requires that events are also sent, as a source of
         information.
