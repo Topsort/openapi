@@ -1120,7 +1120,7 @@ paths:
               productIds: ['p_PJbnN', 'p_ojng4']
         required: true
       responses:
-        201:
+        200:
           description: >
             The prediction results. This will provide a numerical value for each combination of metric/product
             requested on the API call.
@@ -1135,6 +1135,57 @@ paths:
                     ctr: 0.03
                   - productId: 'p_ojng4'
                     ctr: 0.056
+                error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /toptimize/v1/retrieval:
+    post:
+      tags:
+        - Toptimize
+      summary: 'Retrieve objects'
+      description: |
+        Use the `/retirieval` endpoint to get recommendations of which products are relevant given a
+        certain context. Context is provided by user information, plus seed products. This can be used
+        to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
+
+        In order to provide retrieval, Topsort requires that events are also sent, as a source of
+        information.
+      operationId: retrieveObjects
+      requestBody:
+        description: |
+          The context information for the predictions, including which metrics to predict.
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrievalRequest'
+            example:
+              slots: 5
+              opaqueUserId: 'u_9ske45'
+              seedProductIds: ['p_PJbnN', 'p_ojng4']
+              mode: all
+              deviceType: mobile
+        required: true
+      responses:
+        200:
+          description: >
+            The retrieval results. Each retrieved products is accompanied by their relevancy score.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievalResults'
+              example:
+                objectType: 'listing'
+                objects:
+                  - id: 'p_xh90s'
+                    value: 0.978
+                  - id: 'p_12lp0'
+                    value: 0.953
+                  - id: 'p_ds7ui'
+                    value: 0.877
                 error: false
         400:
           $ref: '#/components/responses/BadRequest'
@@ -1487,6 +1538,50 @@ components:
       required:
         - metrics
         - productIds
+        - opaqueUserId
+
+    RetrievalRequest:
+      type: object
+      properties:
+        slots:
+          type: integer
+          description: How many objects to retrieve.
+          example: 10
+        opaqueUserId:
+          type: string
+          description:
+            The opaque user ID is an anonymized unique identifier that maps to the original user ID without revealing the
+            original value. This identifier allows Topsort to use interactions information to later on provide a prediction
+            of the outcome of the interaction between the user and a product.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        page:
+          $ref: '#/components/schemas/Page'
+        objectType:
+          type: string
+          description: The type of object that is being reported on the interaction.
+          enum:
+            - listings
+            - banners
+        deviceType:
+          $ref: '#/components/schemas/Device'
+        seedProductIds:
+          type: array
+          items:
+            type: string
+            example: ['p_1234', 'p_5678']
+        mode:
+          type: string
+          description: Retrieval mode, how to interpret the context to get objects.
+          enum:
+            - all
+            - complement
+            - similar
+          default: all
+      required:
+        - slots
+        - seedProductIds
+        - opaqueUserId
+        - mode
 
     AuctionResult:
       discriminator:
@@ -1771,6 +1866,33 @@ components:
       required:
         - objectType
         - predictions
+
+    RetrievalResults:
+      type: object
+      properties:
+        objectType:
+          type: string
+          enum:
+            - listings
+            - banners
+          description: The type of object that was predicted.
+        objects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Object identifier defined on the request.
+              score:
+                type: number
+                description: Relevance score for the retrieved products.
+          description: >
+            Retrieved objects.
+      required:
+        - objectType
+        - objects
+
     InteractionObject:
       type: object
       description: Information regarding an organic or non-sponsored event.
