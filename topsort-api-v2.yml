@@ -1278,6 +1278,14 @@ components:
         - mobile
       default: desktop
 
+    DeviceType:
+      type: string
+      description: The device the user is on.
+      enum:
+        - desktop
+        - mobile
+      example: mobile
+
     Page:
       type: object
       title: Page
@@ -1529,11 +1537,7 @@ components:
             - listings
             - banners
         deviceType:
-          type: string
-          description: The device the user is on.
-          enum:
-            - desktop
-            - mobile
+          $ref: '#/components/schemas/DeviceType'
         productIds:
           type: array
           items:
@@ -1567,11 +1571,7 @@ components:
             - listings
             - banners
         deviceType:
-          type: string
-          description: The device the user is on.
-          enum:
-            - desktop
-            - mobile
+          $ref: '#/components/schemas/DeviceType'
         seedProductIds:
           type: array
           items:
@@ -2595,10 +2595,7 @@ components:
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2663,10 +2660,7 @@ components:
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2707,10 +2701,7 @@ components:
           minLength: 1
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2779,10 +2770,7 @@ components:
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
