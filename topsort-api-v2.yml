@@ -1579,7 +1579,7 @@ components:
             example: ['p_1234', 'p_5678']
         mode:
           type: string
-          description: Retrieval mode, how to interpret the context to get objects. 
+          description: Retrieval mode, how to interpret the context to get objects.
           enum:
             - all
             - complement
