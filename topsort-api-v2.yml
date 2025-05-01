@@ -1147,7 +1147,7 @@ paths:
         - Toptimize
       summary: 'Retrieve objects'
       description: |
-        Use the `/retirieval` endpoint to get recommendations of which products are relevant given a
+        Use the `/retrieval` endpoint to get recommendations of which products are relevant given a
         certain context. Context is provided by user information, plus seed products. This can be used
         to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
 
@@ -1277,6 +1277,14 @@ components:
         - desktop
         - mobile
       default: desktop
+
+    DeviceType:
+      type: string
+      description: The device the user is on.
+      enum:
+        - desktop
+        - mobile
+      example: mobile
 
     Page:
       type: object
@@ -1529,7 +1537,7 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/Device'
+          $ref: '#/components/schemas/DeviceType'
         productIds:
           type: array
           items:
@@ -1558,12 +1566,12 @@ components:
           $ref: '#/components/schemas/Page'
         objectType:
           type: string
-          description: The type of object that is being reported on the interaction.
+          description: The type of object that needs to be retrieved.
           enum:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/Device'
+          $ref: '#/components/schemas/DeviceType'
         seedProductIds:
           type: array
           items:
@@ -2587,10 +2595,7 @@ components:
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2655,10 +2660,7 @@ components:
           description: Marketplace provided ID for a vendor
           example: 'my-new-vendor'
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2699,10 +2701,7 @@ components:
           minLength: 1
           example: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2771,10 +2770,7 @@ components:
           minLength: 1
           example: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         deviceType:
-          type: string
-          description: Optional. The type of device used by the user.
-          enum: ['mobile', 'desktop']
-          example: 'mobile'
+          $ref: '#/components/schemas/DeviceType'
         channel:
           type: string
           description: Optional. The channel where the event occurred.
