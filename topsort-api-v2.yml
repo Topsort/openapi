@@ -1147,7 +1147,7 @@ paths:
         - Toptimize
       summary: 'Retrieve objects'
       description: |
-        Use the `/retirieval` endpoint to get recommendations of which products are relevant given a
+        Use the `/retrieval` endpoint to get recommendations of which products are relevant given a
         certain context. Context is provided by user information, plus seed products. This can be used
         to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
 
@@ -1529,7 +1529,11 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/Device'
+          type: string
+          description: The device the user is on.
+          enum:
+            - desktop
+            - mobile
         productIds:
           type: array
           items:
@@ -1558,12 +1562,16 @@ components:
           $ref: '#/components/schemas/Page'
         objectType:
           type: string
-          description: The type of object that is being reported on the interaction.
+          description: The type of object that needs to be retrieved.
           enum:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/Device'
+          type: string
+          description: The device the user is on.
+          enum:
+            - desktop
+            - mobile
         seedProductIds:
           type: array
           items:
@@ -1571,7 +1579,7 @@ components:
             example: ['p_1234', 'p_5678']
         mode:
           type: string
-          description: Retrieval mode, how to interpret the context to get objects.
+          description: Retrieval mode, how to interpret the context to get objects. 
           enum:
             - all
             - complement
