@@ -29,9 +29,9 @@ tags:
       **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
-  - name: Toptimize
-    description: |
-      An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
+  #- name: Toptimize
+  #  description: |
+  #    An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
   - name: Models
     x-displayName: All Models
     description: |
