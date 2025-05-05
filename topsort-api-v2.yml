@@ -29,6 +29,9 @@ tags:
       **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
+  #- name: Toptimize
+  #  description: |
+  #    An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
   - name: Models
     x-displayName: All Models
     description: |
@@ -455,6 +458,82 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         400:
           $ref: '#/components/responses/BadRequest'
+  /toptimize/v1/rank:
+    post:
+      tags:
+        - Toptimize
+      summary: 'Rank objects'
+      operationId: createRanking
+      description: |
+        Use the `/ranking` endpoint to re-rank objects to show on a page. This endpoint can retrieve sponsored
+        and non-sonsored objects and rank them together, according to an appropriate context and behavior information.
+      requestBody:
+        description: |
+          The context information to get the ranking, to rank organic and sponsored products.
+
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ranking:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RankingRequest'
+                  minItems: 1
+                  maxItems: 5
+              required:
+                - ranking
+              example:
+                ranking:
+                  - type: listings
+                    slots: 3
+                    pageSize: 3
+                    category:
+                      ids: ['sneakers', 'shoes']
+                    products:
+                      ids: ['p_PJbnN', 'p_ojng4']
+        required: true
+      responses:
+        201:
+          description: >
+            The ranking results.
+            The list of winners will contain at most `slots` entries per auction.
+            It may contain fewer or no entries at all if there aren't enough products to fill the slots.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RankingResult'
+                    minItems: 1
+                    maxItems: 5
+                required:
+                  - results
+                example:
+                  results:
+                    - products:
+                        - rank: 1
+                          type: organic
+                          id: p_Mfk11
+                          resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                        - rank: 2
+                          type: sponsored
+                          id: p_Mfk15
+                          resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        - rank: 3
+                          type: organic
+                          id: p_PJbnN
+                          resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                      error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   /v2/offsite-ads/advertisers:
     post:
       operationId: create_offsite_advertiser_public
@@ -1013,6 +1092,105 @@ paths:
       summary: '[BETA] Get product-level campaign performance report'
       tags:
         - Offsite Ads API
+
+  /toptimize/v1/predictions:
+    post:
+      tags:
+        - Toptimize
+      summary: 'Get CTR/CVR predictions'
+      description: |
+        Use the `/predictions` endpoint to get contextual predictions of conversion and relevance metrics,
+        which are personalized by user and context. 
+
+        In order to provide predictions, Topsort requires that events are also sent, as a source of
+        information.
+      operationId: getPredictions
+      requestBody:
+        description: |
+          The context information for the predictions, including which metrics to predict.
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictionRequest'
+            example:
+              metrics:
+                ctr: true
+              opaqueUserId: 'u_9ske45'
+              productIds: ['p_PJbnN', 'p_ojng4']
+        required: true
+      responses:
+        200:
+          description: >
+            The prediction results. This will provide a numerical value for each combination of metric/product
+            requested on the API call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictionResult'
+              example:
+                objectType: 'listing'
+                predictions:
+                  - productId: 'p_PJbnN'
+                    ctr: 0.03
+                  - productId: 'p_ojng4'
+                    ctr: 0.056
+                error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /toptimize/v1/retrieval:
+    post:
+      tags:
+        - Toptimize
+      summary: 'Retrieve objects'
+      description: |
+        Use the `/retrieval` endpoint to get recommendations of which products are relevant given a
+        certain context. Context is provided by user information, plus seed products. This can be used
+        to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
+
+        In order to provide retrieval, Topsort requires that events are also sent, as a source of
+        information.
+      operationId: retrieveObjects
+      requestBody:
+        description: |
+          The context information for the predictions, including which metrics to predict.
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrievalRequest'
+            example:
+              slots: 5
+              opaqueUserId: 'u_9ske45'
+              seedProductIds: ['p_PJbnN', 'p_ojng4']
+              mode: all
+              deviceType: mobile
+        required: true
+      responses:
+        200:
+          description: >
+            The retrieval results. Each retrieved products is accompanied by their relevancy score.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievalResults'
+              example:
+                objectType: 'listing'
+                objects:
+                  - id: 'p_xh90s'
+                    value: 0.978
+                  - id: 'p_12lp0'
+                    value: 0.953
+                  - id: 'p_ds7ui'
+                    value: 0.877
+                error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
 
 components:
   responses:
