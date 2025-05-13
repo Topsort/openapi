@@ -1555,6 +1555,8 @@ components:
           type: integer
           description: How many objects to retrieve.
           example: 10
+          minimum: 1
+          maximum: 100
         opaqueUserId:
           type: string
           description:
@@ -1576,7 +1578,7 @@ components:
           type: array
           items:
             type: string
-            example: ['p_1234', 'p_5678']
+          example: ['p_1234', 'p_5678']
         mode:
           type: string
           description: Retrieval mode, how to interpret the context to get objects.
@@ -1589,7 +1591,7 @@ components:
         - slots
         - seedProductIds
         - opaqueUserId
-        - mode
+        - objectType
 
     AuctionResult:
       discriminator:
