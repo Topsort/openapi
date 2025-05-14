@@ -1201,7 +1201,7 @@ paths:
         Use the `/forecasting/marketplace` endpoint to get marketplace-level forecasts for various metrics like
         auctions, impressions, clicks, and capacity usage. The forecast provides predictions for future performance
         based on historical data.
-        
+
         This endpoint returns daily forecasts for a specified time window, with each forecast including a central
         prediction value and a confidence interval.
       operationId: getMarketplaceForecast
@@ -1310,7 +1310,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
-  
+
   /toptimize/v1/forecasting/inventory:
     post:
       tags:
@@ -1319,7 +1319,7 @@ paths:
       description: |
         Use the `/forecasting/inventory` endpoint to get detailed forecasts for specific inventory types and values.
         This can help identify performance patterns across different triggers like categories, search terms, or placements.
-        
+
         This endpoint returns daily forecasts for each requested inventory item over the specified time window,
         with each forecast including a central prediction value and a confidence interval.
       operationId: getInventoryForecast
@@ -1343,11 +1343,11 @@ paths:
                       inventory_type:
                         type: string
                         description: Type of inventory (e.g., "categories", "search").
-                        example: "categories"
+                        example: 'categories'
                       inventory_value:
                         type: string
                         description: Value of the inventory (e.g., category ID, search term, placement ID).
-                        example: "electronics"
+                        example: 'electronics'
                 time_window:
                   type: integer
                   description: Number of days to forecast into the future. Maximum 14 days.
@@ -1358,10 +1358,10 @@ paths:
                 - inventory
             example:
               inventory:
-                - inventory_type: "categories"
-                  inventory_value: "electronics"
-                - inventory_type: "search"
-                  inventory_value: "coffee"
+                - inventory_type: 'categories'
+                  inventory_value: 'electronics'
+                - inventory_type: 'search'
+                  inventory_value: 'coffee'
               time_window: 7
       responses:
         200:
@@ -1374,8 +1374,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/InventoryForecast'
               example:
-                - inventory_type: "categories"
-                  inventory_value: "electronics"
+                - inventory_type: 'categories'
+                  inventory_value: 'electronics'
                   daily_forecasts:
                     - forecast_date: '2025-08-01'
                       metrics:
@@ -1416,118 +1416,118 @@ paths:
                             forecast_interval_max: 0.44
                     - forecast_date: '2025-08-02'
                       metrics:
-                          - metric_name: 'total_auctions'
-                            values:
-                              forecast_value: 1100
-                              forecast_interval_min: 1000
-                              forecast_interval_max: 1200
-                          - metric_name: 'total_impressions'
-                            values:
-                              forecast_value: 2200
-                              forecast_interval_min: 2000
-                              forecast_interval_max: 2400
-                          - metric_name: 'total_winners'
-                            values:
-                              forecast_value: 550
-                              forecast_interval_min: 500
-                              forecast_interval_max: 600
-                          - metric_name: 'total_clicks'
-                            values:
-                              forecast_value: 110
-                              forecast_interval_min: 100
-                              forecast_interval_max: 120
-                          - metric_name: 'total_capacity'
-                            values:
-                              forecast_value: 5500
-                              forecast_interval_min: 5000
-                              forecast_interval_max: 6000
-                          - metric_name: 'occupied_capacity'
-                            values:
-                              forecast_value: 2200
-                              forecast_interval_min: 2000
-                              forecast_interval_max: 2400
-                          - metric_name: 'slot_occupancy'
-                            values:
-                              forecast_value: 0.4
-                              forecast_interval_min: 0.36
-                              forecast_interval_max: 0.44
-                - inventory_type: "search"
-                  inventory_value: "coffee"
+                        - metric_name: 'total_auctions'
+                          values:
+                            forecast_value: 1100
+                            forecast_interval_min: 1000
+                            forecast_interval_max: 1200
+                        - metric_name: 'total_impressions'
+                          values:
+                            forecast_value: 2200
+                            forecast_interval_min: 2000
+                            forecast_interval_max: 2400
+                        - metric_name: 'total_winners'
+                          values:
+                            forecast_value: 550
+                            forecast_interval_min: 500
+                            forecast_interval_max: 600
+                        - metric_name: 'total_clicks'
+                          values:
+                            forecast_value: 110
+                            forecast_interval_min: 100
+                            forecast_interval_max: 120
+                        - metric_name: 'total_capacity'
+                          values:
+                            forecast_value: 5500
+                            forecast_interval_min: 5000
+                            forecast_interval_max: 6000
+                        - metric_name: 'occupied_capacity'
+                          values:
+                            forecast_value: 2200
+                            forecast_interval_min: 2000
+                            forecast_interval_max: 2400
+                        - metric_name: 'slot_occupancy'
+                          values:
+                            forecast_value: 0.4
+                            forecast_interval_min: 0.36
+                            forecast_interval_max: 0.44
+                - inventory_type: 'search'
+                  inventory_value: 'coffee'
                   daily_forecasts:
                     - forecast_date: '2025-08-01'
                       metrics:
-                          - metric_name: 'total_auctions'
-                            values:
-                              forecast_value: 500
-                              forecast_interval_min: 450
-                              forecast_interval_max: 550
-                          - metric_name: 'total_impressions'
-                            values:
-                              forecast_value: 1000
-                              forecast_interval_min: 900
-                              forecast_interval_max: 1100
-                          - metric_name: 'total_winners'
-                            values:
-                              forecast_value: 250
-                              forecast_interval_min: 200
-                              forecast_interval_max: 300
-                          - metric_name: 'total_clicks'
-                            values:
-                              forecast_value: 50
-                              forecast_interval_min: 40
-                              forecast_interval_max: 60
-                          - metric_name: 'total_capacity'
-                            values:
-                              forecast_value: 2500
-                              forecast_interval_min: 2250
-                              forecast_interval_max: 2750
-                          - metric_name: 'occupied_capacity'
-                            values:
-                              forecast_value: 1000
-                              forecast_interval_min: 900
-                              forecast_interval_max: 1100
-                          - metric_name: 'slot_occupancy'
-                            values:
-                              forecast_value: 0.4
-                              forecast_interval_min: 0.36
-                              forecast_interval_max: 0.44
+                        - metric_name: 'total_auctions'
+                          values:
+                            forecast_value: 500
+                            forecast_interval_min: 450
+                            forecast_interval_max: 550
+                        - metric_name: 'total_impressions'
+                          values:
+                            forecast_value: 1000
+                            forecast_interval_min: 900
+                            forecast_interval_max: 1100
+                        - metric_name: 'total_winners'
+                          values:
+                            forecast_value: 250
+                            forecast_interval_min: 200
+                            forecast_interval_max: 300
+                        - metric_name: 'total_clicks'
+                          values:
+                            forecast_value: 50
+                            forecast_interval_min: 40
+                            forecast_interval_max: 60
+                        - metric_name: 'total_capacity'
+                          values:
+                            forecast_value: 2500
+                            forecast_interval_min: 2250
+                            forecast_interval_max: 2750
+                        - metric_name: 'occupied_capacity'
+                          values:
+                            forecast_value: 1000
+                            forecast_interval_min: 900
+                            forecast_interval_max: 1100
+                        - metric_name: 'slot_occupancy'
+                          values:
+                            forecast_value: 0.4
+                            forecast_interval_min: 0.36
+                            forecast_interval_max: 0.44
                     - forecast_date: '2025-08-02'
                       metrics:
-                          - metric_name: 'total_auctions'
-                            values:
-                              forecast_value: 550
-                              forecast_interval_min: 500
-                              forecast_interval_max: 600
-                          - metric_name: 'total_impressions'
-                            values:
-                              forecast_value: 1100
-                              forecast_interval_min: 1000
-                              forecast_interval_max: 1200
-                          - metric_name: 'total_winners'
-                            values:
-                              forecast_value: 275
-                              forecast_interval_min: 250
-                              forecast_interval_max: 300
-                          - metric_name: 'total_clicks'
-                            values:
-                              forecast_value: 55
-                              forecast_interval_min: 50
-                              forecast_interval_max: 60
-                          - metric_name: 'total_capacity'
-                            values:
-                              forecast_value: 2750
-                              forecast_interval_min: 2500
-                              forecast_interval_max: 3000
-                          - metric_name: 'occupied_capacity'
-                            values:
-                              forecast_value: 1100
-                              forecast_interval_min: 1000
-                              forecast_interval_max: 1200
-                          - metric_name: 'slot_occupancy'
-                            values:
-                              forecast_value: 0.4
-                              forecast_interval_min: 0.36
-                              forecast_interval_max: 0.44
+                        - metric_name: 'total_auctions'
+                          values:
+                            forecast_value: 550
+                            forecast_interval_min: 500
+                            forecast_interval_max: 600
+                        - metric_name: 'total_impressions'
+                          values:
+                            forecast_value: 1100
+                            forecast_interval_min: 1000
+                            forecast_interval_max: 1200
+                        - metric_name: 'total_winners'
+                          values:
+                            forecast_value: 275
+                            forecast_interval_min: 250
+                            forecast_interval_max: 300
+                        - metric_name: 'total_clicks'
+                          values:
+                            forecast_value: 55
+                            forecast_interval_min: 50
+                            forecast_interval_max: 60
+                        - metric_name: 'total_capacity'
+                          values:
+                            forecast_value: 2750
+                            forecast_interval_min: 2500
+                            forecast_interval_max: 3000
+                        - metric_name: 'occupied_capacity'
+                          values:
+                            forecast_value: 1100
+                            forecast_interval_min: 1000
+                            forecast_interval_max: 1200
+                        - metric_name: 'slot_occupancy'
+                          values:
+                            forecast_value: 0.4
+                            forecast_interval_min: 0.36
+                            forecast_interval_max: 0.44
         204:
           description: The request was successful, but none of the triggers have enough data to be forecasted
         400:
@@ -1544,7 +1544,7 @@ paths:
       description: |
         Use the `/forecasting/campaign` endpoint to predict the performance of a potential campaign based on
         its settings like budget, target ROAS, and targeted inventory.
-        
+
         This endpoint returns daily forecasts for key campaign metrics over the specified time window,
         with each forecast including a central prediction value and a confidence interval.
       operationId: getCampaignForecast
@@ -1587,12 +1587,12 @@ paths:
                       type: string
                       description: Budget time frame.
                       enum: [daily, weekly, monthly]
-                      example: "daily"
+                      example: 'daily'
                 campaignType:
                   type: string
                   description: Type of campaign. For v1, only "autobidding" is supported.
                   enum: [autobidding]
-                  example: "autobidding"
+                  example: 'autobidding'
                 bids:
                   type: object
                   required:
@@ -1604,7 +1604,7 @@ paths:
                       description: List of product IDs to include in the campaign.
                       items:
                         type: string
-                      example: ["p_1234", "p_5678"]
+                      example: ['p_1234', 'p_5678']
                     inventory:
                       type: array
                       description: List of inventory items to target for the campaign.
@@ -1617,25 +1617,25 @@ paths:
                           inventory_type:
                             type: string
                             description: Type of inventory to target (e.g., "categories", "search").
-                            example: "categories"
+                            example: 'categories'
                           inventory_value:
                             type: string
                             description: Value of the inventory to target.
-                            example: "electronics"
+                            example: 'electronics'
             example:
               time_window: 7
               targetRoas: 3.5
               budget:
                 amount: 1000
-                type: "daily"
-              campaignType: "autobidding"
+                type: 'daily'
+              campaignType: 'autobidding'
               bids:
-                product_ids: ["p_1234", "p_5678"]
+                product_ids: ['p_1234', 'p_5678']
                 inventory:
-                  - inventory_type: "categories"
-                    inventory_value: "electronics"
-                  - inventory_type: "categories"
-                    inventory_value: "computers"
+                  - inventory_type: 'categories'
+                    inventory_value: 'electronics'
+                  - inventory_type: 'categories'
+                    inventory_value: 'computers'
       responses:
         200:
           description: >
@@ -1647,39 +1647,37 @@ paths:
                 items:
                   $ref: '#/components/schemas/DailyForecast'
               example:
-                - forecast_date: "2025-07-15"
+                - forecast_date: '2025-07-15'
                   metrics:
-
-                    - metric_name: "total_impressions"
+                    - metric_name: 'total_impressions'
                       values:
                         forecast_value: 12000
                         forecast_interval_min: 11000
                         forecast_interval_max: 13000
 
-                    - metric_name: "total_clicks"
+                    - metric_name: 'total_clicks'
                       values:
                         forecast_value: 360
                         forecast_interval_min: 320
                         forecast_interval_max: 400
-                    - metric_name: "total_purchases"
+                    - metric_name: 'total_purchases'
                       values:
                         forecast_value: 45
                         forecast_interval_min: 38
                         forecast_interval_max: 52
-                - forecast_date: "2025-07-16"
+                - forecast_date: '2025-07-16'
                   metrics:
-
-                    - metric_name: "total_impressions"
+                    - metric_name: 'total_impressions'
                       values:
                         forecast_value: 13000
                         forecast_interval_min: 12000
                         forecast_interval_max: 14000
-                    - metric_name: "total_clicks"
+                    - metric_name: 'total_clicks'
                       values:
                         forecast_value: 390
                         forecast_interval_min: 350
                         forecast_interval_max: 430
-                    - metric_name: "purchases"
+                    - metric_name: 'purchases'
                       values:
                         forecast_value: 48
                         forecast_interval_min: 42
@@ -3883,7 +3881,7 @@ components:
           type: string
           format: date
           description: The date for which this forecast applies.
-          example: "2023-07-15"
+          example: '2023-07-15'
         metrics:
           type: array
           description: List of metrics forecasted for this date.
@@ -3899,7 +3897,7 @@ components:
         metric_name:
           type: string
           description: Name of the forecasted metric.
-          example: "total_auctions"
+          example: 'total_auctions'
         values:
           $ref: '#/components/schemas/ForecastValues'
 
@@ -3936,11 +3934,11 @@ components:
         inventory_type:
           type: string
           description: The type of inventory (e.g., "categories", "search").
-          example: "categories"
+          example: 'categories'
         inventory_value:
           type: string
           description: The value of the inventory (e.g., category ID, search term).
-          example: "electronics"
+          example: 'electronics'
         daily_forecasts:
           type: array
           description: List of daily forecasts for this inventory item. Empty if not enough data.
