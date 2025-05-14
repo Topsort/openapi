@@ -1306,6 +1306,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        400:
+          $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
   
@@ -1528,6 +1530,10 @@ paths:
                               forecast_interval_max: 0.44
         204:
           description: The request was successful, but none of the triggers have enough data to be forecasted
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
         404:
           description: Marketplace is not available for forecasting (e.g., not enough data)
   /toptimize/v1/forecasting/campaign:
@@ -1686,6 +1692,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        400:
+          $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
