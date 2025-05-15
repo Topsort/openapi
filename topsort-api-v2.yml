@@ -1158,7 +1158,7 @@ paths:
         > ⚠️ **Beta Access Required**
 
         > Contact your sales representative to gain access to this endpoint and start using it.
-        
+
         Use the `/retrieval` endpoint to get recommendations of which products are relevant given a
         certain context. Context is provided by user information, plus seed products. This can be used
         to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
