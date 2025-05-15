@@ -1101,7 +1101,7 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Get CTR/CVR predictions'
+      summary: '[Beta] Add Quality Score'
       description: |
         Use the `/predictions` endpoint to get contextual predictions of conversion and relevance metrics,
         which are personalized by user and context. 
