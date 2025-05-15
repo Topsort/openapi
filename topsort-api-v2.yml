@@ -1344,6 +1344,9 @@ paths:
                         type: string
                         description: Type of inventory (e.g., "category", "search").
                         example: 'category'
+                        enum:
+                          - category
+                          - search
                       inventoryValue:
                         type: string
                         description: Value of the inventory (e.g., category ID, search term, placement ID).
@@ -1618,6 +1621,9 @@ paths:
                             type: string
                             description: Type of inventory to target (e.g., "category", "search").
                             example: 'category'
+                            enum:
+                              - category
+                              - search
                           inventoryValue:
                             type: string
                             description: Value of the inventory to target.
@@ -3935,6 +3941,9 @@ components:
           type: string
           description: The type of inventory (e.g., "category", "search").
           example: 'category'
+          enum:
+            - category
+            - search
         inventoryValue:
           type: string
           description: The value of the inventory (e.g., category ID, search term).
