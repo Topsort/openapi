@@ -29,9 +29,9 @@ tags:
       **If this is not acceptable for your integration, please use [Events V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
 
       Significant consumer interactions on the marketplace app.
-  #- name: Toptimize
-  #  description: |
-  #    An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
+  - name: Toptimize
+    description: |
+      An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad selection.
   - name: Models
     x-displayName: All Models
     description: |
@@ -462,9 +462,13 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: 'Rank objects'
+      summary: '[Beta] Rank objects'
       operationId: createRanking
       description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
         Use the `/ranking` endpoint to re-rank objects to show on a page. This endpoint can retrieve sponsored
         and non-sonsored objects and rank them together, according to an appropriate context and behavior information.
       requestBody:
@@ -1097,7 +1101,7 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: 'Get CTR/CVR predictions'
+      summary: '[Beta] Add Quality Score'
       description: |
         Use the `/predictions` endpoint to get contextual predictions of conversion and relevance metrics,
         which are personalized by user and context. 
@@ -1107,6 +1111,10 @@ paths:
       operationId: getPredictions
       requestBody:
         description: |
+          > ⚠️ **Beta Access Required**
+
+          > Contact your sales representative to gain access to this endpoint and start using it.
+
           The context information for the predictions, including which metrics to predict.
         x-beta: 'true'
         content:
@@ -1145,8 +1153,12 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: 'Retrieve objects'
+      summary: '[Beta] Retrieve objects'
       description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
         Use the `/retrieval` endpoint to get recommendations of which products are relevant given a
         certain context. Context is provided by user information, plus seed products. This can be used
         to retrieve object to display on a PDP (single seed product) or in a cart (multiple seed products).
