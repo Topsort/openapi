@@ -1196,8 +1196,12 @@ paths:
     get:
       tags:
         - Toptimize
-      summary: '[BETA] Marketplace-level forecasts'
+      summary: '[Beta] Marketplace-level forecasts'
       description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
         Use the `/forecasting/marketplace` endpoint to get marketplace-level forecasts for various metrics like
         auctions, impressions, clicks, and capacity usage. The forecast provides predictions for future performance
         based on historical data.
@@ -1315,8 +1319,12 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: '[BETA] Inventory-level forecasts'
+      summary: '[Beta] Inventory-level forecasts'
       description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
         Use the `/forecasting/inventory` endpoint to get detailed forecasts for specific inventory types and values.
         This can help identify performance patterns across different triggers like category or search terms.
 
@@ -1543,8 +1551,12 @@ paths:
     post:
       tags:
         - Toptimize
-      summary: '[BETA] Campaign performance forecasts'
+      summary: '[Beta] Campaign performance forecasts'
       description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
         Use the `/forecasting/campaign` endpoint to predict the performance of a potential campaign based on
         its settings like budget, target ROAS, and targeted inventory.
 
