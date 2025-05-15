@@ -1318,7 +1318,7 @@ paths:
       summary: '[BETA] Inventory-level forecasts'
       description: |
         Use the `/forecasting/inventory` endpoint to get detailed forecasts for specific inventory types and values.
-        This can help identify performance patterns across different triggers like categories, search terms, or placements.
+        This can help identify performance patterns across different triggers like category or search terms.
 
         This endpoint returns daily forecasts for each requested inventory item over the specified time window,
         with each forecast including a central prediction value and a confidence interval.
@@ -1342,8 +1342,8 @@ paths:
                     properties:
                       inventoryType:
                         type: string
-                        description: Type of inventory (e.g., "categories", "search").
-                        example: 'categories'
+                        description: Type of inventory (e.g., "category", "search").
+                        example: 'category'
                       inventoryValue:
                         type: string
                         description: Value of the inventory (e.g., category ID, search term, placement ID).
@@ -1358,7 +1358,7 @@ paths:
                 - inventory
             example:
               inventory:
-                - inventoryType: 'categories'
+                - inventoryType: 'category'
                   inventoryValue: 'electronics'
                 - inventoryType: 'search'
                   inventoryValue: 'coffee'
@@ -1374,7 +1374,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/InventoryForecast'
               example:
-                - inventoryType: 'categories'
+                - inventoryType: 'category'
                   inventoryValue: 'electronics'
                   dailyForecasts:
                     - forecastDate: '2025-08-01'
@@ -1616,8 +1616,8 @@ paths:
                         properties:
                           inventoryType:
                             type: string
-                            description: Type of inventory to target (e.g., "categories", "search").
-                            example: 'categories'
+                            description: Type of inventory to target (e.g., "category", "search").
+                            example: 'category'
                           inventoryValue:
                             type: string
                             description: Value of the inventory to target.
@@ -1632,9 +1632,9 @@ paths:
               bids:
                 productIds: ['p_1234', 'p_5678']
                 inventory:
-                  - inventoryType: 'categories'
+                  - inventoryType: 'category'
                     inventoryValue: 'electronics'
-                  - inventoryType: 'categories'
+                  - inventoryType: 'category'
                     inventoryValue: 'computers'
       responses:
         200:
@@ -3933,8 +3933,8 @@ components:
       properties:
         inventoryType:
           type: string
-          description: The type of inventory (e.g., "categories", "search").
-          example: 'categories'
+          description: The type of inventory (e.g., "category", "search").
+          example: 'category'
         inventoryValue:
           type: string
           description: The value of the inventory (e.g., category ID, search term).
