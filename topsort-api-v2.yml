@@ -1204,6 +1204,71 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
+  /toptimize/v1/bidder:
+    post:
+      tags:
+        - Toptimize
+      summary: '[Beta] Get bids'
+      description: |
+        > ⚠️ **Beta Access Required**
+
+        > Contact your sales representative to gain access to this endpoint and start using it.
+
+        Use the `/bidder` endpoint to get participant bids for a potential auction. The context is used to
+        identify the best opportunities for a campaign to participate. It is assumed that this endpoint is
+        used after retrieval, and therefore a list of products needs to be provided.
+
+      operationId: getBids
+      requestBody:
+        description: |
+          The context information for the bidder, including which products should participate.
+        x-beta: 'true'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BidderRequest'
+            example:
+              opaqueUserId: 'u_9ske45'
+              adFormat: 'listings'
+              page:
+                type: category
+                pageId: /categories/dairy
+                value: dairy
+              objects: ['p_PJbnN', 'p_ojng4']
+              deviceType: mobile
+        required: true
+      responses:
+        200:
+          description: >
+            The bids for each participant on the auction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidderResults'
+              example:
+                adFormat: 'listing'
+                bids:
+                  - objectId: 'p_PJbnN'
+                    campaignId: 'campaign1'
+                    vendorId: 'vendorA'
+                    bidAmount: 1.43
+                    chargeType: 'CPC'
+                  - objectId: 'p_PJbnN'
+                    campaignId: 'campaign2'
+                    vendorId: 'vendorB'
+                    bidAmount: 2.01
+                    chargeType: 'CPC'
+                  - objectId: 'p_ojng4'
+                    campaignId: 'campaign3'
+                    vendorId: 'vendorA'
+                    bidAmount: 1.2
+                    chargeType: 'CPC'
+                error: false
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
   /toptimize/v1/forecasting/marketplace:
     get:
       tags:
@@ -2126,6 +2191,36 @@ components:
         - opaqueUserId
         - objectType
 
+    BidderRequest:
+      type: object
+      properties:
+        opaqueUserId:
+          type: string
+          description:
+            The opaque user ID is an anonymized unique identifier that maps to the original user ID without revealing the
+            original value. This identifier allows Topsort to use interactions information to later on provide a prediction
+            of the outcome of the interaction between the user and a product.
+          example: 71303ce0-de89-496d-8270-6434589615e8
+        page:
+          $ref: '#/components/schemas/Page'
+        adFormat:
+          type: string
+          description: The type of auction it will be run.
+          enum:
+            - listings
+            - banners
+        deviceType:
+          $ref: '#/components/schemas/DeviceType'
+        objects:
+          type: array
+          items:
+            type: string
+          example: ['p_1234', 'p_5678']
+      required:
+        - opaqueUserId
+        - adFormat
+        - objects
+
     AuctionResult:
       discriminator:
         propertyName: resultType
@@ -2435,6 +2530,44 @@ components:
       required:
         - objectType
         - objects
+
+    BidderResults:
+      type: object
+      properties:
+        adFormat:
+          type: string
+          enum:
+            - listings
+            - banners
+          description: The type of object required for the auction.
+        bids:
+          type: array
+          items:
+            type: object
+            properties:
+              objectId:
+                type: string
+                description: Object identifier.
+              campaignId:
+                type: string
+                description: Cmapaign identifier.
+              vendorId:
+                type: string
+                description: Advertiser identifier.
+              bidAmount:
+                type: number
+                description: Bid of the participant, on the currency of the marketplace.
+              chargeType:
+                type: string
+                enum:
+                  - CPC
+                  - CPM
+                description: How the campaign is configured to be charged.
+          description: >
+            Retrieved bids.
+      required:
+        - adFormat
+        - bids
 
     InteractionObject:
       type: object
