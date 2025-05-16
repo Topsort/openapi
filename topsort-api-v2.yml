@@ -1249,17 +1249,17 @@ paths:
                 adFormat: 'listing'
                 bids:
                   - objectId: 'p_PJbnN'
-                    camapignId: 'campaign1'
+                    campaignId: 'campaign1'
                     vendorId: 'vendorA'
                     bidAmount: 1.43
                     chargeType: 'CPC'
                   - objectId: 'p_PJbnN'
-                    camapignId: 'campaign2'
+                    campaignId: 'campaign2'
                     vendorId: 'vendorB'
                     bidAmount: 2.01
                     chargeType: 'CPC'
                   - objectId: 'p_ojng4'
-                    camapignId: 'campaign3'
+                    campaignId: 'campaign3'
                     vendorId: 'vendorA'
                     bidAmount: 1.2
                     chargeType: 'CPC'
