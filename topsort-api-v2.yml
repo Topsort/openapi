@@ -1204,7 +1204,7 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
-  /toptimize/v1/forecasting/marketplace:
+  /public/v1/toptimize/forecasting/marketplace:
     get:
       tags:
         - Toptimize
@@ -1327,7 +1327,7 @@ paths:
         401:
           $ref: '#/components/responses/UnauthorizedError'
 
-  /toptimize/v1/forecasting/inventory:
+  /public/v1/toptimize/forecasting/inventory:
     post:
       tags:
         - Toptimize
@@ -1559,7 +1559,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         404:
           description: Marketplace is not available for forecasting (e.g., not enough data)
-  /toptimize/v1/forecasting/campaign:
+  /public/v1/toptimize/forecasting/campaign:
     post:
       tags:
         - Toptimize
