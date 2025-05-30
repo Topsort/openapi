@@ -2203,6 +2203,7 @@ components:
       description: Describes the intent of running a hotel travel auction.
       required:
         - travelContext
+        - slots
       properties:
         type:
           type: string
@@ -2212,7 +2213,9 @@ components:
         slots:
           type: integer
           format: int32
-          description: Specifies the maximum number of auction winners that should be returned.
+          description: Specifies the maximum number of auction winners that should be returned. If slots > 40, it is capped at 40.
+          minimum: 1
+          maximum: 40
         products:
           type: array
           description: An array of hotels products that should participate in the auction.
@@ -2307,6 +2310,7 @@ components:
       description: Describes the intent of running a flight travel auction.
       required:
         - travelContext
+        - slots
       properties:
         type:
           type: string
@@ -2316,7 +2320,9 @@ components:
         slots:
           type: integer
           format: int32
-          description: Specifies the maximum number of auction winners that should be returned.
+          description: Specifies the maximum number of auction winners that should be returned. If slots > 40, it is capped at 40.
+          minimum: 1
+          maximum: 40
         products:
           type: array
           description: An array of flight products that should participate in the auction.
