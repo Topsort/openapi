@@ -2225,14 +2225,14 @@ components:
             - SingleCategory
           properties:
             SingleCategory:
-                required: 
-                  - id
-                properties:
-                  id:
-                    type: string
-                    description: The category ID of the bids that will participate in an auction.
-                    minLength: 1
-                    example: c_buenos-aires-hotels 
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: The category ID of the bids that will participate in an auction.
+                  minLength: 1
+                  example: c_buenos-aires-hotels
         travelContext:
           $ref: '#/components/schemas/HotelsTravelContext'
 
