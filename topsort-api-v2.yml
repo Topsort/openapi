@@ -308,6 +308,8 @@ paths:
                       - id: hotel-1
                         qualityScore: 0.7
                       - id: hotel-2
+                    category:
+                      id: hotel-boutique
                     travelContext:
                       travelStartDate: 2025-01-01
                       travelEndDate: 2025-01-15
@@ -2219,6 +2221,21 @@ components:
           description: An array of hotels products that should participate in the auction.
           items:
             $ref: '#/components/schemas/HotelsTravelProduct'
+        category:
+          description: A category for the purpose of running an auction.
+          type: object
+          required:
+            - SingleCategory
+          properties:
+            SingleCategory:
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  description: The category ID of the bids that will participate in an auction.
+                  minLength: 1
+                  example: c_buenos-aires-hotels
         travelContext:
           $ref: '#/components/schemas/HotelsTravelContext'
 
