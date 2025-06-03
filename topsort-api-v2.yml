@@ -311,8 +311,8 @@ paths:
                     category:
                       id: hotel-boutique
                     travelContext:
-                      travelStartDate: 2025-01-01
-                      travelEndDate: 2025-01-15
+                      travelStartDate: '2025-01-01'
+                      travelEndDate: '2025-01-15'
                       site: argentina
                       passengers: 2
                       travelerType: couple
