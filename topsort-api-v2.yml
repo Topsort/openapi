@@ -507,15 +507,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PredictionRequest'
-            examples:
-              - metrics:
-                  ctr: true
-                opaqueUserId: u_9ske45
-                productIds:
-                  - p_PJbnN
-                  - p_ojng4
-                objectType:
-                  - listings
         required: true
       responses:
         '200':
@@ -526,14 +517,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PredictionResult'
-              examples:
-                objectType: listings
-                predictions:
-                  - productId: p_PJbnN
-                    ctr: 0.03
-                  - productId: p_ojng4
-                    ctr: 0.056
-                error: false
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -967,6 +950,15 @@ components:
             examples:
               - p_1234
               - p_5678
+      examples:
+        - metrics:
+            ctr: true
+          opaqueUserId: u_9ske45
+          productIds:
+            - p_PJbnN
+            - p_ojng4
+          objectType:
+            - listings
       required:
         - metrics
         - productIds
@@ -1295,6 +1287,14 @@ components:
                 description: Conversion Rate prediction.
           description: |
             Predicted objects.
+      examples:
+        objectType: listings
+        predictions:
+          - productId: p_PJbnN
+            ctr: 0.03
+          - productId: p_ojng4
+            ctr: 0.056
+        error: false
       required:
         - objectType
         - predictions
