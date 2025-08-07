@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   vacuum-lint:
-    name: Validate with Vacuum
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
       - name: Check Formatting
         run: npx prettier --check topsort-api-v2.yml
 
-      - name: Run OpenAPI lint with vacuum
+      - name: Validate with Vacuum
         uses: pb33f/vacuum-action@v2
         with:
           openapi_path: "topsort-api-v2.yml"
