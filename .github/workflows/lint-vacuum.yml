@@ -1,4 +1,4 @@
-name: "Lint OpenAPI spec with vacuum"
+name: OpenAPI
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   vacuum-lint:
-    name: Run OpenAPI linting with vacuum
+    name: Validate with Vacuum
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
