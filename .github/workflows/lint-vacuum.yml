@@ -21,4 +21,4 @@ jobs:
         uses: pb33f/vacuum-action@v2
         with:
           openapi_path: "topsort-api-v2.yml"
-          github_token: ${{ secrets.GITHUB_TOKEN }
+          github_token: ${{ secrets.GITHUB_TOKEN }}
