@@ -93,38 +93,38 @@ paths:
                   - results
                 examples:
                   - results:
-                    - winners:
-                        - rank: 1
-                          type: product
-                          id: p_Mfk11
-                          resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
-                          campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
-                      error: false
+                      - winners:
+                          - rank: 1
+                            type: product
+                            id: p_Mfk11
+                            resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                            campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
+                        error: false
                   - results:
-                    - winners:
-                        - rank: 1
-                          type: product
-                          id: p_Mfk15
-                          resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                          campaignId: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
-                        - rank: 2
-                          type: product
-                          id: p_PJbnN
-                          resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                          campaignId: a72e4e43-55b5-4d08-81bb-cbb57df59c72
-                      error: false
-                    - winners:
-                        - rank: 1
-                          type: product
-                          id: p_PJbnN
-                          resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
-                          campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
-                          asset:
-                            - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
-                      error: false
+                      - winners:
+                          - rank: 1
+                            type: product
+                            id: p_Mfk15
+                            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                            campaignId: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+                          - rank: 2
+                            type: product
+                            id: p_PJbnN
+                            resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                            campaignId: a72e4e43-55b5-4d08-81bb-cbb57df59c72
+                        error: false
+                      - winners:
+                          - rank: 1
+                            type: product
+                            id: p_PJbnN
+                            resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
+                            campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
+                            asset:
+                              - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+                        error: false
                   - results:
-                    - winners: []
-                      error: false
+                      - winners: []
+                        error: false
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -426,17 +426,17 @@ paths:
                 - ranking
               examples:
                 - ranking:
-                  - type: listings
-                    slots: 3
-                    pageSize: 3
-                    category:
-                      ids:
-                        - sneakers
-                        - shoes
-                    products:
-                      ids:
-                        - p_PJbnN
-                        - p_ojng4
+                    - type: listings
+                      slots: 3
+                      pageSize: 3
+                      category:
+                        ids:
+                          - sneakers
+                          - shoes
+                      products:
+                        ids:
+                          - p_PJbnN
+                          - p_ojng4
         required: true
       responses:
         '201':
@@ -459,20 +459,20 @@ paths:
                   - results
                 examples:
                   - results:
-                    - products:
-                        - rank: 1
-                          type: organic
-                          id: p_Mfk11
-                          resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
-                        - rank: 2
-                          type: sponsored
-                          id: p_Mfk15
-                          resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                        - rank: 3
-                          type: organic
-                          id: p_PJbnN
-                          resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                      error: false
+                      - products:
+                          - rank: 1
+                            type: organic
+                            id: p_Mfk11
+                            resolvedItemId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
+                          - rank: 2
+                            type: sponsored
+                            id: p_Mfk15
+                            resolvedItemId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                          - rank: 3
+                            type: organic
+                            id: p_PJbnN
+                            resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        error: false
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -592,12 +592,12 @@ paths:
               examples:
                 - objectType: listing
                   objects:
-                  - id: p_xh90s
-                    value: 0.978
-                  - id: p_12lp0
-                    value: 0.953
-                  - id: p_ds7ui
-                    value: 0.877
+                    - id: p_xh90s
+                      value: 0.978
+                    - id: p_12lp0
+                      value: 0.953
+                    - id: p_ds7ui
+                      value: 0.877
                   error: false
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -670,7 +670,7 @@ components:
           type: string
           description: The category ID of the bids that will participate in an auction.
           minLength: 1
-          examples: 
+          examples:
             - c_yogurt
     CategoryDisjunction:
       type: array
@@ -697,7 +697,7 @@ components:
       enum:
         - desktop
         - mobile
-      examples: 
+      examples:
         - mobile
     Page:
       type: object
@@ -736,7 +736,7 @@ components:
         pageId:
           type: string
           description: Identifies the page
-          examples: 
+          examples:
             - /category/electronics
     OpaqueUserID:
       type: string
@@ -1105,7 +1105,7 @@ components:
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: "#/components/schemas/ResolvedBidID"
+          $ref: '#/components/schemas/ResolvedBidID'
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1144,7 +1144,7 @@ components:
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: "#/components/schemas/ResolvedBidID"
+          $ref: '#/components/schemas/ResolvedBidID'
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1175,7 +1175,7 @@ components:
           type: boolean
           description: A boolean indicating whether this auction was resolved successfully.
           examples:
-             - false
+            - false
       required:
         - winners
         - error
@@ -1211,7 +1211,7 @@ components:
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: "#/components/schemas/ResolvedBidID"
+          $ref: '#/components/schemas/ResolvedBidID'
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1377,7 +1377,7 @@ components:
               The marketplace's ID of a product which will participate in the
               auction. These ID must match those in the catalog integration with
               Topsort.
-            examples: 
+            examples:
               - p_SA0238
             minLength: 1
           minItems: 1
@@ -1932,63 +1932,63 @@ components:
       minProperties: 1
       examples:
         - impressions:
-          - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-            occurredAt: 2019-01-01T12:59:59-05:00
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            placement:
-              path: /categories/dairy
-              position: 1
-              page: 1
-              pageSize: 15
-              categoryId: 9BLIe
-            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-            deviceType: mobile
-            channel: onsite
+            - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+              occurredAt: 2019-01-01T12:59:59-05:00
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              placement:
+                path: /categories/dairy
+                position: 1
+                page: 1
+                pageSize: 15
+                categoryId: 9BLIe
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              deviceType: mobile
+              channel: onsite
         - clicks:
-          - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
-            occurredAt: 2019-01-01T13:01:42-05:00
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            placement:
-              path: /categories/dairy
-              position: 1
-              page: 1
-              pageSize: 15
-              categoryId: 9BLIe
-            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-            deviceType: mobile
-            channel: offsite
+            - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
+              occurredAt: 2019-01-01T13:01:42-05:00
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              placement:
+                path: /categories/dairy
+                position: 1
+                page: 1
+                pageSize: 15
+                categoryId: 9BLIe
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              deviceType: mobile
+              channel: offsite
         - purchases:
-          - id: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
-            items:
-              - productId: p_SA0238
-                unitPrice: 12.95
-                quantity: 2
-                vendorId: v_8fj2D
-              - productId: p_oajf2D
-                unitPrice: 1.49
-            occurredAt: 2019-01-01T12:59:59-05:00
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            deviceType: desktop
-            channel: onsite
-          - id: b7147656-504f-4ae7-b335-740829ff64c6
-            items:
-              - productId: p_SA0279
-                unitPrice: 119.95
-                quantity: 5
-                vendorId: v_8fj2D
-            occurredAt: 2019-01-01T13:59:59-05:00
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            channel: instore
+            - id: 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
+              items:
+                - productId: p_SA0238
+                  unitPrice: 12.95
+                  quantity: 2
+                  vendorId: v_8fj2D
+                - productId: p_oajf2D
+                  unitPrice: 1.49
+              occurredAt: 2019-01-01T12:59:59-05:00
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              deviceType: desktop
+              channel: onsite
+            - id: b7147656-504f-4ae7-b335-740829ff64c6
+              items:
+                - productId: p_SA0279
+                  unitPrice: 119.95
+                  quantity: 5
+                  vendorId: v_8fj2D
+              occurredAt: 2019-01-01T13:59:59-05:00
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              channel: instore
         - pageviews:
-          - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
-            occurredAt: 2019-01-01T12:59:58-05:00
-            opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
-            page:
-              type: category
-              pageId: /categories/dairy
-              value: dairy
-            deviceType: mobile
-            channel: onsite
+            - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
+              occurredAt: 2019-01-01T12:59:58-05:00
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              page:
+                type: category
+                pageId: /categories/dairy
+                value: dairy
+              deviceType: mobile
+              channel: onsite
     Impression:
       type: object
       description: >
@@ -2008,7 +2008,7 @@ components:
       additionalProperties: false
       properties:
         resolvedBidId:
-          $ref: "#/components/schemas/ResolvedBidID"
+          $ref: '#/components/schemas/ResolvedBidID'
           description: >
             If the impression is over an ad promotion, this is the
             `resolvedBidId` field received from the `/auctions` request. In most
