@@ -1270,6 +1270,8 @@ components:
           enum:
             - listings
             - banners
+          examples:
+            - listings
           description: The type of object that was predicted.
         predictions:
           type: array
@@ -1285,8 +1287,11 @@ components:
               cvr:
                 type: number
                 description: Conversion Rate prediction.
-          description: |
-            Predicted objects.
+          description: Predicted objects
+          examples:
+            - productId: product-123
+              ctr: 0.05
+              cvr: 0.101
       examples:
         objectType: listings
         predictions:
