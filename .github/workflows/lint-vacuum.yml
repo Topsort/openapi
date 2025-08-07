@@ -1,0 +1,24 @@
+name: "Lint OpenAPI spec with vacuum"
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  vacuum-lint:
+    name: Run OpenAPI linting with vacuum
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Formatting
+        run: npx prettier --check topsort-api-v2.yml
+
+      - name: Run OpenAPI lint with vacuum
+        uses: pb33f/vacuum-action@v2
+        with:
+          openapi_path: "topsort-api-v2.yml"
+          github_token: ${{ secrets.GITHUB_TOKEN }
