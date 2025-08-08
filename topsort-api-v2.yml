@@ -15,7 +15,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
     altText: Topsort
   version: 2.0.0
 servers:
@@ -23,8 +23,7 @@ servers:
     description: Base API URL
 tags:
   - name: Auctions
-    description:
-      An auction determines which products should be promoted based on
+    description: An auction determines which products should be promoted based on
       the vendors' bids.
   - name: Events
     description: >
@@ -64,12 +63,12 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/AuctionRequest'
+                    $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
         required: true
       responses:
-        '201':
+        "201":
           description: >
             The auction results. The list of winners will contain at most
             `slots` entries per auction. It may contain fewer or no entries at
@@ -86,7 +85,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AuctionResult'
+                      $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
@@ -125,10 +124,10 @@ paths:
                   - results:
                       - winners: []
                         error: false
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/sponsored-brand:
     post:
       tags:
@@ -148,14 +147,14 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/SponsoredBrandAuctionRequest'
+                    $ref: "#/components/schemas/SponsoredBrandAuctionRequest"
                   minItems: 1
                   maxItems: 5
               required:
                 - auctions
         required: true
       responses:
-        '201':
+        "201":
           description: >
             The auction results. The list of winners will contain at most
             `winners` entries per auction. It may contain fewer or no entries at
@@ -172,22 +171,21 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SponsoredBrandAuctionResult'
+                      $ref: "#/components/schemas/SponsoredBrandAuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
                   - results
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/travel:
     post:
       tags:
         - Auctions
       summary: Create travel auctions
-      description:
-        Use the `/auctions/travel` endpoint to create batch auctions for
+      description: Use the `/auctions/travel` endpoint to create batch auctions for
         sponsored travel listings. We support two types of sponsored travel
         listings, hotels and flights. Each batch of auction requests can be a
         combination of sponsored hotel and flight listing auctions. Each auction
@@ -208,7 +206,7 @@ paths:
                 auctions:
                   type: array
                   items:
-                    $ref: '#/components/schemas/TravelAuctionRequest'
+                    $ref: "#/components/schemas/TravelAuctionRequest"
                   minItems: 1
                   maxItems: 5
               required:
@@ -233,11 +231,11 @@ paths:
                       slots: 2
                       products:
                         - id: L0_SAO-ORL
-                          variationID: '001'
+                          variationID: "001"
                           price: 1500
                           qualityScore: 0.7
                         - id: L0_SAO-ORL
-                          variationID: '002'
+                          variationID: "002"
                           price: 2000
                       travelContext:
                         site: argentina
@@ -246,7 +244,7 @@ paths:
                         flightType: one-way
         required: true
       responses:
-        '201':
+        "201":
           description: >
             The auction results. The list of winners will contain at most
             `winners` entries per auction. It may contain fewer or no entries at
@@ -263,7 +261,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TravelAuctionResult'
+                      $ref: "#/components/schemas/TravelAuctionResult"
                     minItems: 1
                     maxItems: 5
                 required:
@@ -286,16 +284,16 @@ paths:
                             id: L0_SAO-ORL
                             resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
                             campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
-                            variationID: '002'
+                            variationID: "002"
                           - rank: 2
                             id: L0_SAO-ORL
                             resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
                             campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
-                            variationID: '001'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+                            variationID: "001"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/events:
     post:
       tags:
@@ -331,20 +329,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventsRequest'
+              $ref: "#/components/schemas/EventsRequest"
         required: true
       responses:
-        '204':
+        "204":
           description: All events were reported successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/events/beta/link-users:
     post:
       tags:
         - Events
-      summary: '[Beta] Report Link Users'
+      summary: "[Beta] Report Link Users"
       description: >
         Use the `/events/beta/link-users` endpoint to report to Topsort
         linked opaque user IDs.
@@ -358,7 +356,7 @@ paths:
 
 
         Contact your sales representative to gain access to this endpoint and start using it.
-      x-beta: 'true'
+      x-beta: "true"
       operationId: linkUsers
       requestBody:
         content:
@@ -384,17 +382,17 @@ paths:
                   to: user456
         required: true
       responses:
-        '204':
+        "204":
           description: Users account link was reported successfully.
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /toptimize/v1/rank:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Rank objects'
+      summary: "[Beta] Rank objects"
       operationId: createRanking
       description: >
         > ⚠️ **Beta Access Required**
@@ -410,7 +408,7 @@ paths:
         description: >
           The context information to get the ranking, to rank organic and
           sponsored products.
-        x-beta: 'true'
+        x-beta: "true"
         content:
           application/json:
             schema:
@@ -419,7 +417,7 @@ paths:
                 ranking:
                   type: array
                   items:
-                    $ref: '#/components/schemas/RankingRequest'
+                    $ref: "#/components/schemas/RankingRequest"
                   minItems: 1
                   maxItems: 5
               required:
@@ -439,7 +437,7 @@ paths:
                           - p_ojng4
         required: true
       responses:
-        '201':
+        "201":
           description: >
             The ranking results. The list of winners will contain at most
             `slots` entries per auction. It may contain fewer or no entries at
@@ -452,7 +450,7 @@ paths:
                   results:
                     type: array
                     items:
-                      $ref: '#/components/schemas/RankingResult'
+                      $ref: "#/components/schemas/RankingResult"
                     minItems: 1
                     maxItems: 5
                 required:
@@ -473,15 +471,15 @@ paths:
                             id: p_PJbnN
                             resolvedItemId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                         error: false
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /toptimize/v1/predictions:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Add Quality Score'
+      summary: "[Beta] Add Quality Score"
       description: >
         Use the `/predictions` endpoint to get contextual predictions of
         conversion and relevance metrics,
@@ -502,30 +500,30 @@ paths:
 
 
           The context information for the predictions, including which metrics to predict.
-        x-beta: 'true'
+        x-beta: "true"
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PredictionRequest'
+              $ref: "#/components/schemas/PredictionRequest"
         required: true
       responses:
-        '200':
+        "200":
           description: >
             The prediction results. This will provide a numerical value for
             each combination of metric/product requested on the API call.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PredictionResult'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+                $ref: "#/components/schemas/PredictionResult"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
   /toptimize/v1/retrieval:
     post:
       tags:
         - Toptimize
-      summary: '[Beta] Retrieve objects'
+      summary: "[Beta] Retrieve objects"
       description: >
         > ⚠️ **Beta Access Required**
 
@@ -548,11 +546,11 @@ paths:
         description: >
           The context information for the predictions, including which
           metrics to predict.
-        x-beta: 'true'
+        x-beta: "true"
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RetrievalRequest'
+              $ref: "#/components/schemas/RetrievalRequest"
             examples:
               slots: 5
               opaqueUserId: u_9ske45
@@ -564,14 +562,14 @@ paths:
                 - mobile
         required: true
       responses:
-        '200':
+        "200":
           description: >
             The retrieval results. Each retrieved products is accompanied by
             their relevancy score.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RetrievalResults'
+                $ref: "#/components/schemas/RetrievalResults"
               examples:
                 - objectType: listing
                   objects:
@@ -582,10 +580,10 @@ paths:
                     - id: p_ds7ui
                       value: 0.877
                   error: false
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
 components:
   responses:
     UnauthorizedError:
@@ -595,11 +593,11 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
   schemas:
     Category:
       oneOf:
-        - $ref: '#/components/schemas/SingleCategory'
+        - $ref: "#/components/schemas/SingleCategory"
         - type: object
           title: Multiple Categories
           description: A set of categories for the purpose of running an auction.
@@ -623,8 +621,7 @@ components:
                 - c_shoes
         - type: object
           title: Category Disjunctions
-          description:
-            Multiple disjunctions of categories for the purpose of running an
+          description: Multiple disjunctions of categories for the purpose of running an
             auction.
           required:
             - disjunctions
@@ -637,7 +634,7 @@ components:
 
                 In order to participate in an auction, a bid product must belong to at least one of the categories of the disjunction provided in the auction request.
               items:
-                $ref: '#/components/schemas/CategoryDisjunction'
+                $ref: "#/components/schemas/CategoryDisjunction"
               minItems: 1
               maxItems: 5
               examples:
@@ -729,8 +726,7 @@ components:
         - 2009-01-01T12:59:59-05:00
     OpaqueUserID:
       type: string
-      description:
-        The opaque user ID is an anonymized unique identifier that maps to
+      description: The opaque user ID is an anonymized unique identifier that maps to
         the original user ID without revealing the original value. This
         identifier allows Topsort to correlate user activity between auctions
         and user interactions, independent of the user's logged-in status. For
@@ -749,8 +745,7 @@ components:
       description: The marketplace's ID of the placement where the ad will appear.
     GeoTargeting:
       type: object
-      description:
-        An object describing geographical information associated with this
+      description: An object describing geographical information associated with this
         auction.
       required:
         - location
@@ -781,22 +776,21 @@ components:
           type: integer
           format: int32
           minimum: 1
-          description:
-            Specifies the maximum number of auction winners that should be
+          description: Specifies the maximum number of auction winners that should be
             returned.
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
         searchQuery:
           type: string
           description: The search string provided by a user.
         products:
-          $ref: '#/components/schemas/Products'
+          $ref: "#/components/schemas/Products"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         placementId:
-          $ref: '#/components/schemas/PlacementId'
+          $ref: "#/components/schemas/PlacementId"
       required:
         - type
         - slots
@@ -829,30 +823,28 @@ components:
           type: integer
           format: int32
           minimum: 1
-          description:
-            Specifies the maximum number of auction winners that should be
+          description: Specifies the maximum number of auction winners that should be
             returned.
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
         searchQuery:
           type: string
           description: The search string provided by a user.
         device:
-          $ref: '#/components/schemas/Device'
+          $ref: "#/components/schemas/Device"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
         slotId:
           type: string
-          description:
-            The ID of the banner placement for which this auction will be run
+          description: The ID of the banner placement for which this auction will be run
             for.
           minLength: 1
         products:
-          $ref: '#/components/schemas/Products'
+          $ref: "#/components/schemas/Products"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         placementId:
-          $ref: '#/components/schemas/PlacementId'
+          $ref: "#/components/schemas/PlacementId"
       required:
         - type
         - slots
@@ -866,8 +858,8 @@ components:
     AuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: '#/components/schemas/SponsoredListingsAuction'
-        - $ref: '#/components/schemas/BannersAuction'
+        - $ref: "#/components/schemas/SponsoredListingsAuction"
+        - $ref: "#/components/schemas/BannersAuction"
     RankingRequest:
       type: object
       description: |
@@ -882,28 +874,26 @@ components:
           type: integer
           format: int32
           minimum: 1
-          description:
-            Specifies the maximum number of ranked objects that should be
+          description: Specifies the maximum number of ranked objects that should be
             returned.
         pageSize:
           type: integer
           format: int32
           minimum: 1
-          description:
-            Specifies the maximum number of ranked objects per page that should
+          description: Specifies the maximum number of ranked objects per page that should
             be returned.
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         category:
-          $ref: '#/components/schemas/Category'
+          $ref: "#/components/schemas/Category"
         device:
-          $ref: '#/components/schemas/Device'
+          $ref: "#/components/schemas/Device"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
         products:
-          $ref: '#/components/schemas/Products'
+          $ref: "#/components/schemas/Products"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
       required:
         - type
         - slots
@@ -927,8 +917,7 @@ components:
       properties:
         metrics:
           type: object
-          description:
-            Metrics to predict, the response will include all the selected
+          description: Metrics to predict, the response will include all the selected
             metrics.
           properties:
             ctr:
@@ -938,9 +927,9 @@ components:
               type: boolean
               description: If `true` a Conversion Rate prediction will be made.
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         objectType:
           type: string
           description: The type of object that is being reported on the interaction.
@@ -948,7 +937,7 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         productIds:
           type: array
           items:
@@ -982,9 +971,9 @@ components:
           minimum: 1
           maximum: 100
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         objectType:
           type: string
           description: The type of object that needs to be retrieved.
@@ -992,7 +981,7 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         seedProductIds:
           type: array
           items:
@@ -1017,15 +1006,15 @@ components:
       discriminator:
         propertyName: resultType
         mapping:
-          listings: '#/components/schemas/SponsoredListingsAuctionResult'
-          banners: '#/components/schemas/BannersAuctionResult'
+          listings: "#/components/schemas/SponsoredListingsAuctionResult"
+          banners: "#/components/schemas/BannersAuctionResult"
       oneOf:
-        - $ref: '#/components/schemas/SponsoredListingsAuctionResult'
-        - $ref: '#/components/schemas/BannersAuctionResult'
+        - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
+        - $ref: "#/components/schemas/BannersAuctionResult"
     TravelAuctionResult:
       oneOf:
-        - $ref: '#/components/schemas/HotelsAuctionResult'
-        - $ref: '#/components/schemas/FlightsAuctionResult'
+        - $ref: "#/components/schemas/HotelsAuctionResult"
+        - $ref: "#/components/schemas/FlightsAuctionResult"
     BannersAuctionResult:
       type: object
       properties:
@@ -1034,7 +1023,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/BannersWinner'
+            $ref: "#/components/schemas/BannersWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It
             will be empty if there were no qualifying bids or if there was an
@@ -1056,7 +1045,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredListingsWinner'
+            $ref: "#/components/schemas/SponsoredListingsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It
             will be empty if there were no qualifying bids or if there was an
@@ -1097,13 +1086,12 @@ components:
             - url
         id:
           type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target
+          description: The marketplace's ID of the winning entity, depending on the target
             of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
+          $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1136,13 +1124,12 @@ components:
             - url
         id:
           type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target
+          description: The marketplace's ID of the winning entity, depending on the target
             of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
+          $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1152,10 +1139,10 @@ components:
           description: The list of available sources for a banner.
           type: array
           items:
-            $ref: '#/components/schemas/AssetSource'
+            $ref: "#/components/schemas/AssetSource"
           minItems: 1
     HotelsAuctionResult:
-      $ref: '#/components/schemas/SponsoredListingsAuctionResult'
+      $ref: "#/components/schemas/SponsoredListingsAuctionResult"
     FlightsAuctionResult:
       type: object
       properties:
@@ -1164,7 +1151,7 @@ components:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/FlightsWinner'
+            $ref: "#/components/schemas/FlightsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It
             will be empty if there were no qualifying bids or if there was an
@@ -1203,13 +1190,12 @@ components:
             - product
         id:
           type: string
-          description:
-            The marketplace's ID of the winning flight product, depending on
+          description: The marketplace's ID of the winning flight product, depending on
             the target of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
+          $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           type: string
           description: The ID of the campaign that won the auction.
@@ -1226,7 +1212,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/RankingWinner'
+            $ref: "#/components/schemas/RankingWinner"
           description: |
             Array of ranking objects in order from highest to lowest relevancy.
         error:
@@ -1353,8 +1339,7 @@ components:
             - banner_asset_001
         clickType:
           type: string
-          description:
-            When type is `listing`, signals the specific interaction flavor
+          description: When type is `listing`, signals the specific interaction flavor
             with the listing.
           enum:
             - product
@@ -1432,8 +1417,7 @@ components:
           type: integer
           format: int32
           minimum: 1
-          description:
-            Specifies the maximum number of auction winners that should be
+          description: Specifies the maximum number of auction winners that should be
             returned.
         placementId:
           type: string
@@ -1445,11 +1429,11 @@ components:
             id: ne5n2vzri6o92
           properties:
             category:
-              $ref: '#/components/schemas/SingleCategory'
+              $ref: "#/components/schemas/SingleCategory"
             products:
-              $ref: '#/components/schemas/Products'
+              $ref: "#/components/schemas/Products"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
       x-examples:
         Example 1:
           auctions:
@@ -1458,15 +1442,15 @@ components:
               triggers:
                 products:
                   ids:
-                    - '1'
-                    - '8'
+                    - "1"
+                    - "8"
     SponsoredBrandAuctionResult:
       type: object
       properties:
         winners:
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredBrandWinner'
+            $ref: "#/components/schemas/SponsoredBrandWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It
             will be empty if there were no qualifying bids or if there was an
@@ -1485,7 +1469,7 @@ components:
             - winners:
                 - rank: 1
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  productId: '1'
+                  productId: "1"
                   title: Brand Example Promo 1
                   assets:
                     - url: https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png
@@ -1503,7 +1487,7 @@ components:
                   campaignId: 018f3ff3-0d7c-7b75-bf99-629c62c09dc3
                 - rank: 2
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  productId: '8'
+                  productId: "8"
                   title: Brand Example Promo 2
                   assets:
                     - url: https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg
@@ -1538,17 +1522,15 @@ components:
           minimum: 1
         productId:
           type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target
+          description: The marketplace's ID of the winning entity, depending on the target
             of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
+          $ref: "#/components/schemas/ResolvedBidID"
         title:
           type: string
-          description:
-            An optional title for the sponsored brand selected when creating
+          description: An optional title for the sponsored brand selected when creating
             the campaign.
         vendorId:
           type: string
@@ -1559,7 +1541,7 @@ components:
           description: Assets used to render the sponsored brand ad.
           type: array
           items:
-            $ref: '#/components/schemas/SponsoredBrandAsset'
+            $ref: "#/components/schemas/SponsoredBrandAsset"
           minItems: 1
     SponsoredBrandAsset:
       type: object
@@ -1591,8 +1573,8 @@ components:
     TravelAuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
-        - $ref: '#/components/schemas/HotelsAuctionRequest'
-        - $ref: '#/components/schemas/FlightsAuctionRequest'
+        - $ref: "#/components/schemas/HotelsAuctionRequest"
+        - $ref: "#/components/schemas/FlightsAuctionRequest"
     HotelsAuctionRequest:
       type: object
       description: Describes the intent of running a hotel travel auction.
@@ -1608,8 +1590,7 @@ components:
         slots:
           type: integer
           format: int32
-          description:
-            Specifies the maximum number of auction winners that should be
+          description: Specifies the maximum number of auction winners that should be
             returned. If slots > 40, it is capped at 40.
           minimum: 1
           maximum: 40
@@ -1617,7 +1598,7 @@ components:
           type: array
           description: An array of hotels products that should participate in the auction.
           items:
-            $ref: '#/components/schemas/HotelsTravelProduct'
+            $ref: "#/components/schemas/HotelsTravelProduct"
         category:
           description: A category for the purpose of running an auction.
           type: object
@@ -1635,7 +1616,7 @@ components:
                   examples:
                     - c_buenos-aires-hotels
         travelContext:
-          $ref: '#/components/schemas/HotelsTravelContext'
+          $ref: "#/components/schemas/HotelsTravelContext"
     HotelsTravelProduct:
       type: object
       required:
@@ -1704,7 +1685,7 @@ components:
           description: Platform e.g. "app", "mobile", "web", ...
     HotelsTravelContext:
       allOf:
-        - $ref: '#/components/schemas/BaseTravelContext'
+        - $ref: "#/components/schemas/BaseTravelContext"
     FlightsAuctionRequest:
       type: object
       description: Describes the intent of running a flight travel auction.
@@ -1720,8 +1701,7 @@ components:
         slots:
           type: integer
           format: int32
-          description:
-            Specifies the maximum number of auction winners that should be
+          description: Specifies the maximum number of auction winners that should be
             returned. If slots > 40, it is capped at 40.
           minimum: 1
           maximum: 40
@@ -1729,9 +1709,9 @@ components:
           type: array
           description: An array of flight products that should participate in the auction.
           items:
-            $ref: '#/components/schemas/FlightsTravelProduct'
+            $ref: "#/components/schemas/FlightsTravelProduct"
         travelContext:
-          $ref: '#/components/schemas/FlightsTravelContext'
+          $ref: "#/components/schemas/FlightsTravelContext"
     FlightsTravelProduct:
       type: object
       required:
@@ -1762,7 +1742,7 @@ components:
             Values must be between 0 and 1.
     FlightsTravelContext:
       allOf:
-        - $ref: '#/components/schemas/BaseTravelContext'
+        - $ref: "#/components/schemas/BaseTravelContext"
         - type: object
           properties:
             route:
@@ -1810,8 +1790,7 @@ components:
         docUrl:
           type: string
           format: uri
-          description:
-            A link to a documentation page providing more information about the
+          description: A link to a documentation page providing more information about the
             error.
           examples:
             - https://api.docs.topsort.com/reference/errors
@@ -1916,25 +1895,25 @@ components:
         impressions:
           type: array
           items:
-            $ref: '#/components/schemas/Impression'
+            $ref: "#/components/schemas/Impression"
           minItems: 1
           maxItems: 50
         clicks:
           type: array
           items:
-            $ref: '#/components/schemas/Click'
+            $ref: "#/components/schemas/Click"
           minItems: 1
           maxItems: 50
         purchases:
           type: array
           items:
-            $ref: '#/components/schemas/Purchase'
+            $ref: "#/components/schemas/Purchase"
           minItems: 1
           maxItems: 50
         pageviews:
           type: array
           items:
-            $ref: '#/components/schemas/Pageview'
+            $ref: "#/components/schemas/Pageview"
           minItems: 1
           maxItems: 50
       minProperties: 1
@@ -2016,20 +1995,20 @@ components:
       additionalProperties: false
       properties:
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
+          $ref: "#/components/schemas/ResolvedBidID"
           description: >
             If the impression is over an ad promotion, this is the
             `resolvedBidId` field received from the `/auctions` request. In most
             situations, especially when reporting a sponsored interaction,
             you'll want to fill in this field.
         entity:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         occurredAt:
-          $ref: '#/components/schemas/occurredAt'
+          $ref: "#/components/schemas/occurredAt"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         id:
           type: string
           description: >
@@ -2042,11 +2021,11 @@ components:
           examples:
             - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         additionalAttribution:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         object:
-          $ref: '#/components/schemas/InteractionObject'
+          $ref: "#/components/schemas/InteractionObject"
         externalCampaignId:
           type: string
           description: Marketplace provided ID for a campaign
@@ -2058,7 +2037,7 @@ components:
           examples:
             - my-new-vendor
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2084,20 +2063,19 @@ components:
       additionalProperties: false
       properties:
         resolvedBidId:
-          $ref: '#/components/schemas/ResolvedBidID'
-          description:
-            If the click is over an ad promotion, this is the `resolvedBidId`
+          $ref: "#/components/schemas/ResolvedBidID"
+          description: If the click is over an ad promotion, this is the `resolvedBidId`
             field received from the `/auctions` request. In most situations,
             especially when reporting a sponsored interaction, you'll want to
             fill in this field.
         entity:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         occurredAt:
-          $ref: '#/components/schemas/occurredAt'
+          $ref: "#/components/schemas/occurredAt"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         id:
           type: string
           description: >
@@ -2110,15 +2088,14 @@ components:
           examples:
             - b39d39ed-ea0e-4059-9d15-4990b39c85a2
         additionalAttribution:
-          $ref: '#/components/schemas/Entity'
+          $ref: "#/components/schemas/Entity"
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         object:
-          $ref: '#/components/schemas/InteractionObject'
+          $ref: "#/components/schemas/InteractionObject"
         clickType:
           type: string
-          description:
-            For sponsored events only, signals the specific interaction flavor
+          description: For sponsored events only, signals the specific interaction flavor
             with the listing.
           enum:
             - product
@@ -2135,7 +2112,7 @@ components:
           examples:
             - my-new-vendor
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2159,19 +2136,18 @@ components:
       additionalProperties: false
       properties:
         occurredAt:
-          $ref: '#/components/schemas/occurredAt'
-          description:
-            RFC3339 formatted timestamp, including UTC offset, of the instant
+          $ref: "#/components/schemas/occurredAt"
+          description: RFC3339 formatted timestamp, including UTC offset, of the instant
             in which the order was placed. Please note that purchases will NOT
             be attributed to an auction that happened after.
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         items:
           type: array
           description: Items purchased.
           minItems: 1
           items:
-            $ref: '#/components/schemas/PurchaseItem'
+            $ref: "#/components/schemas/PurchaseItem"
         id:
           type: string
           description: >
@@ -2184,7 +2160,7 @@ components:
           examples:
             - 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2245,11 +2221,11 @@ components:
       additionalProperties: false
       properties:
         page:
-          $ref: '#/components/schemas/Page'
+          $ref: "#/components/schemas/Page"
         occurredAt:
-          $ref: '#/components/schemas/occurredAt'
+          $ref: "#/components/schemas/occurredAt"
         opaqueUserId:
-          $ref: '#/components/schemas/OpaqueUserID'
+          $ref: "#/components/schemas/OpaqueUserID"
         id:
           type: string
           description: >
@@ -2262,7 +2238,7 @@ components:
           examples:
             - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         deviceType:
-          $ref: '#/components/schemas/DeviceType'
+          $ref: "#/components/schemas/DeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.

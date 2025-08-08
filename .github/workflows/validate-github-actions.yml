@@ -7,8 +7,7 @@ jobs:
     name: Actionlint
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Install Actionlint
         env:
           version: "1.7.7"
@@ -17,3 +16,28 @@ jobs:
         run: |
           echo "::add-matcher::.github/matcher-actionlint.json"
           actionlint -color
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx prettier --check ./*.yml
+
+  vacuum-lint:
+    name: Vacuum
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pb33f/vacuum-action@v2
+        with:
+          openapi_path: "topsort-api-v2.yml"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx yamllint -f github ./*.yml
