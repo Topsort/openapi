@@ -8,6 +8,8 @@ scaffolding. This would provide a consistent and robust developer experience acr
 
 - Use [prettier][prettier] to format the documents: `bunx prettier -w`
 - Use [yamllint][yamllint] to validate the documents: `uvx yamllint *.yml`
+- Use [vacuum][vacuum] to validate the openapi standard: `vacuum *.yml`
+- Use [redocly][redocly] to further validate the openapi standard: `bunx @redocly/cli lint *.yml`
 
 ## Using the OpenAPI generator
 
@@ -18,3 +20,5 @@ You can find examples on the official
 [docs]: https://docs.topsort.com
 [prettier]: https://prettier.io/
 [yamllint]: https://github.com/adrienverge/yamllint
+[vacuum]: https://quobix.com/vacuum/start/
+[redocly]: https://redocly.com/docs/cli/installation

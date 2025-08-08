@@ -51,4 +51,4 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - run: npx redocly lint --format github-actions topsort-api-*.yml
+      - run: npx @redocly/cli lint --format github-actions topsort-api-*.yml
