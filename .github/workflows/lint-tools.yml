@@ -39,7 +39,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   yamllint:
-    name: yamllint
+    name: YAMLLint
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
       - run: uvx yamllint -f github topsort-api-*.yml
 
   redocly:
-    name: redocly
+    name: Redocly
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
