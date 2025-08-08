@@ -25,8 +25,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - run: npx prettier --check ./*.yml
+      - run: npx prettier --check .
 
+  # todo, support multiple files
   vacuum-lint:
     name: Vacuum
     runs-on: ubuntu-24.04
@@ -43,4 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: uvx yamllint -f github ./*.yml
+      - run: uvx yamllint -f github topsort-api-*.yml
+
+  redocly:
+    name: redocly
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx redocly lint --format github-actions topsort-api-*.yml
