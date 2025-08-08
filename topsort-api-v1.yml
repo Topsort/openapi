@@ -85,9 +85,9 @@ paths:
       operationId: createAuction
       requestBody:
         description: >
-          The information describing what will be auctioned.
-          Topsort will run an auction for each slot type, for which products' bids will compete against each other.
-          The products that will participate are included in the request.
+          The information describing what will be auctioned. Topsort will run an auction for each
+          slot type, for which products' bids will compete against each other. The products that
+          will participate are included in the request.
         content:
           application/json:
             schema:
@@ -96,9 +96,10 @@ paths:
       responses:
         201:
           description:
-            "The auction results. The list of Winner objects will contain at most slots entries.
-            It may contain fewer or no entries at all if there aren't enough products with usable bids.
-            Bids become unusable if their campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc."
+            "The auction results. The list of Winner objects will contain at most slots entries. It
+            may contain fewer or no entries at all if there aren't enough products with usable bids.
+            Bids become unusable if their campaign budget is exhausted, the bid is disqualified to
+            preserve spend pacing, etc."
           content:
             application/json:
               schema:
@@ -116,7 +117,11 @@ paths:
       summary: Report an event
       operationId: reportEvent
       requestBody:
-        description: "Use the `/events` endpoint to notify Topsort about significant consumer interactions on the e-commerce site: impressions -- product links become visible to the consumer; clicks -- the consumer clicks on a product link; and purchases -- the consumer buys some products."
+        description:
+          "Use the `/events` endpoint to notify Topsort about significant consumer interactions on
+          the e-commerce site: impressions -- product links become visible to the consumer; clicks
+          -- the consumer clicks on a product link; and purchases -- the consumer buys some
+          products."
         content:
           application/json:
             schema:
@@ -125,10 +130,9 @@ paths:
       responses:
         200:
           description:
-            'An object containing the markeplace ID for the event and the Topsort ID for the same event.
-            Logging this can facilitate debugging.
-            The field name for the TopsortID will be "impressionID", "clickId" or "purchaseId"
-            depending on the event in the request.'
+            'An object containing the markeplace ID for the event and the Topsort ID for the same
+            event. Logging this can facilitate debugging. The field name for the TopsortID will be
+            "impressionID", "clickId" or "purchaseId" depending on the event in the request.'
           content:
             application/json:
               schema:
@@ -163,7 +167,8 @@ components:
           $ref: "#/components/schemas/Slots"
         products:
           type: array
-          description: An array of objects, each describing a product that should participate in the auction.
+          description:
+            An array of objects, each describing a product that should participate in the auction.
           items:
             $ref: "#/components/schemas/Product"
           minItems: 1
@@ -193,14 +198,17 @@ components:
               properties:
                 auctionId:
                   type: string
-                  description: Topsort assigned ID for the auction. Should be used in reporting impressions, clicks and purchases.
+                  description:
+                    Topsort assigned ID for the auction. Should be used in reporting impressions,
+                    clicks and purchases.
                   example: AKFU78
                 winners:
                   type: array
                   items:
                     $ref: "#/components/schemas/Winner"
-                  description: "Array of winner objects in order from highest to lowest bid.
-                    May be empty if there were no qualifying bids."
+                  description:
+                    "Array of winner objects in order from highest to lowest bid. May be empty if
+                    there were no qualifying bids."
 
     GeoTargeting:
       type: object
@@ -222,17 +230,20 @@ components:
         rank:
           type: integer
           description: >
-            Where the product's bid ranked in the auction.
-            One-based, so the product with rank 1 won the auction.
-            In an auction response, the winners array is sorted so rank will match the entry's index.
+            Where the product's bid ranked in the auction. One-based, so the product with rank 1 won
+            the auction. In an auction response, the winners array is sorted so rank will match the
+            entry's index.
           minimum: 1
         productId:
           type: string
-          description: The marketplace's ID for the product. It will match the ID for a product in the request's products array.
+          description:
+            The marketplace's ID for the product. It will match the ID for a product in the
+            request's products array.
           example: pSA0238
         winnerType:
           type: string
-          description: The type of the winning bid, depending on the campaign. It can be product or vendor.
+          description:
+            The type of the winning bid, depending on the campaign. It can be product or vendor.
           enum:
             - product
             - vendor
@@ -266,7 +277,9 @@ components:
         name: Product
 
     Session:
-      description: The Session object allows correlating user activity during a session whether or not they are actually logged in.
+      description:
+        The Session object allows correlating user activity during a session whether or not they are
+        actually logged in.
       required:
         - sessionId
       type: object
@@ -275,19 +288,13 @@ components:
           description: >
             Long-lived token identifying the customer interacting with the marketplace.
 
-            If your users are always logged in you may use a hash of your customer ID.
-            If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
+            If your users are always logged in you may use a hash of your customer ID. If your users
+            may interact with your app or site while logged out we recommend generating a random
+            identifier (UUIDv4) on first load and store it on local storage (cookie, local storage,
+            etc) and let it live for at least a year.
           type: string
           minLength: 1
           example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
-        # consumerId:
-        #   description: >
-        #     Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
-        #
-        #     Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
-        #     This field is needed for cross-device attribution.
-        #   type: string
-        #   example: cid_86hkz2p3171joer80pdkltu7n
 
     Placement:
       type: object
@@ -306,7 +313,10 @@ components:
           example: position_1
 
     ClickEvent:
-      description: ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort charges the vendor and pays the marketplace for clicks on impressions in promoted placements on the e-commerce site.
+      description:
+        ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort
+        charges the vendor and pays the marketplace for clicks on impressions in promoted placements
+        on the e-commerce site.
       type: object
       required:
         - eventType
@@ -329,7 +339,8 @@ components:
           example: p_SA0238
         auctionId:
           type: string
-          description: Required for promoted products. Must be the ID for the auction the product won.
+          description:
+            Required for promoted products. Must be the ID for the auction the product won.
           minLength: 1
           example: AKFU78
         id:
@@ -357,9 +368,11 @@ components:
 
     ImpressionEvent:
       description: >
-        A product has become visible to the consumer.
-        In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results.
-        It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
+        A product has become visible to the consumer. In case you cannot send the impression when
+        the product is visible, send us an impression event when the product was rendered in the
+        HTML or if that's also not possible when your API returns the results. It is important to
+        select the most specific event so that your vendors have more accurate CTR metrics, which
+        allow them to better predict their campaigns.
       type: object
       required:
         - eventType
@@ -407,7 +420,8 @@ components:
           example: p_SA0238
         auctionId:
           type: string
-          description: Required for promoted products. Must be the ID for the auction the product won.
+          description:
+            Required for promoted products. Must be the ID for the auction the product won.
           minLength: 1
           example: AKFU78
         id:
@@ -467,7 +481,9 @@ components:
           example: p_SA0238
         auctionId:
           type: string
-          description: If known, the product's auction ID if the consumer clicked on a promoted link before purchasing.
+          description:
+            If known, the product's auction ID if the consumer clicked on a promoted link before
+            purchasing.
           minLength: 1
           example: AKFU78
         quantity:
@@ -479,7 +495,9 @@ components:
         unitPrice:
           type: integer
           minimum: 1
-          description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
+          description:
+            The price of a single item in minor currency units. For example, in the US (currency
+            code "USD") the unit price is specified in cents.
           example: 1295
         resolvedBidId:
           type: string
@@ -553,10 +571,10 @@ components:
         - purchaseId
 
     Slots:
-      description: 'The Slots object specifies how many auctions winners should be
-        returned for each promotion type. The promotion types depend on
-        the marketplace configuration. For sponsored listings, use the
-        "listings" key.'
+      description:
+        'The Slots object specifies how many auctions winners should be returned for each promotion
+        type. The promotion types depend on the marketplace configuration. For sponsored listings,
+        use the "listings" key.'
       type: object
       properties:
         listings:
@@ -602,8 +620,9 @@ components:
         message:
           type: string
           description: >
-            Human-readable explanation of or details about the error.
-            The string for a given error may change over time; code should not parse or dispatch based on particular values for this field.
+            Human-readable explanation of or details about the error. The string for a given error
+            may change over time; code should not parse or dispatch based on particular values for
+            this field.
 
   securitySchemes:
     BearerAuth:
