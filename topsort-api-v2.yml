@@ -538,15 +538,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RetrievalRequest"
-            examples:
-              slots: 5
-              opaqueUserId: u_9ske45
-              seedProductIds:
-                - p_PJbnN
-                - p_ojng4
-              mode: all
-              deviceType:
-                - mobile
         required: true
       responses:
         "200":
@@ -556,16 +547,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RetrievalResults"
-              examples:
-                - objectType: listing
-                  objects:
-                    - id: p_xh90s
-                      value: 0.978
-                    - id: p_12lp0
-                      value: 0.953
-                    - id: p_ds7ui
-                      value: 0.877
-                  error: false
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -978,6 +959,15 @@ components:
             - complement
             - similar
           default: all
+      examples:
+        - slots: 5
+          opaqueUserId: u_9ske45
+          seedProductIds:
+            - p_PJbnN
+            - p_ojng4
+          mode: all
+          deviceType:
+            - mobile
       required:
         - slots
         - seedProductIds
@@ -1295,8 +1285,17 @@ components:
               score:
                 type: number
                 description: Relevance score for the retrieved products.
-          description: |
-            Retrieved objects.
+          description: Retrieved objects.
+      examples:
+        - objectType: listing
+          objects:
+            - id: p_xh90s
+              value: 0.978
+            - id: p_12lp0
+              value: 0.953
+            - id: p_ds7ui
+              value: 0.877
+          error: false
       required:
         - objectType
         - objects
