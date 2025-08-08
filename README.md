@@ -12,6 +12,7 @@ You can additionally consume the entire Topsort OpenAPI spec available [here][op
 - Use [yamllint][yamllint] to validate the documents: `uvx yamllint *.yml`
 - Use [vacuum][vacuum] to validate the openapi standard: `vacuum *.yml`
 - Use [redocly][redocly] to further validate the openapi standard: `bunx @redocly/cli lint *.yml`
+- Use [typos][typos] to fix language typos: `typos .`
 
 ## Using the OpenAPI generator
 
@@ -25,3 +26,4 @@ You can find examples on the official
 [yamllint]: https://github.com/adrienverge/yamllint
 [vacuum]: https://quobix.com/vacuum/start/
 [redocly]: https://redocly.com/docs/cli/installation
+[typos]: https://github.com/crate-ci/typos
