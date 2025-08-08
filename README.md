@@ -19,7 +19,7 @@ You can additionally consume the entire Topsort OpenAPI spec available [here][op
 You can find examples on the official
 [OpenAPI Generator docs](https://openapi-generator.tech/docs/usage#examples).
 
-[openapi]: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
+[openapi]: https://spec.openapis.org/oas/v3.1.0.html
 [docs]: https://docs.topsort.com
 [openapi-ts]: https://docs.topsort.com/openapi.json
 [prettier]: https://prettier.io/
