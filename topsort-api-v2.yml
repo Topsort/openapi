@@ -721,6 +721,12 @@ components:
           description: Identifies the page
           examples:
             - /category/electronics
+    occurredAt:
+      type: string
+      format: date-time
+      description: A RFC3339 formatted timestamp including UTC offset.
+      examples:
+        - 2009-01-01T12:59:59-05:00
     OpaqueUserID:
       type: string
       description:
@@ -1538,10 +1544,7 @@ components:
           examples:
             - p_Mfk15
         resolvedBidId:
-          type: string
-          description: An opaque Topsort ID to be used when this item is interacted with.
-          examples:
-            - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+          $ref: '#/components/schemas/ResolvedBidID'
         title:
           type: string
           description:
@@ -2024,11 +2027,7 @@ components:
         placement:
           $ref: '#/components/schemas/Placement'
         occurredAt:
-          type: string
-          format: date-time
-          description: RFC3339 formatted timestamp including UTC offset.
-          examples:
-            - 2009-01-01T12:59:59-05:00
+          $ref: '#/components/schemas/occurredAt'
         opaqueUserId:
           $ref: '#/components/schemas/OpaqueUserID'
         id:
@@ -2085,24 +2084,18 @@ components:
       additionalProperties: false
       properties:
         resolvedBidId:
-          type: string
+          $ref: '#/components/schemas/ResolvedBidID'
           description:
             If the click is over an ad promotion, this is the `resolvedBidId`
             field received from the `/auctions` request. In most situations,
             especially when reporting a sponsored interaction, you'll want to
             fill in this field.
-          examples:
-            - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
         entity:
           $ref: '#/components/schemas/Entity'
         placement:
           $ref: '#/components/schemas/Placement'
         occurredAt:
-          type: string
-          format: date-time
-          description: RFC3339 formatted timestamp including UTC offset.
-          examples:
-            - 2009-01-01T12:59:59-05:00
+          $ref: '#/components/schemas/occurredAt'
         opaqueUserId:
           $ref: '#/components/schemas/OpaqueUserID'
         id:
@@ -2166,14 +2159,11 @@ components:
       additionalProperties: false
       properties:
         occurredAt:
-          type: string
+          $ref: '#/components/schemas/occurredAt'
           description:
             RFC3339 formatted timestamp, including UTC offset, of the instant
             in which the order was placed. Please note that purchases will NOT
             be attributed to an auction that happened after.
-          examples:
-            - 2021-10-12T07:20:50.52Z
-          format: date-time
         opaqueUserId:
           $ref: '#/components/schemas/OpaqueUserID'
         items:
@@ -2257,11 +2247,7 @@ components:
         page:
           $ref: '#/components/schemas/Page'
         occurredAt:
-          type: string
-          format: date-time
-          description: RFC3339 formatted timestamp including UTC offset.
-          examples:
-            - 2009-01-01T12:59:59-05:00
+          $ref: '#/components/schemas/occurredAt'
         opaqueUserId:
           $ref: '#/components/schemas/OpaqueUserID'
         id:
