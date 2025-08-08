@@ -2149,10 +2149,9 @@ components:
     EventIdentifier:
       type: string
       description: >
-        A unique identifier for the request. This field ensures the event reporting
-        is idempotent in case there is a network issue and the request is retried. If there is
-        no impression model on the marketplace side, generate a unique string that does not
-        change if the event is resent.
+        A unique identifier for the request. This field ensures the event reporting is idempotent in
+        case there is a network issue and the request is retried. If there is no impression model on
+        the marketplace side, generate a unique string that does not change if the event is resent.
       minLength: 1
       examples:
         - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
