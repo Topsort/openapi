@@ -4,6 +4,8 @@ Topsort uses the [OpenAPI 3.1.0][openapi] specification to [document our APIs][d
 recommend our clients to use these specifications to generate supported client libraries and server
 scaffolding. This would provide a consistent and robust developer experience across languages.
 
+You can additionally consume the entire Topsort OpenAPI spec available [here][openapi-ts].
+
 ## Validating the file
 
 - Use [prettier][prettier] to format the documents: `bunx prettier -w`
@@ -18,6 +20,7 @@ You can find examples on the official
 
 [openapi]: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
 [docs]: https://docs.topsort.com
+[openapi-ts]: https://docs.topsort.com/openapi.json
 [prettier]: https://prettier.io/
 [yamllint]: https://github.com/adrienverge/yamllint
 [vacuum]: https://quobix.com/vacuum/start/
