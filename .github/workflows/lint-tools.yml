@@ -15,8 +15,7 @@ jobs:
           curl -Ls "https://github.com/rhysd/actionlint/releases/download/v${{ env.version
           }}/actionlint_${{ env.version }}_linux_amd64.tar.gz" | sudo tar -x -z -C /usr/local/bin
           actionlint
-      - name: Run Actionlint
-        run: |
+      - run: |
           echo "::add-matcher::.github/matcher-actionlint.json"
           actionlint -color
 
@@ -27,16 +26,19 @@ jobs:
       - uses: actions/checkout@v4
       - run: npx prettier --check .
 
-  # todo, support multiple files
-  vacuum-lint:
+  vacuum:
     name: Vacuum
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: pb33f/vacuum-action@v2
-        with:
-          openapi_path: "topsort-api-v2.yml"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Vacuum
+        env:
+          version: 0.17.8
+        run:
+          curl -Ls "https://github.com/daveshanley/vacuum/releases/download/v${{ env.version
+          }}/vacuum_${{ env.version }}_linux_x86_64.tar.gz" | sudo tar -x -z -C /usr/local/bin
+          vacuum
+      - run: vacuum lint -d -e -b *.yml
 
   yamllint:
     name: YAMLLint
