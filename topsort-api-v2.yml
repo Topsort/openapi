@@ -305,13 +305,11 @@ paths:
 
         - **Pageviews** — a user visited a page.
 
-
         Interactions require either a `resolvedBidId`, for sponsored events coming from the
         `/v2/auctions` response,
 
         or an `entity` that describes the entity that was interacted with, in the case of organic or
         non-sponsored events.
-
 
         For analytics purposes, you can use the `placement` field to differentiate different
         listings or banners.
@@ -1980,15 +1978,7 @@ components:
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
         id:
-          type: string
-          description: >
-            The marketplace's unique ID for the impression. This field ensures the event reporting
-            is idempotent in case there is a network issue and the request is retried. If there is
-            no impression model on the marketplace side, generate a unique string that does not
-            change if the event is resent.
-          minLength: 1
-          examples:
-            - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
+          $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
           $ref: "#/components/schemas/Entity"
         page:
@@ -2045,15 +2035,7 @@ components:
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
         id:
-          type: string
-          description: >
-            The marketplace's unique ID for the click. This field ensures the event reporting is
-            idempotent in case there is a network issue and the request is retried. If there is no
-            click model on the marketplace side, generate a unique string that does not change if
-            the event is resent.
-          minLength: 1
-          examples:
-            - b39d39ed-ea0e-4059-9d15-4990b39c85a2
+          $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
           $ref: "#/components/schemas/Entity"
         page:
@@ -2116,15 +2098,7 @@ components:
           items:
             $ref: "#/components/schemas/PurchaseItem"
         id:
-          type: string
-          description: >
-            The marketplace unique ID for the order. This field ensures the event reporting is
-            idempotent in case there is a network issue and the request is retried. If there is no
-            unique ID for orders on the marketplace side, generate a unique string that does not
-            change if the event needs to be resent.
-          minLength: 1
-          examples:
-            - 0e06c899-b2cd-4e0d-b0de-8aefb4b6d0a0
+          $ref: "#/components/schemas/EventIdentifier"
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
@@ -2172,6 +2146,16 @@ components:
           minLength: 1
           examples:
             - v_8fj2D
+    EventIdentifier:
+      type: string
+      description: >
+        A unique identifier for the request. This field ensures the event reporting
+        is idempotent in case there is a network issue and the request is retried. If there is
+        no impression model on the marketplace side, generate a unique string that does not
+        change if the event is resent.
+      minLength: 1
+      examples:
+        - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
     Pageview:
       type: object
       description: >
