@@ -38,7 +38,7 @@ jobs:
           curl -Ls "https://github.com/daveshanley/vacuum/releases/download/v${{ env.version
           }}/vacuum_${{ env.version }}_linux_x86_64.tar.gz" | sudo tar -x -z -C /usr/local/bin
           vacuum
-      - run: vacuum lint -d -e -b *.yml
+      - run: vacuum lint -d -e -b ./*.yml
 
   yamllint:
     name: YAMLLint
