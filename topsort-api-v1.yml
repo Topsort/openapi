@@ -130,9 +130,9 @@ paths:
       responses:
         200:
           description:
-            'An object containing the markeplace ID for the event and the Topsort ID for the same
+            An object containing the marketplace ID for the event and the Topsort ID for the same
             event. Logging this can facilitate debugging. The field name for the TopsortID will be
-            "impressionID", "clickId" or "purchaseId" depending on the event in the request.'
+            "impressionID", "clickId" or "purchaseId" depending on the event in the request.
           content:
             application/json:
               schema:
