@@ -2197,5 +2197,6 @@ components:
             - onsite
   securitySchemes:
     HTTPBearer:
-      type: http
+      description: A valid API key generated in Topsort's UI.
       scheme: bearer
+      type: http
