@@ -562,7 +562,7 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
   schemas:
-    Category:
+    AuctionCategory:
       oneOf:
         - $ref: "#/components/schemas/SingleCategory"
         - type: object
@@ -745,7 +745,7 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
           type: string
           description: The search string provided by a user.
@@ -791,7 +791,7 @@ components:
           minimum: 1
           description: Specifies the maximum number of auction winners that should be returned.
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
           type: string
           description: The search string provided by a user.
@@ -848,7 +848,7 @@ components:
         page:
           $ref: "#/components/schemas/Page"
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: "#/components/schemas/AuctionCategory"
         device:
           $ref: "#/components/schemas/Device"
         geoTargeting:
@@ -1837,7 +1837,7 @@ components:
             applicable. This search string must match the searchQuery field that was provided in the
             auction request (if provided).
           minLength: 1
-    Entity:
+    EventEntity:
       type: object
       description: >
         `Entity` is meant for reporting organic events, not sponsored or promoted products. It
@@ -1970,7 +1970,7 @@ components:
             from the `/auctions` request. In most situations, especially when reporting a sponsored
             interaction, you'll want to fill in this field.
         entity:
-          $ref: "#/components/schemas/Entity"
+          $ref: "#/components/schemas/EventEntity"
         placement:
           $ref: "#/components/schemas/Placement"
         occurredAt:
@@ -1980,7 +1980,7 @@ components:
         id:
           $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
-          $ref: "#/components/schemas/Entity"
+          $ref: "#/components/schemas/EventEntity"
         page:
           $ref: "#/components/schemas/Page"
         object:
@@ -2027,7 +2027,7 @@ components:
             the `/auctions` request. In most situations, especially when reporting a sponsored
             interaction, you'll want to fill in this field.
         entity:
-          $ref: "#/components/schemas/Entity"
+          $ref: "#/components/schemas/EventEntity"
         placement:
           $ref: "#/components/schemas/Placement"
         occurredAt:
@@ -2037,7 +2037,7 @@ components:
         id:
           $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
-          $ref: "#/components/schemas/Entity"
+          $ref: "#/components/schemas/EventEntity"
         page:
           $ref: "#/components/schemas/Page"
         object:
