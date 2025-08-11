@@ -1,6 +1,7 @@
 openapi: 3.0.1
 info:
   title: Topsort Endpoints v1 API Reference
+  description: The OpenAPI specifciation for Topsort v1 endpoints
   contact:
     email: wicha@topsort.com
   license:
@@ -8,7 +9,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
     url: https://assets.topsort.com/Topsort_logo_icon_dark.svg
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
     altText: Topsort
   version: 1.0.1
 
@@ -85,28 +86,29 @@ paths:
       operationId: createAuction
       requestBody:
         description: >
-          The information describing what will be auctioned.
-          Topsort will run an auction for each slot type, for which products' bids will compete against each other.
-          The products that will participate are included in the request.
+          The information describing what will be auctioned. Topsort will run an auction for each
+          slot type, for which products' bids will compete against each other. The products that
+          will participate are included in the request.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuctionRequest'
+              $ref: "#/components/schemas/AuctionRequest"
         required: true
       responses:
         201:
           description:
-            "The auction results. The list of Winner objects will contain at most slots entries.
-            It may contain fewer or no entries at all if there aren't enough products with usable bids.
-            Bids become unusable if their campaign budget is exhausted, the bid is disqualified to preserve spend pacing, etc."
+            "The auction results. The list of Winner objects will contain at most slots entries. It
+            may contain fewer or no entries at all if there aren't enough products with usable bids.
+            Bids become unusable if their campaign budget is exhausted, the bid is disqualified to
+            preserve spend pacing, etc."
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Auction'
+                $ref: "#/components/schemas/Auction"
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
 
   /events:
     post:
@@ -116,30 +118,33 @@ paths:
       summary: Report an event
       operationId: reportEvent
       requestBody:
-        description: 'Use the `/events` endpoint to notify Topsort about significant consumer interactions on the e-commerce site: impressions -- product links become visible to the consumer; clicks -- the consumer clicks on a product link; and purchases -- the consumer buys some products.'
+        description:
+          "Use the `/events` endpoint to notify Topsort about significant consumer interactions on
+          the e-commerce site: impressions -- product links become visible to the consumer; clicks
+          -- the consumer clicks on a product link; and purchases -- the consumer buys some
+          products."
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Event'
+              $ref: "#/components/schemas/Event"
         required: true
       responses:
         200:
           description:
-            'An object containing the markeplace ID for the event and the Topsort ID for the same event.
-            Logging this can facilitate debugging.
-            The field name for the TopsortID will be "impressionID", "clickId" or "purchaseId"
-            depending on the event in the request.'
+            An object containing the marketplace ID for the event and the Topsort ID for the same
+            event. Logging this can facilitate debugging. The field name for the TopsortID will be
+            "impressionID", "clickId" or "purchaseId" depending on the event in the request.
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/ImpressionsResponse'
-                  - $ref: '#/components/schemas/ClickResponse'
-                  - $ref: '#/components/schemas/PurchaseResponse'
+                  - $ref: "#/components/schemas/ImpressionsResponse"
+                  - $ref: "#/components/schemas/ClickResponse"
+                  - $ref: "#/components/schemas/PurchaseResponse"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
 
 components:
   responses:
@@ -150,7 +155,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
 
   schemas:
     AuctionRequest:
@@ -160,17 +165,18 @@ components:
         - products
       properties:
         slots:
-          $ref: '#/components/schemas/Slots'
+          $ref: "#/components/schemas/Slots"
         products:
           type: array
-          description: An array of objects, each describing a product that should participate in the auction.
+          description:
+            An array of objects, each describing a product that should participate in the auction.
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: "#/components/schemas/Product"
           minItems: 1
         session:
-          $ref: '#/components/schemas/Session'
+          $ref: "#/components/schemas/Session"
         geoTargeting:
-          $ref: '#/components/schemas/GeoTargeting'
+          $ref: "#/components/schemas/GeoTargeting"
       example:
         slots:
           listings: 2
@@ -193,15 +199,17 @@ components:
               properties:
                 auctionId:
                   type: string
-                  description: Topsort assigned ID for the auction. Should be used in reporting impressions, clicks and purchases.
+                  description:
+                    Topsort assigned ID for the auction. Should be used in reporting impressions,
+                    clicks and purchases.
                   example: AKFU78
                 winners:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Winner'
+                    $ref: "#/components/schemas/Winner"
                   description:
-                    'Array of winner objects in order from highest to lowest bid.
-                    May be empty if there were no qualifying bids.'
+                    "Array of winner objects in order from highest to lowest bid. May be empty if
+                    there were no qualifying bids."
 
     GeoTargeting:
       type: object
@@ -223,17 +231,20 @@ components:
         rank:
           type: integer
           description: >
-            Where the product's bid ranked in the auction.
-            One-based, so the product with rank 1 won the auction.
-            In an auction response, the winners array is sorted so rank will match the entry's index.
+            Where the product's bid ranked in the auction. One-based, so the product with rank 1 won
+            the auction. In an auction response, the winners array is sorted so rank will match the
+            entry's index.
           minimum: 1
         productId:
           type: string
-          description: The marketplace's ID for the product. It will match the ID for a product in the request's products array.
+          description:
+            The marketplace's ID for the product. It will match the ID for a product in the
+            request's products array.
           example: pSA0238
         winnerType:
           type: string
-          description: The type of the winning bid, depending on the campaign. It can be product or vendor.
+          description:
+            The type of the winning bid, depending on the campaign. It can be product or vendor.
           enum:
             - product
             - vendor
@@ -267,7 +278,9 @@ components:
         name: Product
 
     Session:
-      description: The Session object allows correlating user activity during a session whether or not they are actually logged in.
+      description:
+        The Session object allows correlating user activity during a session whether or not they are
+        actually logged in.
       required:
         - sessionId
       type: object
@@ -276,19 +289,13 @@ components:
           description: >
             Long-lived token identifying the customer interacting with the marketplace.
 
-            If your users are always logged in you may use a hash of your customer ID.
-            If your users may interact with your app or site while logged out we recommend generating a random identifier (UUIDv4) on first load and store it on local storage (cookie, local storage, etc) and let it live for at least a year.
+            If your users are always logged in you may use a hash of your customer ID. If your users
+            may interact with your app or site while logged out we recommend generating a random
+            identifier (UUIDv4) on first load and store it on local storage (cookie, local storage,
+            etc) and let it live for at least a year.
           type: string
           minLength: 1
           example: ebeaf802-6d0a-41a3-ae59-661887c4f6cb
-        # consumerId:
-        #   description: >
-        #     Optional ID identifying the user, this field is required in case your marketplace wants to do cross-device attribution.
-        #
-        #     Instead of sending us the exact same user ID you are storing in your systems we recommend you to send us a hash of the user ID (SHA1, SHA512, etc).
-        #     This field is needed for cross-device attribution.
-        #   type: string
-        #   example: cid_86hkz2p3171joer80pdkltu7n
 
     Placement:
       type: object
@@ -307,7 +314,10 @@ components:
           example: position_1
 
     ClickEvent:
-      description: ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort charges the vendor and pays the marketplace for clicks on impressions in promoted placements on the e-commerce site.
+      description:
+        ClickEvents are sent to Topsort when the consumer has clicked on an impression. Topsort
+        charges the vendor and pays the marketplace for clicks on impressions in promoted placements
+        on the e-commerce site.
       type: object
       required:
         - eventType
@@ -320,9 +330,9 @@ components:
           enum:
             - Click
         session:
-          $ref: '#/components/schemas/Session'
+          $ref: "#/components/schemas/Session"
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         productId:
           type: string
           description: The product that was clicked.
@@ -330,7 +340,8 @@ components:
           example: p_SA0238
         auctionId:
           type: string
-          description: Required for promoted products. Must be the ID for the auction the product won.
+          description:
+            Required for promoted products. Must be the ID for the auction the product won.
           minLength: 1
           example: AKFU78
         id:
@@ -342,7 +353,7 @@ components:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset
-          example: '2009-01-01T12:59:59-05:00'
+          example: "2009-01-01T12:59:59-05:00"
         resolvedBidId:
           type: string
           minLength: 1
@@ -358,9 +369,11 @@ components:
 
     ImpressionEvent:
       description: >
-        A product has become visible to the consumer.
-        In case you cannot send the impression when the product is visible, send us an impression event when the product was rendered in the HTML or if that's also not possible when your API returns the results.
-        It is important to select the most specific event so that your vendors have more accurate CTR metrics, which allow them to better predict their campaigns.
+        A product has become visible to the consumer. In case you cannot send the impression when
+        the product is visible, send us an impression event when the product was rendered in the
+        HTML or if that's also not possible when your API returns the results. It is important to
+        select the most specific event so that your vendors have more accurate CTR metrics, which
+        allow them to better predict their campaigns.
       type: object
       required:
         - eventType
@@ -373,12 +386,12 @@ components:
           enum:
             - Impression
         session:
-          $ref: '#/components/schemas/Session'
+          $ref: "#/components/schemas/Session"
         impressions:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/Impression'
+            $ref: "#/components/schemas/Impression"
           example:
             - resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
               id: 234f678-f90c
@@ -393,7 +406,7 @@ components:
           type: string
           format: date-time
           description: RFC3339 formatted timestamp including UTC offset
-          example: '2022-01-23T12:34:56-05:00'
+          example: "2022-01-23T12:34:56-05:00"
 
     Impression:
       type: object
@@ -401,14 +414,15 @@ components:
         - placement
       properties:
         placement:
-          $ref: '#/components/schemas/Placement'
+          $ref: "#/components/schemas/Placement"
         productId:
           type: string
           description: The product that was rendered.
           example: p_SA0238
         auctionId:
           type: string
-          description: Required for promoted products. Must be the ID for the auction the product won.
+          description:
+            Required for promoted products. Must be the ID for the auction the product won.
           minLength: 1
           example: AKFU78
         id:
@@ -437,7 +451,7 @@ components:
           enum:
             - Purchase
         session:
-          $ref: '#/components/schemas/Session'
+          $ref: "#/components/schemas/Session"
         id:
           type: string
           description: The marketplace assigned ID for the order.
@@ -446,14 +460,14 @@ components:
         purchasedAt:
           type: string
           description: RFC3339 formatted timestamp including UTC offset
-          example: '2021-10-12T07:20:50.52Z'
+          example: "2021-10-12T07:20:50.52Z"
           format: date-time
         items:
           type: array
           description: Items purchased.
           minItems: 1
           items:
-            $ref: '#/components/schemas/PurchaseItem'
+            $ref: "#/components/schemas/PurchaseItem"
 
     PurchaseItem:
       type: object
@@ -468,7 +482,9 @@ components:
           example: p_SA0238
         auctionId:
           type: string
-          description: If known, the product's auction ID if the consumer clicked on a promoted link before purchasing.
+          description:
+            If known, the product's auction ID if the consumer clicked on a promoted link before
+            purchasing.
           minLength: 1
           example: AKFU78
         quantity:
@@ -480,7 +496,9 @@ components:
         unitPrice:
           type: integer
           minimum: 1
-          description: The price of a single item in minor currency units. For example, in the US (currency code "USD") the unit price is specified in cents.
+          description:
+            The price of a single item in minor currency units. For example, in the US (currency
+            code "USD") the unit price is specified in cents.
           example: 1295
         resolvedBidId:
           type: string
@@ -493,9 +511,9 @@ components:
 
     Event:
       oneOf:
-        - $ref: '#/components/schemas/ImpressionEvent'
-        - $ref: '#/components/schemas/ClickEvent'
-        - $ref: '#/components/schemas/PurchaseEvent'
+        - $ref: "#/components/schemas/ImpressionEvent"
+        - $ref: "#/components/schemas/ClickEvent"
+        - $ref: "#/components/schemas/PurchaseEvent"
 
     ImpressionResponse:
       type: object
@@ -518,7 +536,7 @@ components:
           type: array
           description: The collection of all impressions that were processed correctly.
           items:
-            $ref: '#/components/schemas/ImpressionResponse'
+            $ref: "#/components/schemas/ImpressionResponse"
       example:
         impressions:
           - impressionId: 70ed4d78-34aa-42c7-b6e2-6a670568b6e3
@@ -555,10 +573,9 @@ components:
 
     Slots:
       description:
-        'The Slots object specifies how many auctions winners should be
-        returned for each promotion type. The promotion types depend on
-        the marketplace configuration. For sponsored listings, use the
-        "listings" key.'
+        'The Slots object specifies how many auctions winners should be returned for each promotion
+        type. The promotion types depend on the marketplace configuration. For sponsored listings,
+        use the "listings" key.'
       type: object
       properties:
         listings:
@@ -604,8 +621,9 @@ components:
         message:
           type: string
           description: >
-            Human-readable explanation of or details about the error.
-            The string for a given error may change over time; code should not parse or dispatch based on particular values for this field.
+            Human-readable explanation of or details about the error. The string for a given error
+            may change over time; code should not parse or dispatch based on particular values for
+            this field.
 
   securitySchemes:
     BearerAuth:

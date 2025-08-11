@@ -1,0 +1,63 @@
+name: Lint
+on:
+  pull_request:
+
+jobs:
+  actionlint:
+    name: Actionlint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Actionlint
+        env:
+          version: "1.7.7"
+        run:
+          curl -Ls "https://github.com/rhysd/actionlint/releases/download/v${{ env.version
+          }}/actionlint_${{ env.version }}_linux_amd64.tar.gz" | sudo tar -x -z -C /usr/local/bin
+          actionlint
+      - run: |
+          echo "::add-matcher::.github/matcher-actionlint.json"
+          actionlint -color
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx prettier --check .
+
+  vacuum:
+    name: Vacuum
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vacuum
+        env:
+          version: 0.17.8
+        run:
+          curl -Ls "https://github.com/daveshanley/vacuum/releases/download/v${{ env.version
+          }}/vacuum_${{ env.version }}_linux_x86_64.tar.gz" | sudo tar -x -z -C /usr/local/bin
+          vacuum
+      - run: vacuum lint -d -e -b ./topsort-api-v2.yml
+
+  yamllint:
+    name: YAMLLint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uvx yamllint -f github topsort-api-*.yml
+
+  redocly:
+    name: Redocly
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx @redocly/cli lint --format github-actions topsort-api-*.yml
+
+  typos:
+    name: Check for language typos
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: crate-ci/typos@v1.35.2
