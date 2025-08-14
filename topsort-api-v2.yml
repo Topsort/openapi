@@ -98,7 +98,6 @@ paths:
                             resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
                             campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
                         error: false
-                  - results:
                       - winners:
                           - rank: 1
                             type: product
