@@ -25,14 +25,7 @@ tags:
   - name: Auctions
     description: An auction determines which products should be promoted based on the vendors' bids.
   - name: Events
-    description: >
-      **The specification details, particularly around placement data, may change in the short
-      term.**
-
-      **If this is not acceptable for your integration, please use [Events
-      V1](https://docs.topsort.com/reference/reportevent) as an alternative.**
-
-      Significant consumer interactions on the marketplace app.
+    description: Events are sent to Topsort as part of the attribution and reporting journey.
   - name: Toptimize
     description: >
       An out-of-the-box solution for prediction, ranking, retrieval, and other elements of ad
