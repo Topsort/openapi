@@ -112,17 +112,18 @@ paths:
                           asset:
                             - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
                               content:
-                                headingText: 'A banner for Topsort with a product image and a shop now button'
-                                bannerText: 'Topsort has the best tech!'
-                                bannerTextColour: '48a94c'
+                                headingText:
+                                  "A banner for Topsort with a product image and a shop now button"
+                                bannerText: "Topsort has the best tech!"
+                                bannerTextColour: "48a94c"
 
                       error: false
                     - winners: []
                       error: false
         400:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/sponsored-brand:
     post:
       tags:
@@ -1328,17 +1329,18 @@ components:
           type: string
           format: uri
           description: >
-            A vendor provided asset that the marketplace has to use as a banner.
-            The asset will be served by Topsort's CDN.
+            A vendor provided asset that the marketplace has to use as a banner. The asset will be
+            served by Topsort's CDN.
         content:
           type: object
           additionalProperties: true
           description: >
-            A flexible JSON object with key-value pairs that map to the asset's filled content template.
+            A flexible JSON object with key-value pairs that map to the asset's filled content
+            template.
           example:
-            headingText: 'A banner for Topsort with a product image and a shop now button'
-            bannerText: 'Topsort has the best tech!'
-            bannerTextColour: '48a94c'
+            headingText: "A banner for Topsort with a product image and a shop now button"
+            bannerText: "Topsort has the best tech!"
+            bannerTextColour: "48a94c"
 
       required:
         - url
