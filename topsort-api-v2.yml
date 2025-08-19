@@ -205,6 +205,11 @@ paths:
                           campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
                           asset:
                             - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+                              content:
+                                headingText: 'A banner for Topsort with a product image and a shop now button'
+                                bannerText: 'Topsort has the best tech!'
+                                bannerTextColour: '48a94c'
+
                       error: false
                     - winners: []
                       error: false
@@ -992,6 +997,16 @@ components:
           description: >
             A vendor provided asset that the marketplace has to use as a banner.
             The asset will be served by Topsort's CDN.
+        content:
+          type: object
+          additionalProperties: true
+          description: >
+            A flexible JSON object with key-value pairs that map to the asset's filled content template.
+          example:
+            headingText: 'A banner for Topsort with a product image and a shop now button'
+            bannerText: 'Topsort has the best tech!'
+            bannerTextColour: '48a94c'
+
       required:
         # - mimeType
         # - dimensions
