@@ -116,6 +116,8 @@ paths:
                                     "A banner for Topsort with a product image and a shop now button"
                                   bannerText: "Topsort has the best tech!"
                                   bannerTextColour: "48a94c"
+                                  heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+                                  heroImageAltText: "Topsort product image"
                         error: false
                   - results:
                       - winners: []
@@ -1341,8 +1343,8 @@ components:
             headingText: "A banner for Topsort with a product image and a shop now button"
             bannerText: "Topsort has the best tech!"
             bannerTextColour: "48a94c"
-            heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574",
-            heroImageAltText: "Topsort product image",
+            heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+            heroImageAltText: "Topsort product image"
 
       required:
         - url
