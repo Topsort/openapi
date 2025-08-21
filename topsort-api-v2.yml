@@ -712,6 +712,8 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
+          example:
+            New York
     SearchQuery:
       type: string
       description: The search string provided by a user.
@@ -1059,7 +1061,7 @@ components:
           description: The ID of the campaign that won the auction.
           examples:
             - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
-    PlacementContent:
+    SponsoredBrandContent:
       type: object
       additionalProperties: true
       description: >
@@ -1067,6 +1069,10 @@ components:
         The template can be customized by the marketplace. Note: When the content field is part of
         the  response, the url links to an asset with the same JSON object available on the content
         object.
+      example:
+        headline: "Topsort Rocks"
+        brandName: "Topsort Brand"
+        creative: "https://some.url.com/rocks.jpeg"
     BannersWinner:
       type: object
       required:
@@ -1404,6 +1410,7 @@ components:
           type: string
           x-stoplight:
             id: biqordtdbp58t
+          example: "some-placement-id"
         triggers:
           type: object
           description: >
@@ -1412,13 +1419,28 @@ components:
             query.
           x-stoplight:
             id: ne5n2vzri6o92
-          properties:
-            category:
-              $ref: "#/components/schemas/SingleCategory"
-            products:
-              $ref: "#/components/schemas/Products"
-            searchQuery:
-              $ref: "#/components/schemas/SearchQuery"
+          oneOf:
+            - type: object
+              properties:
+                category:
+                  $ref: "#/components/schemas/SingleCategory"
+              required:
+                - category
+              description: A trigger based on a product category.
+            - type: object
+              properties:
+                products:
+                  $ref: "#/components/schemas/Products"
+              required:
+                - products
+              description: A trigger based on a set of specific products.
+            - type: object
+              properties:
+                searchQuery:
+                  $ref: "#/components/schemas/SearchQuery"
+              required:
+                - searchQuery
+              description: A trigger based on a search query.
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
         geoTargeting:
@@ -1538,11 +1560,7 @@ components:
           examples:
             - ["product123", "product456"]
         content:
-          $ref: "#/components/schemas/PlacementContent"
-          example:
-            headline: "Topsort Rocks"
-            brandName: "Topsort Brand"
-            creative: "https://some.url.com/rocks.jpeg"
+          $ref: "#/components/schemas/SponsoredBrandContent"
     TravelAuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
