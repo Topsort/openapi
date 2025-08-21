@@ -1508,12 +1508,6 @@ components:
             the auction. In an auction response, the winners array is sorted so rank will match the
             entry's index.
           minimum: 1
-        productId:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
-          examples:
-            - p_Mfk15
         type:
           type: string
           description: The target type of the winning bid.
@@ -1538,12 +1532,6 @@ components:
           description: The ID of the vendor associated with this sponsored brand winner.
           examples:
             - v_8fj2D
-        assets:
-          description: Assets used to render the sponsored brand ad.
-          type: array
-          items:
-            $ref: "#/components/schemas/SponsoredBrandAsset"
-          minItems: 1
         productIds:
           description: List of product IDs associated with the sponsored brand winning campaign.
           type: array
@@ -1555,34 +1543,6 @@ components:
             headline: "Topsort Rocks"
             brandName: "Topsort Brand"
             creative: "https://some.url.com/rocks.jpeg"
-
-    SponsoredBrandAsset:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: >
-            A vendor provided asset that the marketplace has to render. The asset will be served by
-            Topsort's CDN.
-        role:
-          type: string
-          description: The role of the asset. It can be either `logo` or `image`.
-        contentType:
-          type: string
-          description: The asset MIME type.
-        contentLength:
-          type: integer
-          format: uint32
-          description: The size of the asset in bytes.
-        width:
-          type: integer
-          format: uint32
-          description: The asset width in pixels.
-        height:
-          type: integer
-          format: uint32
-          description: The asset height in pixels.
     TravelAuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
