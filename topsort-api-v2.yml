@@ -712,8 +712,7 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
-          example:
-            New York
+          example: New York
     SearchQuery:
       type: string
       description: The search string provided by a user.
@@ -1504,8 +1503,8 @@ components:
                   id: "https://some.url.com/myyougurtbrand/page"
                   title: Brand Example Promo 1
                   content:
-                    headline: "some cool regular yogurt headline",
-                    brandName: "my regular yogurt brand",
+                    headline: "some cool regular yogurt headline"
+                    brandName: "my regular yogurt brand"
                     creative1: "https://some.url.com/regular_yogurt.jpeg"
                   campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
                   productIds: ["vanilla_yogurt", "strawberry_yogurt"]
@@ -1515,9 +1514,9 @@ components:
                   id: "https://some.url.com/mynonfatyougurtbrand/page"
                   title: Brand Example Promo 2
                   content:
-                    headline: "some cool nonfat regular yogurt headline",
-                    brandName: "my nonfat yogurt brand",
-                    creative1: "https://some.url.com/nonfat_yogurt.jpeg"
+                    - headline: "some cool nonfat regular yogurt headline"
+                      brandName: "my nonfat yogurt brand"
+                      creative1: "https://some.url.com/nonfat_yogurt.jpeg"
                   campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
                   productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
               error: false
