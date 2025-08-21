@@ -1332,13 +1332,15 @@ components:
           format: uri
           description: >
             A vendor provided asset that the marketplace has to use as a banner. The asset will be
-            served by Topsort's CDN.
+            served by Topsort's CDN. Note: When the content field is part of the 
+            response, the url links to an asset with the same JSON object available on the content object.
         content:
           type: object
           additionalProperties: true
           description: >
             A flexible JSON object with key-value pairs that map to the asset's filled content
-            template.
+            template. The template can be customized by the marketplace. Note: When the content field is part of the 
+            response, the url links to an asset with the same JSON object available on the content object.
           example:
             headingText: "A banner for Topsort with a product image and a shop now button"
             bannerText: "Topsort has the best tech!"
