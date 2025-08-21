@@ -1396,6 +1396,7 @@ components:
         Exactly **one** of the following fields must be set:
           * `products`
           * `category`
+          * `searchQuery`
       required:
         - winners
         - placementId
@@ -1453,8 +1454,28 @@ components:
               triggers:
                 products:
                   ids:
-                    - "1"
-                    - "8"
+                    - "vanilla_yogurt"
+                    - "nonfat_vanilla_yogurt"
+              geoTargeting: New York
+              opaqueUserId": user-123
+        Example 2:
+          auctions:
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                category:
+                  id: c_yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
+        Example 3:
+          auctions:
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                searchQuery:
+                  id: vanilla yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
     SponsoredBrandAuctionResult:
       type: object
       properties:
@@ -1479,40 +1500,26 @@ components:
             - winners:
                 - rank: 1
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  productId: "1"
+                  type: "url"
+                  id: "https://some.url.com/myyougurtbrand/page"
                   title: Brand Example Promo 1
-                  assets:
-                    - url: https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png
-                      role: image
-                      contentType: image/png
-                      contentLength: 33902
-                      width: 920
-                      height: 920
-                    - url: https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png
-                      role: logo
-                      contentType: image/png
-                      contentLength: 80648
-                      width: 264
-                      height: 264
-                  campaignId: 018f3ff3-0d7c-7b75-bf99-629c62c09dc3
+                  content:
+                    headline: "some cool regular yogurt headline",
+                    brandName: "my regular yogurt brand",
+                    creative1: "https://some.url.com/regular_yogurt.jpeg"
+                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
+                  productIds: ["vanilla_yogurt", "strawberry_yogurt"]
                 - rank: 2
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  productId: "8"
+                  type: "url"
+                  id: "https://some.url.com/mynonfatyougurtbrand/page"
                   title: Brand Example Promo 2
-                  assets:
-                    - url: https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg
-                      role: image
-                      contentType: image/jpeg
-                      contentLength: 4505
-                      width: 403
-                      height: 125
-                    - url: https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png
-                      role: logo
-                      contentType: image/png
-                      contentLength: 34747
-                      width: 140
-                      height: 160
+                  content:
+                    headline: "some cool nonfat regular yogurt headline",
+                    brandName: "my nonfat yogurt brand",
+                    creative1: "https://some.url.com/nonfat_yogurt.jpeg"
                   campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
+                  productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
               error: false
     SponsoredBrandWinner:
       type: object
