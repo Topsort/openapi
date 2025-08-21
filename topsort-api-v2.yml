@@ -712,6 +712,9 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
+    SearchQuery:
+      type: string
+      description: The search string provided by a user.
     ResolvedBidID:
       type: string
       description: An opaque Topsort ID to be used when this item is interacted with.
@@ -739,8 +742,7 @@ components:
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
-          type: string
-          description: The search string provided by a user.
+          $ref: "#/components/schemas/SearchQuery"
         products:
           $ref: "#/components/schemas/Products"
         geoTargeting:
@@ -785,8 +787,7 @@ components:
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
-          type: string
-          description: The search string provided by a user.
+          $ref: "#/components/schemas/SearchQuery"
         device:
           $ref: "#/components/schemas/Device"
         geoTargeting:
@@ -1332,6 +1333,8 @@ components:
       required:
         - ids
       type: object
+      description: >
+        List of products for the purpose of running an auction.
       properties:
         ids:
           type: array
@@ -1395,6 +1398,10 @@ components:
             id: biqordtdbp58t
         triggers:
           type: object
+          description: >
+            Triggers provide the context for an ad auction. For Sponsored Brands, the trigger must
+            be one of the  following: a product category, a set of specific products, or a search
+            query.
           x-stoplight:
             id: ne5n2vzri6o92
           properties:
@@ -1402,8 +1409,12 @@ components:
               $ref: "#/components/schemas/SingleCategory"
             products:
               $ref: "#/components/schemas/Products"
+            searchQuery:
+              $ref: "#/components/schemas/SearchQuery"
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
+        geoTargeting:
+          $ref: "#/components/schemas/GeoTargeting"
       x-examples:
         Example 1:
           auctions:
