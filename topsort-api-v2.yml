@@ -1524,9 +1524,10 @@ components:
       type: object
       required:
         - rank
-        - productId
+        - type
+        - id
         - resolvedBidId
-        - assets
+        - content
       properties:
         rank:
           type: integer
