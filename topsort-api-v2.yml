@@ -1059,6 +1059,14 @@ components:
           description: The ID of the campaign that won the auction.
           examples:
             - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+    PlacementContent:
+      type: object
+      additionalProperties: true
+      description: >
+        A flexible JSON object with key-value pairs that map to the asset's filled content template.
+        The template can be customized by the marketplace. Note: When the content field is part of
+        the  response, the url links to an asset with the same JSON object available on the content
+        object.
     BannersWinner:
       type: object
       required:
@@ -1506,6 +1514,19 @@ components:
             The marketplace's ID of the winning entity, depending on the target of the campaign.
           examples:
             - p_Mfk15
+        type:
+          type: string
+          description: The target type of the winning bid.
+          enum:
+            - product
+            - url
+        id:
+          type: string
+          description:
+            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          examples:
+            - p_Mfk15
+            - https://some.url.com/topsort-brand
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         title:
@@ -1523,6 +1544,18 @@ components:
           items:
             $ref: "#/components/schemas/SponsoredBrandAsset"
           minItems: 1
+        productIds:
+          description: List of product IDs associated with the sponsored brand winning campaign.
+          type: array
+          examples:
+            - ["product123", "product456"]
+        content:
+          $ref: "#/components/schemas/PlacementContent"
+          example:
+            headline: "Topsort Rocks"
+            brandName: "Topsort Brand"
+            creative: "https://some.url.com/rocks.jpeg"
+
     SponsoredBrandAsset:
       type: object
       properties:
