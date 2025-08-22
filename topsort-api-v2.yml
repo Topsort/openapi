@@ -1510,9 +1510,9 @@ components:
           description: Assets used to render the sponsored brand ad.
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredBrandAsset"
+            $ref: "#/components/schemas/SponsoredBrandAuctionAsset"
           minItems: 1
-    SponsoredBrandAsset:
+    SponsoredBrandAuctionAsset:
       type: object
       properties:
         url:
