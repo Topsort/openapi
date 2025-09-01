@@ -756,6 +756,8 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         placementId:
           $ref: "#/components/schemas/PlacementId"
+        page:
+          $ref: "#/components/schemas/Page"
       required:
         - type
         - slots
@@ -808,6 +810,8 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         placementId:
           $ref: "#/components/schemas/PlacementId"
+        page:
+          $ref: "#/components/schemas/Page"
       required:
         - type
         - slots
