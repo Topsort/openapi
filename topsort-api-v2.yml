@@ -1431,6 +1431,8 @@ components:
               $ref: "#/components/schemas/Products"
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
+        page:
+          $ref: "#/components/schemas/Page"
       x-examples:
         Example 1:
           auctions:
