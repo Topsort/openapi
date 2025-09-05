@@ -111,6 +111,13 @@ paths:
                             campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
                             asset:
                               - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+                                content:
+                                  headingText:
+                                    "A banner for Topsort with a product image and a shop now button"
+                                  bannerText: "Topsort has the best tech!"
+                                  bannerTextColour: "48a94c"
+                                  heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+                                  heroImageAltText: "Topsort product image"
                         error: false
                   - results:
                       - winners: []
@@ -752,6 +759,8 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         placementId:
           $ref: "#/components/schemas/PlacementId"
+        page:
+          $ref: "#/components/schemas/Page"
       required:
         - type
         - slots
@@ -803,6 +812,8 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         placementId:
           $ref: "#/components/schemas/PlacementId"
+        page:
+          $ref: "#/components/schemas/Page"
       required:
         - type
         - slots
@@ -1337,7 +1348,23 @@ components:
           format: uri
           description: >
             A vendor provided asset that the marketplace has to use as a banner. The asset will be
-            served by Topsort's CDN.
+            served by Topsort's CDN. Note: When the content field is part of the  response, the url
+            links to an asset with the same JSON object available on the content object.
+        content:
+          type: object
+          additionalProperties: true
+          description: >
+            A flexible JSON object with key-value pairs that map to the asset's filled content
+            template. The template can be customized by the marketplace. Note: When the content
+            field is part of the  response, the url links to an asset with the same JSON object
+            available on the content object.
+          example:
+            headingText: "A banner for Topsort with a product image and a shop now button"
+            bannerText: "Topsort has the best tech!"
+            bannerTextColour: "48a94c"
+            heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+            heroImageAltText: "Topsort product image"
+
       required:
         - url
     Products:
@@ -1443,6 +1470,8 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         geoTargeting:
           $ref: "#/components/schemas/GeoTargeting"
+        page:
+          $ref: "#/components/schemas/Page"
       x-examples:
         Example 1:
           auctions:
