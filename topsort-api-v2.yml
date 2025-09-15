@@ -719,7 +719,8 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
-          example: New York
+          examples: 
+            - New York
     SearchQuery:
       type: string
       description: The search string provided by a user.
@@ -1077,10 +1078,10 @@ components:
       description: >
         A flexible JSON object with key-value pairs that map to the asset's filled content template.
         The template can be customized by the marketplace.
-      example:
-        headline: "Topsort Rocks"
-        brandName: "Topsort Brand"
-        creative: "https://some.url.com/rocks.jpeg"
+      examples:
+        - headline: "Topsort Rocks"
+          brandName: "Topsort Brand"
+          creative: "https://some.url.com/rocks.jpeg"
     BannersWinner:
       type: object
       required:
@@ -1358,12 +1359,12 @@ components:
             template. The template can be customized by the marketplace. Note: When the content
             field is part of the  response, the url links to an asset with the same JSON object
             available on the content object.
-          example:
-            headingText: "A banner for Topsort with a product image and a shop now button"
-            bannerText: "Topsort has the best tech!"
-            bannerTextColour: "48a94c"
-            heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
-            heroImageAltText: "Topsort product image"
+          examples:
+            - headingText: "A banner for Topsort with a product image and a shop now button"
+              bannerText: "Topsort has the best tech!"
+              bannerTextColour: "48a94c"
+              heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+              heroImageAltText: "Topsort product image"
 
       required:
         - url
@@ -1435,7 +1436,8 @@ components:
           type: string
           x-stoplight:
             id: biqordtdbp58t
-          example: "some-placement-id"
+          examples: 
+            - "some-placement-id"
         triggers:
           type: object
           description: >
@@ -1472,35 +1474,32 @@ components:
           $ref: "#/components/schemas/GeoTargeting"
         page:
           $ref: "#/components/schemas/Page"
-      x-examples:
-        Example 1:
-          auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                products:
-                  ids:
-                    - "vanilla_yogurt"
-                    - "nonfat_vanilla_yogurt"
-              geoTargeting: New York
-              opaqueUserId": user-123
-        Example 2:
-          auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                category:
-                  id: c_yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
-        Example 3:
-          auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                searchQuery: vanilla yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
+      examples:
+        - auctions:
+          - winners: 2
+            placementId: some-placement
+            triggers:
+              products:
+                ids:
+                  - "vanilla_yogurt"
+                  - "nonfat_vanilla_yogurt"
+            geoTargeting: New York
+            opaqueUserId": user-123
+        - auctions:
+          - winners: 2
+            placementId: some-placement
+            triggers:
+              category:
+                id: c_yogurt
+            geoTargeting: New York
+            opaqueUserId": user-123
+        - auctions:
+          - winners: 2
+            placementId: some-placement
+            triggers:
+              searchQuery: vanilla yogurt
+            geoTargeting: New York
+            opaqueUserId": user-123
     SponsoredBrandAuctionResult:
       type: object
       properties:
