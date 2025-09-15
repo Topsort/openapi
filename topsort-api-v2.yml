@@ -719,7 +719,7 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
-          examples: 
+          examples:
             - New York
     SearchQuery:
       type: string
@@ -1436,7 +1436,7 @@ components:
           type: string
           x-stoplight:
             id: biqordtdbp58t
-          examples: 
+          examples:
             - "some-placement-id"
         triggers:
           type: object
@@ -1476,30 +1476,30 @@ components:
           $ref: "#/components/schemas/Page"
       examples:
         - auctions:
-          - winners: 2
-            placementId: some-placement
-            triggers:
-              products:
-                ids:
-                  - "vanilla_yogurt"
-                  - "nonfat_vanilla_yogurt"
-            geoTargeting: New York
-            opaqueUserId": user-123
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                products:
+                  ids:
+                    - "vanilla_yogurt"
+                    - "nonfat_vanilla_yogurt"
+              geoTargeting: New York
+              opaqueUserId": user-123
         - auctions:
-          - winners: 2
-            placementId: some-placement
-            triggers:
-              category:
-                id: c_yogurt
-            geoTargeting: New York
-            opaqueUserId": user-123
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                category:
+                  id: c_yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
         - auctions:
-          - winners: 2
-            placementId: some-placement
-            triggers:
-              searchQuery: vanilla yogurt
-            geoTargeting: New York
-            opaqueUserId": user-123
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                searchQuery: vanilla yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
     SponsoredBrandAuctionResult:
       type: object
       properties:
