@@ -719,6 +719,11 @@ components:
         location:
           description: The location this auction is being run for.
           type: string
+          examples:
+            - New York
+    SearchQuery:
+      type: string
+      description: The search string provided by a user.
     ResolvedBidID:
       type: string
       description: An opaque Topsort ID to be used when this item is interacted with.
@@ -746,8 +751,7 @@ components:
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
-          type: string
-          description: The search string provided by a user.
+          $ref: "#/components/schemas/SearchQuery"
         products:
           $ref: "#/components/schemas/Products"
         geoTargeting:
@@ -794,8 +798,7 @@ components:
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
-          type: string
-          description: The search string provided by a user.
+          $ref: "#/components/schemas/SearchQuery"
         device:
           $ref: "#/components/schemas/Device"
         geoTargeting:
@@ -1069,6 +1072,16 @@ components:
           description: The ID of the campaign that won the auction.
           examples:
             - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+    SponsoredBrandContent:
+      type: object
+      additionalProperties: true
+      description: >
+        A flexible JSON object with key-value pairs that map to the asset's filled content template.
+        The template can be customized by the marketplace.
+      examples:
+        - headline: "Topsort Rocks"
+          brandName: "Topsort Brand"
+          creative: "https://some.url.com/rocks.jpeg"
     BannersWinner:
       type: object
       required:
@@ -1346,12 +1359,12 @@ components:
             template. The template can be customized by the marketplace. Note: When the content
             field is part of the  response, the url links to an asset with the same JSON object
             available on the content object.
-          example:
-            headingText: "A banner for Topsort with a product image and a shop now button"
-            bannerText: "Topsort has the best tech!"
-            bannerTextColour: "48a94c"
-            heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
-            heroImageAltText: "Topsort product image"
+          examples:
+            - headingText: "A banner for Topsort with a product image and a shop now button"
+              bannerText: "Topsort has the best tech!"
+              bannerTextColour: "48a94c"
+              heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+              heroImageAltText: "Topsort product image"
 
       required:
         - url
@@ -1359,6 +1372,8 @@ components:
       required:
         - ids
       type: object
+      description: >
+        List of products for the purpose of running an auction.
       properties:
         ids:
           type: array
@@ -1406,6 +1421,7 @@ components:
         Exactly **one** of the following fields must be set:
           * `products`
           * `category`
+          * `searchQuery`
       required:
         - winners
         - placementId
@@ -1420,29 +1436,70 @@ components:
           type: string
           x-stoplight:
             id: biqordtdbp58t
+          examples:
+            - "some-placement-id"
         triggers:
           type: object
+          description: >
+            Triggers provide the context for an ad auction. For Sponsored Brands, the trigger must
+            be one of the  following: a product category, a set of specific products, or a search
+            query.
           x-stoplight:
             id: ne5n2vzri6o92
-          properties:
-            category:
-              $ref: "#/components/schemas/SingleCategory"
-            products:
-              $ref: "#/components/schemas/Products"
+          oneOf:
+            - type: object
+              properties:
+                category:
+                  $ref: "#/components/schemas/SingleCategory"
+              required:
+                - category
+              description: A trigger based on a product category.
+            - type: object
+              properties:
+                products:
+                  $ref: "#/components/schemas/Products"
+              required:
+                - products
+              description: A trigger based on a set of specific products.
+            - type: object
+              properties:
+                searchQuery:
+                  $ref: "#/components/schemas/SearchQuery"
+              required:
+                - searchQuery
+              description: A trigger based on a search query.
         opaqueUserId:
           $ref: "#/components/schemas/OpaqueUserID"
+        geoTargeting:
+          $ref: "#/components/schemas/GeoTargeting"
         page:
           $ref: "#/components/schemas/Page"
-      x-examples:
-        Example 1:
-          auctions:
+      examples:
+        - auctions:
             - winners: 2
               placementId: some-placement
               triggers:
                 products:
                   ids:
-                    - "1"
-                    - "8"
+                    - "vanilla_yogurt"
+                    - "nonfat_vanilla_yogurt"
+              geoTargeting: New York
+              opaqueUserId": user-123
+        - auctions:
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                category:
+                  id: c_yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
+        - auctions:
+            - winners: 2
+              placementId: some-placement
+              triggers:
+                searchQuery: vanilla yogurt
+              geoTargeting: New York
+              opaqueUserId": user-123
     SponsoredBrandAuctionResult:
       type: object
       properties:
@@ -1467,48 +1524,35 @@ components:
             - winners:
                 - rank: 1
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  productId: "1"
+                  type: "url"
+                  id: "https://some.url.com/myyougurtbrand/page"
                   title: Brand Example Promo 1
-                  assets:
-                    - url: https://assets.hosted.topsort.com/5bcccb92e5eaaa73ce9fcc545e944865bf70e9b60e5a048979769282450343c4/example-banner-1.png
-                      role: image
-                      contentType: image/png
-                      contentLength: 33902
-                      width: 920
-                      height: 920
-                    - url: https://assets.hosted.topsort.com/c27c9cd94badc90fb50827e144dfacb2f51a601560905b950f525cec725ea85f/example-logo-1.png
-                      role: logo
-                      contentType: image/png
-                      contentLength: 80648
-                      width: 264
-                      height: 264
-                  campaignId: 018f3ff3-0d7c-7b75-bf99-629c62c09dc3
+                  content:
+                    headline: "some cool regular yogurt headline"
+                    brandName: "my regular yogurt brand"
+                    creative1: "https://some.url.com/regular_yogurt.jpeg"
+                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
+                  productIds: ["vanilla_yogurt", "strawberry_yogurt"]
                 - rank: 2
                   resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  productId: "8"
+                  type: "url"
+                  id: "https://some.url.com/mynonfatyougurtbrand/page"
                   title: Brand Example Promo 2
-                  assets:
-                    - url: https://assets.hosted.topsort.com/c049a46d834ab071cdde63e401d4efcd554e1a124f05c4ba9b3743fed2d43c4b/example-banner-2.jpeg
-                      role: image
-                      contentType: image/jpeg
-                      contentLength: 4505
-                      width: 403
-                      height: 125
-                    - url: https://assets.hosted.topsort.com/db41a8b8b22c5ed9091f9f154b552b6bc1d1dbeb85059190f1c3b202977938f1/example-logo-2.png
-                      role: logo
-                      contentType: image/png
-                      contentLength: 34747
-                      width: 140
-                      height: 160
+                  content:
+                    - headline: "some cool nonfat regular yogurt headline"
+                      brandName: "my nonfat yogurt brand"
+                      creative1: "https://some.url.com/nonfat_yogurt.jpeg"
                   campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
+                  productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
               error: false
     SponsoredBrandWinner:
       type: object
       required:
         - rank
-        - productId
+        - type
+        - id
         - resolvedBidId
-        - assets
+        - content
       properties:
         rank:
           type: integer
@@ -1518,12 +1562,19 @@ components:
             the auction. In an auction response, the winners array is sorted so rank will match the
             entry's index.
           minimum: 1
-        productId:
+        type:
+          type: string
+          description: The target type of the winning bid.
+          enum:
+            - product
+            - url
+        id:
           type: string
           description:
             The marketplace's ID of the winning entity, depending on the target of the campaign.
           examples:
             - p_Mfk15
+            - https://some.url.com/topsort-brand
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         title:
@@ -1535,39 +1586,13 @@ components:
           description: The ID of the vendor associated with this sponsored brand winner.
           examples:
             - v_8fj2D
-        assets:
-          description: Assets used to render the sponsored brand ad.
+        productIds:
+          description: List of product IDs associated with the sponsored brand winning campaign.
           type: array
-          items:
-            $ref: "#/components/schemas/SponsoredBrandAuctionAsset"
-          minItems: 1
-    SponsoredBrandAuctionAsset:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: >
-            A vendor provided asset that the marketplace has to render. The asset will be served by
-            Topsort's CDN.
-        role:
-          type: string
-          description: The role of the asset. It can be either `logo` or `image`.
-        contentType:
-          type: string
-          description: The asset MIME type.
-        contentLength:
-          type: integer
-          format: uint32
-          description: The size of the asset in bytes.
-        width:
-          type: integer
-          format: uint32
-          description: The asset width in pixels.
-        height:
-          type: integer
-          format: uint32
-          description: The asset height in pixels.
+          examples:
+            - ["product123", "product456"]
+        content:
+          $ref: "#/components/schemas/SponsoredBrandContent"
     TravelAuctionRequest:
       description: Describes the intent of running a single auction.
       oneOf:
