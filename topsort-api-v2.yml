@@ -218,8 +218,8 @@ paths:
                       category:
                         id: hotel-boutique
                       travelContext:
-                        travelStartDate: 2025-01-01
-                        travelEndDate: 2025-01-15
+                        travelStartDate: "2025-01-01"
+                        travelEndDate: "2025-01-15"
                         site: argentina
                         passengers: 2
                         travelerType: couple
@@ -609,6 +609,7 @@ components:
                 - c_blue
     SingleCategory:
       type: object
+      title: Single Category
       description: A category for the purpose of running an auction.
       required:
         - id
@@ -691,7 +692,7 @@ components:
       format: date-time
       description: A RFC3339 formatted timestamp including UTC offset.
       examples:
-        - 2009-01-01T12:59:59-05:00
+        - "2009-01-01T12:59:59-05:00"
     OpaqueUserID:
       type: string
       description:
@@ -730,6 +731,7 @@ components:
       examples:
         - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
     SponsoredListingsAuction:
+      title: Sponsored Listing
       type: object
       description: |
         Describes the intent of running a sponsored listings auction.
@@ -777,6 +779,7 @@ components:
           geoTargeting:
             location: New York
     BannersAuction:
+      title: Banner Auction
       type: object
       description: >
         Describes the intent of running a banner ads auction.
@@ -1685,7 +1688,7 @@ components:
           format: date
           description: RFC3339 formatted date representing the travel start point.
           examples:
-            - 2024-06-10
+            - "2024-06-10"
         travelEndDate:
           type: string
           format: date
@@ -1693,7 +1696,7 @@ components:
             RFC3339 formatted date representing the travel end point. Must be greater than start
             date.
           examples:
-            - 2025-08-10
+            - "2025-08-10"
         travelerType:
           type: string
           enum:
@@ -1937,7 +1940,7 @@ components:
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-              occurredAt: 2019-01-01T12:59:59-05:00
+              occurredAt: "2019-01-01T12:59:59-05:00"
               opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
               placement:
                 path: /categories/dairy
@@ -1950,7 +1953,7 @@ components:
               channel: onsite
         - clicks:
             - id: b39d39ed-ea0e-4059-9d15-4990b39c85a2
-              occurredAt: 2019-01-01T13:01:42-05:00
+              occurredAt: "2019-01-01T13:01:42-05:00"
               opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
               placement:
                 path: /categories/dairy
@@ -1970,7 +1973,7 @@ components:
                   vendorId: v_8fj2D
                 - productId: p_oajf2D
                   unitPrice: 1.49
-              occurredAt: 2019-01-01T12:59:59-05:00
+              occurredAt: "2019-01-01T12:59:59-05:00"
               opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
               deviceType: desktop
               channel: onsite
@@ -1980,12 +1983,12 @@ components:
                   unitPrice: 119.95
                   quantity: 5
                   vendorId: v_8fj2D
-              occurredAt: 2019-01-01T13:59:59-05:00
+              occurredAt: "2019-01-01T13:59:59-05:00"
               opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
               channel: instore
         - pageviews:
             - id: 8f648a8e-830c-4bb4-9d93-6ea80075ca82
-              occurredAt: 2019-01-01T12:59:58-05:00
+              occurredAt: "2019-01-01T12:59:58-05:00"
               opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
               page:
                 type: category
