@@ -699,9 +699,9 @@ components:
             - or
         attributes:
           type: array
-          description: > 
-            Attributes used for filtering in "key:value" format. The attribute name and value are limited to 40 
-            characters each.
+          description: >
+            Attributes used for filtering in "key:value" format. The attribute name and value are
+            limited to 40  characters each.
           maxItems: 4
           items:
             type: string
