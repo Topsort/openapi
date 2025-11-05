@@ -693,14 +693,14 @@ components:
       properties:
         operator:
           type: string
-          description: Filter operator type. The value can be "and" (has all) or "or" (has any).
+          description: Filter operator type. The value can be `and` (has all) or `or` (has any).
           enum:
             - and
             - or
         attributes:
           type: array
           description: >
-            Attributes used for filtering in "key:value" format. The attribute name and value are
+            Attributes used for filtering in `key:value` format. The attribute name and value are
             limited to 40  characters each.
           maxItems: 4
           items:
@@ -843,8 +843,6 @@ components:
           $ref: "#/components/schemas/PlacementId"
         page:
           $ref: "#/components/schemas/Page"
-        filter:
-          $ref: "#/components/schemas/AttributesFilter"
       required:
         - type
         - slots
