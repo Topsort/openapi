@@ -690,6 +690,8 @@ components:
     AttributesFilter:
       type: object
       title: AttributesFilter
+      description: > 
+        Use product attributes to filter auction bids. This feature requires additional integration and configuration.
       properties:
         operator:
           type: string
@@ -701,8 +703,8 @@ components:
           type: array
           description: >
             Attributes used for filtering in `key:value` format. The attribute name and value are
-            limited to 40  characters each.
-          maxItems: 4
+            limited to 40 characters each.
+          maxItems: 3
           items:
             type: string
             maxLength: 81
