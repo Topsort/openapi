@@ -1937,19 +1937,6 @@ components:
           minItems: 0
           maxItems: 50
       minProperties: 1
-      anyOf:
-        - properties:
-            impressions:
-              minItems: 1
-        - properties:
-            clicks:
-              minItems: 1
-        - properties:
-            purchases:
-              minItems: 1
-        - properties:
-            pageviews:
-              minItems: 1
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
