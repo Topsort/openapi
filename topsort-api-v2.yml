@@ -2133,16 +2133,6 @@ components:
             - instore
           examples:
             - onsite
-    ClicksArray:
-      title: Clicks
-      description: An array of click events
-      properties:
-        clicks:
-          type: array
-          minItems: 0
-          maxItems: 50
-          items:
-            $ref: "#/components/schemas/Click"
     Purchase:
       title: Purchase
       description: >
@@ -2219,16 +2209,6 @@ components:
           minLength: 1
           examples:
             - v_8fj2D
-    PurchasesArray:
-      title: Purchases
-      description: An array of purchase events
-      properties:
-        purchases:
-          type: array
-          minItems: 0
-          maxItems: 50
-          items:
-            $ref: "#/components/schemas/Purchase"
     EventIdentifier:
       type: string
       description: >
@@ -2279,16 +2259,6 @@ components:
             - instore
           examples:
             - onsite
-    PageViewsArray:
-      title: Page views
-      description: An array of page view events
-      properties:
-        pageviews:
-          type: array
-          minItems: 0
-          maxItems: 50
-          items:
-            $ref: "#/components/schemas/PageView"
   securitySchemes:
     HTTPBearer:
       description: A valid API key generated in Topsort's UI.
