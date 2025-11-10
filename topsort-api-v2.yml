@@ -690,8 +690,9 @@ components:
     AttributesFilter:
       type: object
       title: AttributesFilter
-      description: > 
-        Use product attributes to filter auction bids. This feature requires additional integration and configuration.
+      description: >
+        Use product attributes to filter auction bids. This feature requires additional integration
+        and configuration.
       properties:
         operator:
           type: string
