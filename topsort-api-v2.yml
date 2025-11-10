@@ -830,7 +830,7 @@ components:
             id: c_yogurt
     AuctionRequest:
       description: Describes the intent of running a single auction.
-      oneOf:
+      anyOf:
         - $ref: "#/components/schemas/SponsoredListingsAuction"
         - $ref: "#/components/schemas/BannersAuction"
       minItems: 1
@@ -1912,33 +1912,11 @@ components:
             - vendor
     EventsRequest:
       type: object
-      additionalProperties: false
-      minProperties: 1
       anyOf:
-        - title: Impressions
-          type: array
-          items:
-            $ref: "#/components/schemas/Impression"
-            minItems: 0
-            maxItems: 50
-        - title: Clicks
-          type: array
-          items:
-            $ref: "#/components/schemas/Click"
-            minItems: 0
-            maxItems: 50
-        - title: Purchases
-          type: array
-          items:
-            $ref: "#/components/schemas/Purchase"
-            minItems: 0
-            maxItems: 50
-        - title: Page views
-          type: array
-          items:
-            $ref: "#/components/schemas/Pageview"
-            minItems: 0
-            maxItems: 50
+        - $ref: "#/components/schemas/ImpressionsArray"
+        - $ref: "#/components/schemas/ClicksArray"
+        - $ref: "#/components/schemas/PurchasesArray"
+        - $ref: "#/components/schemas/PageviewsArray"
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
@@ -2058,6 +2036,16 @@ components:
             - instore
           examples:
             - onsite
+    ImpressionsArray:
+      title: Impressions
+      description: An array of impression events
+      properties:
+        impressions:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Impression"
     Click:
       title: Click
       description: >
@@ -2124,6 +2112,16 @@ components:
             - instore
           examples:
             - onsite
+    ClicksArray:
+      title: Clicks
+      description: An array of click events
+      properties:
+        clicks:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Click"
     Purchase:
       title: Purchase
       description: >
@@ -2200,6 +2198,16 @@ components:
           minLength: 1
           examples:
             - v_8fj2D
+    PurchasesArray:
+      title: Purchases
+      description: An array of purchase events
+      properties:
+        clicks:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Purchase"
     EventIdentifier:
       type: string
       description: >
@@ -2250,6 +2258,16 @@ components:
             - instore
           examples:
             - onsite
+    PageviewsArray:
+      title: Page views
+      description: An array of page view events
+      properties:
+        clicks:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Pageview"
   securitySchemes:
     HTTPBearer:
       description: A valid API key generated in Topsort's UI.
