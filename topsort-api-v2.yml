@@ -1915,22 +1915,30 @@ components:
       additionalProperties: false
       minProperties: 1
       anyOf:
-        - type: array
-          $ref: "#/components/schemas/Impression"
-          minItems: 0
-          maxItems: 50
-        - type: array
-          $ref: "#/components/schemas/Click"
-          minItems: 0
-          maxItems: 50
-        - type: array
-          $ref: "#/components/schemas/Purchase"
-          minItems: 0
-          maxItems: 50
-        - type: array
-          $ref: "#/components/schemas/Pageview"
-          minItems: 0
-          maxItems: 50
+        - title: Impressions
+          type: array
+          properties:
+            $ref: "#/components/schemas/Impression"
+            minItems: 0
+            maxItems: 50
+        - title: Clicks
+          type: array
+          properties:
+            $ref: "#/components/schemas/Click"
+            minItems: 0
+            maxItems: 50
+        - title: Purchases
+          type: array
+          properties:
+            $ref: "#/components/schemas/Purchase"
+            minItems: 0
+            maxItems: 50
+        - title: Page views
+          type: array
+          properties:
+            $ref: "#/components/schemas/Pageview"
+            minItems: 0
+            maxItems: 50
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
