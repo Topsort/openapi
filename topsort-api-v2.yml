@@ -302,7 +302,7 @@ paths:
 
         - **Purchases** — a user created an order.
 
-        - **Pageviews** — a user visited a page.
+        - **Page views** — a user visited a page.
 
         Interactions require either a `resolvedBidId`, for sponsored events coming from the
         `/v2/auctions` response,
@@ -1918,7 +1918,7 @@ components:
         - $ref: "#/components/schemas/ImpressionsArray"
         - $ref: "#/components/schemas/ClicksArray"
         - $ref: "#/components/schemas/PurchasesArray"
-        - $ref: "#/components/schemas/PageviewsArray"
+        - $ref: "#/components/schemas/PageViewsArray"
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
@@ -2219,8 +2219,8 @@ components:
       minLength: 1
       examples:
         - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
-    Pageview:
-      title: Pageview
+    PageView:
+      title: Page View
       type: object
       description: >
         A page view represents the navigation of the user throughout the page. They are considered
@@ -2260,7 +2260,7 @@ components:
             - instore
           examples:
             - onsite
-    PageviewsArray:
+    PageViewsArray:
       title: Page views
       description: An array of page view events
       properties:
@@ -2269,7 +2269,7 @@ components:
           minItems: 0
           maxItems: 50
           items:
-            $ref: "#/components/schemas/Pageview"
+            $ref: "#/components/schemas/PageView"
   securitySchemes:
     HTTPBearer:
       description: A valid API key generated in Topsort's UI.
