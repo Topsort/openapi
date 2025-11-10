@@ -2202,7 +2202,7 @@ components:
       title: Purchases
       description: An array of purchase events
       properties:
-        clicks:
+        purchases:
           type: array
           minItems: 0
           maxItems: 50
@@ -2262,7 +2262,7 @@ components:
       title: Page views
       description: An array of page view events
       properties:
-        clicks:
+        pageviews:
           type: array
           minItems: 0
           maxItems: 50
