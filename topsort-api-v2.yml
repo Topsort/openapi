@@ -830,9 +830,11 @@ components:
             id: c_yogurt
     AuctionRequest:
       description: Describes the intent of running a single auction.
-      anyOf:
+      oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuction"
         - $ref: "#/components/schemas/BannersAuction"
+      discriminator:
+        propertyName: "type"
       minItems: 1
       maxItems: 5
     RankingRequest:
