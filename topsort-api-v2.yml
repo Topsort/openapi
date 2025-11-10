@@ -1914,11 +1914,40 @@ components:
             - vendor
     EventsRequest:
       type: object
-      anyOf:
-        - $ref: "#/components/schemas/ImpressionsArray"
-        - $ref: "#/components/schemas/ClicksArray"
-        - $ref: "#/components/schemas/PurchasesArray"
-        - $ref: "#/components/schemas/PageViewsArray"
+      additionalProperties: false
+      properties:
+        impressions:
+          title: Impressions
+          description: An array of impression events
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Impression"
+        clicks:
+          title: Clicks
+          description: An array of click events
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Click"
+        purchases:
+          title: Purchases
+          description: An array of purchase events
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Purchase"
+        pageviews:
+          title: Page views
+          description: An array of page views
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/PageView"
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
@@ -2038,16 +2067,6 @@ components:
             - instore
           examples:
             - onsite
-    ImpressionsArray:
-      title: Impressions
-      description: An array of impression events
-      properties:
-        impressions:
-          type: array
-          minItems: 0
-          maxItems: 50
-          items:
-            $ref: "#/components/schemas/Impression"
     Click:
       title: Click
       description: >
