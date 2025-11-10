@@ -1917,25 +1917,25 @@ components:
       anyOf:
         - title: Impressions
           type: array
-          properties:
+          items:
             $ref: "#/components/schemas/Impression"
             minItems: 0
             maxItems: 50
         - title: Clicks
           type: array
-          properties:
+          items:
             $ref: "#/components/schemas/Click"
             minItems: 0
             maxItems: 50
         - title: Purchases
           type: array
-          properties:
+          items:
             $ref: "#/components/schemas/Purchase"
             minItems: 0
             maxItems: 50
         - title: Page views
           type: array
-          properties:
+          items:
             $ref: "#/components/schemas/Pageview"
             minItems: 0
             maxItems: 50
