@@ -631,7 +631,7 @@ components:
       items:
         type: string
         description: A category ID.
-        minimum: 1
+        minLength: 1
       minItems: 1
     Device:
       type: string
@@ -833,6 +833,8 @@ components:
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuction"
         - $ref: "#/components/schemas/BannersAuction"
+      minItems: 1
+      maxItems: 5
     RankingRequest:
       type: object
       description: |
@@ -1911,45 +1913,28 @@ components:
     EventsRequest:
       type: object
       additionalProperties: false
-      properties:
-        impressions:
-          type: array
-          items:
-            $ref: "#/components/schemas/Impression"
-          minItems: 0
-          maxItems: 50
-        clicks:
-          type: array
-          items:
-            $ref: "#/components/schemas/Click"
-          minItems: 0
-          maxItems: 50
-        purchases:
-          type: array
-          items:
-            $ref: "#/components/schemas/Purchase"
-          minItems: 0
-          maxItems: 50
-        pageviews:
-          type: array
-          items:
-            $ref: "#/components/schemas/Pageview"
-          minItems: 0
-          maxItems: 50
       minProperties: 1
       anyOf:
-        - properties:
-            impressions:
-              minItems: 1
-        - properties:
-            clicks:
-              minItems: 1
-        - properties:
-            purchases:
-              minItems: 1
-        - properties:
-            pageviews:
-              minItems: 1
+        - title: Impressions
+          type: array
+          $ref: "#/components/schemas/Impression"
+          minItems: 0
+          maxItems: 50
+        - title: Clicks
+          type: array
+          $ref: "#/components/schemas/Click"
+          minItems: 0
+          maxItems: 50
+        - title: Purchases
+          type: array
+          $ref: "#/components/schemas/Purchase"
+          minItems: 0
+          maxItems: 50
+        - title: Page views
+          type: array
+          $ref: "#/components/schemas/Pageview"
+          minItems: 0
+          maxItems: 50
       examples:
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
@@ -2010,6 +1995,7 @@ components:
               deviceType: mobile
               channel: onsite
     Impression:
+      title: Impression
       type: object
       description: >
         An impression means a promotable has become visible to the consumer. For promoted entities,
@@ -2069,6 +2055,7 @@ components:
           examples:
             - onsite
     Click:
+      title: Click
       description: >
         A click is sent to Topsort when the consumer has clicked on a promotable. For promoted
         entities, include the `resolvedBidId` field from the `/v2/auctions` response. For unpromoted
@@ -2134,6 +2121,7 @@ components:
           examples:
             - onsite
     Purchase:
+      title: Purchase
       description: >
         A purchase is sent to Topsort once a marketplace customer places an order. These events are
         used to measure the effectiveness of an ad campaign.
@@ -2218,6 +2206,7 @@ components:
       examples:
         - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
     Pageview:
+      title: Pageview
       type: object
       description: >
         A page view represents the navigation of the user throughout the page. They are considered
