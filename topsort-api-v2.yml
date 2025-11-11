@@ -123,7 +123,7 @@ paths:
                                   heroImageAltText: "Topsort product image"
                         error: false
                   - results:
-                      - resultType: 
+                      - resultType:
                         winners: []
                         error: false
         "400":
@@ -246,10 +246,10 @@ paths:
       responses:
         "201":
           description: >
-            The travel auction results. The list of winners will contain at most `winners` entries per
-            auction. It may contain fewer or no entries at all if there aren't enough products with
-            usable bids, that is, a bid amount greater than the reserve price and belonging to a
-            campaign with enough remaining budget. Bids become unusable if campaign budget is
+            The travel auction results. The list of winners will contain at most `winners` entries
+            per auction. It may contain fewer or no entries at all if there aren't enough products
+            with usable bids, that is, a bid amount greater than the reserve price and belonging to
+            a campaign with enough remaining budget. Bids become unusable if campaign budget is
             exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
