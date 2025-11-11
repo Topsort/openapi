@@ -84,14 +84,16 @@ paths:
                   - results
                 examples:
                   - results:
-                      - winners:
+                      - resultType: listings
+                        winners:
                           - rank: 1
                             type: product
                             id: p_Mfk11
                             resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
                             campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
                         error: false
-                      - winners:
+                      - resultType: listings
+                        winners:
                           - rank: 1
                             type: product
                             id: p_Mfk15
@@ -103,9 +105,10 @@ paths:
                             resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                             campaignId: a72e4e43-55b5-4d08-81bb-cbb57df59c72
                         error: false
-                      - winners:
+                      - resultType: banners
+                        winners:
                           - rank: 1
-                            type: product
+                            type: banner
                             id: p_PJbnN
                             resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
                             campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
@@ -120,7 +123,8 @@ paths:
                                   heroImageAltText: "Topsort product image"
                         error: false
                   - results:
-                      - winners: []
+                      - resultType: 
+                        winners: []
                         error: false
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -155,11 +159,11 @@ paths:
       responses:
         "201":
           description: >
-            The auction results. The list of winners will contain at most `winners` entries per
-            auction. It may contain fewer or no entries at all if there aren't enough products with
-            usable bids, that is, a bid amount greater than the reserve price and belonging to a
-            campaign with enough remaining budget. Bids become unusable if campaign budget is
-            exhausted, the bid is disqualified to preserve spend pacing, etc.
+            The sponsored brand auction results. The list of winners will contain at most `winners`
+            entries per auction. It may contain fewer or no entries at all if there aren't enough
+            products with usable bids, that is, a bid amount greater than the reserve price and
+            belonging to a campaign with enough remaining budget. Bids become unusable if campaign
+            budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
               schema:
@@ -242,7 +246,7 @@ paths:
       responses:
         "201":
           description: >
-            The auction results. The list of winners will contain at most `winners` entries per
+            The travel auction results. The list of winners will contain at most `winners` entries per
             auction. It may contain fewer or no entries at all if there aren't enough products with
             usable bids, that is, a bid amount greater than the reserve price and belonging to a
             campaign with enough remaining budget. Bids become unusable if campaign budget is
@@ -918,6 +922,7 @@ components:
               - p_ojng4
     PredictionRequest:
       type: object
+      description: Request to predict the outcome of an interaction.
       properties:
         metrics:
           type: object
@@ -963,6 +968,7 @@ components:
         - objectType
         - opaqueUserId
     RetrievalRequest:
+      description: Request to retrieve objects based on context.
       type: object
       properties:
         slots:
@@ -989,9 +995,9 @@ components:
           type: array
           items:
             type: string
-          examples:
-            - p_1234
-            - p_5678
+            examples:
+              - p_1234
+              - p_5678
         mode:
           type: string
           description: Retrieval mode, how to interpret the context to get objects.
@@ -1020,13 +1026,28 @@ components:
         mapping:
           listings: "#/components/schemas/SponsoredListingsAuctionResult"
           banners: "#/components/schemas/BannersAuctionResult"
+          empty: "#/components/schemas/EmptyAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/BannersAuctionResult"
+        - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
       oneOf:
         - $ref: "#/components/schemas/HotelsAuctionResult"
         - $ref: "#/components/schemas/FlightsAuctionResult"
+        - $ref: "#/components/schemas/EmptyAuctionResult"
+    EmptyAuctionResult:
+      type: object
+      properties:
+        resultType:
+          type: string
+        winners:
+          type: array
+          maxItems: 0
+        error:
+          type: boolean
+          examples:
+            - false
     BannersAuctionResult:
       type: object
       properties:
@@ -1907,6 +1928,8 @@ components:
             type: string
             minLength: 1
             description: A category ID.
+            examples:
+              - "cat1953"
           description: >
             An array of IDs of the categories associated to the page in which this event occurred,
             if applicable. These IDs must match the IDs provided through the catalog service.
@@ -1918,6 +1941,8 @@ components:
             applicable. This search string must match the searchQuery field that was provided in the
             auction request (if provided).
           minLength: 1
+          examples:
+            - "blue shoes"
     EventEntity:
       type: object
       description: >
@@ -1934,12 +1959,16 @@ components:
           type: string
           description: The marketplace's ID of the entity associated with the interaction.
           minLength: 1
+          examples:
+            - ean-512385132
         type:
           type: string
           description: The type of entity associated with the interaction.
           enum:
             - product
             - vendor
+          examples:
+            - product
     EventsRequest:
       type: object
       additionalProperties: false
