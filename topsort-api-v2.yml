@@ -108,7 +108,7 @@ paths:
                       - resultType: banners
                         winners:
                           - rank: 1
-                            type: banner
+                            type: product
                             id: p_PJbnN
                             resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
                             campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
