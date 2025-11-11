@@ -1943,6 +1943,7 @@ components:
     EventsRequest:
       type: object
       additionalProperties: false
+      minProperties: 1
       properties:
         impressions:
           title: Impressions
