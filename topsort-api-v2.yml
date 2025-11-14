@@ -51,6 +51,14 @@ paths:
           will compete against each other.
         content:
           application/json:
+            example:
+              auctions:
+                - type: listings
+                  slots: 2
+                  products:
+                    ids:
+                      - p_PJbnN
+                      - p_ojng4
             schema:
               type: object
               properties:
@@ -60,6 +68,12 @@ paths:
                     $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: listings
+                      slots: 2
+                      products:
+                        ids:
+                          - p_PJbnN
         required: true
       responses:
         "201":
@@ -80,6 +94,10 @@ paths:
                       $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: listings
+                        winners: []
+                        error: false
                 required:
                   - results
                 examples:
@@ -144,6 +162,14 @@ paths:
           compete against each other.
         content:
           application/json:
+            example:
+              auctions:
+                - winners: 2
+                  placementId: some-placement
+                  triggers:
+                    products:
+                      ids:
+                        - vanilla_yogurt
             schema:
               type: object
               properties:
@@ -153,6 +179,13 @@ paths:
                     $ref: "#/components/schemas/SponsoredBrandAuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - winners: 2
+                      placementId: some-placement
+                      triggers:
+                        products:
+                          ids:
+                            - vanilla_yogurt
               required:
                 - auctions
         required: true
@@ -166,6 +199,18 @@ paths:
             budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
+              example:
+                results:
+                  - resultType: brand
+                    winners:
+                      - rank: 1
+                        type: product
+                        id: brand-123
+                        resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        content:
+                          headline: "Topsort Rocks"
+                          brandName: "Topsort Brand"
+                    error: false
               schema:
                 type: object
                 properties:
@@ -175,6 +220,10 @@ paths:
                       $ref: "#/components/schemas/SponsoredBrandAuctionResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: brand
+                        winners: []
+                        error: false
                 required:
                   - results
         "400":
@@ -209,6 +258,11 @@ paths:
                     $ref: "#/components/schemas/TravelAuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: hotels
+                      slots: 2
+                      travelContext:
+                        site: argentina
               required:
                 - auctions
               examples:
@@ -220,7 +274,7 @@ paths:
                           qualityScore: 0.7
                         - id: hotel-2
                       category:
-                        SingleCategory:
+                        singleCategory:
                           id: hotel-boutique
                       travelContext:
                         travelStartDate: "2025-01-01"
@@ -334,6 +388,7 @@ paths:
         Room](https://docs.topsort.com/knowledge-base/analytics/data-room/).
       operationId: reportEvents
       requestBody:
+        description: Event data including impressions, clicks, purchases, and page views.
         content:
           application/json:
             schema:
@@ -362,6 +417,7 @@ paths:
       x-beta: "true"
       operationId: linkUsers
       requestBody:
+        description: Request to link multiple user IDs that represent the same user.
         content:
           application/json:
             schema:
@@ -372,11 +428,15 @@ paths:
                   description: The opaque user ID of the original user account.
                   minLength: 1
                   maxLength: 64
+                  examples:
+                    - user_abc123
                 to:
                   type: string
                   description: The opaque user ID of the target user account to be linked.
                   minLength: 1
                   maxLength: 64
+                  examples:
+                    - user_xyz789
               required:
                 - from
                 - to
@@ -424,6 +484,15 @@ paths:
                     $ref: "#/components/schemas/RankingRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: listings
+                      slots: 3
+                      pageSize: 3
+                      page:
+                        type: category
+                        value: sneakers
+                        pageId: /category/sneakers
+                      opaqueUserId: u_9ske45
               required:
                 - ranking
               examples:
@@ -462,6 +531,10 @@ paths:
                       $ref: "#/components/schemas/RankingResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: listings
+                        results: []
+                        error: false
                 required:
                   - results
                 examples:
@@ -1040,6 +1113,8 @@ components:
         - opaqueUserId
         - objectType
     AuctionResult:
+      description:
+        Base auction result schema supporting different auction types through discriminator.
       discriminator:
         propertyName: resultType
         mapping:
@@ -1067,6 +1142,10 @@ components:
           maxItems: 0
         error:
           $ref: "#/components/schemas/ErrorFlag"
+      required:
+        - winners
+        - error
+        - resultType
     BannersAuctionResult:
       description: The result of a banner auction, containing winning banner ads.
       type: object
@@ -1550,6 +1629,8 @@ components:
       description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
       properties:
+        resultType:
+          type: string
         winners:
           type: array
           items:
@@ -1562,33 +1643,30 @@ components:
       required:
         - winners
         - error
-      x-examples:
-        Example 1:
-          results:
-            - winners:
-                - rank: 1
-                  resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  type: "url"
-                  id: "https://some.url.com/myyougurtbrand/page"
-                  title: Brand Example Promo 1
-                  content:
-                    headline: "some cool regular yogurt headline"
-                    brandName: "my regular yogurt brand"
-                    creative1: "https://some.url.com/regular_yogurt.jpeg"
-                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
-                  productIds: ["vanilla_yogurt", "strawberry_yogurt"]
-                - rank: 2
-                  resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  type: "url"
-                  id: "https://some.url.com/mynonfatyougurtbrand/page"
-                  title: Brand Example Promo 2
-                  content:
-                    - headline: "some cool nonfat regular yogurt headline"
-                      brandName: "my nonfat yogurt brand"
-                      creative1: "https://some.url.com/nonfat_yogurt.jpeg"
-                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
-                  productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
-              error: false
+      examples:
+        - resultType: brand
+          winners:
+            - rank: 1
+              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
+              type: "url"
+              id: "https://some.url.com/myyougurtbrand/page"
+              title: Brand Example Promo 1
+              content:
+                headline: "some cool regular yogurt headline"
+                brandName: "my regular yogurt brand"
+                creative1: "https://some.url.com/regular_yogurt.jpeg"
+              productIds: ["vanilla_yogurt", "strawberry_yogurt"]
+            - rank: 2
+              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
+              type: "url"
+              id: "https://some.url.com/mynonfatyougurtbrand/page"
+              title: Brand Example Promo 2
+              content:
+                headline: "some cool nonfat regular yogurt headline"
+                brandName: "my nonfat yogurt brand"
+                creative1: "https://some.url.com/nonfat_yogurt.jpeg"
+              productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
+          error: false
     SponsoredBrandWinner:
       description: A winning bid in a sponsored brand auction with brand and campaign details.
       type: object
@@ -1672,9 +1750,10 @@ components:
           description: A category for the purpose of running an auction.
           type: object
           required:
-            - SingleCategory
+            - singleCategory
           properties:
-            SingleCategory:
+            singleCategory:
+              type: object
               required:
                 - id
               properties:
@@ -1757,7 +1836,9 @@ components:
           type: string
           description: Platform e.g. "app", "mobile", "web", ...
     HotelsTravelContext:
-      description: Context information specific to hotel travel auctions.
+      description:
+        Context information specific to hotel travel auctions extending base travel context with
+        hotel-specific fields.
       allOf:
         - $ref: "#/components/schemas/BaseTravelContext"
     FlightsAuctionRequest:
