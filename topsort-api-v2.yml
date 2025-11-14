@@ -566,7 +566,9 @@ components:
             $ref: "#/components/schemas/Error"
   schemas:
     AuctionCategory:
-      description: Represents one or more categories for auction targeting. Can be a single category, multiple categories, or category disjunctions.
+      description:
+        Represents one or more categories for auction targeting. Can be a single category, multiple
+        categories, or category disjunctions.
       oneOf:
         - $ref: "#/components/schemas/SingleCategory"
         - type: object
@@ -1208,8 +1210,7 @@ components:
         id:
           type: string
           description:
-            The marketplace's ID of the winning flight, depending on the target of the
-            campaign.
+            The marketplace's ID of the winning flight, depending on the target of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
@@ -1269,7 +1270,8 @@ components:
           examples:
             - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
     PredictionResult:
-      description: The result of a prediction request, containing CTR and CVR predictions for products.
+      description:
+        The result of a prediction request, containing CTR and CVR predictions for products.
       type: object
       properties:
         objectType:
@@ -1695,7 +1697,9 @@ components:
             participating products. If not given it will default to 1.
             Values must be between 0 and 1.
     BaseTravelContext:
-      description: Base context information for travel-related auctions including dates, location, and traveler details.
+      description:
+        Base context information for travel-related auctions including dates, location, and traveler
+        details.
       type: object
       required:
         - site
@@ -1800,7 +1804,8 @@ components:
             participating products. If not given it will default to 1.
             Values must be between 0 and 1.
     FlightsTravelContext:
-      description: Context information specific to flight travel auctions including route and flight type.
+      description:
+        Context information specific to flight travel auctions including route and flight type.
       allOf:
         - $ref: "#/components/schemas/BaseTravelContext"
         - type: object
@@ -2213,7 +2218,8 @@ components:
           examples:
             - onsite
     PurchaseItem:
-      description: An item included in a purchase transaction with product, quantity, and pricing details.
+      description:
+        An item included in a purchase transaction with product, quantity, and pricing details.
       type: object
       required:
         - productId
@@ -2302,7 +2308,8 @@ components:
     WinnerRank:
       type: integer
       format: int32
-      description: The rank/position of this winner in the auction results, with 1 being the highest.
+      description:
+        The rank/position of this winner in the auction results, with 1 being the highest.
       minimum: 1
     CampaignId:
       type: string
