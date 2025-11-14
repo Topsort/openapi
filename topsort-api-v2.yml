@@ -860,6 +860,7 @@ components:
       format: int32
       description: Specifies the maximum number of auction winners that should be returned.
       minimum: 1
+      maximum: 40
     WinnerType:
       type: string
       description: The target type of the winning bid.
@@ -915,7 +916,7 @@ components:
         type:
           type: string
           const: listings
-          description: Discriminator for the type of auction.
+          description: Discriminator for the listings auction.
         slots:
           $ref: "#/components/schemas/SlotsCount"
         category:
@@ -961,7 +962,7 @@ components:
         type:
           type: string
           const: banners
-          description: Discriminator for the type of auction.
+          description: Discriminator for the banner auction.
         slots:
           $ref: "#/components/schemas/SlotsCount"
         category:
@@ -1770,12 +1771,10 @@ components:
             - hotels
           description: Discriminator for the type of travel auction.
         slots:
-          allOf:
-            - $ref: "#/components/schemas/SlotsCount"
-            - description:
-                Specifies the maximum number of auction winners that should be returned. If slots >
-                40, it is capped at 40.
-              maximum: 40
+          $ref: "#/components/schemas/SlotsCount"
+          description:
+            Specifies the maximum number of auction winners that should be returned. If slots > 40,
+            it is capped at 40.
         products:
           type: array
           description: An array of hotels products that should participate in the auction.
@@ -1859,11 +1858,10 @@ components:
           type: string
           description: Platform e.g. "app", "mobile", "web", ...
     HotelsTravelContext:
+      $ref: "#/components/schemas/BaseTravelContext"
       description:
         Context information specific to hotel travel auctions extending base travel context with
         hotel-specific fields.
-      allOf:
-        - $ref: "#/components/schemas/BaseTravelContext"
     FlightsAuctionRequest:
       type: object
       description: Describes the intent of running a flight travel auction.
@@ -1877,13 +1875,10 @@ components:
             - flights
           description: Discriminator for the type of travel auction.
         slots:
-          allOf:
-            - $ref: "#/components/schemas/SlotsCount"
-            - description:
-                Specifies the maximum number of auction winners that should be returned. If slots >
-                40, it is capped at 40.
-          minimum: 1
-          maximum: 40
+          $ref: "#/components/schemas/SlotsCount"
+          description:
+            Specifies the maximum number of auction winners that should be returned. If slots > 40,
+            it is capped at 40.
         products:
           type: array
           description: An array of flights that should participate in the auction.
