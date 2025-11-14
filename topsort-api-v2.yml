@@ -672,9 +672,7 @@ components:
                 In order to participate in an auction, a bid product must belong to **all** of the
                 categories provided in the auction request.
               items:
-                type: string
-                description: A category ID.
-                minLength: 1
+                $ref: "#/components/schemas/CategoryID"
               minItems: 1
               examples:
                 - ["c_men_clothing", "c_shoes"]
@@ -720,9 +718,7 @@ components:
         A bid entity must belong to at least one of the categories in the disjunction in order to
         participate in the auction.
       items:
-        type: string
-        description: A category ID.
-        minLength: 1
+        $ref: "#/components/schemas/CategoryID"
       minItems: 1
     Device:
       type: string
@@ -848,6 +844,64 @@ components:
       description: An opaque Topsort ID to be used when this item is interacted with.
       examples:
         - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    ResolvedItemID:
+      type: string
+      description: An opaque Topsort ID to be used when this item is ranked or interacted with.
+      examples:
+        - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    CategoryID:
+      type: string
+      description: A category ID.
+      minLength: 1
+      examples:
+        - "c_electronics"
+    SlotsCount:
+      type: integer
+      format: int32
+      description: Specifies the maximum number of auction winners that should be returned.
+      minimum: 1
+    WinnerType:
+      type: string
+      description: The target type of the winning bid.
+    WinnerID:
+      type: string
+      description:
+        The marketplace's ID of the winning entity, depending on the target of the campaign.
+    ChannelType:
+      type: string
+      description: Optional. The channel where the event occurred.
+      enum:
+        - onsite
+        - offsite
+        - instore
+      examples:
+        - onsite
+    QualityScore:
+      type: number
+      maximum: 1
+      exclusiveMinimum: 0
+      format: double
+      description: |
+        If given, this value will be combined with our internal quality
+        score to provide a score that better represents the relevance of the
+        participating products. If not given it will default to 1.
+        Values must be between 0 and 1.
+      examples:
+        - 0.75
+    ExternalCampaignId:
+      type: string
+      description: Marketplace provided ID for a campaign
+      examples:
+        - awareness-campaign-2025
+    ExternalVendorId:
+      type: string
+      description: Marketplace provided ID for a vendor
+      examples:
+        - my-new-vendor
+
+    ObjectType:
+      type: string
+      description: The type of object that was predicted.
     SponsoredListingsAuction:
       title: Sponsored Listing
       type: object
@@ -860,14 +914,10 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - listings
+          const: listings
           description: Discriminator for the type of auction.
         slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
@@ -910,14 +960,10 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - banners
+          const: banners
           description: Discriminator for the type of auction.
         slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
@@ -1197,17 +1243,15 @@ components:
         rank:
           $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - vendor
-            - brand
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
         resolvedBidId:
@@ -1237,17 +1281,15 @@ components:
         rank:
           $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - vendor
-            - brand
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
         resolvedBidId:
@@ -1296,10 +1338,10 @@ components:
         rank:
           $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
         id:
           type: string
           description:
@@ -1347,19 +1389,18 @@ components:
             Where is the product ranked in the auction.
           minimum: 1
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - organic
-            - sponsored
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - organic
+                - sponsored
         id:
           type: string
           description: The marketplace's ID of the ranked entity.
           examples:
             - p_Mfk15
         resolvedItemId:
-          type: string
-          description: An opaque Topsort ID to be used when this item is interacted with.
+          $ref: "#/components/schemas/ResolvedItemID"
           examples:
             - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
     PredictionResult:
@@ -1368,13 +1409,13 @@ components:
       type: object
       properties:
         objectType:
-          type: string
-          enum:
-            - listings
-            - banners
-          examples:
-            - listings
-          description: The type of object that was predicted.
+          allOf:
+            - $ref: "#/components/schemas/ObjectType"
+            - enum:
+                - listings
+                - banners
+              examples:
+                - listings
         predictions:
           type: array
           items:
@@ -1411,11 +1452,11 @@ components:
       type: object
       properties:
         objectType:
-          type: string
-          enum:
-            - listings
-            - banners
-          description: The type of object that was predicted.
+          allOf:
+            - $ref: "#/components/schemas/ObjectType"
+            - enum:
+                - listings
+                - banners
         objects:
           type: array
           items:
@@ -1553,10 +1594,7 @@ components:
         - triggers
       properties:
         winners:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         placementId:
           type: string
           x-stoplight:
@@ -1686,15 +1724,13 @@ components:
             entry's index.
           minimum: 1
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
             - https://some.url.com/topsort-brand
@@ -1734,13 +1770,12 @@ components:
             - hotels
           description: Discriminator for the type of travel auction.
         slots:
-          type: integer
-          format: int32
-          description:
-            Specifies the maximum number of auction winners that should be returned. If slots > 40,
-            it is capped at 40.
-          minimum: 1
-          maximum: 40
+          allOf:
+            - $ref: "#/components/schemas/SlotsCount"
+            - description:
+                Specifies the maximum number of auction winners that should be returned. If slots >
+                40, it is capped at 40.
+              maximum: 40
         products:
           type: array
           description: An array of hotels products that should participate in the auction.
@@ -1758,9 +1793,7 @@ components:
                 - id
               properties:
                 id:
-                  type: string
-                  description: The category ID of the bids that will participate in an auction.
-                  minLength: 1
+                  $ref: "#/components/schemas/CategoryID"
                   examples:
                     - c_buenos-aires-hotels
         travelContext:
@@ -1777,17 +1810,7 @@ components:
           examples:
             - miami-hotel
         qualityScore:
-          type: number
-          maximum: 1
-          exclusiveMinimum: 0
-          examples:
-            - 0.75
-          format: double
-          description: |
-            If given, this value will be combined with our internal quality
-            score to provide a score that better represents the relevance of the
-            participating products. If not given it will default to 1.
-            Values must be between 0 and 1.
+          $ref: "#/components/schemas/QualityScore"
     BaseTravelContext:
       description:
         Base context information for travel-related auctions including dates, location, and traveler
@@ -1854,11 +1877,11 @@ components:
             - flights
           description: Discriminator for the type of travel auction.
         slots:
-          type: integer
-          format: int32
-          description:
-            Specifies the maximum number of auction winners that should be returned. If slots > 40,
-            it is capped at 40.
+          allOf:
+            - $ref: "#/components/schemas/SlotsCount"
+            - description:
+                Specifies the maximum number of auction winners that should be returned. If slots >
+                40, it is capped at 40.
           minimum: 1
           maximum: 40
         products:
@@ -1886,17 +1909,7 @@ components:
           type: number
           description: Flight variation total price in marketplace currency.
         qualityScore:
-          type: number
-          maximum: 1
-          exclusiveMinimum: 0
-          examples:
-            - 0.75
-          format: double
-          description: |
-            If given, this value will be combined with our internal quality
-            score to provide a score that better represents the relevance of the
-            participating products. If not given it will default to 1.
-            Values must be between 0 and 1.
+          $ref: "#/components/schemas/QualityScore"
     FlightsTravelContext:
       description:
         Context information specific to flight travel auctions including route and flight type.
@@ -2005,11 +2018,7 @@ components:
         categoryIds:
           type: array
           items:
-            type: string
-            minLength: 1
-            description: A category ID.
-            examples:
-              - "cat1953"
+            $ref: "#/components/schemas/CategoryID"
           description: >
             An array of IDs of the categories associated to the page in which this event occurred,
             if applicable. These IDs must match the IDs provided through the catalog service.
@@ -2187,15 +2196,9 @@ components:
         object:
           $ref: "#/components/schemas/InteractionObject"
         externalCampaignId:
-          type: string
-          description: Marketplace provided ID for a campaign
-          examples:
-            - awareness-campaign-2025
+          $ref: "#/components/schemas/ExternalCampaignId"
         externalVendorId:
-          type: string
-          description: Marketplace provided ID for a vendor
-          examples:
-            - my-new-vendor
+          $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
@@ -2253,15 +2256,9 @@ components:
             - like
             - add-to-cart
         externalCampaignId:
-          type: string
-          description: Marketplace provided ID for a campaign
-          examples:
-            - awareness-campaign-2025
+          $ref: "#/components/schemas/ExternalCampaignId"
         externalVendorId:
-          type: string
-          description: Marketplace provided ID for a vendor
-          examples:
-            - my-new-vendor
+          $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
@@ -2305,14 +2302,7 @@ components:
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
-          type: string
-          description: Optional. The channel where the event occurred.
-          enum:
-            - onsite
-            - offsite
-            - instore
-          examples:
-            - onsite
+          $ref: "#/components/schemas/ChannelType"
     PurchaseItem:
       description:
         An item included in a purchase transaction with product, quantity, and pricing details.
@@ -2393,14 +2383,7 @@ components:
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
-          type: string
-          description: Optional. The channel where the event occurred.
-          enum:
-            - onsite
-            - offsite
-            - instore
-          examples:
-            - onsite
+          $ref: "#/components/schemas/ChannelType"
     WinnerRank:
       type: integer
       format: int32
