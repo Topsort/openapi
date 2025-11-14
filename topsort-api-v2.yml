@@ -51,6 +51,14 @@ paths:
           will compete against each other.
         content:
           application/json:
+            example:
+              auctions:
+                - type: listings
+                  slots: 2
+                  products:
+                    ids:
+                      - p_PJbnN
+                      - p_ojng4
             schema:
               type: object
               properties:
@@ -60,6 +68,12 @@ paths:
                     $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: listings
+                      slots: 2
+                      products:
+                        ids:
+                          - p_PJbnN
         required: true
       responses:
         "201":
@@ -80,18 +94,24 @@ paths:
                       $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: listings
+                        winners: []
+                        error: false
                 required:
                   - results
                 examples:
                   - results:
-                      - winners:
+                      - resultType: listings
+                        winners:
                           - rank: 1
                             type: product
                             id: p_Mfk11
                             resolvedBidId: WyJiX01mazExIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTMyNjYtY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0==
                             campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
                         error: false
-                      - winners:
+                      - resultType: listings
+                        winners:
                           - rank: 1
                             type: product
                             id: p_Mfk15
@@ -103,7 +123,8 @@ paths:
                             resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
                             campaignId: a72e4e43-55b5-4d08-81bb-cbb57df59c72
                         error: false
-                      - winners:
+                      - resultType: banners
+                        winners:
                           - rank: 1
                             type: product
                             id: p_PJbnN
@@ -120,7 +141,8 @@ paths:
                                   heroImageAltText: "Topsort product image"
                         error: false
                   - results:
-                      - winners: []
+                      - resultType: listings
+                        winners: []
                         error: false
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -140,6 +162,14 @@ paths:
           compete against each other.
         content:
           application/json:
+            example:
+              auctions:
+                - winners: 2
+                  placementId: some-placement
+                  triggers:
+                    products:
+                      ids:
+                        - vanilla_yogurt
             schema:
               type: object
               properties:
@@ -149,19 +179,38 @@ paths:
                     $ref: "#/components/schemas/SponsoredBrandAuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - winners: 2
+                      placementId: some-placement
+                      triggers:
+                        products:
+                          ids:
+                            - vanilla_yogurt
               required:
                 - auctions
         required: true
       responses:
         "201":
           description: >
-            The auction results. The list of winners will contain at most `winners` entries per
-            auction. It may contain fewer or no entries at all if there aren't enough products with
-            usable bids, that is, a bid amount greater than the reserve price and belonging to a
-            campaign with enough remaining budget. Bids become unusable if campaign budget is
-            exhausted, the bid is disqualified to preserve spend pacing, etc.
+            The sponsored brand auction results. The list of winners will contain at most `winners`
+            entries per auction. It may contain fewer or no entries at all if there aren't enough
+            products with usable bids, that is, a bid amount greater than the reserve price and
+            belonging to a campaign with enough remaining budget. Bids become unusable if campaign
+            budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
+              example:
+                results:
+                  - resultType: brand
+                    winners:
+                      - rank: 1
+                        type: product
+                        id: brand-123
+                        resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        content:
+                          headline: "Topsort Rocks"
+                          brandName: "Topsort Brand"
+                    error: false
               schema:
                 type: object
                 properties:
@@ -171,6 +220,10 @@ paths:
                       $ref: "#/components/schemas/SponsoredBrandAuctionResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: brand
+                        winners: []
+                        error: false
                 required:
                   - results
         "400":
@@ -205,6 +258,11 @@ paths:
                     $ref: "#/components/schemas/TravelAuctionRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: hotels
+                      slots: 2
+                      travelContext:
+                        site: argentina
               required:
                 - auctions
               examples:
@@ -216,7 +274,8 @@ paths:
                           qualityScore: 0.7
                         - id: hotel-2
                       category:
-                        id: hotel-boutique
+                        singleCategory:
+                          id: hotel-boutique
                       travelContext:
                         travelStartDate: "2025-01-01"
                         travelEndDate: "2025-01-15"
@@ -242,10 +301,10 @@ paths:
       responses:
         "201":
           description: >
-            The auction results. The list of winners will contain at most `winners` entries per
-            auction. It may contain fewer or no entries at all if there aren't enough products with
-            usable bids, that is, a bid amount greater than the reserve price and belonging to a
-            campaign with enough remaining budget. Bids become unusable if campaign budget is
+            The travel auction results. The list of winners will contain at most `winners` entries
+            per auction. It may contain fewer or no entries at all if there aren't enough products
+            with usable bids, that is, a bid amount greater than the reserve price and belonging to
+            a campaign with enough remaining budget. Bids become unusable if campaign budget is
             exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
@@ -265,25 +324,31 @@ paths:
                       - resultType: hotels
                         winners:
                           - rank: 1
+                            type: product
                             id: hotel-1
                             resolvedBidId: ChAHd-K97Xs8MNRELdY9VCeJFiBCk1_aEYz8eb-WZqyhzL4EFhBCk5Mt_X2_b8Yu_vXJgzPWJhVLBTFRBTGssk9
                             campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
                           - rank: 2
+                            type: product
                             id: hotel-2
                             resolvedBidId: ChAJe-M23Yr5QPTEFdX7VBgJGhCDm2_wDXy6cb-XZpxjxK6GHhCDm3Ku_W1_c9Zw_wYHfzQYKjTLBVGQBTLttu6
                             campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
+                        error: false
                       - resultType: flights
                         winners:
                           - rank: 1
+                            type: product
                             id: L0_SAO-ORL
                             resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
                             campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
                             variationID: "002"
                           - rank: 2
+                            type: product
                             id: L0_SAO-ORL
                             resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
                             campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
                             variationID: "001"
+                        error: false
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -323,6 +388,7 @@ paths:
         Room](https://docs.topsort.com/knowledge-base/analytics/data-room/).
       operationId: reportEvents
       requestBody:
+        description: Event data including impressions, clicks, purchases, and page views.
         content:
           application/json:
             schema:
@@ -351,6 +417,7 @@ paths:
       x-beta: "true"
       operationId: linkUsers
       requestBody:
+        description: Request to link multiple user IDs that represent the same user.
         content:
           application/json:
             schema:
@@ -361,11 +428,15 @@ paths:
                   description: The opaque user ID of the original user account.
                   minLength: 1
                   maxLength: 64
+                  examples:
+                    - user_abc123
                 to:
                   type: string
                   description: The opaque user ID of the target user account to be linked.
                   minLength: 1
                   maxLength: 64
+                  examples:
+                    - user_xyz789
               required:
                 - from
                 - to
@@ -413,6 +484,15 @@ paths:
                     $ref: "#/components/schemas/RankingRequest"
                   minItems: 1
                   maxItems: 5
+                  example:
+                    - type: listings
+                      slots: 3
+                      pageSize: 3
+                      page:
+                        type: category
+                        value: sneakers
+                        pageId: /category/sneakers
+                      opaqueUserId: u_9ske45
               required:
                 - ranking
               examples:
@@ -420,6 +500,11 @@ paths:
                     - type: listings
                       slots: 3
                       pageSize: 3
+                      page:
+                        type: category
+                        value: sneakers
+                        pageId: /category/sneakers
+                      opaqueUserId: u_9ske45
                       category:
                         ids:
                           - sneakers
@@ -446,11 +531,16 @@ paths:
                       $ref: "#/components/schemas/RankingResult"
                     minItems: 1
                     maxItems: 5
+                    example:
+                      - resultType: listings
+                        results: []
+                        error: false
                 required:
                   - results
                 examples:
                   - results:
-                      - products:
+                      - resultType: listings
+                        results:
                           - rank: 1
                             type: organic
                             id: p_Mfk11
@@ -562,6 +652,9 @@ components:
             $ref: "#/components/schemas/Error"
   schemas:
     AuctionCategory:
+      description:
+        Represents one or more categories for auction targeting. Can be a single category, multiple
+        categories, or category disjunctions.
       oneOf:
         - $ref: "#/components/schemas/SingleCategory"
         - type: object
@@ -579,13 +672,10 @@ components:
                 In order to participate in an auction, a bid product must belong to **all** of the
                 categories provided in the auction request.
               items:
-                type: string
-                description: A category ID.
-                minLength: 1
+                $ref: "#/components/schemas/CategoryID"
               minItems: 1
               examples:
-                - c_men_clothing
-                - c_shoes
+                - ["c_men_clothing", "c_shoes"]
         - type: object
           title: Category Disjunctions
           description: Multiple disjunctions of categories for the purpose of running an auction.
@@ -605,8 +695,7 @@ components:
               minItems: 1
               maxItems: 5
               examples:
-                - c_red
-                - c_blue
+                - [["c_red"], ["c_blue"]]
     SingleCategory:
       type: object
       title: Single Category
@@ -629,9 +718,7 @@ components:
         A bid entity must belong to at least one of the categories in the disjunction in order to
         participate in the auction.
       items:
-        type: string
-        description: A category ID.
-        minLength: 1
+        $ref: "#/components/schemas/CategoryID"
       minItems: 1
     Device:
       type: string
@@ -649,6 +736,7 @@ components:
       examples:
         - mobile
     Page:
+      description: Information about the page where an auction or event occurs.
       type: object
       title: Page
       required:
@@ -756,6 +844,65 @@ components:
       description: An opaque Topsort ID to be used when this item is interacted with.
       examples:
         - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    ResolvedItemID:
+      type: string
+      description: An opaque Topsort ID to be used when this item is ranked or interacted with.
+      examples:
+        - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+    CategoryID:
+      type: string
+      description: A category ID.
+      minLength: 1
+      examples:
+        - "c_electronics"
+    SlotsCount:
+      type: integer
+      format: int32
+      description: Specifies the maximum number of auction winners that should be returned.
+      minimum: 1
+      maximum: 40
+    WinnerType:
+      type: string
+      description: The target type of the winning bid.
+    WinnerID:
+      type: string
+      description:
+        The marketplace's ID of the winning entity, depending on the target of the campaign.
+    ChannelType:
+      type: string
+      description: Optional. The channel where the event occurred.
+      enum:
+        - onsite
+        - offsite
+        - instore
+      examples:
+        - onsite
+    QualityScore:
+      type: number
+      maximum: 1
+      exclusiveMinimum: 0
+      format: double
+      description: |
+        If given, this value will be combined with our internal quality
+        score to provide a score that better represents the relevance of the
+        participating products. If not given it will default to 1.
+        Values must be between 0 and 1.
+      examples:
+        - 0.75
+    ExternalCampaignId:
+      type: string
+      description: Marketplace provided ID for a campaign
+      examples:
+        - awareness-campaign-2025
+    ExternalVendorId:
+      type: string
+      description: Marketplace provided ID for a vendor
+      examples:
+        - my-new-vendor
+
+    ObjectType:
+      type: string
+      description: The type of object that was predicted.
     SponsoredListingsAuction:
       title: Sponsored Listing
       type: object
@@ -768,14 +915,10 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - listings
-          description: Discriminator for the type of auction.
+          const: listings
+          description: Discriminator for the listings auction.
         slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
@@ -818,14 +961,10 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - banners
-          description: Discriminator for the type of auction.
+          const: banners
+          description: Discriminator for the banner auction.
         slots:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         category:
           $ref: "#/components/schemas/AuctionCategory"
         searchQuery:
@@ -908,6 +1047,11 @@ components:
         - type: listings
           slots: 10
           pageSize: 10
+          page:
+            type: category
+            value: sneakers
+            pageId: /category/sneakers
+          opaqueUserId: u_9ske45
           category:
             ids:
               - sneakers
@@ -918,6 +1062,7 @@ components:
               - p_ojng4
     PredictionRequest:
       type: object
+      description: Request to predict the outcome of an interaction.
       properties:
         metrics:
           type: object
@@ -955,14 +1100,14 @@ components:
           productIds:
             - p_PJbnN
             - p_ojng4
-          objectType:
-            - listings
+          objectType: listings
       required:
         - metrics
         - productIds
         - objectType
         - opaqueUserId
     RetrievalRequest:
+      description: Request to retrieve objects based on context.
       type: object
       properties:
         slots:
@@ -989,9 +1134,9 @@ components:
           type: array
           items:
             type: string
-          examples:
-            - p_1234
-            - p_5678
+            examples:
+              - p_1234
+              - p_5678
         mode:
           type: string
           description: Retrieval mode, how to interpret the context to get objects.
@@ -1007,27 +1152,49 @@ components:
             - p_PJbnN
             - p_ojng4
           mode: all
-          deviceType:
-            - mobile
+          objectType: listings
+          deviceType: mobile
       required:
         - slots
         - seedProductIds
         - opaqueUserId
         - objectType
     AuctionResult:
+      description:
+        Base auction result schema supporting different auction types through discriminator.
       discriminator:
         propertyName: resultType
         mapping:
           listings: "#/components/schemas/SponsoredListingsAuctionResult"
           banners: "#/components/schemas/BannersAuctionResult"
+          empty: "#/components/schemas/EmptyAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/BannersAuctionResult"
+        - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
+      description: The result of a travel-related auction request (hotels or flights).
       oneOf:
         - $ref: "#/components/schemas/HotelsAuctionResult"
         - $ref: "#/components/schemas/FlightsAuctionResult"
+        - $ref: "#/components/schemas/EmptyAuctionResult"
+    EmptyAuctionResult:
+      description: An auction result with no winners, typically when no eligible bids are available.
+      type: object
+      properties:
+        resultType:
+          type: string
+        winners:
+          type: array
+          maxItems: 0
+        error:
+          $ref: "#/components/schemas/ErrorFlag"
+      required:
+        - winners
+        - error
+        - resultType
     BannersAuctionResult:
+      description: The result of a banner auction, containing winning banner ads.
       type: object
       properties:
         resultType:
@@ -1040,15 +1207,13 @@ components:
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
         error:
-          type: boolean
-          description: A boolean indicating whether this auction was resolved successfully.
-          examples:
-            - false
+          $ref: "#/components/schemas/ErrorFlag"
       required:
         - winners
         - error
         - resultType
     SponsoredListingsAuctionResult:
+      description: The result of a sponsored listings auction, containing winning product listings.
       type: object
       properties:
         resultType:
@@ -1061,15 +1226,13 @@ components:
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
         error:
-          type: boolean
-          description: A boolean indicating whether this auction was resolved successfully.
-          examples:
-            - false
+          $ref: "#/components/schemas/ErrorFlag"
       required:
         - winners
         - error
         - resultType
     SponsoredListingsWinner:
+      description: A winning bid in a sponsored listings auction with product and campaign details.
       type: object
       required:
         - rank
@@ -1079,34 +1242,23 @@ components:
         - campaignId
       properties:
         rank:
-          type: integer
-          format: int32
-          description: >
-            Where the product's bid ranked in the auction. One-based, so the product with rank 1 won
-            the auction. In an auction response, the winners array is sorted so rank will match the
-            entry's index.
-          minimum: 1
+          $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - vendor
-            - brand
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
-          type: string
-          description: The ID of the campaign that won the auction.
-          examples:
-            - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+          $ref: "#/components/schemas/CampaignId"
     SponsoredBrandContent:
       type: object
       additionalProperties: true
@@ -1118,6 +1270,7 @@ components:
           brandName: "Topsort Brand"
           creative: "https://some.url.com/rocks.jpeg"
     BannersWinner:
+      description: A winning bid in a banner auction with asset and campaign details.
       type: object
       required:
         - rank
@@ -1127,34 +1280,23 @@ components:
         - asset
       properties:
         rank:
-          type: integer
-          format: int32
-          description: >
-            Where the product's bid ranked in the auction. One-based, so the product with rank 1 won
-            the auction. In an auction response, the winners array is sorted so rank will match the
-            entry's index.
-          minimum: 1
+          $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - vendor
-            - brand
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
-          type: string
-          description: The ID of the campaign that won the auction.
-          examples:
-            - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+          $ref: "#/components/schemas/CampaignId"
         asset:
           description: The list of available sources for a banner.
           type: array
@@ -1162,8 +1304,10 @@ components:
             $ref: "#/components/schemas/AssetSource"
           minItems: 1
     HotelsAuctionResult:
+      description: The result of a hotels travel auction.
       $ref: "#/components/schemas/SponsoredListingsAuctionResult"
     FlightsAuctionResult:
+      description: The result of a flights travel auction, containing winning flight products.
       type: object
       properties:
         resultType:
@@ -1176,15 +1320,13 @@ components:
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
         error:
-          type: boolean
-          description: A boolean indicating whether this auction was resolved successfully.
-          examples:
-            - false
+          $ref: "#/components/schemas/ErrorFlag"
       required:
         - winners
         - error
         - resultType
     FlightsWinner:
+      description: A winning bid in a flights auction with flights and campaign details.
       type: object
       required:
         - rank
@@ -1195,36 +1337,27 @@ components:
         - variationID
       properties:
         rank:
-          type: integer
-          format: int32
-          description: >
-            Where the product's bid ranked in the auction. One-based, so the product with rank 1 won
-            the auction. In an auction response, the winners array is sorted so rank will match the
-            entry's index.
-          minimum: 1
+          $ref: "#/components/schemas/WinnerRank"
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
         id:
           type: string
           description:
-            The marketplace's ID of the winning flight product, depending on the target of the
-            campaign.
+            The marketplace's ID of the winning flight, depending on the target of the campaign.
           examples:
             - p_Mfk15
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
-          type: string
-          description: The ID of the campaign that won the auction.
-          examples:
-            - 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+          $ref: "#/components/schemas/CampaignId"
         variationID:
           type: string
-          description: The marketplace's ID for the winning flight product's variation.
+          description: The marketplace's ID for the winning flight's variation.
     RankingResult:
+      description: The result of a ranking request, containing ordered products.
       type: object
       properties:
         resultType:
@@ -1236,15 +1369,13 @@ components:
           description: |
             Array of ranking objects in order from highest to lowest relevancy.
         error:
-          type: boolean
-          description: A boolean indicating whether this auction was resolved successfully.
-          examples:
-            - false
+          $ref: "#/components/schemas/ErrorFlag"
       required:
         - results
         - error
         - resultType
     RankingWinner:
+      description: A ranked item from a ranking request with position and type information.
       type: object
       required:
         - rank
@@ -1259,32 +1390,33 @@ components:
             Where is the product ranked in the auction.
           minimum: 1
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - organic
-            - sponsored
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - organic
+                - sponsored
         id:
           type: string
           description: The marketplace's ID of the ranked entity.
           examples:
             - p_Mfk15
         resolvedItemId:
-          type: string
-          description: An opaque Topsort ID to be used when this item is interacted with.
+          $ref: "#/components/schemas/ResolvedItemID"
           examples:
             - WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
     PredictionResult:
+      description:
+        The result of a prediction request, containing CTR and CVR predictions for products.
       type: object
       properties:
         objectType:
-          type: string
-          enum:
-            - listings
-            - banners
-          examples:
-            - listings
-          description: The type of object that was predicted.
+          allOf:
+            - $ref: "#/components/schemas/ObjectType"
+            - enum:
+                - listings
+                - banners
+              examples:
+                - listings
         predictions:
           type: array
           items:
@@ -1301,9 +1433,9 @@ components:
                 description: Conversion Rate prediction.
           description: Predicted objects
           examples:
-            - productId: product-123
-              ctr: 0.05
-              cvr: 0.101
+            - - productId: product-123
+                ctr: 0.05
+                cvr: 0.101
       examples:
         - objectType: listings
           predictions:
@@ -1317,14 +1449,15 @@ components:
         - objectType
         - predictions
     RetrievalResults:
+      description: The result of a retrieval request, containing relevant objects with scores.
       type: object
       properties:
         objectType:
-          type: string
-          enum:
-            - listings
-            - banners
-          description: The type of object that was predicted.
+          allOf:
+            - $ref: "#/components/schemas/ObjectType"
+            - enum:
+                - listings
+                - banners
         objects:
           type: array
           items:
@@ -1338,15 +1471,14 @@ components:
                 description: Relevance score for the retrieved products.
           description: Retrieved objects.
       examples:
-        - objectType: listing
+        - objectType: listings
           objects:
             - id: p_xh90s
-              value: 0.978
+              score: 0.978
             - id: p_12lp0
-              value: 0.953
+              score: 0.953
             - id: p_ds7ui
-              value: 0.877
-          error: false
+              score: 0.877
       required:
         - objectType
         - objects
@@ -1463,10 +1595,7 @@ components:
         - triggers
       properties:
         winners:
-          type: integer
-          format: int32
-          minimum: 1
-          description: Specifies the maximum number of auction winners that should be returned.
+          $ref: "#/components/schemas/SlotsCount"
         placementId:
           type: string
           x-stoplight:
@@ -1510,34 +1639,37 @@ components:
         page:
           $ref: "#/components/schemas/Page"
       examples:
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                products:
-                  ids:
-                    - "vanilla_yogurt"
-                    - "nonfat_vanilla_yogurt"
-              geoTargeting: New York
-              opaqueUserId": user-123
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                category:
-                  id: c_yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                searchQuery: vanilla yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            products:
+              ids:
+                - "vanilla_yogurt"
+                - "nonfat_vanilla_yogurt"
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            category:
+              id: c_yogurt
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            searchQuery: vanilla yogurt
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
     SponsoredBrandAuctionResult:
+      description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
       properties:
+        resultType:
+          type: string
         winners:
           type: array
           items:
@@ -1546,41 +1678,36 @@ components:
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
         error:
-          type: boolean
-          description: A boolean indicating whether this auction was resolved successfully.
-          examples:
-            - false
+          $ref: "#/components/schemas/ErrorFlag"
       required:
         - winners
         - error
-      x-examples:
-        Example 1:
-          results:
-            - winners:
-                - rank: 1
-                  resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-                  type: "url"
-                  id: "https://some.url.com/myyougurtbrand/page"
-                  title: Brand Example Promo 1
-                  content:
-                    headline: "some cool regular yogurt headline"
-                    brandName: "my regular yogurt brand"
-                    creative1: "https://some.url.com/regular_yogurt.jpeg"
-                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
-                  productIds: ["vanilla_yogurt", "strawberry_yogurt"]
-                - rank: 2
-                  resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-                  type: "url"
-                  id: "https://some.url.com/mynonfatyougurtbrand/page"
-                  title: Brand Example Promo 2
-                  content:
-                    - headline: "some cool nonfat regular yogurt headline"
-                      brandName: "my nonfat yogurt brand"
-                      creative1: "https://some.url.com/nonfat_yogurt.jpeg"
-                  campaignId: 01934a6e-7bb3-79c1-89b3-134e2e3bf88e
-                  productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
-              error: false
+      examples:
+        - resultType: brand
+          winners:
+            - rank: 1
+              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
+              type: "url"
+              id: "https://some.url.com/myyougurtbrand/page"
+              title: Brand Example Promo 1
+              content:
+                headline: "some cool regular yogurt headline"
+                brandName: "my regular yogurt brand"
+                creative1: "https://some.url.com/regular_yogurt.jpeg"
+              productIds: ["vanilla_yogurt", "strawberry_yogurt"]
+            - rank: 2
+              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
+              type: "url"
+              id: "https://some.url.com/mynonfatyougurtbrand/page"
+              title: Brand Example Promo 2
+              content:
+                headline: "some cool nonfat regular yogurt headline"
+                brandName: "my nonfat yogurt brand"
+                creative1: "https://some.url.com/nonfat_yogurt.jpeg"
+              productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
+          error: false
     SponsoredBrandWinner:
+      description: A winning bid in a sponsored brand auction with brand and campaign details.
       type: object
       required:
         - rank
@@ -1598,15 +1725,13 @@ components:
             entry's index.
           minimum: 1
         type:
-          type: string
-          description: The target type of the winning bid.
-          enum:
-            - product
-            - url
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - url
         id:
-          type: string
-          description:
-            The marketplace's ID of the winning entity, depending on the target of the campaign.
+          $ref: "#/components/schemas/WinnerID"
           examples:
             - p_Mfk15
             - https://some.url.com/topsort-brand
@@ -1646,13 +1771,10 @@ components:
             - hotels
           description: Discriminator for the type of travel auction.
         slots:
-          type: integer
-          format: int32
+          $ref: "#/components/schemas/SlotsCount"
           description:
             Specifies the maximum number of auction winners that should be returned. If slots > 40,
             it is capped at 40.
-          minimum: 1
-          maximum: 40
         products:
           type: array
           description: An array of hotels products that should participate in the auction.
@@ -1662,21 +1784,21 @@ components:
           description: A category for the purpose of running an auction.
           type: object
           required:
-            - SingleCategory
+            - singleCategory
           properties:
-            SingleCategory:
+            singleCategory:
+              type: object
               required:
                 - id
               properties:
                 id:
-                  type: string
-                  description: The category ID of the bids that will participate in an auction.
-                  minLength: 1
+                  $ref: "#/components/schemas/CategoryID"
                   examples:
                     - c_buenos-aires-hotels
         travelContext:
           $ref: "#/components/schemas/HotelsTravelContext"
     HotelsTravelProduct:
+      description: A hotel product that can participate in a travel auction.
       type: object
       required:
         - id
@@ -1687,18 +1809,11 @@ components:
           examples:
             - miami-hotel
         qualityScore:
-          type: number
-          maximum: 1
-          exclusiveMinimum: 0
-          examples:
-            - 0.75
-          format: double
-          description: |
-            If given, this value will be combined with our internal quality
-            score to provide a score that better represents the relevance of the
-            participating products. If not given it will default to 1.
-            Values must be between 0 and 1.
+          $ref: "#/components/schemas/QualityScore"
     BaseTravelContext:
+      description:
+        Base context information for travel-related auctions including dates, location, and traveler
+        details.
       type: object
       required:
         - site
@@ -1743,8 +1858,10 @@ components:
           type: string
           description: Platform e.g. "app", "mobile", "web", ...
     HotelsTravelContext:
-      allOf:
-        - $ref: "#/components/schemas/BaseTravelContext"
+      $ref: "#/components/schemas/BaseTravelContext"
+      description:
+        Context information specific to hotel travel auctions extending base travel context with
+        hotel-specific fields.
     FlightsAuctionRequest:
       type: object
       description: Describes the intent of running a flight travel auction.
@@ -1758,49 +1875,39 @@ components:
             - flights
           description: Discriminator for the type of travel auction.
         slots:
-          type: integer
-          format: int32
+          $ref: "#/components/schemas/SlotsCount"
           description:
             Specifies the maximum number of auction winners that should be returned. If slots > 40,
             it is capped at 40.
-          minimum: 1
-          maximum: 40
         products:
           type: array
-          description: An array of flight products that should participate in the auction.
+          description: An array of flights that should participate in the auction.
           items:
             $ref: "#/components/schemas/FlightsTravelProduct"
         travelContext:
           $ref: "#/components/schemas/FlightsTravelContext"
     FlightsTravelProduct:
+      description: A flight that can participate in a travel auction.
       type: object
       required:
         - id
       properties:
         id:
           type: string
-          description: ID to identify flight product.
+          description: ID to identify a flight.
           examples:
             - L0_SAO-ORL
         variationID:
           type: string
-          description: ID to identify flight product variation.
+          description: ID to identify flights variation.
         price:
           type: number
-          description: Flight product variation total price in marketplace currency.
+          description: Flight variation total price in marketplace currency.
         qualityScore:
-          type: number
-          maximum: 1
-          exclusiveMinimum: 0
-          examples:
-            - 0.75
-          format: double
-          description: |
-            If given, this value will be combined with our internal quality
-            score to provide a score that better represents the relevance of the
-            participating products. If not given it will default to 1.
-            Values must be between 0 and 1.
+          $ref: "#/components/schemas/QualityScore"
     FlightsTravelContext:
+      description:
+        Context information specific to flight travel auctions including route and flight type.
       allOf:
         - $ref: "#/components/schemas/BaseTravelContext"
         - type: object
@@ -1812,6 +1919,7 @@ components:
               type: string
               description: Flight type e.g. "round_trip", "one_way", ...
     Error:
+      description: Error response object containing error code, message, and documentation URL.
       type: object
       required:
         - errCode
@@ -1862,6 +1970,7 @@ components:
           examples:
             - could not find the provided resolved bid id
     Placement:
+      description: Information about where an ad or product is placed on a page.
       type: object
       required:
         - path
@@ -1904,9 +2013,7 @@ components:
         categoryIds:
           type: array
           items:
-            type: string
-            minLength: 1
-            description: A category ID.
+            $ref: "#/components/schemas/CategoryID"
           description: >
             An array of IDs of the categories associated to the page in which this event occurred,
             if applicable. These IDs must match the IDs provided through the catalog service.
@@ -1918,6 +2025,8 @@ components:
             applicable. This search string must match the searchQuery field that was provided in the
             auction request (if provided).
           minLength: 1
+          examples:
+            - "blue shoes"
     EventEntity:
       type: object
       description: >
@@ -1934,13 +2043,18 @@ components:
           type: string
           description: The marketplace's ID of the entity associated with the interaction.
           minLength: 1
+          examples:
+            - ean-512385132
         type:
           type: string
           description: The type of entity associated with the interaction.
           enum:
             - product
             - vendor
+          examples:
+            - product
     EventsRequest:
+      description: A batch request containing multiple events to be reported to Topsort.
       type: object
       additionalProperties: false
       minProperties: 1
@@ -1987,7 +2101,8 @@ components:
                 position: 1
                 page: 1
                 pageSize: 15
-                categoryId: 9BLIe
+                categoryIds:
+                  - 9BLIe
               resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
               deviceType: mobile
               channel: onsite
@@ -2000,7 +2115,8 @@ components:
                 position: 1
                 page: 1
                 pageSize: 15
-                categoryId: 9BLIe
+                categoryIds:
+                  - 9BLIe
               resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
               deviceType: mobile
               channel: offsite
@@ -2076,15 +2192,9 @@ components:
         object:
           $ref: "#/components/schemas/InteractionObject"
         externalCampaignId:
-          type: string
-          description: Marketplace provided ID for a campaign
-          examples:
-            - awareness-campaign-2025
+          $ref: "#/components/schemas/ExternalCampaignId"
         externalVendorId:
-          type: string
-          description: Marketplace provided ID for a vendor
-          examples:
-            - my-new-vendor
+          $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
@@ -2142,15 +2252,9 @@ components:
             - like
             - add-to-cart
         externalCampaignId:
-          type: string
-          description: Marketplace provided ID for a campaign
-          examples:
-            - awareness-campaign-2025
+          $ref: "#/components/schemas/ExternalCampaignId"
         externalVendorId:
-          type: string
-          description: Marketplace provided ID for a vendor
-          examples:
-            - my-new-vendor
+          $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
@@ -2194,15 +2298,10 @@ components:
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
-          type: string
-          description: Optional. The channel where the event occurred.
-          enum:
-            - onsite
-            - offsite
-            - instore
-          examples:
-            - onsite
+          $ref: "#/components/schemas/ChannelType"
     PurchaseItem:
+      description:
+        An item included in a purchase transaction with product, quantity, and pricing details.
       type: object
       required:
         - productId
@@ -2280,14 +2379,24 @@ components:
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
-          type: string
-          description: Optional. The channel where the event occurred.
-          enum:
-            - onsite
-            - offsite
-            - instore
-          examples:
-            - onsite
+          $ref: "#/components/schemas/ChannelType"
+    WinnerRank:
+      type: integer
+      format: int32
+      description:
+        The rank/position of this winner in the auction results, with 1 being the highest.
+      minimum: 1
+    CampaignId:
+      type: string
+      description: The ID of the campaign that won the auction.
+      examples:
+        - 82588593-85c5-47c0-b125-07e315b7f2b3
+    ErrorFlag:
+      type: boolean
+      description: A boolean indicating whether this auction was resolved successfully.
+      examples:
+        - false
+        - true
   securitySchemes:
     HTTPBearer:
       description: A valid API key generated in Topsort's UI.
