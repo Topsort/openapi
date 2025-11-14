@@ -220,7 +220,8 @@ paths:
                           qualityScore: 0.7
                         - id: hotel-2
                       category:
-                        id: hotel-boutique
+                        SingleCategory:
+                          id: hotel-boutique
                       travelContext:
                         travelStartDate: "2025-01-01"
                         travelEndDate: "2025-01-15"
@@ -269,25 +270,31 @@ paths:
                       - resultType: hotels
                         winners:
                           - rank: 1
+                            type: product
                             id: hotel-1
                             resolvedBidId: ChAHd-K97Xs8MNRELdY9VCeJFiBCk1_aEYz8eb-WZqyhzL4EFhBCk5Mt_X2_b8Yu_vXJgzPWJhVLBTFRBTGssk9
                             campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
                           - rank: 2
+                            type: product
                             id: hotel-2
                             resolvedBidId: ChAJe-M23Yr5QPTEFdX7VBgJGhCDm2_wDXy6cb-XZpxjxK6GHhCDm3Ku_W1_c9Zw_wYHfzQYKjTLBVGQBTLttu6
                             campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
+                        error: false
                       - resultType: flights
                         winners:
                           - rank: 1
+                            type: product
                             id: L0_SAO-ORL
                             resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
                             campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
                             variationID: "002"
                           - rank: 2
+                            type: product
                             id: L0_SAO-ORL
                             resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
                             campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
                             variationID: "001"
+                        error: false
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -424,6 +431,11 @@ paths:
                     - type: listings
                       slots: 3
                       pageSize: 3
+                      page:
+                        type: category
+                        value: sneakers
+                        pageId: /category/sneakers
+                      opaqueUserId: u_9ske45
                       category:
                         ids:
                           - sneakers
@@ -454,7 +466,8 @@ paths:
                   - results
                 examples:
                   - results:
-                      - products:
+                      - resultType: listings
+                        results:
                           - rank: 1
                             type: organic
                             id: p_Mfk11
@@ -917,6 +930,7 @@ components:
           page:
             type: category
             value: sneakers
+            pageId: /category/sneakers
           opaqueUserId: u_9ske45
           category:
             ids:
@@ -1298,9 +1312,9 @@ components:
                 description: Conversion Rate prediction.
           description: Predicted objects
           examples:
-            - productId: product-123
-              ctr: 0.05
-              cvr: 0.101
+            - - productId: product-123
+                ctr: 0.05
+                cvr: 0.101
       examples:
         - objectType: listings
           predictions:
@@ -1336,15 +1350,14 @@ components:
                 description: Relevance score for the retrieved products.
           description: Retrieved objects.
       examples:
-        - objectType: listing
+        - objectType: listings
           objects:
             - id: p_xh90s
-              value: 0.978
+              score: 0.978
             - id: p_12lp0
-              value: 0.953
+              score: 0.953
             - id: p_ds7ui
-              value: 0.877
-          error: false
+              score: 0.877
       required:
         - objectType
         - objects
@@ -1508,31 +1521,31 @@ components:
         page:
           $ref: "#/components/schemas/Page"
       examples:
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                products:
-                  ids:
-                    - "vanilla_yogurt"
-                    - "nonfat_vanilla_yogurt"
-              geoTargeting: New York
-              opaqueUserId": user-123
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                category:
-                  id: c_yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
-        - auctions:
-            - winners: 2
-              placementId: some-placement
-              triggers:
-                searchQuery: vanilla yogurt
-              geoTargeting: New York
-              opaqueUserId": user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            products:
+              ids:
+                - "vanilla_yogurt"
+                - "nonfat_vanilla_yogurt"
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            category:
+              id: c_yogurt
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
+        - winners: 2
+          placementId: some-placement
+          triggers:
+            searchQuery: vanilla yogurt
+          geoTargeting:
+            location: New York
+          opaqueUserId: user-123
     SponsoredBrandAuctionResult:
       description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
@@ -2002,7 +2015,8 @@ components:
                 position: 1
                 page: 1
                 pageSize: 15
-                categoryId: 9BLIe
+                categoryIds:
+                  - 9BLIe
               resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
               deviceType: mobile
               channel: onsite
@@ -2015,7 +2029,8 @@ components:
                 position: 1
                 page: 1
                 pageSize: 15
-                categoryId: 9BLIe
+                categoryIds:
+                  - 9BLIe
               resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
               deviceType: mobile
               channel: offsite
