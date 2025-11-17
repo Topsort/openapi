@@ -46,18 +46,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: uvx yamllint -f github topsort-api-*.yml
+      - run: uvx yamllint topsort-api-v2.yml
 
   redocly:
     name: Redocly
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - run: npx @redocly/cli lint --format github-actions topsort-api-*.yml
+      - run:
+          npx @redocly/cli lint --extends recommended-strict --format github-actions
+          topsort-api-v2.yml
 
   typos:
     name: Check for language typos
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: crate-ci/typos@v1.35.2
+      - uses: crate-ci/typos@v1.39.2
