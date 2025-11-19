@@ -369,6 +369,7 @@ paths:
 
         - **Page views** — a user visited a page.
 
+
         Interactions require either a `resolvedBidId`, for sponsored events coming from the
         `/v2/auctions` response,
 
