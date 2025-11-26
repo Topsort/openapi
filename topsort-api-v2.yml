@@ -1760,6 +1760,7 @@ components:
         - $ref: "#/components/schemas/HotelsAuctionRequest"
         - $ref: "#/components/schemas/FlightsAuctionRequest"
     HotelsAuctionRequest:
+      title: Hotels
       type: object
       description: Describes the intent of running a hotel travel auction.
       required:
@@ -1864,6 +1865,7 @@ components:
         Context information specific to hotel travel auctions extending base travel context with
         hotel-specific fields.
     FlightsAuctionRequest:
+      title: Flights
       type: object
       description: Describes the intent of running a flight travel auction.
       required:
