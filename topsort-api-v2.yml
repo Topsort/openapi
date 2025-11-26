@@ -1760,7 +1760,7 @@ components:
         - $ref: "#/components/schemas/HotelsAuctionRequest"
         - $ref: "#/components/schemas/FlightsAuctionRequest"
     HotelsAuctionRequest:
-      Title: Hotels
+      title: Hotels
       type: object
       description: Describes the intent of running a hotel travel auction.
       required:
