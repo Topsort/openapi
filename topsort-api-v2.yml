@@ -819,23 +819,13 @@ components:
           description: Filter type. The value has to be `promotion` for promotion filter.
           enum:
             - promotion
-        operator:
+        promotion:
           type: string
-          description: Filter operator type. The value can be `and` (has all) or `or` (has any).
-          enum:
-            - and
-            - or
-        promotions:
-          type: array
           description: >
-            Promotions used for filtering. The promotion name is limited to 40 characters.
-          maxItems: 3
-          items:
-            type: string
-            maxLength: 40
-            examples:
-              - half-off
-              - offers
+            Promotion used for filtering. The promotion name is limited to 40 characters.
+          examples:
+            - half-off
+            - offers
     occurredAt:
       type: string
       format: date-time
