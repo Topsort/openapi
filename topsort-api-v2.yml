@@ -811,8 +811,8 @@ components:
       type: object
       title: PromotionsFilter
       description: >
-        Use promotions to filter auction bids. This feature requires additional integration
-        and configuration.
+        Use promotions to filter auction bids. This feature requires additional integration and
+        configuration.
       properties:
         type:
           type: string
