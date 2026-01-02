@@ -153,6 +153,9 @@ paths:
       tags:
         - Auctions
       summary: Create sponsored brand auctions
+      description: >
+        Use the `/auctions/sponsored-brand` endpoint to to promote brands using assets, text, and
+        associated products.
       operationId: createSponsoredBrandAuctions
       requestBody:
         description: >
@@ -1166,38 +1169,21 @@ components:
         mapping:
           listings: "#/components/schemas/SponsoredListingsAuctionResult"
           banners: "#/components/schemas/BannersAuctionResult"
-          empty: "#/components/schemas/EmptyAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/BannersAuctionResult"
-        - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
       description: The result of a travel-related auction request (hotels or flights).
       oneOf:
         - $ref: "#/components/schemas/HotelsAuctionResult"
         - $ref: "#/components/schemas/FlightsAuctionResult"
-        - $ref: "#/components/schemas/EmptyAuctionResult"
-    EmptyAuctionResult:
-      description: An auction result with no winners, typically when no eligible bids are available.
-      type: object
-      properties:
-        resultType:
-          type: string
-        winners:
-          type: array
-          maxItems: 0
-        error:
-          $ref: "#/components/schemas/ErrorFlag"
-      required:
-        - winners
-        - error
-        - resultType
     BannersAuctionResult:
       description: The result of a banner auction, containing winning banner ads.
       type: object
       properties:
         resultType:
           type: string
+          const: banners
         winners:
           type: array
           items:
@@ -1217,6 +1203,7 @@ components:
       properties:
         resultType:
           type: string
+          const: listings
         winners:
           type: array
           items:
@@ -1304,13 +1291,31 @@ components:
           minItems: 1
     HotelsAuctionResult:
       description: The result of a hotels travel auction.
-      $ref: "#/components/schemas/SponsoredListingsAuctionResult"
+      type: object
+      properties:
+        resultType:
+          type: string
+          const: hotels
+        winners:
+          type: array
+          items:
+            $ref: "#/components/schemas/SponsoredListingsWinner"
+          description: >
+            Array of winner objects in order from highest to lowest bid. It will be empty if there
+            were no qualifying bids or if there was an error.
+        error:
+          $ref: "#/components/schemas/ErrorFlag"
+      required:
+        - winners
+        - error
+        - resultType
     FlightsAuctionResult:
       description: The result of a flights travel auction, containing winning flight products.
       type: object
       properties:
         resultType:
           type: string
+          const: flights
         winners:
           type: array
           items:
@@ -1767,8 +1772,7 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - hotels
+          const: hotels
           description: Discriminator for the type of travel auction.
         slots:
           $ref: "#/components/schemas/SlotsCount"
@@ -1872,8 +1876,7 @@ components:
       properties:
         type:
           type: string
-          enum:
-            - flights
+          const: flights
           description: Discriminator for the type of travel auction.
         slots:
           $ref: "#/components/schemas/SlotsCount"
