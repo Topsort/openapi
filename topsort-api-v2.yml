@@ -783,6 +783,11 @@ components:
         Use product attributes to filter auction bids. This feature requires additional integration
         and configuration.
       properties:
+        type:
+          type: string
+          description: Filter type. The value has to be `attribute` for attribute filter.
+          enum:
+            - attribute
         operator:
           type: string
           description: Filter operator type. The value can be `and` (has all) or `or` (has any).
@@ -802,6 +807,35 @@ components:
               - color:red
               - material:leather
               - size:32
+    PromotionsFilter:
+      type: object
+      title: PromotionsFilter
+      description: >
+        Use promotions to filter auction bids. This feature requires additional integration and
+        configuration.
+      properties:
+        type:
+          type: string
+          description: Filter type. The value has to be `promotion` for promotion filter.
+          enum:
+            - promotion
+        operator:
+          type: string
+          description: Filter operator type. The value can be `and` (has all) or `or` (has any).
+          enum:
+            - and
+            - or
+        promotions:
+          type: array
+          description: >
+            Promotions used for filtering. The promotion name is limited to 40 characters.
+          maxItems: 3
+          items:
+            type: string
+            maxLength: 40
+            examples:
+              - half-off
+              - offers
     occurredAt:
       type: string
       format: date-time
@@ -986,6 +1020,8 @@ components:
           $ref: "#/components/schemas/PlacementId"
         page:
           $ref: "#/components/schemas/Page"
+        filter:
+          $ref: "#/components/schemas/PromotionsFilter"
       required:
         - type
         - slots
