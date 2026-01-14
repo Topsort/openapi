@@ -1563,17 +1563,15 @@ components:
             with matching array index.
 
             If given, these values will be combined with our internal quality scores to provide a
-            score
-
-            that better represents the relevance of the participating products.
+            score that better represents the relevance of the participating products.
 
             Note that the length of this array must be the same as the length of the `ids` array and
-
-            that the values must be between 0 and 1.
+            that the values must be greater than 0 and less than or equal to 1.
           items:
             type: number
             maximum: 1
             exclusiveMinimum: 0
+            minimum: 0
             examples:
               - 0.75
             format: double
