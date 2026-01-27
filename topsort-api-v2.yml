@@ -728,7 +728,7 @@ components:
         - desktop
         - mobile
       default: desktop
-    DeviceType:
+    AuctionDeviceType:
       type: string
       description: The device the user is on.
       enum:
@@ -1084,7 +1084,7 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         productIds:
           type: array
           items:
@@ -1128,7 +1128,7 @@ components:
             - listings
             - banners
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         seedProductIds:
           type: array
           items:
@@ -2197,7 +2197,7 @@ components:
         externalVendorId:
           $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2257,7 +2257,7 @@ components:
         externalVendorId:
           $ref: "#/components/schemas/ExternalVendorId"
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         channel:
           type: string
           description: Optional. The channel where the event occurred.
@@ -2297,7 +2297,7 @@ components:
         id:
           $ref: "#/components/schemas/EventIdentifier"
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         channel:
           $ref: "#/components/schemas/ChannelType"
     PurchaseItem:
@@ -2378,7 +2378,7 @@ components:
           examples:
             - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
         deviceType:
-          $ref: "#/components/schemas/DeviceType"
+          $ref: "#/components/schemas/AuctionDeviceType"
         channel:
           $ref: "#/components/schemas/ChannelType"
     WinnerRank:
