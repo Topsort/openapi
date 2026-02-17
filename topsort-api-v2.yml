@@ -1178,6 +1178,7 @@ components:
         - $ref: "#/components/schemas/FlightsAuctionResult"
         - $ref: "#/components/schemas/EmptyAuctionResult"
     EmptyAuctionResult:
+      title: Empty Auction
       description: An auction result with no winners, typically when no eligible bids are available.
       type: object
       properties:
@@ -1193,6 +1194,7 @@ components:
         - error
         - resultType
     BannersAuctionResult:
+      title: Banner Auction
       description: The result of a banner auction, containing winning banner ads.
       type: object
       properties:
@@ -1212,6 +1214,7 @@ components:
         - error
         - resultType
     SponsoredListingsAuctionResult:
+      title: Sponsored Listings
       description: The result of a sponsored listings auction, containing winning product listings.
       type: object
       properties:
@@ -1303,9 +1306,11 @@ components:
             $ref: "#/components/schemas/AssetSource"
           minItems: 1
     HotelsAuctionResult:
+      title: Hotels
       description: The result of a hotels travel auction.
       $ref: "#/components/schemas/SponsoredListingsAuctionResult"
     FlightsAuctionResult:
+      title: Flights
       description: The result of a flights travel auction, containing winning flight products.
       type: object
       properties:
@@ -1664,6 +1669,7 @@ components:
             location: New York
           opaqueUserId: user-123
     SponsoredBrandAuctionResult:
+      title: Sponsored Brand
       description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
       properties:
