@@ -185,7 +185,7 @@ paths:
                   summary: External demand (Criteo + Topsort winners)
                   value:
                     results:
-                      - resultType: listings
+                      - resultType: external_demand_listings
                         winners:
                           - rank: 1
                             type: product
@@ -1349,7 +1349,9 @@ components:
         - resultType
     ExternalDemandSponsoredListingsAuctionResult:
       title: Sponsored Listings with External Demand
-      description: The result of a sponsored listings auction with external demand, containing winning product listings.
+      description:
+        The result of a sponsored listings auction with external demand, containing winning product
+        listings.
       type: object
       properties:
         resultType:
@@ -1438,14 +1440,16 @@ components:
             - topsort
         campaignId:
           type: string
-          description: The ID of the campaign that won the auction. This is omitted for external winners.
+          description:
+            The ID of the campaign that won the auction. This is omitted for external winners.
           examples:
             - 82588593-85c5-47c0-b125-07e315b7f2b3
         metadata:
           type: object
           additionalProperties: true
           description: >
-            Pass-through metadata from the request for external winners (e.g., beacon URL, click URL). This is omitted for internal winners.
+            Pass-through metadata from the request for external winners (e.g., beacon URL, click
+            URL). This is omitted for internal winners.
           examples:
             - beaconUrl: "https://some.url.com/beacon"
               clickUrl: "https://some.url.com/click"
