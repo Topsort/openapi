@@ -51,14 +51,45 @@ paths:
           will compete against each other.
         content:
           application/json:
-            example:
-              auctions:
-                - type: listings
-                  slots: 2
-                  products:
-                    ids:
-                      - p_PJbnN
-                      - p_ojng4
+            examples:
+              default:
+                summary: Basic listings auction
+                value:
+                  auctions:
+                    - type: listings
+                      slots: 2
+                      products:
+                        ids:
+                          - p_PJbnN
+                          - p_ojng4
+              externalDemand:
+                summary: Listings auction with external demand (e.g., Criteo)
+                value:
+                  auctions:
+                    - type: listings
+                      slots: 3
+                      products:
+                        ids:
+                          - p_PJbnN
+                          - p_ojng4
+                          - p_8VKDt
+                      demandSources:
+                        - source: criteo
+                          bids:
+                            - chargeType: CPC
+                              entity:
+                                type: product
+                                id: p_PJbnN
+                              bidAmount: 0.50
+                              metadata:
+                                clickUrl: "https://example.com/click"
+                            - chargeType: CPC
+                              entity:
+                                type: product
+                                id: p_ojng4
+                              bidAmount: 0.35
+                              metadata:
+                                clickUrl: "https://example.com/product/ojng4"
             schema:
               type: object
               properties:
@@ -100,8 +131,11 @@ paths:
                         error: false
                 required:
                   - results
-                examples:
-                  - results:
+              examples:
+                listingsAndBanners:
+                  summary: Listings and banner auction results
+                  value:
+                    results:
                       - resultType: listings
                         winners:
                           - rank: 1
@@ -140,9 +174,32 @@ paths:
                                   heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
                                   heroImageAltText: "Topsort product image"
                         error: false
-                  - results:
+                empty:
+                  summary: Empty auction (no winners)
+                  value:
+                    results:
                       - resultType: listings
                         winners: []
+                        error: false
+                externalDemand:
+                  summary: External demand (Criteo + Topsort winners)
+                  value:
+                    results:
+                      - resultType: listings
+                        winners:
+                          - rank: 1
+                            type: product
+                            id: p_PJbnN
+                            resolvedBidId: WyJiX1BKYm5OIiwiY3JpdGVvIiwiQ1BDIiwibGlzdGluZ3MiXQ==
+                            demandSource: criteo
+                            metadata:
+                              clickUrl: "https://example.com/click"
+                          - rank: 2
+                            type: product
+                            id: p_Mfk15
+                            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                            demandSource: topsort
+                            campaignId: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
                         error: false
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -265,8 +322,10 @@ paths:
                         site: argentina
               required:
                 - auctions
-              examples:
-                - auctions:
+            examples:
+              default:
+                value:
+                  auctions:
                     - type: hotels
                       slots: 2
                       products:
@@ -319,8 +378,10 @@ paths:
                     maxItems: 5
                 required:
                   - results
-                examples:
-                  - results:
+              examples:
+                default:
+                  value:
+                    results:
                       - resultType: hotels
                         winners:
                           - rank: 1
@@ -441,8 +502,10 @@ paths:
               required:
                 - from
                 - to
-              examples:
-                - from: user123
+            examples:
+              default:
+                value:
+                  from: user123
                   to: user456
         required: true
       responses:
@@ -496,8 +559,10 @@ paths:
                       opaqueUserId: u_9ske45
               required:
                 - ranking
-              examples:
-                - ranking:
+            examples:
+              default:
+                value:
+                  ranking:
                     - type: listings
                       slots: 3
                       pageSize: 3
@@ -538,8 +603,10 @@ paths:
                         error: false
                 required:
                   - results
-                examples:
-                  - results:
+              examples:
+                default:
+                  value:
+                    results:
                       - resultType: listings
                         results:
                           - rank: 1
@@ -736,6 +803,24 @@ components:
         - mobile
       examples:
         - mobile
+    DemandSource:
+      type: object
+      description: External demand source participating in the auction.
+      required:
+        - source
+        - bids
+      properties:
+        source:
+          type: string
+          enum:
+            - criteo
+          description: Identifier for the demand source.
+        bids:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalBid"
+          description: >
+            Array of external bids. Total count across all demand sources must not exceed 100.
     Page:
       description: Information about the page where an auction or event occurs.
       type: object
@@ -913,6 +998,9 @@ components:
         Exactly **one** of the following fields must be set:
           * `products`
           * `category`
+
+        The optional `demandSources` field enables external demand sources (e.g., Criteo) to
+        participate in the auction. External demand is restricted to listings auctions only.
       properties:
         type:
           type: string
@@ -936,6 +1024,14 @@ components:
           $ref: "#/components/schemas/Page"
         filter:
           $ref: "#/components/schemas/AttributesFilter"
+        demandSources:
+          type: array
+          items:
+            $ref: "#/components/schemas/DemandSource"
+          description: >
+            Optional. External demand sources participating in the auction. External demand is
+            restricted to listings auctions only. Total bids across all demand sources must not
+            exceed 100.
       required:
         - type
         - slots
@@ -950,6 +1046,22 @@ components:
               - p_Mfk15
           geoTargeting:
             location: New York
+        - type: listings
+          slots: 2
+          products:
+            ids:
+              - p_PJbnN
+              - p_ojng4
+          demandSources:
+            - source: criteo
+              bids:
+                - chargeType: CPC
+                  entity:
+                    type: product
+                    id: p_PJbnN
+                  bidAmount: 0.50
+                  metadata:
+                    clickUrl: "https://example.com/click"
     BannersAuction:
       title: Banner Auction
       type: object
@@ -1167,9 +1279,11 @@ components:
           listings: "#/components/schemas/SponsoredListingsAuctionResult"
           banners: "#/components/schemas/BannersAuctionResult"
           empty: "#/components/schemas/EmptyAuctionResult"
+          external_demand_listings: "#/components/schemas/ExternalDemandSponsoredListingsAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/BannersAuctionResult"
+        - $ref: "#/components/schemas/ExternalDemandSponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
       description: The result of a travel-related auction request (hotels or flights).
@@ -1233,6 +1347,43 @@ components:
         - winners
         - error
         - resultType
+    ExternalDemandSponsoredListingsAuctionResult:
+      title: Sponsored Listings with External Demand
+      description: The result of a sponsored listings auction with external demand, containing winning product listings.
+      type: object
+      properties:
+        resultType:
+          type: string
+        winners:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalDemandSponsoredListingsWinner"
+          description: >
+            Array of winner objects in order from highest to lowest bid. It will be empty if there
+            were no qualifying bids or if there was an error.
+        error:
+          $ref: "#/components/schemas/ErrorFlag"
+      required:
+        - winners
+        - error
+        - resultType
+      examples:
+        - resultType: listings
+          winners:
+            - rank: 1
+              type: product
+              id: p_PJbnN
+              resolvedBidId: WyJiX1BKYm5OIiwiY3JpdGVvIiwiQ1BDIiwibGlzdGluZ3MiXQ==
+              demandSource: criteo
+              metadata:
+                clickUrl: "https://example.com/click"
+            - rank: 2
+              type: product
+              id: p_Mfk15
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              demandSource: topsort
+              campaignId: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+          error: false
     SponsoredListingsWinner:
       description: A winning bid in a sponsored listings auction with product and campaign details.
       type: object
@@ -1261,6 +1412,43 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
+    ExternalDemandSponsoredListingsWinner:
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+        - demandSource
+      properties:
+        rank:
+          $ref: "#/components/schemas/WinnerRank"
+        type:
+          $ref: "#/components/schemas/WinnerType"
+          enum:
+            - product
+        id:
+          $ref: "#/components/schemas/WinnerID"
+        resolvedBidId:
+          $ref: "#/components/schemas/ResolvedBidID"
+        demandSource:
+          type: string
+          enum:
+            - criteo
+            - topsort
+        campaignId:
+          type: string
+          description: The ID of the campaign that won the auction. This is omitted for external winners.
+          examples:
+            - 82588593-85c5-47c0-b125-07e315b7f2b3
+        metadata:
+          type: object
+          additionalProperties: true
+          description: >
+            Pass-through metadata from the request for external winners (e.g., beacon URL, click URL). This is omitted for internal winners.
+          examples:
+            - beaconUrl: "https://some.url.com/beacon"
+              clickUrl: "https://some.url.com/click"
     SponsoredBrandContent:
       type: object
       additionalProperties: true
@@ -1940,7 +2128,10 @@ components:
             - internal_server_error
             - invalid_api_key
             - invalid_auction_id
+            - invalid_demand_source
             - invalid_event_type
+            - invalid_external_bid
+            - invalid_external_demand_ad_type
             - invalid_promotion_type
             - invalid_session
             - missing_auctions
@@ -1959,6 +2150,8 @@ components:
             - too_few_impressions
             - too_few_slots
             - too_many_auctions
+            - too_many_external_bids
+            - unauthorized_external_demand
           examples:
             - bad_request
             - no_products
@@ -2060,6 +2253,40 @@ components:
             - vendor
           examples:
             - product
+    ExternalBid:
+      type: object
+      description: A bid from an external demand source participating in the auction.
+      required:
+        - chargeType
+        - entity
+        - bidAmount
+      properties:
+        chargeType:
+          type: string
+          enum:
+            - CPC
+          description: The charging model for this bid.
+        entity:
+          type: object
+          required:
+            - type
+            - id
+          properties:
+            type:
+              type: string
+              enum:
+                - product
+              description: Entity type. External bids currently only support product.
+            id:
+              type: string
+              description: The marketplace's ID of the entity.
+        bidAmount:
+          type: number
+          description: Bid amount in marketplace currency.
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Optional free-form data (e.g., beacon URL, click URL).
     EventsRequest:
       description: A batch request containing multiple events to be reported to Topsort.
       type: object
