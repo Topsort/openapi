@@ -1029,9 +1029,9 @@ components:
           items:
             $ref: "#/components/schemas/DemandSource"
           description: >
-            External demand sources participating in the auction. External demand is
-            restricted to listings auctions only. Total bids across all demand sources must not
-            exceed 100. This field is optional and requires additional integration and configuration.
+            External demand sources participating in the auction. Total bids across all demand
+            sources cannot exceed 100. This field is optional and requires additional integration
+            and configuration.
       required:
         - type
         - slots
