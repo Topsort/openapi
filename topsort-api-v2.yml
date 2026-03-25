@@ -2637,6 +2637,6 @@ components:
         - true
   securitySchemes:
     HTTPBearer:
-      description: A valid API key generated in Topsort's UI. Use a TSE api key for calls to Auctions or Events API.
+      description: A valid API key generated in Topsort's UI. Use a TSE API key for calls to Auctions or Events API.
       scheme: bearer
       type: http
