@@ -879,7 +879,7 @@ components:
           description: >
             Attributes used for filtering in `key:value` format. The attribute name and value are
             limited to 40 characters each.
-          maxItems: 3
+          maxItems: 5
           items:
             type: string
             maxLength: 81
