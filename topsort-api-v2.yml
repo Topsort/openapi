@@ -1779,7 +1779,6 @@ components:
             type: number
             maximum: 1
             exclusiveMinimum: 0
-            minimum: 0
             examples:
               - 0.75
             format: double
