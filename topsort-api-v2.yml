@@ -422,6 +422,8 @@ paths:
       description: >
         Use the `/events` endpoint to report user interactions and activity in on a marketplace:
 
+        - **Renders** — an ad was placed in the DOM.
+
         - **Impressions** — a user viewed an asset.
 
         - **Clicks** — a user clicked on an asset.
@@ -450,7 +452,7 @@ paths:
         Room](https://docs.topsort.com/knowledge-base/analytics/data-room/).
       operationId: reportEvents
       requestBody:
-        description: Event data including impressions, clicks, purchases, and page views.
+        description: Event data including renders, impressions, clicks, purchases, and page views.
         content:
           application/json:
             schema:
@@ -2295,6 +2297,14 @@ components:
       additionalProperties: false
       minProperties: 1
       properties:
+        renders:
+          title: Renders
+          description: An array of render events
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/Render"
         impressions:
           title: Impressions
           description: An array of impression events
@@ -2328,6 +2338,20 @@ components:
           items:
             $ref: "#/components/schemas/PageView"
       examples:
+        - renders:
+            - id: 3f2b9c14-7a1d-4e2b-9c3a-1b2c3d4e5f60
+              occurredAt: "2019-01-01T12:59:58-05:00"
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              placement:
+                path: /categories/dairy
+                position: 1
+                page: 1
+                pageSize: 15
+                categoryIds:
+                  - 9BLIe
+              deviceType: mobile
+              channel: onsite
         - impressions:
             - id: eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
               occurredAt: "2019-01-01T12:59:59-05:00"
@@ -2388,6 +2412,44 @@ components:
                 value: dairy
               deviceType: mobile
               channel: onsite
+    Render:
+      title: Render
+      type: object
+      description: >
+        A render means an ad was placed in the DOM (IAB "rendered"), regardless of whether it
+        became viewable. Renders are for sponsored ads only, so `resolvedBidId` is required.
+      required:
+        - resolvedBidId
+        - occurredAt
+        - opaqueUserId
+        - id
+      additionalProperties: false
+      properties:
+        resolvedBidId:
+          $ref: "#/components/schemas/ResolvedBidID"
+          description: >
+            The `resolvedBidId` received from the `/v2/auctions` response.
+        placement:
+          $ref: "#/components/schemas/Placement"
+        occurredAt:
+          $ref: "#/components/schemas/occurredAt"
+        opaqueUserId:
+          $ref: "#/components/schemas/OpaqueUserID"
+        id:
+          $ref: "#/components/schemas/EventIdentifier"
+        page:
+          $ref: "#/components/schemas/Page"
+        deviceType:
+          $ref: "#/components/schemas/DeviceType"
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum:
+            - onsite
+            - offsite
+            - instore
+          examples:
+            - onsite
     Impression:
       title: Impression
       type: object
