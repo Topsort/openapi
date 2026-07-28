@@ -422,7 +422,7 @@ paths:
       description: >
         Use the `/events` endpoint to report user interactions and activity in on a marketplace:
 
-        - **Renders** — an ad was placed in the DOM.
+        - **Renders** — an ad was rendered in the page.
 
         - **Impressions** — a user viewed an asset.
 
@@ -2415,8 +2415,8 @@ components:
       title: Render
       type: object
       description: >
-        A render means an ad was placed in the DOM (IAB "rendered"). Renders are for sponsored ads
-        only, so `resolvedBidId` is required.
+        A render means an ad was inserted into the page (IAB "rendered"). Renders are for sponsored
+        ads only, so `resolvedBidId` is required.
       required:
         - resolvedBidId
         - occurredAt
