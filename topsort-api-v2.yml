@@ -1770,7 +1770,6 @@ components:
             type: number
             maximum: 1
             exclusiveMinimum: 0
-            minimum: 0
             examples:
               - 0.75
             format: double
@@ -2416,8 +2415,8 @@ components:
       title: Render
       type: object
       description: >
-        A render means an ad was placed in the DOM (IAB "rendered"), regardless of whether it
-        became viewable. Renders are for sponsored ads only, so `resolvedBidId` is required.
+        A render means an ad was placed in the DOM (IAB "rendered"). Renders are for sponsored ads
+        only, so `resolvedBidId` is required.
       required:
         - resolvedBidId
         - occurredAt
