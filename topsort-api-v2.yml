@@ -1016,6 +1016,8 @@ components:
           $ref: "#/components/schemas/SearchQuery"
         products:
           $ref: "#/components/schemas/Products"
+        device:
+          $ref: "#/components/schemas/Device"
         geoTargeting:
           $ref: "#/components/schemas/GeoTargeting"
         opaqueUserId:
