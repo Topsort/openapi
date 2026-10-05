@@ -1418,6 +1418,9 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
+        vendorId:
+          $ref: "#/components/schemas/ExternalVendorId"
+          description: The ID of the vendor associated with the winning campaign.
     ExternalDemandSponsoredListingsWinner:
       type: object
       required:
@@ -1495,6 +1498,9 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
+        vendorId:
+          $ref: "#/components/schemas/ExternalVendorId"
+          description: The ID of the vendor associated with the winning campaign.
         asset:
           description: The list of available sources for a banner.
           type: array
@@ -1556,6 +1562,9 @@ components:
         variationID:
           type: string
           description: The marketplace's ID for the winning flight's variation.
+        vendorId:
+          $ref: "#/components/schemas/ExternalVendorId"
+          description: The ID of the vendor associated with the winning campaign.
     RankingResult:
       description: The result of a ranking request, containing ordered products.
       type: object
