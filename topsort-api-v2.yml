@@ -1291,6 +1291,12 @@ components:
         - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
       description: The result of a travel-related auction request (hotels or flights).
+      discriminator:
+        propertyName: resultType
+        mapping:
+          hotels: "#/components/schemas/HotelsAuctionResult"
+          flights: "#/components/schemas/FlightsAuctionResult"
+          empty: "#/components/schemas/EmptyAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/HotelsAuctionResult"
         - $ref: "#/components/schemas/FlightsAuctionResult"
@@ -1970,6 +1976,7 @@ components:
       type: object
       description: Describes the intent of running a hotel travel auction.
       required:
+        - type
         - travelContext
         - slots
       properties:
@@ -2075,6 +2082,7 @@ components:
       type: object
       description: Describes the intent of running a flight travel auction.
       required:
+        - type
         - travelContext
         - slots
       properties:
