@@ -432,6 +432,8 @@ paths:
 
         - **Page views** — a user visited a page.
 
+        - **Video events** — a video ad reached a playback checkpoint or failed to play.
+
 
         Interactions require either a `resolvedBidId`, for sponsored events coming from the
         `/v2/auctions` response,
@@ -452,7 +454,9 @@ paths:
         Room](https://docs.topsort.com/knowledge-base/analytics/data-room/).
       operationId: reportEvents
       requestBody:
-        description: Event data including renders, impressions, clicks, purchases, and page views.
+        description: >
+          Event data including renders, impressions, clicks, purchases, page views, and video
+          events.
         content:
           application/json:
             schema:
@@ -2373,6 +2377,14 @@ components:
           maxItems: 50
           items:
             $ref: "#/components/schemas/PageView"
+        videoEvents:
+          title: Video events
+          description: An array of video events
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: "#/components/schemas/VideoEvent"
       examples:
         - renders:
             - id: 3f2b9c14-7a1d-4e2b-9c3a-1b2c3d4e5f60
@@ -2448,6 +2460,25 @@ components:
                 value: dairy
               deviceType: mobile
               channel: onsite
+        - videoEvents:
+            - id: 5c0e7d2a-91b4-4f3e-8a6d-2e1f0c9b8a71
+              occurredAt: "2019-01-01T12:59:59-05:00"
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              eventType: firstQuartile
+              placement:
+                path: /categories/dairy
+                position: 1
+              deviceType: mobile
+              channel: onsite
+            - id: 9a4f1b3c-6d2e-4c8b-b7a0-3f5e6d7c8b92
+              occurredAt: "2019-01-01T13:00:03-05:00"
+              opaqueUserId: 71303ce0-de89-496d-8270-6434589615e8
+              resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              eventType: error
+              errorCode: 405
+              deviceType: mobile
+              channel: onsite
     Render:
       title: Render
       type: object
@@ -2465,6 +2496,72 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
           description: >
             The `resolvedBidId` received from the `/v2/auctions` response.
+        placement:
+          $ref: "#/components/schemas/Placement"
+        occurredAt:
+          $ref: "#/components/schemas/occurredAt"
+        opaqueUserId:
+          $ref: "#/components/schemas/OpaqueUserID"
+        id:
+          $ref: "#/components/schemas/EventIdentifier"
+        page:
+          $ref: "#/components/schemas/Page"
+        deviceType:
+          $ref: "#/components/schemas/DeviceType"
+        channel:
+          type: string
+          description: Optional. The channel where the event occurred.
+          enum:
+            - onsite
+            - offsite
+            - instore
+          examples:
+            - onsite
+    VideoEvent:
+      title: Video event
+      type: object
+      description: >
+        A video event reports that a sponsored video ad reached a fixed playback checkpoint or
+        failed to play. Event names follow the IAB VAST tracking-event vocabulary, so existing video
+        player trackers can be mapped one to one. Video events are for sponsored video ads only, so
+        `resolvedBidId` is required and must come from a video campaign; a `resolvedBidId` from a
+        non-video ad is rejected. They are used for engagement and delivery reporting only and are
+        never charged or attributed.
+      required:
+        - resolvedBidId
+        - eventType
+        - occurredAt
+        - opaqueUserId
+        - id
+      additionalProperties: false
+      properties:
+        resolvedBidId:
+          $ref: "#/components/schemas/ResolvedBidID"
+          description: >
+            The `resolvedBidId` received from the `/v2/auctions` response for a video ad.
+        eventType:
+          type: string
+          description: >
+            Which playback checkpoint or failure this event reports. `start`, `firstQuartile`,
+            `midpoint`, `thirdQuartile` and `complete` are the VAST playback checkpoints; `error`
+            reports that the video could not be delivered or played.
+          enum:
+            - start
+            - firstQuartile
+            - midpoint
+            - thirdQuartile
+            - complete
+            - error
+          examples:
+            - firstQuartile
+        errorCode:
+          type: integer
+          format: int32
+          description: >
+            VAST error code describing why the video failed, for example `405` for a media file that
+            could not be displayed. Required when `eventType` is `error` and ignored otherwise.
+          examples:
+            - 405
         placement:
           $ref: "#/components/schemas/Placement"
         occurredAt:
