@@ -2187,7 +2187,9 @@ components:
             - missing_session
             - missing_slot_id
             - missing_slots
+            - missing_video_error_code
             - no_products
+            - non_video_resolved_bid
             - no_purchase_items
             - purchase_item_quantity_less_or_equal_than_zero
             - resolved_bid_id_not_found
