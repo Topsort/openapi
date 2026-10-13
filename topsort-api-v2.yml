@@ -1028,6 +1028,17 @@ components:
           $ref: "#/components/schemas/Page"
         filter:
           $ref: "#/components/schemas/AttributesFilter"
+        marketplaceExperimentVariant:
+          type: string
+          maxLength: 10
+          description: >
+            Optional. A marketplace-defined experiment variant tag (maximum 10 characters). By
+            default Topsort does not change auction behavior based on this value; it is recorded
+            alongside the auction so you can run your own A/B experiments and then slice the
+            resulting ad metrics (impressions, clicks, purchases) by variant. Contact your Topsort
+            representative if you want this value to influence auction behavior.
+          examples:
+            - exp_a
         demandSources:
           type: array
           items:
