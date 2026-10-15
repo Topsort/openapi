@@ -166,6 +166,13 @@ paths:
                             campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
                             asset:
                               - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+                          - rank: 2
+                            type: product
+                            id: p_ojng4
+                            resolvedBidId: WyJlX29qbmc0IiwiMmYwYmMyMzAtYjRlOS00M2MzLWFhMjktNGFiOWIxNzVkNmY4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
+                            campaignId: c9b5457a-5c3c-4d68-8c4e-1ab32ae0360f
+                            asset:
+                              - url: https://topsort.cdnprovider.com/lhs-banner-content-for-p_ojng4.json
                                 content:
                                   headingText:
                                     "A banner for Topsort with a product image and a shop now button"
