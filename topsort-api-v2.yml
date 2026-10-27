@@ -990,7 +990,10 @@ components:
         - 0.75
     ExternalCampaignId:
       type: string
-      description: Marketplace provided ID for a campaign
+      description: >
+        Marketplace provided ID of a campaign created and run outside Topsort. Use it only for
+        interactions that do not come from a Topsort auction: the request is rejected if both
+        `externalCampaignId` and `resolvedBidId` are set.
       examples:
         - awareness-campaign-2025
     ExternalVendorId:
@@ -2639,6 +2642,14 @@ components:
           $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
           $ref: "#/components/schemas/EventEntity"
+          description: >
+            Optional. An additional product or vendor to attribute purchases to, on top of the
+            promoted entity. Use it on sponsored impressions whose ad can lead to a purchase of
+            something other than the promoted entity, typically a banner. A later purchase by the
+            same user, within the attribution window, of this product (`type: product`) or of a
+            product from this vendor (`type: vendor`, matched against the purchase item `vendorId`)
+            is attributed to the campaign behind `resolvedBidId`. Requires `resolvedBidId`: the
+            request is rejected if this field is set without it.
         page:
           $ref: "#/components/schemas/Page"
         object:
@@ -2691,6 +2702,15 @@ components:
           $ref: "#/components/schemas/EventIdentifier"
         additionalAttribution:
           $ref: "#/components/schemas/EventEntity"
+          description: >
+            Optional. An additional product or vendor to attribute purchases to, on top of the
+            promoted entity. Use it on sponsored clicks that lead to a purchase of something other
+            than the promoted entity, typically a banner that takes the user to a product detail
+            page or a product listing. A later purchase by the same user, within the attribution
+            window, of this product (`type: product`) or of a product from this vendor (`type:
+            vendor`, matched against the purchase item `vendorId`) is attributed to the campaign
+            behind `resolvedBidId`. Requires `resolvedBidId`: the request is rejected if this field
+            is set without it.
         page:
           $ref: "#/components/schemas/Page"
         object:
