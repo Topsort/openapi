@@ -985,7 +985,7 @@ components:
         If given, this value will be combined with our internal quality
         score to provide a score that better represents the relevance of the
         participating products. If not given it will default to 1.
-        Values must be between 0 and 1.
+        Values must be greater than 0 and at most 1.
       examples:
         - 0.75
     ExternalCampaignId:
