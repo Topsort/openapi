@@ -99,12 +99,6 @@ paths:
                     $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
-                  example:
-                    - type: listings
-                      slots: 2
-                      products:
-                        ids:
-                          - p_PJbnN
         required: true
       responses:
         "200":
