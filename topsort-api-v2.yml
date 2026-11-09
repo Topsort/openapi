@@ -1507,7 +1507,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredListingsWinner"
+            $ref: "#/components/schemas/HotelsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
@@ -1517,6 +1517,37 @@ components:
         - winners
         - error
         - resultType
+    HotelsWinner:
+      description: A winning bid in a hotels auction with product and campaign details.
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+        - campaignId
+      properties:
+        rank:
+          $ref: "#/components/schemas/WinnerRank"
+        type:
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
+        id:
+          $ref: "#/components/schemas/WinnerID"
+          examples:
+            - p_Mfk15
+        resolvedBidId:
+          $ref: "#/components/schemas/ResolvedBidID"
+        campaignId:
+          $ref: "#/components/schemas/CampaignId"
+        vendorId:
+          $ref: "#/components/schemas/ExternalVendorId"
+          description: The ID of the vendor associated with the winning campaign.
     FlightsAuctionResult:
       title: Flights
       description: The result of a flights travel auction, containing winning flight products.
