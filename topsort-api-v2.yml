@@ -1327,9 +1327,9 @@ components:
             $ref: "#/components/schemas/BannersWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It will be empty if there
-            were no qualifying bids or if there was an error. When a banner auction has no winners
-            and the slot has a fallback configured, the fallback banner is returned as a single
-            winner with no `campaignId`.
+            were no qualifying bids or if there was an error, unless the slot has a fallback
+            configured. In that case the fallback banner is returned as the only winner, with no
+            `campaignId`.
         error:
           $ref: "#/components/schemas/ErrorFlag"
       required:
@@ -1429,6 +1429,11 @@ components:
         vendorId:
           $ref: "#/components/schemas/ExternalVendorId"
           description: The ID of the vendor associated with the winning campaign.
+        productIds:
+          type: array
+          items:
+            type: string
+          description: The IDs of the products associated with this winner, when there are any.
         demandSource:
           type: string
           description: >
