@@ -2843,10 +2843,10 @@ components:
         id:
           type: string
           description: >
-            The marketplace's unique ID for the event. Generate a new one for every page view, for
-            example a UUID, and never reuse it for a different page view. Events are not
-            deduplicated by this field yet, so a resent event can be counted more than once. Only
-            retry a request when it failed, and keep the same id when you do.
+            The marketplace's unique ID for the event. Generate a new one for every event, for
+            example a UUID, and never reuse it for a different event. Events are not deduplicated by
+            this field yet, so a resent event can be counted more than once. Only retry a request
+            when it failed, and keep the same id when you do.
           minLength: 1
           examples:
             - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
