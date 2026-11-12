@@ -2812,9 +2812,11 @@ components:
     EventIdentifier:
       type: string
       description: >
-        A unique identifier for the request. This field ensures the event reporting is idempotent in
-        case there is a network issue and the request is retried. If there is no impression model on
-        the marketplace side, generate a unique string that does not change if the event is resent.
+        A unique identifier for the event. Generate a new one for every event, for example a UUID,
+        and never reuse it for a different event, such as another impression of the same product or
+        another user. Events are not deduplicated by this field yet, so a resent event can be
+        counted more than once. Only retry a request when it failed, and keep the same id when you
+        do.
       minLength: 1
       examples:
         - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
@@ -2841,10 +2843,10 @@ components:
         id:
           type: string
           description: >
-            The marketplace's unique ID for the event. This field ensures the event reporting is
-            idempotent in case there is a network issue and the request is retried. If there is no
-            pageview model on the marketplace side, generate a unique string that does not change if
-            the event is resent.
+            The marketplace's unique ID for the event. Generate a new one for every page view, for
+            example a UUID, and never reuse it for a different page view. Events are not
+            deduplicated by this field yet, so a resent event can be counted more than once. Only
+            retry a request when it failed, and keep the same id when you do.
           minLength: 1
           examples:
             - eb874c98-bf4d-40a9-ae6d-fcf4cecb535c
