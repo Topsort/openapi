@@ -271,6 +271,7 @@ paths:
                         type: product
                         id: brand-123
                         resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                        campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
                         content:
                           headline: "Topsort Rocks"
                           brandName: "Topsort Brand"
@@ -1946,6 +1947,7 @@ components:
               type: "url"
               id: "https://some.url.com/myyougurtbrand/page"
               title: Brand Example Promo 1
+              campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
               content:
                 headline: "some cool regular yogurt headline"
                 brandName: "my regular yogurt brand"
@@ -1956,6 +1958,7 @@ components:
               type: "url"
               id: "https://some.url.com/mynonfatyougurtbrand/page"
               title: Brand Example Promo 2
+              campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
               content:
                 headline: "some cool nonfat regular yogurt headline"
                 brandName: "my nonfat yogurt brand"
@@ -1970,6 +1973,7 @@ components:
         - type
         - id
         - resolvedBidId
+        - campaignId
         - content
       properties:
         rank:
@@ -1997,6 +2001,8 @@ components:
           type: string
           description:
             An optional title for the sponsored brand selected when creating the campaign.
+        campaignId:
+          $ref: "#/components/schemas/CampaignId"
         vendorId:
           type: string
           description: The ID of the vendor associated with this sponsored brand winner.
