@@ -99,12 +99,6 @@ paths:
                     $ref: "#/components/schemas/AuctionRequest"
                   minItems: 1
                   maxItems: 5
-                  example:
-                    - type: listings
-                      slots: 2
-                      products:
-                        ids:
-                          - p_PJbnN
         required: true
       responses:
         "200":
@@ -125,10 +119,6 @@ paths:
                       $ref: "#/components/schemas/AuctionResult"
                     minItems: 1
                     maxItems: 5
-                    example:
-                      - resultType: listings
-                        winners: []
-                        error: false
                 required:
                   - results
               examples:
@@ -192,7 +182,7 @@ paths:
                   summary: External demand (Criteo + Topsort winners)
                   value:
                     results:
-                      - resultType: external_demand_listings
+                      - resultType: listings
                         winners:
                           - rank: 1
                             type: product
@@ -1301,20 +1291,18 @@ components:
         - opaqueUserId
         - objectType
     AuctionResult:
-      description:
-        Base auction result schema supporting different auction types through discriminator.
+      description: >
+        The result of a single auction. `resultType` echoes the `type` of the auction request that
+        produced it. A result with no winners is reported as the same type with an empty `winners`
+        array, not as a separate result type.
       discriminator:
         propertyName: resultType
         mapping:
           listings: "#/components/schemas/SponsoredListingsAuctionResult"
           banners: "#/components/schemas/BannersAuctionResult"
-          empty: "#/components/schemas/EmptyAuctionResult"
-          external_demand_listings: "#/components/schemas/ExternalDemandSponsoredListingsAuctionResult"
       oneOf:
         - $ref: "#/components/schemas/SponsoredListingsAuctionResult"
         - $ref: "#/components/schemas/BannersAuctionResult"
-        - $ref: "#/components/schemas/ExternalDemandSponsoredListingsAuctionResult"
-        - $ref: "#/components/schemas/EmptyAuctionResult"
     TravelAuctionResult:
       description: The result of a travel-related auction request (hotels or flights).
       discriminator:
@@ -1325,22 +1313,6 @@ components:
       oneOf:
         - $ref: "#/components/schemas/HotelsAuctionResult"
         - $ref: "#/components/schemas/FlightsAuctionResult"
-    EmptyAuctionResult:
-      title: Empty Auction
-      description: An auction result with no winners, typically when no eligible bids are available.
-      type: object
-      properties:
-        resultType:
-          type: string
-        winners:
-          type: array
-          maxItems: 0
-        error:
-          $ref: "#/components/schemas/ErrorFlag"
-      required:
-        - winners
-        - error
-        - resultType
     BannersAuctionResult:
       title: Banner Auction
       description: The result of a banner auction, containing winning banner ads.
@@ -1348,19 +1320,47 @@ components:
       properties:
         resultType:
           type: string
+          enum:
+            - banners
         winners:
           type: array
           items:
             $ref: "#/components/schemas/BannersWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It will be empty if there
-            were no qualifying bids or if there was an error.
+            were no qualifying bids or if there was an error, unless the slot has a fallback
+            configured. In that case the fallback banner is returned as the only winner, with no
+            `campaignId`.
         error:
           $ref: "#/components/schemas/ErrorFlag"
       required:
         - winners
         - error
         - resultType
+      examples:
+        - resultType: banners
+          winners:
+            - rank: 1
+              type: product
+              id: p_PJbnN
+              resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
+              campaignId: 1156ef4e-0109-4190-ac97-4436c82358d2
+              asset:
+                - url: https://topsort.cdnprovider.com/lhs-banner-image-for-p_PJbnN-1x.png
+            - rank: 2
+              type: product
+              id: p_ojng4
+              resolvedBidId: WyJlX29qbmc0IiwiMmYwYmMyMzAtYjRlOS00M2MzLWFhMjktNGFiOWIxNzVkNmY4IiwiYmFubmVyQWRzIiwiZGVmYXVsdCIsIiJd
+              campaignId: c9b5457a-5c3c-4d68-8c4e-1ab32ae0360f
+              asset:
+                - url: https://topsort.cdnprovider.com/lhs-banner-content-for-p_ojng4.json
+                  content:
+                    headingText: "A banner for Topsort with a product image and a shop now button"
+                    bannerText: "Topsort has the best tech!"
+                    bannerTextColour: "48a94c"
+                    heroImage: "https://assets.imageurl.io/s/85d2d333-eed5-44d7-b131-8851d59f0574"
+                    heroImageAltText: "Topsort product image"
+          error: false
     SponsoredListingsAuctionResult:
       title: Sponsored Listings
       description: The result of a sponsored listings auction, containing winning product listings.
@@ -1368,32 +1368,12 @@ components:
       properties:
         resultType:
           type: string
+          enum:
+            - listings
         winners:
           type: array
           items:
             $ref: "#/components/schemas/SponsoredListingsWinner"
-          description: >
-            Array of winner objects in order from highest to lowest bid. It will be empty if there
-            were no qualifying bids or if there was an error.
-        error:
-          $ref: "#/components/schemas/ErrorFlag"
-      required:
-        - winners
-        - error
-        - resultType
-    ExternalDemandSponsoredListingsAuctionResult:
-      title: Sponsored Listings with External Demand
-      description:
-        The result of a sponsored listings auction with external demand, containing winning product
-        listings.
-      type: object
-      properties:
-        resultType:
-          type: string
-        winners:
-          type: array
-          items:
-            $ref: "#/components/schemas/ExternalDemandSponsoredListingsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
@@ -1408,17 +1388,14 @@ components:
           winners:
             - rank: 1
               type: product
-              id: p_PJbnN
-              resolvedBidId: WyJiX1BKYm5OIiwiY3JpdGVvIiwiQ1BDIiwibGlzdGluZ3MiXQ==
-              demandSource: criteo
-              metadata:
-                clickUrl: "https://example.com/click"
-            - rank: 2
-              type: product
               id: p_Mfk15
               resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-              demandSource: topsort
               campaignId: 4bcc6093-f367-4df2-aa1b-7c1674dd6441
+            - rank: 2
+              type: product
+              id: p_PJbnN
+              resolvedBidId: WyJlX1BKYm5OIiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+              campaignId: a72e4e43-55b5-4d08-81bb-cbb57df59c72
           error: false
     SponsoredListingsWinner:
       description: A winning bid in a sponsored listings auction with product and campaign details.
@@ -1428,7 +1405,6 @@ components:
         - type
         - id
         - resolvedBidId
-        - campaignId
       properties:
         rank:
           $ref: "#/components/schemas/WinnerRank"
@@ -1448,39 +1424,24 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
+          description: >
+            The ID of the campaign that won the auction. This is omitted for winners coming from an
+            external demand source.
         vendorId:
           $ref: "#/components/schemas/ExternalVendorId"
           description: The ID of the vendor associated with the winning campaign.
-    ExternalDemandSponsoredListingsWinner:
-      type: object
-      required:
-        - rank
-        - type
-        - id
-        - resolvedBidId
-        - demandSource
-      properties:
-        rank:
-          $ref: "#/components/schemas/WinnerRank"
-        type:
-          $ref: "#/components/schemas/WinnerType"
-          enum:
-            - product
-        id:
-          $ref: "#/components/schemas/WinnerID"
-        resolvedBidId:
-          $ref: "#/components/schemas/ResolvedBidID"
+        productIds:
+          type: array
+          items:
+            type: string
+          description: The IDs of the products associated with this winner, when there are any.
         demandSource:
           type: string
+          description: >
+            The source of the winning bid. Only present when the request included `demandSources`.
           enum:
             - criteo
             - topsort
-        campaignId:
-          type: string
-          description:
-            The ID of the campaign that won the auction. This is omitted for external winners.
-          examples:
-            - 82588593-85c5-47c0-b125-07e315b7f2b3
         metadata:
           type: object
           additionalProperties: true
@@ -1528,6 +1489,9 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
+          description: >
+            The ID of the campaign that won the auction. This is omitted for fallback banners, which
+            are not backed by a campaign.
         vendorId:
           $ref: "#/components/schemas/ExternalVendorId"
           description: The ID of the vendor associated with the winning campaign.
@@ -1549,7 +1513,7 @@ components:
         winners:
           type: array
           items:
-            $ref: "#/components/schemas/SponsoredListingsWinner"
+            $ref: "#/components/schemas/HotelsWinner"
           description: >
             Array of winner objects in order from highest to lowest bid. It will be empty if there
             were no qualifying bids or if there was an error.
@@ -1559,6 +1523,37 @@ components:
         - winners
         - error
         - resultType
+    HotelsWinner:
+      description: A winning bid in a hotels auction with product and campaign details.
+      type: object
+      required:
+        - rank
+        - type
+        - id
+        - resolvedBidId
+        - campaignId
+      properties:
+        rank:
+          $ref: "#/components/schemas/WinnerRank"
+        type:
+          allOf:
+            - $ref: "#/components/schemas/WinnerType"
+            - enum:
+                - product
+                - vendor
+                - brand
+                - url
+        id:
+          $ref: "#/components/schemas/WinnerID"
+          examples:
+            - p_Mfk15
+        resolvedBidId:
+          $ref: "#/components/schemas/ResolvedBidID"
+        campaignId:
+          $ref: "#/components/schemas/CampaignId"
+        vendorId:
+          $ref: "#/components/schemas/ExternalVendorId"
+          description: The ID of the vendor associated with the winning campaign.
     FlightsAuctionResult:
       title: Flights
       description: The result of a flights travel auction, containing winning flight products.
