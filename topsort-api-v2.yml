@@ -2767,6 +2767,11 @@ components:
             $ref: "#/components/schemas/PurchaseItem"
         id:
           $ref: "#/components/schemas/EventIdentifier"
+          description: >
+            A unique identifier for the purchase, for example the order ID. This field ensures the
+            purchase reporting is idempotent in case there is a network issue and the request is
+            retried. Keep the same id when you resend a purchase, and never reuse it for a different
+            purchase, since purchases with an id that was already received are discarded.
         deviceType:
           $ref: "#/components/schemas/DeviceType"
         channel:
