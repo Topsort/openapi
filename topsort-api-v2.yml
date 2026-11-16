@@ -1977,8 +1977,6 @@ components:
       description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
       properties:
-        resultType:
-          type: string
         winners:
           type: array
           items:
@@ -2011,24 +2009,31 @@ components:
             entry's index.
           minimum: 1
         type:
+          description: >
+            The campaign destination. It does not follow the template: a Product Collection, Product
+            Highlight, or Store Spotlight campaign can target a product, a url, or a vendor.
           allOf:
             - $ref: "#/components/schemas/WinnerType"
             - enum:
                 - product
                 - url
+                - vendor
         id:
           $ref: "#/components/schemas/WinnerID"
           examples:
             - vanilla_yogurt
             - https://some.url.com/topsort-store
+            - v_8fj2D
         productId:
           type: string
           description: >
             Product-shaped id of the winning entity. It equals `id` when `type` is `product`. For a
-            url it is `Topsort-URL:` followed by the url.
+            url it is `Topsort-URL:` followed by the url. For a vendor it is `Topsort-Vendor:`
+            followed by the vendor id.
           examples:
             - vanilla_yogurt
             - Topsort-URL:https://some.url.com/topsort-store
+            - Topsort-Vendor:v_8fj2D
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
