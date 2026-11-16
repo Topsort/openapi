@@ -307,7 +307,7 @@ paths:
                             type: product
                             id: vanilla_yogurt
                             productId: vanilla_yogurt
-                            resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
+                            resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABmK3wq9Zx7Fj2LpNvT0aYGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATIQATDrrg8
                             campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
                             vendorId: v_8fj2D
                             productIds:
@@ -1543,7 +1543,9 @@ components:
         marketplace is created with three templates: Product Collection (`headline`, `logo`),
         Product Highlight (`creative`), and Store Spotlight (`headline`, `logo`, `creative1`,
         `creative2`, plus `creative3` when the advertiser sets it). A template the marketplace adds
-        uses its own keys. Product ids are returned in `productIds`, not in this object.
+        uses its own keys. The default templates keep product ids out of this object and return them
+        in `productIds`. A product picker field in a marketplace's own template is returned here as
+        an array of product ids.
       examples:
         - headline: "Summer favorites"
           logo: "https://some.url.com/logo.jpeg"
