@@ -1539,13 +1539,11 @@ components:
       type: object
       additionalProperties: true
       description: >
-        Filled content of the winning campaign's template. The keys are that template's fields. A
-        marketplace is created with three templates: Product Collection (`headline`, `logo`),
-        Product Highlight (`creative`), and Store Spotlight (`headline`, `logo`, `creative1`,
-        `creative2`, plus `creative3` when the advertiser sets it). A template the marketplace adds
-        uses its own keys. The default templates keep product ids out of this object and return them
-        in `productIds`. A product picker field in a marketplace's own template is returned here as
-        an array of product ids.
+        Filled content of the winning campaign's template. The keys depend on the template the
+        campaign uses: Product Collection returns `headline` and `logo`, Product Highlight returns
+        `creative`, and Store Spotlight returns `headline`, `logo`, `creative1`, `creative2`, plus
+        `creative3` when the advertiser sets it. Product ids are not part of this object; they are
+        returned in `productIds`.
       examples:
         - headline: "Summer favorites"
           logo: "https://some.url.com/logo.jpeg"
