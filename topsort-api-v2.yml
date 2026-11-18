@@ -972,10 +972,9 @@ components:
       minimum: 1
       maximum: 8
       description: >
-        A number from 1 to 8 that identifies the placement where the ad will appear, as agreed with
-        Topsort. It is not a free marketplace placement identifier: requests with a value outside
-        that range are rejected with `invalid_placement_id`. To identify a banner location, use
-        `slotId`.
+        A number from 1 to 8 that identifies the placement where the ad will appear. It is not a
+        free marketplace placement identifier: requests with a value outside that range are rejected
+        with `invalid_placement_id`. To identify a banner location, use `slotId`.
     GeoTargeting:
       type: object
       description: An object describing geographical information associated with this auction.
