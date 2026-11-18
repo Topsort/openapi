@@ -2248,6 +2248,7 @@ components:
             - invalid_event_type
             - invalid_external_bid
             - invalid_external_demand_ad_type
+            - invalid_placement_id
             - invalid_promotion_type
             - invalid_session
             - invalid_video_event_type
