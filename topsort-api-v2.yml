@@ -253,18 +253,6 @@ paths:
             budget is exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
-              example:
-                results:
-                  - resultType: brand
-                    winners:
-                      - rank: 1
-                        type: product
-                        id: brand-123
-                        resolvedBidId: WyJiX01mazE1IiwiMTJhNTU4MjgtOGVhZC00Mjk5LTgzMjctY2ViYjAwMmEwZmE4IiwibGlzdGluZ3MiLCJkZWZhdWx0IiwiIl0=
-                        content:
-                          headline: "Topsort Rocks"
-                          brandName: "Topsort Brand"
-                    error: false
               schema:
                 type: object
                 properties:
@@ -275,11 +263,69 @@ paths:
                     minItems: 1
                     maxItems: 5
                     example:
-                      - resultType: brand
-                        winners: []
+                      - winners: []
                         error: false
                 required:
                   - results
+              examples:
+                productCollection:
+                  summary: Product Collection
+                  value:
+                    results:
+                      - winners:
+                          - rank: 1
+                            type: url
+                            id: "https://some.url.com/summer-collection"
+                            productId: "Topsort-URL:https://some.url.com/summer-collection"
+                            resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
+                            campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
+                            vendorId: v_8fj2D
+                            productIds:
+                              - vanilla_yogurt
+                              - strawberry_yogurt
+                              - nonfat_vanilla_yogurt
+                            content:
+                              headline: "Summer favorites"
+                              logo: "https://some.url.com/logo.jpeg"
+                        error: false
+                productHighlight:
+                  summary: Product Highlight
+                  value:
+                    results:
+                      - winners:
+                          - rank: 1
+                            type: product
+                            id: vanilla_yogurt
+                            productId: vanilla_yogurt
+                            resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABmK3wq9Zx7Fj2LpNvT0aYGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATIQATDrrg8
+                            campaignId: 82588593-85c5-47c0-b125-07e315b7f2b3
+                            vendorId: v_8fj2D
+                            productIds:
+                              - vanilla_yogurt
+                            content:
+                              creative: "https://some.url.com/vanilla_yogurt.jpeg"
+                        error: false
+                storeSpotlight:
+                  summary: Store Spotlight
+                  value:
+                    results:
+                      - winners:
+                          - rank: 1
+                            type: url
+                            id: "https://some.url.com/topsort-store"
+                            productId: "Topsort-URL:https://some.url.com/topsort-store"
+                            resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
+                            campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
+                            vendorId: v_8fj2D
+                            productIds:
+                              - vanilla_yogurt
+                              - strawberry_yogurt
+                            content:
+                              headline: "Shop the store"
+                              logo: "https://some.url.com/logo.jpeg"
+                              creative1: "https://some.url.com/creative1.jpeg"
+                              creative2: "https://some.url.com/creative2.jpeg"
+                        error: false
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
@@ -907,7 +953,12 @@ components:
     PlacementId:
       type: integer
       format: int32
-      description: The marketplace's ID of the placement where the ad will appear.
+      minimum: 1
+      maximum: 8
+      description: >
+        A number from 1 to 8 that identifies the placement where the ad will appear. It is not a
+        free marketplace placement identifier: requests with a value outside that range are rejected
+        with `invalid_placement_id`. To identify a banner location, use `slotId`.
     GeoTargeting:
       type: object
       description: An object describing geographical information associated with this auction.
@@ -1439,12 +1490,19 @@ components:
       type: object
       additionalProperties: true
       description: >
-        A flexible JSON object with key-value pairs that map to the asset's filled content template.
-        The template can be customized by the marketplace.
+        Filled content of the winning campaign's template. The keys depend on the template the
+        campaign uses: Product Collection returns `headline` and `logo`, Product Highlight returns
+        `creative`, and Store Spotlight returns `headline`, `logo`, `creative1`, `creative2`, plus
+        `creative3` when the advertiser sets it. Product ids are not part of this object; they are
+        returned in `productIds`.
       examples:
-        - headline: "Topsort Rocks"
-          brandName: "Topsort Brand"
-          creative: "https://some.url.com/rocks.jpeg"
+        - headline: "Summer favorites"
+          logo: "https://some.url.com/logo.jpeg"
+        - creative: "https://some.url.com/vanilla_yogurt.jpeg"
+        - headline: "Shop the store"
+          logo: "https://some.url.com/logo.jpeg"
+          creative1: "https://some.url.com/creative1.jpeg"
+          creative2: "https://some.url.com/creative2.jpeg"
     BannersWinner:
       description: A winning bid in a banner auction with asset and campaign details.
       type: object
@@ -1933,8 +1991,6 @@ components:
       description: The result of a sponsored brand auction, containing winning brand promotions.
       type: object
       properties:
-        resultType:
-          type: string
         winners:
           type: array
           items:
@@ -1947,30 +2003,6 @@ components:
       required:
         - winners
         - error
-      examples:
-        - resultType: brand
-          winners:
-            - rank: 1
-              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABjz_zDXx7db-ZYpxiwJ3DGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATEQATDrrg8
-              type: "url"
-              id: "https://some.url.com/myyougurtbrand/page"
-              title: Brand Example Promo 1
-              content:
-                headline: "some cool regular yogurt headline"
-                brandName: "my regular yogurt brand"
-                creative1: "https://some.url.com/regular_yogurt.jpeg"
-              productIds: ["vanilla_yogurt", "strawberry_yogurt"]
-            - rank: 2
-              resolvedBidId: ChAGc-G66Wt7LKQEOcW8VBdIEhABk0pue7N5wYmzE04uO_iOGhABjr4Lt_J0_a7Xv_uIfyOXIgUKATgQATDrrg8
-              type: "url"
-              id: "https://some.url.com/mynonfatyougurtbrand/page"
-              title: Brand Example Promo 2
-              content:
-                headline: "some cool nonfat regular yogurt headline"
-                brandName: "my nonfat yogurt brand"
-                creative1: "https://some.url.com/nonfat_yogurt.jpeg"
-              productIds: ["nonfat_vanilla_yogurt", "nonfat_strawberry_yogurt"]
-          error: false
     SponsoredBrandWinner:
       description: A winning bid in a sponsored brand auction with brand and campaign details.
       type: object
@@ -1979,6 +2011,7 @@ components:
         - type
         - id
         - resolvedBidId
+        - campaignId
         - content
       properties:
         rank:
@@ -1990,22 +2023,40 @@ components:
             entry's index.
           minimum: 1
         type:
+          description: >
+            The campaign destination. It does not follow the template: a Product Collection, Product
+            Highlight, or Store Spotlight campaign can target a product, a url, or a vendor.
           allOf:
             - $ref: "#/components/schemas/WinnerType"
             - enum:
                 - product
                 - url
+                - vendor
         id:
           $ref: "#/components/schemas/WinnerID"
           examples:
-            - p_Mfk15
-            - https://some.url.com/topsort-brand
+            - vanilla_yogurt
+            - https://some.url.com/topsort-store
+            - v_8fj2D
+        productId:
+          type: string
+          description: >
+            Product-shaped id of the winning entity. It equals `id` when `type` is `product`. For a
+            url it is `Topsort-URL:` followed by the url. For a vendor it is `Topsort-Vendor:`
+            followed by the vendor id.
+          examples:
+            - vanilla_yogurt
+            - Topsort-URL:https://some.url.com/topsort-store
+            - Topsort-Vendor:v_8fj2D
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
+        campaignId:
+          $ref: "#/components/schemas/CampaignId"
         title:
           type: string
           description:
-            An optional title for the sponsored brand selected when creating the campaign.
+            An optional title for the sponsored brand selected when creating the campaign. Present
+            on winners that use an image and a logo. Template winners return `content` instead.
         vendorId:
           type: string
           description: The ID of the vendor associated with this sponsored brand winner.
@@ -2258,6 +2309,7 @@ components:
             - invalid_event_type
             - invalid_external_bid
             - invalid_external_demand_ad_type
+            - invalid_placement_id
             - invalid_promotion_type
             - invalid_session
             - invalid_video_event_type
