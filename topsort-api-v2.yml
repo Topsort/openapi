@@ -2178,16 +2178,16 @@ components:
         travelStartDate:
           type: string
           format: date
-          description: Date (`YYYY-MM-DD`) representing the travel start point.
+          description: RFC 3339 full-date (`YYYY-MM-DD`) representing the travel start point.
           examples:
             - "2024-06-10"
         travelEndDate:
           type: string
           format: date
           description: >
-            Date (`YYYY-MM-DD`) representing the travel end point. Must be after the start date for
-            hotels, and must not be before it for flights. If a flight sets `travelStartDate`, it
-            must also set this field (use the same date for one-way flights).
+            RFC 3339 full-date (`YYYY-MM-DD`) representing the travel end point. Must be after the
+            start date for hotels, and must not be before it for flights. If a flight sets
+            `travelStartDate`, it must also set this field (use the same date for one-way flights).
           examples:
             - "2025-08-10"
         travelerType:
@@ -2307,19 +2307,39 @@ components:
           enum:
             - bad_request
             - empty_request
+            - experiment_variant_too_long
+            - external_bids_invalid
+            - external_demand_not_allowed
+            - external_demand_only_for_listings
+            - hotel_product_prices_mismatch
             - internal_server_error
             - invalid_api_key
             - invalid_auction_id
+            - invalid_category
+            - invalid_context
+            - invalid_date_format
             - invalid_demand_source
+            - invalid_device
             - invalid_event_type
-            - invalid_external_bid
-            - invalid_external_demand_ad_type
+            - invalid_geo_targeting
+            - invalid_json
+            - invalid_location_cell
+            - invalid_opaque_user_id
             - invalid_placement_id
+            - invalid_price_filter_incomplete
+            - invalid_price_filter_negative
+            - invalid_price_filter_range
             - invalid_promotion_type
+            - invalid_quality_score
             - invalid_session
+            - invalid_travel_category
+            - invalid_travel_date_range
+            - invalid_travel_type
+            - invalid_traveler_type
             - invalid_video_event_type
             - missing_auctions
             - missing_context
+            - missing_flight_travel_context
             - missing_placement
             - missing_product_id
             - missing_promotion_type
@@ -2327,17 +2347,24 @@ components:
             - missing_session
             - missing_slot_id
             - missing_slots
+            - missing_variation_id
             - missing_video_error_code
             - no_products
-            - non_video_resolved_bid
+            - no_products_or_category
             - no_purchase_items
+            - non_positive_price
+            - non_video_resolved_bid
+            - product_info_mismatch
             - purchase_item_quantity_less_or_equal_than_zero
             - resolved_bid_id_not_found
             - too_few_impressions
             - too_few_slots
             - too_many_auctions
             - too_many_external_bids
-            - unauthorized_external_demand
+            - too_many_locations
+            - too_many_passengers
+            - too_many_products
+            - too_many_search_query_words
           examples:
             - bad_request
             - no_products
