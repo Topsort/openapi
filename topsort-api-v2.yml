@@ -312,11 +312,6 @@ paths:
                     $ref: "#/components/schemas/TravelAuctionRequest"
                   minItems: 1
                   maxItems: 5
-                  example:
-                    - type: hotels
-                      slots: 2
-                      travelContext:
-                        site: argentina
               required:
                 - auctions
             examples:
@@ -330,8 +325,7 @@ paths:
                           qualityScore: 0.7
                         - id: hotel-2
                       category:
-                        singleCategory:
-                          id: hotel-boutique
+                        id: hotel-boutique
                       travelContext:
                         travelStartDate: "2025-01-01"
                         travelEndDate: "2025-01-15"
@@ -357,10 +351,10 @@ paths:
       responses:
         "200":
           description: >
-            The travel auction results. The list of winners will contain at most `winners` entries
-            per auction. It may contain fewer or no entries at all if there aren't enough products
-            with usable bids, that is, a bid amount greater than the reserve price and belonging to
-            a campaign with enough remaining budget. Bids become unusable if campaign budget is
+            The travel auction results. The list of winners will contain at most `slots` entries per
+            auction. It may contain fewer or no entries at all if there aren't enough products with
+            usable bids, that is, a bid amount greater than the reserve price and belonging to a
+            campaign with enough remaining budget. Bids become unusable if campaign budget is
             exhausted, the bid is disqualified to preserve spend pacing, etc.
           content:
             application/json:
@@ -969,13 +963,13 @@ components:
     QualityScore:
       type: number
       maximum: 1
-      exclusiveMinimum: 0
+      minimum: 0
       format: double
       description: |
         If given, this value will be combined with our internal quality
         score to provide a score that better represents the relevance of the
         participating products. If not given it will default to 1.
-        Values must be greater than 0 and at most 1.
+        Values must be between 0 and 1, inclusive.
       examples:
         - 0.75
     ExternalCampaignId:
@@ -1033,16 +1027,7 @@ components:
         filter:
           $ref: "#/components/schemas/AttributesFilter"
         marketplaceExperimentVariant:
-          type: string
-          maxLength: 10
-          description: >
-            Optional. A marketplace-defined experiment variant tag (maximum 10 characters). By
-            default Topsort does not change auction behavior based on this value; it is recorded
-            alongside the auction so you can run your own A/B experiments and then slice the
-            resulting ad metrics (impressions, clicks, purchases) by variant. Contact your Topsort
-            representative if you want this value to influence auction behavior.
-          examples:
-            - exp_a
+          $ref: "#/components/schemas/MarketplaceExperimentVariant"
         demandSources:
           type: array
           items:
@@ -1494,6 +1479,11 @@ components:
         vendorId:
           $ref: "#/components/schemas/ExternalVendorId"
           description: The ID of the vendor associated with the winning campaign.
+        productIds:
+          type: array
+          items:
+            type: string
+          description: The IDs of the products associated with this winner, when there are any.
         asset:
           description: The list of available sources for a banner.
           type: array
@@ -1522,6 +1512,20 @@ components:
         - winners
         - error
         - resultType
+      examples:
+        - resultType: hotels
+          winners:
+            - rank: 1
+              type: product
+              id: hotel-1
+              resolvedBidId: ChAHd-K97Xs8MNRELdY9VCeJFiBCk1_aEYz8eb-WZqyhzL4EFhBCk5Mt_X2_b8Yu_vXJgzPWJhVLBTFRBTGssk9
+              campaignId: 8b816367-da17-4c65-9a26-391edf01a10d
+            - rank: 2
+              type: product
+              id: hotel-2
+              resolvedBidId: ChAJe-M23Yr5QPTEFdX7VBgJGhCDm2_wDXy6cb-XZpxjxK6GHhCDm3Ku_W1_c9Zw_wYHfzQYKjTLBVGQBTLttu6
+              campaignId: 7be0d8c8-243c-41af-bb43-b43ef4935672
+          error: false
     HotelsWinner:
       description: A winning bid in a hotels auction with product and campaign details.
       type: object
@@ -1550,9 +1554,6 @@ components:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
           $ref: "#/components/schemas/CampaignId"
-        vendorId:
-          $ref: "#/components/schemas/ExternalVendorId"
-          description: The ID of the vendor associated with the winning campaign.
     FlightsAuctionResult:
       title: Flights
       description: The result of a flights travel auction, containing winning flight products.
@@ -1575,6 +1576,22 @@ components:
         - winners
         - error
         - resultType
+      examples:
+        - resultType: flights
+          winners:
+            - rank: 1
+              type: product
+              id: L0_SAO-ORL
+              resolvedBidId: ChAKf-N45Vq3LOTEGcW9VDhKHjADk3_zCXx8db-XZsyiwM2HIjADk4Lr_X0_b9Xw_uKHgyRZKhUKCTHQCTHrrh7
+              campaignId: 8ab7b29e-1934-4ec9-ad87-60c285bc7f38
+              variationID: "002"
+            - rank: 2
+              type: product
+              id: L0_SAO-ORL
+              resolvedBidId: ChAGg-P56Wu4MRUEHdX8VEfLHkBEk4_aEXz9fb-YZtxjwN3IJkBEk5Ms_W2_c8Yx_vZJhzSXKlVLDUJQDUJssl8
+              campaignId: cb8ed0a7-0ecf-4ffb-a863-022f862649ec
+              variationID: "001"
+          error: false
     FlightsWinner:
       description: A winning bid in a flights auction with flights and campaign details.
       type: object
@@ -1606,9 +1623,6 @@ components:
         variationID:
           type: string
           description: The marketplace's ID for the winning flight's variation.
-        vendorId:
-          $ref: "#/components/schemas/ExternalVendorId"
-          description: The ID of the vendor associated with the winning campaign.
     RankingResult:
       description: The result of a ranking request, containing ordered products.
       type: object
@@ -1820,11 +1834,11 @@ components:
             score that better represents the relevance of the participating products.
 
             Note that the length of this array must be the same as the length of the `ids` array and
-            that the values must be greater than 0 and less than or equal to 1.
+            that the values must be between 0 and 1, inclusive.
           items:
             type: number
             maximum: 1
-            exclusiveMinimum: 0
+            minimum: 0
             examples:
               - 0.75
             format: double
@@ -2012,7 +2026,10 @@ components:
     HotelsAuctionRequest:
       title: Hotels
       type: object
-      description: Describes the intent of running a hotel travel auction.
+      description: |
+        Describes the intent of running a hotel travel auction.
+
+        At least one of `products` or `category` must be set.
       required:
         - type
         - travelContext
@@ -2030,26 +2047,30 @@ components:
             it is capped at 40.
         products:
           type: array
-          description: An array of hotels products that should participate in the auction.
+          description: >
+            An array of hotels products that should participate in the auction. Either every product
+            includes a `price` or none of them does.
           items:
             $ref: "#/components/schemas/HotelsTravelProduct"
+          maxItems: 50
         category:
           description: A category for the purpose of running an auction.
           type: object
           required:
-            - singleCategory
+            - id
           properties:
-            singleCategory:
-              type: object
-              required:
-                - id
-              properties:
-                id:
-                  $ref: "#/components/schemas/CategoryID"
-                  examples:
-                    - c_buenos-aires-hotels
+            id:
+              $ref: "#/components/schemas/CategoryID"
+              examples:
+                - c_buenos-aires-hotels
         travelContext:
           $ref: "#/components/schemas/HotelsTravelContext"
+        geoTargeting:
+          $ref: "#/components/schemas/GeoTargeting"
+        opaqueUserId:
+          $ref: "#/components/schemas/OpaqueUserID"
+        marketplaceExperimentVariant:
+          $ref: "#/components/schemas/MarketplaceExperimentVariant"
     HotelsTravelProduct:
       description: A hotel product that can participate in a travel auction.
       type: object
@@ -2061,8 +2082,26 @@ components:
           description: ID to identify hotel product.
           examples:
             - miami-hotel
+        price:
+          type: number
+          exclusiveMinimum: 0
+          description: >
+            Total price of the stay in marketplace currency. When every product includes it, bids
+            are computed for the total stay. When no product includes it, the prices from the
+            catalog are used.
         qualityScore:
           $ref: "#/components/schemas/QualityScore"
+    MarketplaceExperimentVariant:
+      type: string
+      maxLength: 20
+      description: >
+        Optional. A marketplace-defined experiment variant tag (maximum 20 characters). By default
+        Topsort does not change auction behavior based on this value; it is recorded alongside the
+        auction so you can run your own A/B experiments and then slice the resulting ad metrics
+        (impressions, clicks, purchases) by variant. Contact your Topsort representative if you want
+        this value to influence auction behavior.
+      examples:
+        - exp_a
     BaseTravelContext:
       description:
         Base context information for travel-related auctions including dates, location, and traveler
@@ -2080,25 +2119,29 @@ components:
             - argentina
         passengers:
           type: integer
-          description: Number of passengers. Must not exceed 10.
+          minimum: 0
+          maximum: 10
+          description: Number of passengers. Must not exceed 10. Defaults to 1 when omitted or 0.
           examples:
             - 3
         travelStartDate:
           type: string
           format: date
-          description: RFC3339 formatted date representing the travel start point.
+          description: Date (`YYYY-MM-DD`) representing the travel start point.
           examples:
             - "2024-06-10"
         travelEndDate:
           type: string
           format: date
           description: >
-            RFC3339 formatted date representing the travel end point. Must be greater than start
-            date.
+            Date (`YYYY-MM-DD`) representing the travel end point. Must be after the start date for
+            hotels, and must not be before it for flights. If a flight sets `travelStartDate`, it
+            must also set this field (use the same date for one-way flights).
           examples:
             - "2025-08-10"
         travelerType:
           type: string
+          description: Defaults to `solo` when omitted.
           enum:
             - family
             - group
@@ -2106,15 +2149,22 @@ components:
             - couple
         pageName:
           type: string
-          description: Page name e.g. "flights", "hotels", "package", ...
+          description: >
+            Page name e.g. "flights", "hotels", "package", ... Values longer than 20 characters are
+            ignored.
         platform:
           type: string
-          description: Platform e.g. "app", "mobile", "web", ...
+          description: >
+            Platform e.g. "app", "mobile", "web", ... Values longer than 20 characters are ignored.
     HotelsTravelContext:
-      $ref: "#/components/schemas/BaseTravelContext"
       description:
-        Context information specific to hotel travel auctions extending base travel context with
-        hotel-specific fields.
+        Context information specific to hotel travel auctions. Hotels require both travel dates.
+      allOf:
+        - $ref: "#/components/schemas/BaseTravelContext"
+        - type: object
+          required:
+            - travelStartDate
+            - travelEndDate
     FlightsAuctionRequest:
       title: Flights
       type: object
@@ -2123,6 +2173,7 @@ components:
         - type
         - travelContext
         - slots
+        - products
       properties:
         type:
           type: string
@@ -2139,13 +2190,23 @@ components:
           description: An array of flights that should participate in the auction.
           items:
             $ref: "#/components/schemas/FlightsTravelProduct"
+          minItems: 1
+          maxItems: 50
         travelContext:
           $ref: "#/components/schemas/FlightsTravelContext"
+        geoTargeting:
+          $ref: "#/components/schemas/GeoTargeting"
+        opaqueUserId:
+          $ref: "#/components/schemas/OpaqueUserID"
+        marketplaceExperimentVariant:
+          $ref: "#/components/schemas/MarketplaceExperimentVariant"
     FlightsTravelProduct:
       description: A flight that can participate in a travel auction.
       type: object
       required:
         - id
+        - variationID
+        - price
       properties:
         id:
           type: string
@@ -2154,9 +2215,11 @@ components:
             - L0_SAO-ORL
         variationID:
           type: string
+          minLength: 1
           description: ID to identify flights variation.
         price:
           type: number
+          exclusiveMinimum: 0
           description: Flight variation total price in marketplace currency.
         qualityScore:
           $ref: "#/components/schemas/QualityScore"
@@ -2166,6 +2229,9 @@ components:
       allOf:
         - $ref: "#/components/schemas/BaseTravelContext"
         - type: object
+          required:
+            - route
+            - flightType
           properties:
             route:
               type: string
