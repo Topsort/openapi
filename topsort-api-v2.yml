@@ -2216,6 +2216,11 @@ components:
           required:
             - travelStartDate
             - travelEndDate
+          properties:
+            travelStartDate:
+              $ref: "#/components/schemas/BaseTravelContext/properties/travelStartDate"
+            travelEndDate:
+              $ref: "#/components/schemas/BaseTravelContext/properties/travelEndDate"
     FlightsAuctionRequest:
       title: Flights
       type: object
