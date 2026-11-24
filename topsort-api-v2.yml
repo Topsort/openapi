@@ -1673,7 +1673,7 @@ components:
           description:
             The marketplace's ID of the winning flight, depending on the target of the campaign.
           examples:
-            - p_Mfk15
+            - L0_SAO-ORL
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
