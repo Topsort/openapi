@@ -226,14 +226,31 @@ paths:
           compete against each other.
         content:
           application/json:
-            example:
-              auctions:
-                - winners: 2
-                  placementId: some-placement
-                  triggers:
-                    products:
-                      ids:
-                        - vanilla_yogurt
+            examples:
+              default:
+                summary: Basic sponsored brand auction
+                value:
+                  auctions:
+                    - winners: 2
+                      placementId: some-placement
+                      triggers:
+                        products:
+                          ids:
+                            - vanilla_yogurt
+              geoTargetingLocations:
+                summary: Sponsored brand auction targeting 2 locations
+                value:
+                  auctions:
+                    - winners: 1
+                      placementId: some-placement
+                      triggers:
+                        products:
+                          ids:
+                            - vanilla_yogurt
+                      geoTargeting:
+                        locations:
+                          - "287"
+                          - "9"
             schema:
               type: object
               properties:
@@ -337,7 +354,28 @@ paths:
                               creative2: "https://some.url.com/creative2.jpeg"
                         error: false
         "400":
-          $ref: "#/components/responses/BadRequest"
+          description: >
+            The request is invalid. Besides the general request errors, a sponsored brand auction
+            returns `invalid_geo_targeting` when `geoTargeting` sets both `location` and
+            `locations`, and `too_many_locations` when `geoTargeting.locations` has more than 2
+            items. Either error fails every auction in the request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              examples:
+                invalidGeoTargeting:
+                  summary: Both location and locations set
+                  value:
+                    errCode: invalid_geo_targeting
+                    docUrl: https://docs.topsort.com/api-reference/errors
+                    message: Invalid geo targeting. Must specify either location or locations.
+                tooManyLocations:
+                  summary: More than 2 locations
+                  value:
+                    errCode: too_many_locations
+                    docUrl: https://docs.topsort.com/api-reference/errors
+                    message: At most 2 locations can be specified.
         "401":
           $ref: "#/components/responses/UnauthorizedError"
   /v2/auctions/travel:
@@ -977,6 +1015,40 @@ components:
         with `invalid_placement_id`. To identify a banner location, use `slotId`.
     GeoTargeting:
       type: object
+      description: >
+        An object describing geographical information associated with this auction. Set either
+        `location` or `locations`, not both: requests that set both are rejected with
+        `invalid_geo_targeting`.
+      oneOf:
+        - type: object
+          title: Single location
+          required:
+            - location
+          properties:
+            location:
+              description: The location this auction is being run for.
+              type: string
+              examples:
+                - New York
+        - type: object
+          title: Multiple locations
+          required:
+            - locations
+          properties:
+            locations:
+              description: >
+                The locations this auction is being run for, at most 2. Campaigns targeting any of
+                these locations can participate in the auction. Requests with more than 2 locations
+                are rejected with `too_many_locations`.
+              type: array
+              minItems: 1
+              maxItems: 2
+              items:
+                type: string
+              examples:
+                - ["287", "9"]
+    RankingGeoTargeting:
+      type: object
       description: An object describing geographical information associated with this auction.
       required:
         - location
@@ -1223,7 +1295,7 @@ components:
         device:
           $ref: "#/components/schemas/Device"
         geoTargeting:
-          $ref: "#/components/schemas/GeoTargeting"
+          $ref: "#/components/schemas/RankingGeoTargeting"
         products:
           $ref: "#/components/schemas/Products"
         opaqueUserId:
@@ -1949,6 +2021,11 @@ components:
           $ref: "#/components/schemas/OpaqueUserID"
         geoTargeting:
           $ref: "#/components/schemas/GeoTargeting"
+          description: >
+            An object describing geographical information associated with this auction. Set it on
+            the auction object, at the same level as `placementId`, not inside `triggers`. Set
+            either `location` or `locations`, not both: requests that set both are rejected with
+            `invalid_geo_targeting`.
         page:
           $ref: "#/components/schemas/Page"
       examples:
@@ -2248,6 +2325,7 @@ components:
             - invalid_event_type
             - invalid_external_bid
             - invalid_external_demand_ad_type
+            - invalid_geo_targeting
             - invalid_placement_id
             - invalid_promotion_type
             - invalid_session
@@ -2271,6 +2349,7 @@ components:
             - too_few_slots
             - too_many_auctions
             - too_many_external_bids
+            - too_many_locations
             - unauthorized_external_demand
           examples:
             - bad_request
