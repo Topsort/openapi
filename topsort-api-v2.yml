@@ -1601,9 +1601,6 @@ components:
             - $ref: "#/components/schemas/WinnerType"
             - enum:
                 - product
-                - vendor
-                - brand
-                - url
         id:
           $ref: "#/components/schemas/WinnerID"
           examples:
