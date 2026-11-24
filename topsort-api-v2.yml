@@ -1607,7 +1607,7 @@ components:
         id:
           $ref: "#/components/schemas/WinnerID"
           examples:
-            - p_Mfk15
+            - hotel-1
         resolvedBidId:
           $ref: "#/components/schemas/ResolvedBidID"
         campaignId:
