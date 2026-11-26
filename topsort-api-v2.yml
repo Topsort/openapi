@@ -262,9 +262,6 @@ paths:
                       $ref: "#/components/schemas/SponsoredBrandAuctionResult"
                     minItems: 1
                     maxItems: 5
-                    example:
-                      - winners: []
-                        error: false
                 required:
                   - results
               examples:
