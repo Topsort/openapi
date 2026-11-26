@@ -1,7 +1,8 @@
 version: 1
 mode: enforce
 rules:
-  - purpose: "A change takes two people. When Claude's review passes, one is enough and Claude approves."
+  - purpose:
+      "A change takes two people. When Claude's review passes, one is enough and Claude approves."
     paths: ["**"]
     verdict: { claude: comments, seats: 2 }
     override:
